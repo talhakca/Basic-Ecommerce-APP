@@ -1,0 +1,24 @@
+<a [routerLink]="redirectUrl" class="anchor">
+  <div class="container-area">
+    <img
+      class="img-area"
+      [src]="backgroundImageUrl"
+      [style.height]="imageHeight"
+    />
+    <div class="content-area">
+      <div class="text" [style.color]="textColor">
+        <strong>
+          {{ text }}
+        </strong>
+      </div>
+      <div *ngIf="tag" class="tag">
+        <rappider-tag
+          [text]="tag.text"
+          [color]="tag.color"
+          [checked]="tag.checked"
+          [mode]="tag.mode"
+        ></rappider-tag>
+      </div>
+    </div>
+  </div>
+</a>

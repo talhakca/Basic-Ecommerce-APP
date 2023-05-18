@@ -1,0 +1,18 @@
+<nz-input-group nzAddOnBefore="{{" nzAddOnAfter="}}">
+  <input
+    type="text"
+    nz-input
+    [(ngModel)]="inputValue"
+    [nzAutocomplete]="auto"
+    (ngModelChange)="inputChange()"
+    (focus)="setOptionsByValue()"
+  />
+</nz-input-group>
+<nz-autocomplete #auto>
+  <nz-auto-option
+    *ngFor="let option of autoComplateOptions"
+    [nzValue]="option.value"
+  >
+    {{ option.key }}
+  </nz-auto-option>
+</nz-autocomplete>

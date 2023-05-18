@@ -1,0 +1,83 @@
+<section>
+  <div class="container-area">
+    <rappider-image
+      *ngIf="backgroundImage"
+      class="image"
+      [source]="backgroundImage?.source"
+      [width]="backgroundImage?.width"
+      [alternateText]="backgroundImage?.alternateText"
+      [placeholder]="backgroundImage?.placeholder"
+      [height]="backgroundImage?.height"
+      [fallback]="backgroundImage?.fallback"
+      [borderSettings]="backgroundImage?.borderSettings"
+      [customSizeSettings]="backgroundImage?.width"
+      [shadowSettings]="backgroundImage?.shadowSettings"
+      [marginSettings]="backgroundImage?.marginSettings"
+      [paddingSettings]="backgroundImage?.paddingSettings"
+    ></rappider-image>
+    <div *ngIf="tag" class="tag-area">
+      <rappider-tag
+        [text]="tag.text"
+        [color]="tag.color"
+        [mode]="tag.mode"
+        [checked]="tag.checked"
+      ></rappider-tag>
+    </div>
+    <div class="main-area">
+      <div *ngIf="title" class="title-area">
+        <a class="title-link" [routerLink]="titleLink">
+          <rappider-heading
+            [content]="title.content"
+            [type]="title.type"
+          ></rappider-heading>
+        </a>
+      </div>
+      <div *ngIf="content" class="content-area">
+        <rappider-text
+          [content]="content.content"
+          [textMode]="content.textMode"
+          [text]="content.text"
+          [typography]="content.typography"
+          [colorSettings]="content.colorSettings"
+        ></rappider-text>
+      </div>
+      <rappider-divider
+        [borderSettings]="divider?.borderSettings"
+        [text]="divider?.text"
+        [customSizeSettings]="divider?.customSizeSettings"
+        [shadowSettings]="divider?.shadowSettings"
+        [marginSettings]="divider?.marginSettings"
+        [paddingSettings]="divider?.paddingSettings"
+      ></rappider-divider>
+      <div class="user-area">
+        <a [routerLink]="sourceLink">
+          <div *ngIf="sourceAvatar" class="img-area">
+            <rappider-avatar
+              class="profile-image"
+              [text]="sourceAvatar.text"
+              [iconName]="sourceAvatar.iconName"
+              [shape]="sourceAvatar.shape"
+              [imageUrl]="sourceAvatar.imageUrl"
+              [altText]="sourceAvatar.altText"
+              [cssStyle]="sourceAvatar.cssStyle"
+              [size]="sourceAvatar.size"
+              [borderSettings]="sourceAvatar.borderSettings"
+              [sizeSettings]="sourceAvatar.sizeSettings"
+              [colorSettings]="sourceAvatar.colorSettings"
+              [boxShadowSettings]="sourceAvatar.boxShadowSettings"
+              [paddingSettings]="sourceAvatar.paddingSettings"
+              [marginSettings]="sourceAvatar.marginSettings"
+              [description]="sourceAvatar.description"
+            >
+            </rappider-avatar>
+          </div>
+          <div class="source-name-area">
+            <span class="font-weight-light">
+              {{ sourceName | uppercase }}
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

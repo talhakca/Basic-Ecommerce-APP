@@ -1,0 +1,15 @@
+.table-area {
+  border-collapse: collapse;
+}
+
+.product {
+  padding: var(--padding-4x) var(--card-padding);
+  border: var(--border-size-x) solid var(--primary-border-color);
+  background-color: var(--component-header-background-color);
+  font-weight: var(--font-weight-medium);
+}
+
+.detail {
+  padding: var(--padding-4x) var(--padding-6x);
+  border: var(--border-size-x) solid var(--primary-border-color);
+}

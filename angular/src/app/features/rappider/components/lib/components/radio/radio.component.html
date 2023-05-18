@@ -1,0 +1,53 @@
+<div class="radio">
+  <ng-container *ngIf="isValid; else notValid">
+    <nz-radio-group [(ngModel)]="value" (ngModelChange)="onValueChange($event)">
+      <ng-container *ngIf="showOptionsAsButtons">
+        <label
+          *ngFor="let option of options"
+          nz-radio-button
+          [nzTooltipTitle]="option?.tooltipText"
+          nzTooltipPlacement="top"
+          nz-tooltip
+          [nzValue]="option.value"
+          [ngClass]="cssClass"
+          [ngStyle]="cssStyle"
+          [style.padding]="paddingSettings?.all"
+          [style.padding-top]="paddingSettings?.top"
+          [style.padding-right]="paddingSettings?.right"
+          [style.padding-bottom]="paddingSettings?.bottom"
+          [style.padding-left]="paddingSettings?.left"
+          [style.margin]="marginSettings?.all"
+          [style.margin-top]="marginSettings?.top"
+          [style.margin-right]="marginSettings?.right"
+          [style.margin-bottom]="marginSettings?.bottom"
+          [style.margin-left]="marginSettings?.left"
+          ><span [innerHTML]="option.key | translate"></span>
+        </label>
+      </ng-container>
+      <ng-container *ngIf="!showOptionsAsButtons">
+        <label
+          *ngFor="let option of options"
+          nz-radio
+          [nzValue]="option.value"
+          [ngClass]="cssClass"
+          [ngStyle]="cssStyle"
+          [style.padding]="paddingSettings?.all"
+          [style.padding-top]="paddingSettings?.top"
+          [style.padding-right]="paddingSettings?.right"
+          [style.padding-bottom]="paddingSettings?.bottom"
+          [style.padding-left]="paddingSettings?.left"
+          [style.margin]="marginSettings?.all"
+          [style.margin-top]="marginSettings?.top"
+          [style.margin-right]="marginSettings?.right"
+          [style.margin-bottom]="marginSettings?.bottom"
+          [style.margin-left]="marginSettings?.left"
+          >{{ option.key | translate }}
+        </label>
+      </ng-container>
+    </nz-radio-group>
+  </ng-container>
+
+  <ng-template #notValid>
+    <rappider-text> [content]="setInvalidConfigText?.content" </rappider-text>
+  </ng-template>
+</div>

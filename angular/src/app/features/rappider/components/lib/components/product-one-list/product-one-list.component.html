@@ -1,0 +1,14 @@
+<div class="product-one-list">
+  <rappider-product-one
+    *ngFor="let product of products"
+    [productImage]="product.productImage"
+    [tag]="product.tag"
+    [rate]="product.rate"
+    [title]="product.title"
+    [additionalTitle]="product.additionalTitle"
+    [currency]="product.currency"
+    [finalPrice]="product.finalPrice"
+    [price]="product.price"
+    (click)="onProductClick(product)"
+  ></rappider-product-one>
+</div>

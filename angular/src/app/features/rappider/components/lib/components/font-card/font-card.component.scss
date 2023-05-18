@@ -1,0 +1,106 @@
+.icon-area {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--margin-5x);
+}
+
+.data-area-table-cell {
+  display: grid;
+  column-gap: 30px;
+  row-gap: 30px;
+  align-content: start;
+  justify-content: space-around;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  .font-card-table-cell {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 15px;
+    cursor: pointer;
+    padding: var(--padding-2x);
+    transition: box-shadow 0.3s;
+
+    min-height: var(--height-8x);
+
+    .content-area {
+      padding: var(--padding-2x);
+
+      .title-area {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .line {
+        margin-top: var(--margin-x);
+        height: 1px;
+        background: rgba(0, 0, 0, 0.125);
+      }
+
+      .description-area {
+        height: 100%;
+        word-break: break-word;
+        margin-top: var(--margin-3x);
+      }
+    }
+  }
+
+  .font-card-table-cell:hover {
+    box-shadow: var(--box-shadow);
+  }
+}
+
+.data-area-table-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  .font-card-table-list {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 15px;
+    padding: var(--padding-2x);
+    transition: box-shadow 0.3s;
+    width: 100%;
+    min-height: var(--height-8x);
+    cursor: pointer;
+
+    .content-area {
+      padding: var(--padding-2x);
+
+      .title-area {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .line {
+        margin-top: var(--margin-x);
+        height: 1px;
+        background: rgba(0, 0, 0, 0.125);
+      }
+
+      .description-area {
+        height: 100%;
+        word-break: break-word;
+        margin-top: var(--margin-3x);
+      }
+    }
+  }
+
+  .font-card-table-list:hover {
+    box-shadow: var(--box-shadow);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .data-area-table-cell {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    .font-card-table-cell {
+      width: 100%;
+    }
+  }
+
+  .icon-area {
+    display: none;
+  }
+}

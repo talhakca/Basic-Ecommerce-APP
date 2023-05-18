@@ -1,0 +1,9 @@
+.timeline-card {
+  ::ng-deep .ant-timeline-item-head {
+    background-color: var(--component-inner-background-color);
+  }
+}
+
+.items {
+  margin-left: var(--margin-4x);
+}

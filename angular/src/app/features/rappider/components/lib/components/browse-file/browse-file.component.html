@@ -1,0 +1,14 @@
+<!-- CONTENT -->
+<a (click)="onFileSelectOpen()">
+  <rappider-text
+    [textMode]="text?.textMode"
+    [content]="text?.content"
+    [text]="text?.text || 'Click to upload'"
+    [typography]="text?.typography"
+    [colorSettings]="text?.colorSettings"
+  ></rappider-text>
+  <ng-content></ng-content>
+</a>
+
+<!-- HIDDEN FILE INPUT -->
+<input type="file" id="file-select" multiple="multiple" class="d-none" />

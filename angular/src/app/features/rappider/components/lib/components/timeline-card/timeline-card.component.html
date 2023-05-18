@@ -1,0 +1,29 @@
+<div class="timeline-card">
+  <nz-card [nzTitle]="title" [nzExtra]="buttonTemplate">
+    <rappider-timeline [items]="items"></rappider-timeline>
+    <ng-template #buttonTemplate>
+      <ng-container *ngIf="button">
+        <rappider-button
+          [text]="button.text"
+          [type]="button.type"
+          [shape]="button.shape"
+          [size]="button.size"
+          [transparent]="button.transparent"
+          [loading]="button.loading"
+          [block]="button.loading"
+          [disabled]="button.disabled"
+          [colorType]="button.colorType"
+          [icon]="button.icon"
+          [formButtonType]="button?.formButtonType"
+          [borderSettings]="button?.borderSettings"
+          [customSizeSettings]="button?.customSizeSettings"
+          [customColorSettings]="button?.customColorSettings"
+          [shadowSettings]="button?.shadowSettings"
+          [paddingSettings]="button?.paddingSettings"
+          [marginSettings]="button?.marginSettings"
+          (click)="onButtonClick(button)"
+        ></rappider-button>
+      </ng-container>
+    </ng-template>
+  </nz-card>
+</div>

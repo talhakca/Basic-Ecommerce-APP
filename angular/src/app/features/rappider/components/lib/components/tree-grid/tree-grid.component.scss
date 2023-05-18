@@ -1,0 +1,11 @@
+.spinner {
+  display: inherit;
+}
+
+:host ::ng-deep .ant-table-row-expand-icon-spaced {
+  visibility: hidden !important;
+}
+
+.icon-title {
+  margin-top: 2px;
+}

@@ -1,0 +1,29 @@
+.image {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
+.user-image {
+  display: inline-block;
+}
+
+.title {
+  display: inline-block;
+}
+
+.content {
+  display: inline-block;
+  margin-left: var(--margin-2x);
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+}
+
+.container-area {
+  display: inline-block;
+  margin-left: var(--margin-2x);
+}
+
+.container-block {
+  display: flex;
+}

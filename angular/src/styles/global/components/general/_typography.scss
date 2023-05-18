@@ -1,0 +1,307 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin-bottom: 0px !important;
+  font-family: var(--h-font-family);
+  font-weight: var(--font-weight-semibold);
+  line-height: $line-height-base;
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+  color: var(--h1-color, var(--primary-text-color));
+
+  .ant-typography,
+  .ant-typography-secondary {
+    font-size: var(--h1-font-size);
+    color: var(--h1-color, var(--primary-text-color));
+  }
+
+  .ant-typography-danger {
+    color: var(--danger-color);
+  }
+
+  .ant-typography-warning {
+    color: var(--warning-color);
+  }
+
+  .ant-typography-success {
+    color: var(--success-color);
+  }
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+  color: var(--h2-color, var(--primary-text-color));
+
+  .ant-typography,
+  .ant-typography-secondary {
+    font-size: var(--h2-font-size);
+    color: var(--h2-color, var(--primary-text-color));
+  }
+
+  .ant-typography-danger {
+    color: var(--danger-color);
+  }
+
+  .ant-typography-warning {
+    color: var(--warning-color);
+  }
+
+  .ant-typography-success {
+    color: var(--success-color);
+  }
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+  color: var(--h3-color, var(--primary-text-color));
+
+  .ant-typography,
+  .ant-typography-secondary {
+    font-size: var(--h3-font-size);
+    color: var(--h3-color, var(--primary-text-color));
+  }
+
+  .ant-typography-danger {
+    color: var(--danger-color);
+  }
+
+  .ant-typography-warning {
+    color: var(--warning-color);
+  }
+
+  .ant-typography-success {
+    color: var(--success-color);
+  }
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+  color: var(--h4-color, var(--primary-text-color));
+
+  .ant-typography,
+  .ant-typography-secondary {
+    font-size: var(--h4-font-size);
+    color: var(--h4-color, var(--primary-text-color));
+  }
+
+  .ant-typography-danger {
+    color: var(--danger-color);
+  }
+
+  .ant-typography-warning {
+    color: var(--warning-color);
+  }
+
+  .ant-typography-success {
+    color: var(--success-color);
+  }
+}
+
+h5 {
+  font-size: var(--h5-font-size);
+  color: var(--h5-color, var(--primary-text-color));
+
+  .ant-typography,
+  .ant-typography-secondary {
+    font-size: var(--h5-font-size);
+    color: var(--h5-color, var(--primary-text-color));
+  }
+
+  .ant-typography-danger {
+    color: var(--danger-color);
+  }
+
+  .ant-typography-warning {
+    color: var(--warning-color);
+  }
+
+  .ant-typography-success {
+    color: var(--success-color);
+  }
+}
+
+h6 {
+  font-size: var(--h6-font-size);
+  color: var(--h6-color, var(--primary-text-color));
+
+  .ant-typography,
+  .ant-typography-secondary {
+    font-size: var(--h6-font-size);
+    color: var(--h6-color, var(--primary-text-color));
+  }
+
+  .ant-typography-danger {
+    color: var(--danger-color);
+  }
+
+  .ant-typography-warning {
+    color: var(--warning-color);
+  }
+
+  .ant-typography-success {
+    color: var(--success-color);
+  }
+}
+
+p {
+  margin-bottom: 0px !important;
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+
+  .ant-typography,
+  .ant-typography-secondary {
+    color: var(--text-color);
+    line-height: 1.8;
+  }
+
+  .ant-typography-danger {
+    color: var(--danger-color);
+  }
+
+  .ant-typography-warning {
+    color: var(--warning-color);
+  }
+
+  .ant-typography-success {
+    color: var(--success-color);
+  }
+}
+
+.ant-typography-secondary {
+  color: var(--text-color);
+  line-height: 1.8;
+}
+
+.ant-typography-danger {
+  color: var(--danger-color);
+}
+
+.ant-typography-warning {
+  color: var(--warning-color);
+}
+
+.ant-typography-success {
+  color: var(--success-color);
+}
+
+.display-1 {
+  font-size: 6rem;
+  font-weight: 300;
+  line-height: $line-height-base;
+}
+
+.display-2 {
+  font-size: 5.5rem;
+  font-weight: 300;
+  line-height: $line-height-base;
+}
+
+.display-3 {
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: $line-height-base;
+}
+
+.display-4 {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: $line-height-base;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+
+  .list-inline-item {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+}
+
+.ant-typography h1,
+h1.ant-typography {
+  color: var(--h1-color);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--h1-font-size);
+}
+
+.ant-typography h2,
+h2.ant-typography {
+  color: var(--h2-color);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--h2-font-size);
+}
+
+.ant-typography h3,
+h3.ant-typography {
+  color: var(--h3-color);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--h3-font-size);
+}
+
+.ant-typography h4,
+h4.ant-typography {
+  color: var(--h4-color);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--h4-font-size);
+}
+
+.ant-typography h5,
+h5.ant-typography {
+  color: var(--h5-color);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--h5-font-size);
+}
+
+.ant-typography h6,
+h6.ant-typography {
+  color: var(--h6-color);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--h6-font-size);
+}
+
+.ant-typography p,
+p.ant-typography {
+  color: var(--text-color);
+}
+
+.ant-typography {
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+
+  strong {
+    font-weight: var(--font-weight-bold);
+  }
+
+  &.ant-typography-warning {
+    color: var(--warning-color);
+  }
+
+  &.ant-typography-danger {
+    color: var(--danger-color);
+  }
+}

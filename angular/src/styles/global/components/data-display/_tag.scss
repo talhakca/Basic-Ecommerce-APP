@@ -1,0 +1,83 @@
+.ant-tag {
+  font-family: $font-family-base;
+  margin: 0 10px 10px 0;
+  display: inline-block;
+  line-height: $tag-line-height;
+  height: $tag-height;
+  padding: 0 10px;
+  border-radius: $border-radius-round;
+  border: var(--border-size-x) solid var(--primary-border-color);
+  background: var(--tag-color);
+  font-size: var(--subtext-font-size);
+  color: var(--text-color);
+
+  .anticon-cross {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 3px;
+    transition: all 0.3s;
+    color: rgba($body-color, 0.45);
+    font-weight: 700;
+  }
+}
+
+.ant-tag-checkable {
+  background-color: transparent;
+
+  &:active {
+    background-color: var(primary-color);
+    color: var(--primary-button-text-color);
+  }
+
+  &:not(.ant-tag-checkable-checked) {
+    &:hover {
+      color: var(primary-hover-color);
+      border-color: var(--primary-hover-color);
+    }
+  }
+}
+
+.ant-tag-checkable-checked {
+  background-color: var(--primary-color);
+  color: var(--primary-button-text-color);
+}
+
+.ant-tag-has-color {
+  color: var(--primary-button-text-color);
+
+  .anticon-cross,
+  a {
+    color: var(--primary-button-text-color);
+
+    &:hover {
+      color: var(--primary-button-text-color);
+    }
+  }
+}
+
+@each $tone in $tone-loop {
+  .ant-tag-#{nth($tone, 1)} {
+    color: #{nth($tone, 2)};
+    background: #{nth($tone, 3)};
+    border-color: transparent;
+    font-weight: 500;
+  }
+}
+
+.m-b-0 {
+  .ant-tag {
+    margin-bottom: 0px;
+  }
+}
+
+.m-r-0 {
+  .ant-tag {
+    margin-right: 0px;
+  }
+}
+
+.editable-tag {
+  .ant-tag {
+    border-style: dashed;
+  }
+}

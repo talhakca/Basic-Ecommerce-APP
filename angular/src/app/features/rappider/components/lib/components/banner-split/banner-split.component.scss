@@ -1,0 +1,34 @@
+:host {
+  @extend .full-block !optional;
+}
+
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.content-area {
+  background-size: cover;
+  padding: var(--card-padding);
+  text-align: center;
+}
+
+.img-area {
+  background-size: cover;
+  background-position: center;
+}
+
+.button-area {
+  margin-top: var(--margin-5x);
+}
+
+.content {
+  font-size: var(--main-font-size);
+  color: var(--text-color);
+}
+
+.banner-split {
+  align-items: stretch;
+  width: 100%;
+  height: auto;
+}

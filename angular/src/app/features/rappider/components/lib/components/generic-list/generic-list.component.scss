@@ -1,0 +1,30 @@
+.list {
+  border: var(--border-size-x) solid var(--primary-border-color);
+  border-radius: var(--border-radius-2x);
+}
+
+:host ::ng-deep {
+  .ant-list-item-meta-title {
+    margin-top: 0;
+  }
+  .ant-list-item {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}
+
+.item-container {
+  padding: var(--card-padding);
+}
+
+.title {
+  font-weight: var(--font-weight-bold);
+}
+
+.description {
+  margin-top: var(--margin-2x);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

@@ -1,0 +1,9 @@
+<rappider-title-toolbar
+  *ngIf="titlebarVisibility"
+  [mainTitle]="titleToolbarConfig?.mainTitle"
+  [options]="titleToolbarConfig?.options"
+></rappider-title-toolbar>
+
+<div>
+  <ng-content></ng-content>
+</div>

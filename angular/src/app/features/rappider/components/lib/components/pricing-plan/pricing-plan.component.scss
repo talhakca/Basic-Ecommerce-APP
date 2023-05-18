@@ -1,0 +1,16 @@
+.pricing-plan {
+  background-color: var(--component-inner-background-color);
+  text-align: center;
+  padding: var(--card-padding);
+}
+
+.price {
+  font-weight: bolder;
+  font-size: var(--font-size-xx-large);
+  color: var(--primary-text-color);
+}
+
+.price-description {
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+}

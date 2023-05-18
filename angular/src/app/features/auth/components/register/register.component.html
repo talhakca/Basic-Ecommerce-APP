@@ -1,0 +1,23 @@
+<div class="container-area">
+  <nz-spin [nzSpinning]="isLoading">
+    <header class="header">
+      <h2>Register</h2>
+    </header>
+    <div class="register-form">
+      <rappider-crud-view-edit-form
+        [config]="REGISTER_CONFIG"
+        (formSubmit)="register($event)"
+      ></rappider-crud-view-edit-form>
+    </div>
+    <nz-divider [nzText]="signInTemplate"></nz-divider>
+    <ng-template #signInTemplate>
+      <span class="or-text">or</span>
+    </ng-template>
+    <div class="sign-in-area">
+      <span>
+        Already have an account?
+        <a [routerLink]="LOGIN_PATH">Sign In</a>
+      </span>
+    </div>
+  </nz-spin>
+</div>

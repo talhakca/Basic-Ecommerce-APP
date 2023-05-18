@@ -1,0 +1,31 @@
+.testimonial {
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--card-padding);
+  transition: 0.5s;
+  height: 100%;
+  rappider-avatar {
+    margin-top: var(--margin-2x);
+  }
+}
+
+.testimonial:hover {
+  background-color: var(--component-header-background-color);
+  color: var(--primary-text-color);
+  box-shadow: var(--thick-box-shadow);
+}
+
+.content {
+  color: var(--text-color);
+  text-align: justify;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.title {
+  margin-top: var(--margin-2x);
+}

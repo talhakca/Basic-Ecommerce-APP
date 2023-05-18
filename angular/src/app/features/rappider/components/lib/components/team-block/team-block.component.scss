@@ -1,0 +1,27 @@
+.divider {
+  width: 30%;
+  transition: width 0.4s;
+}
+
+.container-area:hover .divider {
+  width: 100%;
+  transition: width 0.4s;
+}
+
+.title-area {
+  margin-top: var(--margin-2x);
+}
+
+.container-area {
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.content {
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+}

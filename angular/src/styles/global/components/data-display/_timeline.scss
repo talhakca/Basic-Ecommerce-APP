@@ -1,0 +1,83 @@
+.ant-timeline {
+  font-family: $font-family-sans-serif;
+  line-height: $line-height-base;
+  color: var(--text-color);
+}
+
+.ant-timeline-item {
+  position: relative;
+  padding-bottom: var(--padding-4x);
+
+  &:last-child {
+    padding-bottom: 0px;
+  }
+}
+
+.ant-timeline,
+.ant-timeline-item {
+  font-size: var(--main-font-size);
+}
+
+.ant-timeline-item-tail {
+  position: absolute;
+  left: 14px;
+  top: 0.75em;
+  height: 100%;
+  border-left: var(--border-size-2x) dashed var(--primary-border-color);
+}
+
+.ant-timeline-item-head {
+  width: $timeline-dot-size;
+  height: $timeline-dot-size;
+  background-color: var(--body-background-color);
+  border-radius: 100px;
+  border: var(--border-size-2x) solid var(--primary-border-color);
+}
+
+.ant-timeline-item-content {
+  top: 0px;
+}
+
+.ant-timeline-item-head-primary {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.ant-timeline-item-head-blue,
+.ant-timeline-item-head-info {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.ant-timeline-item-head-green,
+.ant-timeline-item-head-success {
+  border-color: var(--success-color);
+  color: var(--success-color);
+}
+
+.ant-timeline-item-head-red,
+.ant-timeline-item-head-danger {
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
+.ant-timeline-item-head-warning {
+  border-color: var(--warning-color);
+  color: var(--warning-color);
+}
+
+.ant-timeline-item-head-custom {
+  position: absolute;
+  text-align: center;
+  line-height: 1;
+  margin-top: var(--margin-x);
+  border: 0;
+  height: auto;
+  border-radius: 0;
+  padding: 3px 1px;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  top: 10px;
+  left: 15px;
+  width: auto;
+}

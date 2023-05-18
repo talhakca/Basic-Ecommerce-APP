@@ -1,0 +1,25 @@
+<div class="testimonial-list">
+  <div class="titles">
+    <div *ngFor="let title of titles" class="testimonial-list-title">
+      <rappider-heading
+        [type]="title.type"
+        [content]="title.content"
+      ></rappider-heading>
+    </div>
+  </div>
+
+  <div class="row">
+    <div
+      *ngFor="let item of items"
+      [ngClass]="getBootstrapColumnCssClassName()"
+      class="testimonials"
+    >
+      <rappider-testimonial
+        [title]="item.title"
+        [subtitle]="item.subtitle"
+        [avatar]="item.avatar"
+        [content]="item.content"
+      ></rappider-testimonial>
+    </div>
+  </div>
+</div>

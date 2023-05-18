@@ -1,0 +1,8 @@
+.progress::ng-deep {
+  .ant-progress-line {
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

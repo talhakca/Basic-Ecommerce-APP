@@ -1,0 +1,16 @@
+.card-container {
+  border: var(--border-size-x) solid var(--primary-border-color);
+  border-radius: var(--border-radius-2x);
+  padding: var(--card-padding);
+  background-color: var(--section-background-color);
+}
+
+.card-area {
+  margin-bottom: var(--margin-x);
+  display: flex;
+  align-items: baseline;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}

@@ -1,0 +1,71 @@
+.card-one-list {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0px !important;
+  padding: var(--card-padding);
+  .list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--margin-2x);
+  }
+
+  .list-body {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    min-width: 100%;
+  }
+
+  .list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    ::ng-deep rappider-card-one {
+      margin-right: var(--margin-3x);
+
+      &:last-child {
+        margin-right: 0px;
+      }
+    }
+  }
+
+  .carousel-dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--margin-4x);
+
+    .dot {
+      margin-right: var(--margin-2x);
+      background-color: #808080;
+      opacity: 0.5;
+      transition: 0.3s;
+      width: 15px;
+      height: 5px;
+      cursor: pointer;
+      border-radius: 7px;
+    }
+
+    .dot-active {
+      opacity: 1;
+      width: 20px;
+      height: 7px;
+      cursor: default;
+    }
+  }
+
+  .back-button {
+    position: absolute;
+    top: 40%;
+    left: 10px;
+  }
+
+  .next-button {
+    position: absolute;
+    top: 40%;
+    right: 10px;
+  }
+}

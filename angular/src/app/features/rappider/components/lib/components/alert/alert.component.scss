@@ -1,0 +1,30 @@
+.alert {
+  padding: 0px !important;
+  margin: 0px !important;
+
+  &::ng-deep {
+    .alert-description-start {
+      display: flex;
+      align-items: center;
+
+      .button-area {
+        margin-left: var(--margin-x);
+      }
+    }
+
+    .alert-description-end {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--margin-x);
+    }
+
+    .ant-alert {
+      padding: var(--alert-padding);
+      height: var(--alert-height);
+      min-height: var(--alert-min-height);
+      max-height: var(--alert-max-height);
+    }
+  }
+}

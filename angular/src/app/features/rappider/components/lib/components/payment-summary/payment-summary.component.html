@@ -1,0 +1,118 @@
+<nz-card class="payment-summary">
+  <rappider-heading
+    *ngIf="title"
+    [content]="title.content"
+    [type]="title.type"
+  ></rappider-heading>
+  <div class="content">
+    <div *ngFor="let content of contents">
+      <rappider-heading
+        *ngIf="content.title"
+        [content]="content.title.content"
+        [type]="content.title.type"
+      ></rappider-heading>
+      <div *ngFor="let item of content.items">
+        <div class="icon-text">
+          <rappider-icon
+            *ngIf="item.icon && item.icon?.name"
+            [name]="item.icon.name"
+            [type]="item.icon.type"
+            [theme]="item.icon.theme"
+            [color]="item.icon.color"
+            [size]="item.icon.size"
+          ></rappider-icon>
+          <rappider-text
+            *ngIf="item.text"
+            [content]="item.text.content"
+            [textMode]="item.text.textMode"
+            [text]="item.text.text"
+            [typography]="item.text.typography"
+            [colorSettings]="item.text.colorSettings"
+          ></rappider-text>
+          <rappider-text
+            *ngIf="item.predefinedText"
+            [content]="item.predefinedText.content"
+            [textMode]="item.predefinedText.textMode"
+            [text]="item.predefinedText.text"
+            [typography]="item.predefinedText.typography"
+            [colorSettings]="item.predefinedText.colorSettings"
+          ></rappider-text>
+        </div>
+        <div class="button">
+          <rappider-button
+            *ngIf="item.button"
+            [type]="item.button.type"
+            [shape]="item.button.shape"
+            [text]="item.button.text"
+            [size]="item.button.size"
+            [transparent]="item.button.transparent"
+            [loading]="item.button.loading"
+            [block]="item.button.block"
+            [disabled]="item.button.disabled"
+            [colorType]="item.button.colorType"
+            [icon]="item.button.icon"
+            [formButtonType]="item.button?.formButtonType"
+            [borderSettings]="item.button?.borderSettings"
+            [customSizeSettings]="item.button?.customSizeSettings"
+            [customColorSettings]="item.button?.customColorSettings"
+            [shadowSettings]="item.button?.shadowSettings"
+            [paddingSettings]="item.button?.paddingSettings"
+            [marginSettings]="item.button?.marginSettings"
+            (click)="onClickButton(item.button)"
+          ></rappider-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="additionalContents">
+    <div
+      *ngFor="let additionalContent of additionalContents"
+      class="additionalContent-content"
+    >
+      <rappider-text
+        *ngIf="additionalContent.label"
+        [content]="additionalContent.label.content"
+        [textMode]="additionalContent.label.textMode"
+        [text]="additionalContent.label.text"
+        [typography]="additionalContent.label.typography"
+        [colorSettings]="additionalContent.label.colorSettings"
+      ></rappider-text>
+      <rappider-text
+        *ngIf="additionalContent.text"
+        [content]="additionalContent.text.content"
+        [textMode]="additionalContent.text.textMode"
+        [text]="additionalContent.text.text"
+        [typography]="additionalContent.text.typography"
+        [colorSettings]="additionalContent.text.colorSettings"
+      ></rappider-text>
+    </div>
+  </div>
+  <div *ngIf="footerContents">
+    <rappider-divider
+      [borderSettings]="divider?.borderSettings"
+      [text]="divider?.text"
+      [customSizeSettings]="divider?.customSizeSettings"
+      [shadowSettings]="divider?.shadowSettings"
+      [marginSettings]="divider?.marginSettings"
+      [paddingSettings]="divider?.paddingSettings"
+    ></rappider-divider>
+    <div *ngFor="let footerContent of footerContents" class="footer-content">
+      <rappider-text
+        *ngIf="footerContent.label"
+        [content]="footerContent.label.content"
+        [textMode]="footerContent.label.textMode"
+        [text]="footerContent.label.text"
+        [typography]="footerContent.label.typography"
+        [colorSettings]="footerContent.label.colorSettings"
+      ></rappider-text>
+      <rappider-text
+        *ngIf="footerContent.text"
+        [content]="footerContent.text.content"
+        [textMode]="footerContent.text.textMode"
+        [text]="footerContent.text.text"
+        [typography]="footerContent.text.typography"
+        [colorSettings]="footerContent.text.colorSettings"
+      ></rappider-text>
+    </div>
+  </div>
+</nz-card>

@@ -1,0 +1,99 @@
+$date-color-red: #de4436;
+$date-color-blue: #3f87f5;
+$date-color-green: #52c41a;
+$date-color-orange: #fa8c16;
+$date-color-gold: gold;
+$date-color-cyan: #00c9a7;
+$date-color-purple: #886cff;
+$date-color-magenta: #eb2f96;
+$date-color-lime: #a0d911;
+
+.time-notice-card {
+  border: var(--border-size-x) solid var(--primary-border-color);
+  padding: var(--card-padding);
+  margin: 0px !important;
+}
+
+.start-time,
+.end-time {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--margin-x);
+  padding: 0px !important;
+}
+
+.time-box {
+  padding: var(--padding-2x) var(--padding-4x);
+  margin-right: var(--margin-3x);
+  border-radius: var(--border-radius-2x);
+  text-align: center;
+}
+
+.time-day {
+  font-weight: var(--font-weight-bold);
+}
+
+.date-time {
+  display: flex;
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+
+  ::ng-deep rappider-text {
+    margin-left: var(--margin-x);
+  }
+}
+
+.time-box-default {
+  background-color: var(--default-color);
+  color: var(--text-color);
+}
+
+.time-box-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.time-box-red {
+  background-color: lighten($date-color-red, 40%);
+  color: darken($date-color-red, 5%);
+}
+
+.time-box-blue {
+  background-color: lighten($date-color-blue, 35%);
+  color: darken($date-color-blue, 5%);
+}
+
+.time-box-green {
+  background-color: lighten($date-color-green, 40%);
+  color: darken($date-color-green, 5%);
+}
+
+.time-box-orange {
+  background-color: lighten($date-color-orange, 40%);
+  color: darken($date-color-orange, 5%);
+}
+
+.time-box-gold {
+  background-color: lighten($date-color-gold, 40%);
+  color: darken($date-color-gold, 5%);
+}
+
+.time-box-cyan {
+  background-color: lighten($date-color-cyan, 50%);
+  color: darken($date-color-cyan, 5%);
+}
+
+.time-box-purple {
+  background-color: lighten($date-color-purple, 20%);
+  color: darken($date-color-purple, 5%);
+}
+
+.time-box-magenta {
+  background-color: lighten($date-color-magenta, 40%);
+  color: darken($date-color-magenta, 5%);
+}
+
+.time-box-lime {
+  background-color: lighten($date-color-lime, 40%);
+  color: darken($date-color-lime, 5%);
+}

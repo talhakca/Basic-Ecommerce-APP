@@ -1,0 +1,14 @@
+<div class="countdown">
+  <rappider-heading
+    [type]="title.type"
+    [content]="title.content"
+    [typography]="title.typography"
+    [colorSettings]="title.colorSettings"
+  ></rappider-heading>
+  <nz-countdown
+    [nzValue]="deadline"
+    [nzFormat]="format"
+    [nzPrefix]="prefix"
+    (nzCountdownFinish)="onCountdownFinish()"
+  ></nz-countdown>
+</div>

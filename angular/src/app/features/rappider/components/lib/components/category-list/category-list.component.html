@@ -1,0 +1,36 @@
+<div *ngFor="let item of items" class="container">
+  <div *ngIf="item.heading" class="heading">
+    <rappider-heading
+      [type]="item.heading.type"
+      [content]="item.heading.content"
+    ></rappider-heading>
+  </div>
+
+  <div class="text">
+    <div *ngFor="let subItem of item.subItems" class="link">
+      <a [routerLink]="subItem.routerUrl" class="anchor">
+        <rappider-text
+          [content]="subItem.label"
+          [textMode]="subItem.textMode"
+          [text]="subItem.text"
+          [typography]="subItem.typography"
+          [colorSettings]="subItem.colorSettings"
+        ></rappider-text>
+      </a>
+      <div class="divider">
+        <rappider-divider
+          [type]="divider?.type"
+          [style]="divider?.dashed"
+          [text]="divider?.text"
+          [textPlacement]="divider?.textPlacement"
+          [borderSettings]="divider?.borderSettings"
+          [customSizeSettings]="divider?.customSizeSettings"
+          [shadowSettings]="divider?.shadowSettings"
+          [marginSettings]="divider?.marginSettings"
+          [paddingSettings]="divider?.paddingSettings"
+        ></rappider-divider>
+      </div>
+    </div>
+  </div>
+</div>
+<rappider-text></rappider-text>

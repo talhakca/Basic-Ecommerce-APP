@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="table-area">
+    <div *ngFor="let item of items">
+      <div class="row">
+        <div *ngIf="item.product">
+          <div class="product col">
+            <rappider-text
+              [content]="item.product.content"
+              [textMode]="item.product.textMode"
+              [text]="item.product.text"
+              [typography]="item.product.typography"
+              [colorSettings]="item.product.colorSettings"
+            ></rappider-text>
+          </div>
+        </div>
+
+        <div class="detail col-10">
+          <rappider-text
+            [content]="item.detail.content"
+            [textMode]="item.detail.textMode"
+            [text]="item.detail.text"
+            [typography]="item.detail.typography"
+            [colorSettings]="item.detail.colorSettings"
+          ></rappider-text>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

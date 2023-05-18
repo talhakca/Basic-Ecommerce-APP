@@ -1,0 +1,60 @@
+<div class="list-four-container">
+  <div *ngIf="cardTitle" class="card-header">
+    <rappider-heading
+      [content]="cardTitle.content"
+      [type]="cardTitle.type"
+    ></rappider-heading>
+  </div>
+  <div class="card-body">
+    <div *ngFor="let item of items" class="card-items">
+      <div class="item-container">
+        <div *ngIf="item.avatar" class="avatar-container">
+          <rappider-avatar
+            [iconName]="item.avatar.iconName"
+            [text]="item.avatar.text"
+            [shape]="item.avatar.shape"
+            [imageUrl]="item.avatar.imageUrl"
+            [cssStyle]="item.avatar.cssStyle"
+            [size]="item.avatar.size"
+            [altText]="item.avatar.altText"
+            [borderSettings]="item.avatar.borderSettings"
+            [sizeSettings]="item.avatar.sizeSettings"
+            [colorSettings]="item.avatar.colorSettings"
+            [boxShadowSettings]="item.avatar.boxShadowSettings"
+            [paddingSettings]="item.avatar.paddingSettings"
+            [marginSettings]="item.avatar.marginSettings"
+            [description]="item.avatar.description"
+          ></rappider-avatar>
+        </div>
+        <div class="item-content">
+          <div *ngIf="item.text" class="name-container">
+            <rappider-text
+              [content]="item.text.content"
+              [textMode]="item.text.textMode"
+              [text]="item.text.text"
+              [typography]="item.text.typography"
+              [colorSettings]="item.text.colorSettings"
+            ></rappider-text>
+          </div>
+          <div class="paragraph-container">
+            <rappider-paragraph
+              *ngIf="item.commentText"
+              class="paragraph"
+              [content]="item?.commentText?.content"
+              [customColorSettings]="item?.commentText?.customColorSettings"
+              [typographySettings]="item?.commentText?.typographySettings"
+            >
+            </rappider-paragraph>
+          </div>
+          <rappider-paragraph
+            *ngIf="item.timeContent"
+            class="comment-time"
+            [content]="item?.timeContent?.content"
+            [customColorSettings]="item?.timeContent?.customColorSettings"
+            [typographySettings]="item?.timeContent?.typographySettings"
+          ></rappider-paragraph>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

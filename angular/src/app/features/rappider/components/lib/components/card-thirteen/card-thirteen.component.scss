@@ -1,0 +1,35 @@
+.content-container {
+  display: flex;
+  flex-direction: column;
+  color: var(--default-color);
+  padding: var(--padding-2x);
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.heading-container {
+  color: var(--default-color);
+  font-weight: var(--font-weight-bold);
+}
+
+.text-content {
+  display: flex;
+}
+
+.content-area {
+  margin-top: var(--margin-2x);
+}
+
+.img-area {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card-thirteen {
+  align-items: stretch;
+  width: 100%;
+  height: auto;
+}

@@ -1,0 +1,140 @@
+<div class="payment-details">
+  <div *ngIf="headerTitle || headerContent">
+    <div class="header-content">
+      <rappider-text
+        [content]="headerTitle.content"
+        [textMode]="headerTitle.textMode"
+        [text]="headerTitle.text"
+        [typography]="headerTitle.typography"
+        [colorSettings]="headerTitle.colorSettings"
+      ></rappider-text>
+      <div>
+        <rappider-text
+          [content]="headerContent.content"
+          [textMode]="headerContent.textMode"
+          [text]="headerContent.text"
+          [typography]="headerContent.typography"
+          [colorSettings]="headerContent.colorSettings"
+        ></rappider-text>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let item of cardItems">
+    <rappider-divider
+      [borderSettings]="divider?.borderSettings"
+      [text]="divider?.text"
+      [customSizeSettings]="divider?.customSizeSettings"
+      [shadowSettings]="divider?.shadowSettings"
+      [marginSettings]="divider?.marginSettings"
+      [paddingSettings]="divider?.paddingSettings"
+    ></rappider-divider>
+    <div class="card-area">
+      <a (click)="onRouterClick($event)">
+        <div *ngIf="item.image" class="image">
+          <rappider-image
+            [source]="item?.image?.source"
+            [width]="item?.image?.width"
+            [placeholder]="item?.image?.placeholder"
+            [height]="item?.image?.height"
+            [fallback]="item?.image?.fallback"
+            [alternateText]="item?.image?.alternateText"
+            [borderSettings]="item?.image?.borderSettings"
+            [customSizeSettings]="item?.image?.width"
+            [shadowSettings]="item?.image?.shadowSettings"
+            [marginSettings]="item?.image?.marginSettings"
+            [paddingSettings]="item?.image?.paddingSettings"
+          ></rappider-image>
+        </div>
+      </a>
+      <div class="content-area">
+        <div *ngIf="item.title" class="title">
+          <rappider-heading
+            [type]="item.title.type"
+            [content]="item.title.content"
+          ></rappider-heading>
+          <div *ngIf="item.additionalContent" class="additional-content">
+            <rappider-text
+              [content]="item.additionalContent.content"
+              [textMode]="item.additionalContent.textMode"
+              [text]="item.additionalContent.text"
+              [typography]="item.additionalContent.typography"
+              [colorSettings]="item.additionalContent.colorSettings"
+            ></rappider-text>
+          </div>
+        </div>
+        <div class="quantity">
+          <rappider-dropdown-menu
+            [items]="dropdownMenuItems"
+            [label]="dropdownMenuLabel"
+            [icon]="dropdownMenuIcon"
+            [triggerType]="dropdownMenuTriggerType"
+            [placement]="dropdownMenuPlacement"
+            [labelMode]="dropdownLabelMode"
+            (dropdownItemClick)="onDropdownMenuItemClick($event)"
+            (menuItemClick)="onMenuItemClick($event)"
+          >
+          </rappider-dropdown-menu>
+        </div>
+        <div *ngIf="item.subtitle" class="subtitle">
+          <rappider-heading
+            [type]="item.subtitle.type"
+            [content]="item.subtitle.content"
+          ></rappider-heading>
+        </div>
+        <div *ngIf="item.button" class="button">
+          <rappider-button
+            [transparent]="item.button.transparent"
+            [colorType]="item.button.colorType"
+            [shape]="item.button.shape"
+            [type]="item.button.type"
+            [text]="item.button.text"
+            [size]="item.button.size"
+            [icon]="item.button.icon"
+            [loading]="item.button.loading"
+            [block]="item.button.block"
+            [disabled]="item.button.disabled"
+            [icon]="item.button.icon"
+            [formButtonType]="item.button?.formButtonType"
+            [borderSettings]="item.button?.borderSettings"
+            [customSizeSettings]="item.button?.customSizeSettings"
+            [customColorSettings]="item.button?.customColorSettings"
+            [shadowSettings]="item.button?.shadowSettings"
+            [paddingSettings]="item.button?.paddingSettings"
+            [marginSettings]="item.button?.marginSettings"
+            (click)="onButtonClick($event)"
+          >
+          </rappider-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <rappider-divider
+    [borderSettings]="divider?.borderSettings"
+    [text]="divider?.text"
+    [customSizeSettings]="divider?.customSizeSettings"
+    [shadowSettings]="divider?.shadowSettings"
+    [marginSettings]="divider?.marginSettings"
+    [paddingSettings]="divider?.paddingSettings"
+  ></rappider-divider>
+  <div *ngIf="footerTitle || footerContent">
+    <div class="header-content">
+      <rappider-text
+        [content]="footerTitle.content"
+        [textMode]="footerTitle.textMode"
+        [text]="footerTitle.text"
+        [typography]="footerTitle.typography"
+        [colorSettings]="footerTitle.colorSettings"
+      ></rappider-text>
+      <div>
+        <rappider-text
+          [content]="footerContent.content"
+          [textMode]="footerContent.textMode"
+          [text]="footerContent.text"
+          [typography]="footerContent.typography"
+          [colorSettings]="footerContent.colorSettings"
+        ></rappider-text>
+      </div>
+    </div>
+  </div>
+</div>

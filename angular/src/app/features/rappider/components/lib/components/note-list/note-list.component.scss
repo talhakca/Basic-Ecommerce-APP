@@ -1,0 +1,7 @@
+.note-list-item {
+  margin-bottom: var(--margin-8x);
+}
+
+.note-list-item:last-child {
+  margin-bottom: 0px;
+}

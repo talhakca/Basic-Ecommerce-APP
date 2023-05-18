@@ -1,0 +1,48 @@
+.card-area {
+  border: var(--border-size-x) solid var(--primary-border-color);
+  border-radius: var(--border-radius-2x);
+  padding: var(--card-padding);
+  display: flex;
+  align-items: flex-start;
+}
+
+.image-area {
+  display: inline-block;
+}
+
+.content-area {
+  display: inline-block;
+  width: 100%;
+  margin-left: var(--margin-3x);
+}
+
+.image {
+  overflow: hidden;
+}
+
+.image-area {
+  cursor: pointer;
+  ::ng-deep img {
+    transition: transform 0.9s;
+  }
+}
+
+.image-area:hover {
+  ::ng-deep img {
+    transform: scale(1.06);
+  }
+}
+
+.subtitle {
+  margin-top: var(--margin-x);
+}
+
+.additional-content {
+  margin-top: var(--margin-x);
+}
+
+.button {
+  float: right;
+  position: initial;
+  margin-top: var(--margin-2x);
+}

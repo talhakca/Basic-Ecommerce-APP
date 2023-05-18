@@ -1,0 +1,124 @@
+<div class="note">
+  <div class="note-header">
+    <div
+      class="note-tag"
+      *ngIf="tag || title || subtitle || additionalButtons?.length"
+    >
+      <rappider-tag
+        [mode]="tag.mode"
+        [checked]="tag.checked"
+        [color]="tag.color"
+        [text]="tag.text"
+      ></rappider-tag>
+    </div>
+    <div class="note-content">
+      <div class="note-content-text" *ngIf="title || subtitle">
+        <div class="note-title" *ngIf="title">
+          <rappider-heading
+            class="note-title"
+            [type]="title.type"
+            [content]="title.content"
+          ></rappider-heading>
+        </div>
+        <div class="note-subtitle" *ngIf="subtitle">
+          <rappider-heading
+            class="note-subtitle"
+            [type]="subtitle.type"
+            [content]="subtitle.content"
+          ></rappider-heading>
+        </div>
+      </div>
+      <div class="note-content-buttons" *ngIf="additionalButtons">
+        <div *ngFor="let additionalButton of additionalButtons">
+          <rappider-button
+            [type]="additionalButton?.type"
+            [shape]="additionalButton?.shape"
+            [text]="additionalButton?.text"
+            [size]="additionalButton?.size"
+            [transparent]="additionalButton?.transparent"
+            [loading]="additionalButton?.loading"
+            [block]="additionalButton?.loading"
+            [disabled]="additionalButton?.disabled"
+            [colorType]="additionalButton?.colorType"
+            [icon]="additionalButton?.icon"
+            [formButtonType]="additionalButton?.formButtonType"
+            [borderSettings]="additionalButton?.borderSettings"
+            [customSizeSettings]="additionalButton?.customSizeSettings"
+            [customColorSettings]="additionalButton?.customColorSettings"
+            [shadowSettings]="additionalButton?.shadowSettings"
+            [paddingSettings]="additionalButton?.paddingSettings"
+            [marginSettings]="additionalButton?.marginSettings"
+            (click)="onAdditionalButtonClick(additionalButton)"
+          ></rappider-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="!richTextEditorVisibility; else richTextTemplate">
+    <div class="note-text" [innerHTML]="content"></div>
+  </ng-container>
+  <ng-template #richTextTemplate>
+    <div class="note-edit" *ngIf="content">
+      <rappider-rich-text-editor
+        [(ngModel)]="content"
+        [editorType]="richTextEditor?.editorType"
+        [theme]="richTextEditor?.theme"
+        [placeholder]="richTextEditor?.placeholder"
+        [cssStyle]="richTextEditor?.cssStyle"
+        [cssClass]="richTextEditor?.cssClass"
+        [mentionSupported]="richTextEditor?.mentionSupported"
+        [mentionValues]="richTextEditor?.mentionValues"
+      ></rappider-rich-text-editor>
+
+      <div class="note-edit-button">
+        <div class="save-button-wrapper">
+          <rappider-button
+            class="save-button"
+            [type]="saveButton.type"
+            [shape]="saveButton.shape"
+            [text]="saveButton.text"
+            [size]="saveButton.size"
+            [transparent]="saveButton.transparent"
+            [loading]="saveButton.loading"
+            [block]="saveButton.loading"
+            [disabled]="saveButton.disabled"
+            [colorType]="saveButton.colorType"
+            [icon]="saveButton.icon"
+            [formButtonType]="saveButton?.formButtonType"
+            [borderSettings]="saveButton?.borderSettings"
+            [customSizeSettings]="saveButton?.customSizeSettings"
+            [customColorSettings]="saveButton?.customColorSettings"
+            [shadowSettings]="saveButton?.shadowSettings"
+            [paddingSettings]="saveButton?.paddingSettings"
+            [marginSettings]="saveButton?.marginSettings"
+            (click)="onSave()"
+          ></rappider-button>
+        </div>
+
+        <div class="cancel-button-wrapper">
+          <rappider-button
+            class="cancel-button"
+            [type]="cancelButton.type"
+            [shape]="cancelButton.shape"
+            [text]="cancelButton.text"
+            [size]="cancelButton.size"
+            [transparent]="cancelButton.transparent"
+            [loading]="cancelButton.loading"
+            [block]="cancelButton.loading"
+            [disabled]="cancelButton.disabled"
+            [colorType]="cancelButton.colorType"
+            [icon]="cancelButton.icon"
+            [formButtonType]="cancelButton?.formButtonType"
+            [borderSettings]="cancelButton?.borderSettings"
+            [customSizeSettings]="cancelButton?.customSizeSettings"
+            [customColorSettings]="cancelButton?.customColorSettings"
+            [shadowSettings]="cancelButton?.shadowSettings"
+            [paddingSettings]="cancelButton?.paddingSettings"
+            [marginSettings]="cancelButton?.marginSettings"
+            (click)="onCancel()"
+          ></rappider-button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

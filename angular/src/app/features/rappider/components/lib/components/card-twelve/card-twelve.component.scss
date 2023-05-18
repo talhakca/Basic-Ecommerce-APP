@@ -1,0 +1,13 @@
+.card-section {
+  display: flex;
+}
+
+.icon {
+  font-size: var(--font-size-medium);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--margin-4x);
+}

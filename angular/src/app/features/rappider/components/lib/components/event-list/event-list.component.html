@@ -1,0 +1,79 @@
+<nz-card>
+  <div class="header-container">
+    <rappider-heading
+      *ngIf="cardTitle"
+      [content]="cardTitle.content"
+      [type]="cardTitle.type"
+    ></rappider-heading>
+
+    <div *ngIf="button">
+      <rappider-button
+        [type]="button.type"
+        [shape]="button.shape"
+        [text]="button.text"
+        [size]="button.size"
+        [transparent]="button.transparent"
+        [loading]="button.loading"
+        [block]="button.block"
+        [disabled]="button.disabled"
+        [colorType]="button.colorType"
+        [icon]="button.icon"
+        [formButtonType]="button?.formButtonType"
+        [borderSettings]="button?.borderSettings"
+        [customSizeSettings]="button?.customSizeSettings"
+        [customColorSettings]="button?.customColorSettings"
+        [shadowSettings]="button?.shadowSettings"
+        [paddingSettings]="button?.paddingSettings"
+        [marginSettings]="button?.marginSettings"
+        (click)="onButtonClick()"
+      ></rappider-button>
+    </div>
+  </div>
+
+  <div *ngFor="let item of items" class="content-container">
+    <div *ngIf="item.avatar" class="avatar-container">
+      <rappider-avatar
+        [text]="item.avatar.text"
+        [iconName]="item.avatar.iconName"
+        [shape]="item.avatar.shape"
+        [imageUrl]="item.avatar.imageUrl"
+        [altText]="item.avatar.altText"
+        [size]="item.avatar.size"
+        [cssStyle]="item.avatar.cssStyle"
+        [borderSettings]="item.avatar.borderSettings"
+        [sizeSettings]="item.avatar.sizeSettings"
+        [colorSettings]="item.avatar.colorSettings"
+        [boxShadowSettings]="item.avatar.boxShadowSettings"
+        [paddingSettings]="item.avatar.paddingSettings"
+        [marginSettings]="item.avatar.marginSettings"
+        [description]="item.avatar.description"
+      ></rappider-avatar>
+    </div>
+
+    <div class="content-header">
+      <div *ngIf="item.title" class="title">
+        <rappider-heading
+          [content]="item.title.content"
+          [type]="item.title.type"
+        ></rappider-heading>
+      </div>
+
+      <div *ngIf="item.subtitle" class="subtitle">
+        <rappider-heading
+          [content]="item.subtitle.content"
+          [type]="item.subtitle.type"
+        ></rappider-heading>
+      </div>
+
+      <div *ngIf="item.description" class="description">
+        <rappider-text
+          [content]="item.description.content"
+          [textMode]="item.description.textMode"
+          [text]="item.description.text"
+          [typography]="item.description.typography"
+          [colorSettings]="item.description.colorSettings"
+        ></rappider-text>
+      </div>
+    </div>
+  </div>
+</nz-card>

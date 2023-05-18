@@ -1,0 +1,28 @@
+<div class="switch">
+  <ng-container *ngIf="textPosition === 'left'">
+    <rappider-text
+      *ngIf="text"
+      [textMode]="text?.textMode"
+      [content]="text?.content"
+      [text]="text?.text"
+      [colorSettings]="text?.colorSettings"
+      [typography]="text?.typography"
+    ></rappider-text>
+  </ng-container>
+  <nz-switch
+    [(ngModel)]="value"
+    [nzDisabled]="disabled"
+    [nzLoading]="loading"
+    [nzSize]="size"
+  ></nz-switch>
+  <ng-container *ngIf="textPosition !== 'left'">
+    <rappider-text
+      *ngIf="text"
+      [textMode]="text?.textMode"
+      [content]="text?.content"
+      [text]="text?.text"
+      [colorSettings]="text?.colorSettings"
+      [typography]="text?.typography"
+    ></rappider-text>
+  </ng-container>
+</div>

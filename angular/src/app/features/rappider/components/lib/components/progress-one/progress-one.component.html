@@ -1,0 +1,42 @@
+<nz-card>
+  <div *ngIf="title" class="title">
+    <rappider-heading
+      [content]="title.content"
+      [type]="title.type"
+    ></rappider-heading>
+  </div>
+  <div class="text-center m-v-45">
+    <nz-progress
+      [nzPercent]="percent"
+      [nzType]="type"
+      [nzWidth]="width"
+      [nzStrokeWidth]="strokeWidth"
+      [nzFormat]="innerContentFormat"
+      [nzStatus]="status"
+    ></nz-progress>
+  </div>
+  <div *ngIf="showBadge" class="d-flex justify-content-center">
+    <nz-badge nzStatus="default" [nzColor]="badgeColor"></nz-badge>
+    <span class="content-area">
+      <rappider-text
+        *ngIf="badgeContent1"
+        [content]="badgeContent1.content"
+        [textMode]="badgeContent1.textMode"
+        [text]="badgeContent1.text"
+        [typography]="badgeContent1.typography"
+        [colorSettings]="badgeContent1.colorSettings"
+      ></rappider-text>
+      <span *ngIf="showPercentInBadge" class="font-weight-semibold"
+        >{{ percent }} %</span
+      >
+      <rappider-text
+        *ngIf="badgeContent2"
+        [content]="badgeContent2.content"
+        [textMode]="badgeContent2.textMode"
+        [text]="badgeContent2.text"
+        [typography]="badgeContent2.typography"
+        [colorSettings]="badgeContent2.colorSettings"
+      ></rappider-text>
+    </span>
+  </div>
+</nz-card>

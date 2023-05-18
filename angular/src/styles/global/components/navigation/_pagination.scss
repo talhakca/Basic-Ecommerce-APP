@@ -1,0 +1,209 @@
+.ant-pagination {
+  font-family: $font-family-base;
+  font-size: var(--main-font-size);
+  line-height: $line-height-base;
+  color: var(--text-color);
+
+  .ant-select {
+    color: var(--text-color);
+  }
+
+  .ant-select-selection--single,
+  .ant-select-selection--multiple {
+    height: $pagination-size;
+  }
+
+  .ant-select-selection__rendered {
+    line-height: $pagination-size;
+  }
+
+  .ant-select-selection-selected-value {
+    font-size: var(--subtext-font-size);
+  }
+
+  .ant-select-sm {
+    .ant-select-selection--single,
+    .ant-select-selection--multiple {
+      height: $pagination-size-sm;
+    }
+
+    .ant-select-selection__rendered {
+      line-height: $pagination-size-sm;
+    }
+  }
+}
+
+.ant-pagination-item {
+  font-family: $font-family-base;
+  background-color: transparent;
+  min-width: $pagination-size;
+  height: $pagination-size;
+  border: var(--border-size-x) solid transparent;
+  border-radius: $border-radius-circle;
+
+  a {
+    color: var(--text-color);
+  }
+
+  &:hover,
+  &:focus {
+    border-color: transparent;
+
+    a {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.ant-pagination-item-ellipsis {
+  color: var(--text-color) !important;
+}
+
+.ant-pagination-item-link-icon {
+  color: var(--primary-color) !important;
+}
+
+.ant-pagination-item-active {
+  border-color: var(--primary-color);
+  font-weight: $font-weight-normal;
+  background-color: var(--primary-color);
+
+  a {
+    color: $white !important;
+  }
+
+  &:hover,
+  &:focus {
+    a {
+      color: $white;
+    }
+  }
+}
+
+.ant-pagination-next,
+.ant-pagination-prev {
+  i {
+    color: var(--text-color);
+  }
+
+  .ant-pagination-item-link {
+    border: var(--border-size-x) solid var(--primary-border-color);
+    border-radius: $border-radius-circle;
+    cursor: pointer;
+    background-color: var(--default-color);
+  }
+
+  a {
+    color: var(--text-color);
+  }
+
+  &:focus,
+  &:hover {
+    .ant-pagination-item-link {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    a,
+    i {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.ant-pagination-disabled {
+  .ant-pagination-item-link {
+    border-color: var(--disabled-color);
+    color: var(--disabled-text-color);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  a {
+    border-color: var(--disabled-color);
+    color: var(--disabled-text-color);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &:hover,
+  &:focus {
+    a,
+    .ant-pagination-item-link {
+      border-color: var(--disabled-color);
+      color: var(--disabled-text-color);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}
+
+.ant-pagination-options-quick-jumper {
+  input {
+    padding: 4px 11px;
+    height: $pagination-size;
+    font-size: $font-size-base;
+    line-height: 1.5;
+    color: $gray-dark;
+    background-color: $white;
+    background-image: none;
+    border: var(--border-size-x) solid var(--primary-border-color);
+    border-radius: var(--border-radius-2x);
+    margin: 0 10px;
+    width: 50px;
+
+    &:hover,
+    &:focus {
+      border-color: var(--primary-color);
+    }
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 2px var(--focus-color);
+    }
+  }
+}
+
+.ant-pagination.mini {
+  .ant-pagination-options-quick-jumper {
+    height: $pagination-size-sm;
+    line-height: $pagination-size-sm;
+
+    input {
+      position: relative;
+      display: inline-block;
+      padding: 4px 11px;
+      height: $pagination-size-sm;
+      font-size: var(--subtext-font-size);
+      line-height: 1.5;
+      color: $gray-dark;
+      background-color: $white;
+      border: var(--border-size-x) solid var(--primary-border-color);
+      border-radius: var(--border-radius-2x);
+
+      &:hover,
+      &:focus {
+        border-color: var(--primary-color);
+      }
+    }
+  }
+}
+
+.ant-pagination-simple {
+  .ant-pagination-simple-pager {
+    input {
+      margin-right: 8px;
+      background-color: var(--input-background-color);
+      border-radius: var(--border-radius-2x);
+      border: var(--border-size-x) solid var(--primary-border-color);
+      padding: 0 6px;
+      text-align: center;
+      color: var(--text-color);
+
+      &:hover,
+      &:focus {
+        border-color: var(--primary-color);
+      }
+    }
+  }
+}

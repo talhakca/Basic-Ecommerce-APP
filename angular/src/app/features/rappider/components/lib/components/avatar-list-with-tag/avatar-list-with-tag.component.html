@@ -1,0 +1,80 @@
+<nz-card>
+  <div class="card-header-area">
+    <div *ngIf="cardTitle" class="card-title">
+      <rappider-heading
+        [type]="cardTitle.type"
+        [content]="cardTitle.content"
+      ></rappider-heading>
+    </div>
+    <div *ngIf="button">
+      <rappider-button
+        [type]="button.type"
+        [text]="button.text"
+        [shape]="button.shape"
+        [size]="button.size"
+        [transparent]="button.transparent"
+        [loading]="button.loading"
+        [block]="button.block"
+        [disabled]="button.disabled"
+        [colorType]="button.colorType"
+        [icon]="button.icon"
+        [formButtonType]="button?.formButtonType"
+        [borderSettings]="button?.borderSettings"
+        [customSizeSettings]="button?.customSizeSettings"
+        [customColorSettings]="button?.customColorSettings"
+        [shadowSettings]="button?.shadowSettings"
+        [paddingSettings]="button?.paddingSettings"
+        [marginSettings]="button?.marginSettings"
+        (click)="onButtonClick($event)"
+      ></rappider-button>
+    </div>
+  </div>
+
+  <div class="list">
+    <nz-list nzItemLayout="horizontal">
+      <nz-list-item *ngFor="let item of listItem" [nzContent]="tagTemplate">
+        <nz-list-item-meta
+          [nzTitle]="titleTemplate"
+          [nzAvatar]="item?.avatarUrl"
+          [nzDescription]="subtitleTemplate"
+        >
+          <ng-template #titleTemplate>
+            <div *ngIf="item.title" class="item-title">
+              <rappider-text
+                [content]="item.title.content"
+                [textMode]="item.title.textMode"
+                [text]="item.title.text"
+                [typography]="item.title.typography"
+                [colorSettings]="item.title.colorSettings"
+              ></rappider-text>
+            </div>
+          </ng-template>
+
+          <ng-template #subtitleTemplate>
+            <div *ngIf="item.subtitle" class="item-subtitle">
+              <rappider-text
+                [content]="item.subtitle.content"
+                [textMode]="item.subtitle.textMode"
+                [text]="item.subtitle.text"
+                [typography]="item.subtitle.typography"
+                [colorSettings]="item.subtitle.colorSettings"
+              ></rappider-text>
+            </div>
+          </ng-template>
+
+          <ng-template #tagTemplate>
+            <rappider-tag
+              *ngIf="item.itemTag"
+              class="item-tag"
+              [text]="item.itemTag.text"
+              [color]="item.itemTag.color"
+              [mode]="item.itemTag.mode"
+              [checked]="item.itemTag.checked"
+            >
+            </rappider-tag>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </nz-list>
+  </div>
+</nz-card>

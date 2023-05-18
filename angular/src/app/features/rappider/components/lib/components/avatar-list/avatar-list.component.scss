@@ -1,0 +1,23 @@
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--margin-4x);
+}
+
+.avatar-card-body {
+  .avatar {
+    margin-right: var(--margin-x);
+    margin-bottom: var(--margin-x);
+    display: inline-block;
+    cursor: pointer;
+
+    ::ng-deep i {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.title {
+  margin: 0px;
+}

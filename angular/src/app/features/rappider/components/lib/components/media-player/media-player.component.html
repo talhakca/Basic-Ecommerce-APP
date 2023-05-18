@@ -1,0 +1,60 @@
+<vm-player
+  *ngIf="visible"
+  [aspectRatio]="aspectRatio"
+  [autopause]="autoPause"
+  [autoplay]="autoPlay"
+  [controls]="controls"
+  [currentTime]="currentTime"
+  [language]="language"
+  [loop]="loop"
+  [muted]="muted"
+  [playbackRate]="playbackRate"
+  [playsinline]="playsInline"
+  [shouldRenderNativeTextTracks]="shouldRenderNativeTextTracks"
+  [theme]="theme"
+  [volume]="volume"
+  (vmLoadStart)="onLoadStart($event)"
+  (vmBufferedChange)="onBufferedChange($event)"
+  (vmBufferingChange)="onBufferingChange($event)"
+  (vmVolumeChange)="onVolumeChange($event)"
+  (vmMutedChange)="onMutedChange($event)"
+  (vmPausedChange)="onPausedChange($event)"
+  (vmCurrentTimeChange)="onCurrentTimeChange($event)"
+  (vmFullscreenChange)="onFullscreenChange($event)"
+  (vmPiPChange)="onPiPChange($event)"
+  (vmMediaTypeChange)="onMediaTypeChange($event)"
+  (vmLanguageChange)="onLanguageChange($event)"
+  (vmPlay)="onPlay($event)"
+  (vmPlaybackReady)="onPlaybackReady($event)"
+  (vmPlaybackStarted)="onPlaybackStarted($event)"
+  (vmPlaybackEnd)="onPlaybackEnd($event)"
+  (vmPlaybackQualityChange)="onPlaybackQualityChange($event)"
+  (vmPlaybackRateChange)="onPlaybackRateChange($event)"
+  (vmSeekingChange)="onSeekingChange($event)"
+  (vmSeeked)="onSeeked($event)"
+  (vmError)="onError($event)"
+>
+  <vm-video *ngIf="provider === Provider.Default" [poster]="poster">
+    <source [src]="source" />
+    <ng-container *ngFor="let track of tracks">
+      <track
+        *ngIf="track"
+        [default]="track.isDefault"
+        [kind]="track.kind"
+        [src]="track.source"
+        [srclang]="track.sourceLanguage"
+        [label]="track.label"
+      />
+    </ng-container>
+  </vm-video>
+
+  <vm-youtube
+    *ngIf="provider === Provider.Youtube"
+    [poster]="poster"
+    [cookies]="cookies"
+    [videoId]="videoId"
+  ></vm-youtube>
+
+  <!-- if controls is not visible show custom component. using vm-default-ui component temprorary -->
+  <vm-default-ui *ngIf="!controls"></vm-default-ui>
+</vm-player>

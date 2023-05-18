@@ -1,0 +1,94 @@
+$primary-padding: 20px;
+
+i {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+span {
+  font-size: 16px;
+}
+
+.sidenav-container {
+  height: 100vh;
+  background: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+
+  mat-sidenav {
+    min-width: 50px;
+  }
+}
+
+.sidenav-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .sidenav-header {
+    padding: $primary-padding;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    .sidenav-avatar-wrapper {
+      border: 1px solid transparent;
+      overflow: hidden;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+
+      .sidenav-avatar {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+
+  .sidenav-body {
+    flex: 1;
+
+    .fa-angle-up {
+      transition: all 150ms;
+    }
+
+    ul,
+    li {
+      padding: 0px;
+    }
+
+    ::ng-deep {
+      button {
+        width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        .mat-button-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .sidenav-footer {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      width: 100%;
+      padding: 0px $primary-padding;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.card-area {
+  display: inline-block;
+  margin-left: var(--margin-3x);
+}
+
+.title {
+  margin-top: var(--margin-6x);
+}
+
+.additional-content {
+  margin-top: var(--margin-6x);
+  margin-bottom: var(--margin-6x);
+}
+
+.button-area {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: var(--margin-6x);
+}

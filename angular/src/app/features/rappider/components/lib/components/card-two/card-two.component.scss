@@ -1,0 +1,53 @@
+.image {
+  height: auto;
+  width: 100%;
+}
+
+.container-area {
+  position: relative;
+}
+
+.tag-area {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+}
+
+.title-area {
+  margin-top: var(--margin-4x);
+}
+
+a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+section {
+  padding: var(--card-padding);
+  margin-bottom: 0px;
+}
+
+.content-area {
+  margin-top: var(--margin-4x);
+  text-align: justify;
+}
+
+.profile-image {
+  border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 35px;
+  width: 35px;
+}
+
+.source-name-area {
+  display: inline-block;
+  margin-left: var(--margin-2x);
+  color: var(--primary-text-color);
+}
+
+.img-area {
+  display: inline-block;
+}

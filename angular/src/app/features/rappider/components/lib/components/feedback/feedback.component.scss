@@ -1,0 +1,24 @@
+.title {
+  text-align: center;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--title-font-size);
+}
+
+.sub-title {
+  text-align: center;
+}
+
+.feedback {
+  ::ng-deep {
+    .feedback-icon {
+      font-size: 90px;
+    }
+    .title {
+      color: var(--primary-text-color);
+    }
+    .sub-title {
+      color: var(--text-color);
+      font-size: var(--main-font-size);
+    }
+  }
+}

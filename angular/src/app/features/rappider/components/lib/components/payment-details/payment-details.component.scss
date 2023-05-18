@@ -1,0 +1,34 @@
+.payment-details {
+  padding: var(--card-padding);
+  border: var(--border-size-x) solid var(--primary-border-color);
+  border-radius: var(--border-radius-2x);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  font-weight: var(--font-weight-bold);
+  line-height: var(line-height-base);
+  padding: var(--padding-3x);
+  font-size: var(--main-font-size);
+}
+
+.card-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-area {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin-left: var(--margin-2x);
+}
+
+.button {
+  margin-right: var(--margin-2x);
+}

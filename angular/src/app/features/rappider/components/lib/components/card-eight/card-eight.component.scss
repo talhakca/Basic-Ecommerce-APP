@@ -1,0 +1,24 @@
+.card-eight-area {
+  display: block;
+}
+
+.card-eight-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.number-text {
+  font-size: var(--font-size-x-large);
+}
+
+.text-area {
+  text-align: right;
+  margin-top: var(--margin-3x);
+  margin-bottom: var(--margin-3x);
+}
+
+.icon {
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-xlarge);
+}

@@ -1,0 +1,51 @@
+.ant-picker-dropdown {
+  color: var(--text-color);
+  background-color: var(--component-inner-background-color);
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  position: absolute;
+  z-index: $zindex-dropdown;
+}
+
+.ant-picker-header {
+  color: var(--primary-text-color);
+  border-bottom: var(--border-size-x) solid var(--primary-border-color);
+}
+
+.ant-picker-panel-container {
+  background-color: var(--input-background-color);
+}
+
+.ant-picker-time-panel-column {
+  > li {
+    &.ant-picker-time-panel-cell {
+      .ant-picker-time-panel-cell-inner {
+        color: var(--text-color);
+
+        &:hover {
+          background: var(--default-hover-color);
+        }
+      }
+    }
+
+    &.ant-picker-time-panel-cell-selected {
+      .ant-picker-time-panel-cell-inner {
+        color: var(--primary-color);
+        background: var(--focus-color);
+        font-weight: $font-weight-semibold;
+
+        &:hover {
+          background: var(--focus-color);
+        }
+      }
+    }
+  }
+
+  &:not(:first-child) {
+    border-left: var(--border-size-x) solid var(--primary-border-color);
+  }
+}
+
+.ant-picker-time-panel-column::after {
+  height: 0px;
+}

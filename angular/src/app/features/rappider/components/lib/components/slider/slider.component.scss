@@ -1,0 +1,48 @@
+.stick {
+  .ant-slider-handle {
+    width: 1px;
+    border-radius: 0px;
+  }
+
+  .ant-slider-dot {
+    border-radius: 0px;
+    width: 0.2rem;
+    margin-left: 0px;
+  }
+}
+
+.slider::ng-deep {
+  .ant-slider {
+    &:hover {
+      .ant-slider-rail {
+        background-color: var(--slider-background-color);
+      }
+      .ant-slider-track {
+        background-color: var(--slider-border-color);
+      }
+      .ant-slider-handle {
+        border-color: var(--slider-border-color);
+      }
+    }
+  }
+
+  .ant-slider-rail {
+    background-color: var(--slider-background-color);
+  }
+  .ant-slider-track {
+    background-color: var(--slider-border-color);
+  }
+  .ant-slider-handle {
+    border-color: var(--slider-border-color);
+
+    &:focus {
+      border-color: var(--slider-border-color);
+    }
+  }
+  .ant-slider-dot {
+    border-color: var(--slider-background-color);
+  }
+  .ant-slider-dot-active {
+    border-color: var(--slider-border-color);
+  }
+}

@@ -1,0 +1,49 @@
+<rappider-title-toolbar
+  [mainTitle]="title?.mainTitle"
+  [options]="title?.options"
+></rappider-title-toolbar>
+
+<section>
+  <div class="search-filter">
+    <rappider-input-group
+      [(ngModel)]="searchText"
+      [textbox]="inputGroupConfig?.textbox"
+      [suffixIcon]="inputGroupConfig?.suffixIcon"
+    >
+    </rappider-input-group>
+    <ng-container>
+      <rappider-select
+        [options]="selectConfig?.options"
+        [settings]="selectConfig?.settings"
+        [placeholder]="selectConfig?.placeholder"
+        (valueChange)="onSelectedTagsChange($event)"
+      ></rappider-select>
+    </ng-container>
+  </div>
+</section>
+
+<section>
+  <ng-container *ngIf="!isLoading; else loadingTemplate">
+    <rappider-card-one-list
+      [items]="getDataWithPagination()"
+      [itemCountPerRow]="itemCountPerRow"
+      [showTitleOnImage]="showTitleOnImage"
+      [showDescriptionOnImage]="showDescriptionOnImage"
+      (cardClick)="onCardClick($event)"
+    ></rappider-card-one-list>
+  </ng-container>
+</section>
+
+<ng-template #loadingTemplate>
+  <nz-skeleton [nzActive]="true"></nz-skeleton>
+</ng-template>
+<rappider-pagination
+  [pageIndex]="paginationConfig?.pageIndex"
+  [total]="getDisplayedData()?.length"
+  [pageSize]="paginationConfig?.pageSize"
+  [showTotal]="rangeTemplate"
+  (pageIndexChange)="onPageIndexChange($event)"
+></rappider-pagination>
+<ng-template #rangeTemplate let-range="range" let-total>
+  {{ range[0] }}-{{ range[1] }} of {{ getDisplayedData()?.length }} items
+</ng-template>

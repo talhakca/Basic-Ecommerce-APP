@@ -1,0 +1,33 @@
+<nz-card class="card-area">
+  <div class="cart-thirteen">
+    <div
+      class="img-area"
+      [style.background-image]="setUrlForBackgroundImage()"
+      [style.width]="backgroundImage.width"
+    >
+      <div class="content-container">
+        <div class="text-area" *ngIf="titleContent">
+          <rappider-heading
+            [content]="titleContent.content"
+            [type]="titleContent.type"
+          ></rappider-heading>
+        </div>
+        <div class="heading-container" *ngIf="subtitle">
+          <rappider-heading
+            [content]="subtitle.content"
+            [type]="subtitle.type"
+          ></rappider-heading>
+        </div>
+        <div class="content-area" *ngIf="additionalContent">
+          <rappider-text
+            [content]="additionalContent.content"
+            [textMode]="additionalContent.textMode"
+            [text]="additionalContent.text"
+            [typography]="additionalContent.typography"
+            [colorSettings]="additionalContent.colorSettings"
+          ></rappider-text>
+        </div>
+      </div>
+    </div>
+  </div>
+</nz-card>

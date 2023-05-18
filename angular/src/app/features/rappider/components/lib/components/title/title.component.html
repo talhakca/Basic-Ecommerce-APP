@@ -1,0 +1,23 @@
+<!-- ----------------------------------------------------------------------------------------- -->
+<!-- LOADING SKELETON -->
+<section *ngIf="!title?.length">
+  <nz-skeleton [nzActive]="true" nzParagraph></nz-skeleton>
+</section>
+<!-- / LOADING SKELETON -->
+<!-- ----------------------------------------------------------------------------------------- -->
+
+<!-- ----------------------------------------------------------------------------------------- -->
+<!-- TITLE -->
+<section class="content">
+  <div *ngIf="mainTitle" class="main-title">
+    <rappider-text [content]="mainTitle"></rappider-text>
+  </div>
+  <div *ngIf="title?.length">
+    <div *ngFor="let titleItem of title; let i = index" class="title">
+      {{ titleItem | translate
+      }}{{ i === title.length - 1 ? '' : seperator || DEFAULT_TITLE_SEPERATOR }}
+    </div>
+  </div>
+</section>
+<!-- / TITLE -->
+<!-- ----------------------------------------------------------------------------------------- -->

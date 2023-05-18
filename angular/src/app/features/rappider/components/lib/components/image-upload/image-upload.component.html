@@ -1,0 +1,55 @@
+<rappider-spin [spinning]="isLoading">
+  <input
+    #fileUploadInputElement
+    type="file"
+    style="display: none"
+    (change)="onFileSelect($event.target.files)"
+  />
+  <div
+    [class]="uploadedImage ? 'image-upload-container' : 'empty-image-container'"
+  >
+    <div *ngIf="uploadedImage" class="image-container">
+      <rappider-image
+        [source]="uploadedImage?.source"
+        [alternateText]="uploadedImage?.alternateText"
+        [width]="uploadedImage?.width"
+        [height]="uploadedImage?.height"
+        [placeholder]="uploadedImage?.placeholder"
+        [fallback]="uploadedImage?.fallback"
+        [disablePreview]="uploadedImage?.disablePreview"
+        [borderSettings]="uploadedImage?.borderSettings"
+        [customSizeSettings]="uploadedImage?.width"
+        [shadowSettings]="uploadedImage?.shadowSettings"
+        [marginSettings]="uploadedImage?.marginSettings"
+        [paddingSettings]="uploadedImage?.paddingSettings"
+      ></rappider-image>
+    </div>
+    <div class="upload-button">
+      <rappider-button
+        *ngIf="uploadButtonVisibility"
+        [key]="uploadButton.key"
+        [text]="uploadButton.text"
+        [type]="uploadButton.type"
+        [shape]="uploadButton.shape"
+        [size]="uploadButton.size"
+        [transparent]="uploadButton.transparent"
+        [loading]="uploadButton.loading"
+        [block]="uploadButton.block"
+        [disabled]="uploadButton.disabled"
+        [icon]="uploadButton.icon"
+        [colorType]="uploadButton.colorType"
+        [popconfirmTitle]="uploadButton.popconfirmTitle"
+        [emitWithoutPopconfirm]="uploadButton.emitWithoutPopconfirm"
+        [iconPlacement]="uploadButton.iconPlacement"
+        [formButtonType]="uploadButton?.formButtonType"
+        [borderSettings]="uploadButton?.borderSettings"
+        [customSizeSettings]="uploadButton?.customSizeSettings"
+        [customColorSettings]="uploadButton?.customColorSettings"
+        [shadowSettings]="uploadButton?.shadowSettings"
+        [paddingSettings]="uploadButton?.paddingSettings"
+        [marginSettings]="uploadButton?.marginSettings"
+        (click)="fileUploadInputElement.click()"
+      ></rappider-button>
+    </div>
+  </div>
+</rappider-spin>

@@ -1,0 +1,35 @@
+.container-fluid {
+  display: flex;
+  gap: 50px;
+}
+
+.image-container {
+  width: 400px;
+}
+
+.category-title {
+  color: #666;
+  font-size: 11px;
+  letter-spacing: .34px;
+  margin-top: 1px;
+}
+
+img {
+  border-radius: 3px;
+}
+
+.distributor {
+  text-decoration: none;
+  font-family: source_sans_prosemibold, serif;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  color: #333;
+  letter-spacing: .5px;
+  font-size: 20px;
+  line-height: 1.3px;
+  font-weight: 500;
+}
+
+.through-line {
+  text-decoration: line-through;
+}

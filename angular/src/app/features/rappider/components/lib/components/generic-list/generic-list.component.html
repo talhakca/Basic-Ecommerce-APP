@@ -1,0 +1,52 @@
+<nz-list
+  class="list"
+  [nzDataSource]="data"
+  [nzRenderItem]="item"
+  nzItemLayout="horizontal"
+  [nzLoading]="loading"
+>
+  <ng-template #item let-item>
+    <nz-list-item>
+      <nz-list-item-meta
+        class="item-container"
+        [nzTitle]="nzTitle"
+        [nzAvatar]="item?.imageUrl"
+        [nzDescription]="nzDescription"
+      >
+        <ng-template #nzTitle>
+          <div
+            *ngIf="item.title"
+            class="title"
+            (click)="onTitleClick(item)"
+            [ngClass]="{ 'cursor-pointer': emitable }"
+          >
+            <rappider-heading
+              [content]="item.title?.content"
+              [type]="item.title?.type"
+            ></rappider-heading>
+          </div>
+          <div *ngIf="item.subTitle" class="sub-title">
+            <rappider-heading
+              [content]="item.subTitle?.content"
+              [type]="item.subTitle?.type"
+            ></rappider-heading>
+          </div>
+          <div *ngIf="item.date" class="date">
+            {{ item?.date | formatDate }}
+          </div>
+        </ng-template>
+        <ng-template #nzDescription>
+          <div class="description">
+            <rappider-text
+              [content]="item.description?.content"
+              [textMode]="item.description?.textMode"
+              [text]="item.description?.text"
+              [typography]="item.description?.typography"
+              [colorSettings]="item.description?.colorSettings"
+            ></rappider-text>
+          </div>
+        </ng-template>
+      </nz-list-item-meta>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

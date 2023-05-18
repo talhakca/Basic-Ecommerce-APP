@@ -1,0 +1,131 @@
+<mat-sidenav-container
+  [hasBackdrop]="false"
+  [autosize]="true"
+  class="sidenav-container"
+>
+  <mat-sidenav
+    [opened]="true"
+    [disableClose]="true"
+    mode="side"
+    (click)="openDrawer($event)"
+  >
+    <div class="sidenav-inner">
+      <!-- Header -->
+      <div *ngIf="header" class="sidenav-header">
+        <div *ngIf="header.avatarImageUrl" class="sidenav-avatar-wrapper">
+          <img [src]="header.avatarImageUrl" class="sidenav-avatar" />
+        </div>
+        <div
+          *ngIf="
+            (header.title || header.subtitle) && (opened || !isCollapsible)
+          "
+          class="sidenav-title-subtitle"
+        >
+          <rappider-heading
+            *ngIf="header.title"
+            class="header-title"
+            [content]="header.title.content"
+            [type]="header.title.type"
+          ></rappider-heading>
+          <rappider-heading
+            *ngIf="header.subtitle"
+            class="header-subtitle"
+            [content]="header.subtitle.content"
+            [type]="header.subtitle.type"
+          ></rappider-heading>
+        </div>
+      </div>
+      <!-- Body -->
+      <div class="sidenav-body">
+        <ul>
+          <ng-container
+            *ngTemplateOutlet="
+              recursiveMenuList;
+              context: { menu: menu, depth: 1 }
+            "
+          ></ng-container>
+          <ng-template #recursiveMenuList let-menus="menu" let-depth="depth">
+            <ng-container *ngFor="let menu of menus">
+              <li
+                *ngIf="menu?.children?.length; else menuItem"
+                (click)="menu.isExpanded = !menu.isExpanded"
+              >
+                <button
+                  [ngStyle]="{ 'padding-left': depth * 20 + 'px' }"
+                  mat-button
+                >
+                  <div class="menu-content">
+                    <i *ngIf="menu.icon" [class]="menu.icon + ' fa-fw'"></i>
+                    <span *ngIf="menu.text && (opened || !isCollapsible)">
+                      {{ menu.text }}
+                    </span>
+                  </div>
+                  <div *ngIf="opened || !isCollapsible" class="submenu-icon">
+                    <i
+                      [class]="
+                        menu.isExpanded
+                          ? 'fa-regular fa-angle-up'
+                          : 'fa-regular fa-angle-up fa-rotate-180'
+                      "
+                    ></i>
+                  </div>
+                </button>
+              </li>
+              <ul *ngIf="menu.isExpanded">
+                <ng-container
+                  *ngTemplateOutlet="
+                    recursiveMenuList;
+                    context: { menu: menu?.children, depth: depth + 1 }
+                  "
+                >
+                </ng-container>
+              </ul>
+
+              <ng-template #menuItem>
+                <li>
+                  <button
+                    [ngStyle]="{ 'padding-left': depth * 20 + 'px' }"
+                    mat-button
+                    (click)="navigate(menu.route)"
+                  >
+                    <div class="menu-content">
+                      <i *ngIf="menu.icon" [class]="menu.icon + ' fa-fw'"></i>
+                      <span *ngIf="menu.text && (opened || !isCollapsible)">
+                        {{ menu.text }}
+                      </span>
+                    </div>
+                  </button>
+                </li>
+              </ng-template>
+            </ng-container>
+          </ng-template>
+        </ul>
+      </div>
+      <!-- Footer -->
+      <div *ngIf="footer" class="sidenav-footer">
+        <button
+          *ngFor="let item of footer.items"
+          mat-button
+          (click)="navigate(item.route)"
+        >
+          <i *ngIf="item.icon" [class]="item.icon + ' fa-fw'"></i>
+          <span *ngIf="item.text && (opened || !isCollapsible)">
+            {{ item.text }}
+          </span>
+        </button>
+        <button
+          *ngIf="isCollapsible && opened"
+          mat-button
+          (click)="closeDrawer($event)"
+        >
+          <i *ngIf="!opened" class="fa-regular fa-angle-right fa-fw"></i>
+          <i *ngIf="opened" class="fa-regular fa-angle-left fa-fw"></i>
+          <span>Collapse</span>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

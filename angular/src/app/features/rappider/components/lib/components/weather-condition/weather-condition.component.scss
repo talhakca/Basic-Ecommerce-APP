@@ -1,0 +1,28 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.additional-content {
+  padding: var(--padding-2x) 0px;
+  rappider-icon {
+    margin-right: var(--margin-3x);
+  }
+}
+
+.additional-area {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--padding-3x) 0px;
+}
+
+.text-left,
+.text-center,
+.text-right {
+  width: 100%;
+}
+
+.slider {
+  padding: var(--padding-2x);
+}

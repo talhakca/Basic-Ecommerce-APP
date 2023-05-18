@@ -1,0 +1,23 @@
+::ng-deep .date-picker {
+  .ant-picker-input,
+  input {
+    display: none;
+  }
+}
+
+::ng-deep .date-picker-panel {
+  .ant-picker-panel-container {
+    z-index: -1;
+  }
+}
+
+.date-picker-textbox {
+  rappider-textbox {
+    position: absolute;
+    z-index: 2;
+  }
+}
+
+.date-picker-container {
+  position: relative;
+}

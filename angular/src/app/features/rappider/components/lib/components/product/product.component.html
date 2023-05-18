@@ -1,0 +1,56 @@
+<div class="img-area">
+  <rappider-image
+    *ngIf="image"
+    [source]="image?.source"
+    [width]="image?.width"
+    [placeholder]="image?.placeholder"
+    [height]="image?.height"
+    [fallback]="image?.fallback"
+    [alternateText]="image?.alternateText"
+    [borderSettings]="image?.borderSettings"
+    [customSizeSettings]="image?.width"
+    [shadowSettings]="image?.shadowSettings"
+    [marginSettings]="image?.marginSettings"
+    [paddingSettings]="image?.paddingSettings"
+  ></rappider-image>
+  <div *ngIf="tag?.text" class="tag-area">
+    <rappider-tag
+      [text]="tag.text"
+      [color]="tag.color"
+      [mode]="tag.mode"
+      [checked]="tag.checked"
+    ></rappider-tag>
+  </div>
+</div>
+<div *ngIf="title" class="title">
+  <rappider-heading
+    [content]="title.content"
+    [type]="title.type"
+  ></rappider-heading>
+</div>
+<div class="content">
+  <span [innerHTML]="content"></span>
+</div>
+<div *ngIf="button" class="button-area">
+  <rappider-button
+    [transparent]="button.transparent"
+    [colorType]="button.colorType"
+    [shape]="button.shape"
+    [type]="button.type"
+    [text]="button.text"
+    [size]="button.size"
+    [icon]="button.icon"
+    [loading]="button.loading"
+    [block]="button.block"
+    [disabled]="button.disabled"
+    [icon]="button.icon"
+    [formButtonType]="button?.formButtonType"
+    [borderSettings]="button?.borderSettings"
+    [customSizeSettings]="button?.customSizeSettings"
+    [customColorSettings]="button?.customColorSettings"
+    [shadowSettings]="button?.shadowSettings"
+    [paddingSettings]="button?.paddingSettings"
+    [marginSettings]="button?.marginSettings"
+    (click)="onButtonClick()"
+  ></rappider-button>
+</div>

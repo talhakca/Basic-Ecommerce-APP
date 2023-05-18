@@ -1,0 +1,71 @@
+<div class="time-notice-card row">
+  <div *ngIf="startTime" class="start-time col-md-6 col-sm-12">
+    <div [class]="'time-box-' + color" class="time-box">
+      <div class="time-month">
+        {{ startTime | date: 'MMMM' }}
+      </div>
+      <div class="time-day">
+        {{ startTime | date: 'dd' }}
+      </div>
+    </div>
+
+    <div class="start-time-text">
+      <div class="date-time">
+        {{ startTime | date: 'EEEE' }}
+        <rappider-text
+          *ngIf="startTimeText"
+          [content]="startTimeText.content"
+          [textMode]="startTimeText.textMode"
+          [text]="startTimeText.text"
+          [typography]="startTimeText.typography"
+          [colorSettings]="startTimeText.colorSettings"
+        ></rappider-text>
+      </div>
+
+      <div *ngIf="startTimeClock" class="time-clock">
+        <rappider-text
+          [content]="startTimeClock.content"
+          [textMode]="startTimeClock.textMode"
+          [text]="startTimeClock.text"
+          [typography]="startTimeClock.typography"
+          [colorSettings]="startTimeClock.colorSettings"
+        ></rappider-text>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="endTime" class="end-time col-md-6 col-sm-12">
+    <div [class]="'time-box-' + color" class="time-box">
+      <div class="time-month">
+        {{ endTime | date: 'MMMM' }}
+      </div>
+      <div class="time-day">
+        {{ endTime | date: 'dd' }}
+      </div>
+    </div>
+
+    <div class="end-time-text">
+      <div class="date-time">
+        {{ endTime | date: 'EEEE' }}
+        <rappider-text
+          *ngIf="endTimeText"
+          [content]="endTimeText.content"
+          [textMode]="endTimeText.textMode"
+          [text]="endTimeText.text"
+          [typography]="endTimeText.typography"
+          [colorSettings]="endTimeText.colorSettings"
+        ></rappider-text>
+      </div>
+
+      <div *ngIf="endTimeClock" class="time-clock">
+        <rappider-text
+          [content]="endTimeClock.content"
+          [textMode]="endTimeClock.textMode"
+          [text]="endTimeClock.text"
+          [typography]="endTimeClock.typography"
+          [colorSettings]="endTimeClock.colorSettings"
+        ></rappider-text>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.card-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0px;
+  padding: var(--card-padding);
+}
+
+.container {
+  display: block;
+}
+
+.card-title {
+  margin-bottom: var(--margin-2x);
+}
+
+.avatar-area {
+  margin-bottom: var(--margin-3x);
+  display: flex;
+  align-items: center;
+}
+
+.author-name {
+  margin-left: var(--margin-2x);
+}
+.card-description {
+  margin-bottom: var(--margin-4x);
+}
+
+.card-button {
+  display: flex;
+  justify-content: flex-end;
+}

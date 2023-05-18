@@ -1,0 +1,47 @@
+<div class="date-picker-container">
+  <div class="date-picker-textbox">
+    <rappider-textbox
+      [(ngModel)]="textValue"
+      [placeholder]="placeholder"
+      [mask]="mask"
+      [showMaskTyped]="false"
+      [dropSpecialCharacters]="false"
+      [borderSettings]="borderSettings"
+      [sizeSettings]="customSizeSettings"
+      [colorSettings]="colorSettings"
+      [marginSettings]="marginSettings"
+      [paddingSettings]="paddingSettings"
+      [boxShadowSettings]="shadowSettings"
+      [typographySettings]="typography"
+      (ngModelChange)="onTextChange($event)"
+      (focus)="onFocusInEvent()"
+      (focusout)="onFocusOutEvent()"
+    ></rappider-textbox>
+  </div>
+
+  <div class="date-picker">
+    <nz-date-picker
+      [(ngModel)]="value"
+      [nzDisabledDate]="disabledDate"
+      [nzInline]="false"
+      [nzShowToday]="false"
+      [ngClass]="cssClass"
+      [ngStyle]="cssStyle"
+      [nzPlaceHolder]="placeholder"
+      [nzMode]="dateMode"
+      [nzFormat]="format"
+      [nzInputReadOnly]="true"
+      [nzOpen]="isOpen"
+      [nzBorderless]="boxBorder"
+      [nzDropdownClassName]="'date-picker-panel'"
+      [nzRenderExtraFooter]="extraFooterTemplate"
+      (ngModelChange)="onDateTimeChange($event)"
+    ></nz-date-picker>
+  </div>
+
+  <ng-template #extraFooterTemplate>
+    <span *ngIf="!isValid || textValue.length < 10">
+      Date Format: <strong>{{ placeholder }}</strong></span
+    >
+  </ng-template>
+</div>

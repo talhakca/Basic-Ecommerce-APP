@@ -1,0 +1,35 @@
+<div class="badge">
+  <nz-badge
+    [nzCount]="count"
+    [nzColor]="color"
+    [nzDot]="dot"
+    [nzShowDot]="showDot"
+    [nzOverflowCount]="overflowCount || 'null'"
+    [nzShowZero]="showZero"
+    [nzStatus]="status"
+    [nzTitle]="title"
+    [nzText]="textArea"
+    [nzOffset]="offset"
+    [style.padding]="paddingSettings?.all"
+    [style.padding-top]="paddingSettings?.top"
+    [style.padding-right]="paddingSettings?.right"
+    [style.padding-bottom]="paddingSettings?.bottom"
+    [style.padding-left]="paddingSettings?.left"
+    [style.margin]="marginSettings?.all"
+    [style.margin-top]="marginSettings?.top"
+    [style.margin-right]="marginSettings?.right"
+    [style.margin-bottom]="marginSettings?.bottom"
+    [style.margin-left]="marginSettings?.left"
+  >
+    <ng-content></ng-content>
+    <ng-template #textArea>
+      <rappider-text
+        [textMode]="text?.textMode"
+        [content]="text?.content"
+        [text]="text?.text"
+        [typography]="text?.typography"
+        [colorSettings]="text?.colorSettings"
+      ></rappider-text>
+    </ng-template>
+  </nz-badge>
+</div>

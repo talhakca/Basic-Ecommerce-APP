@@ -1,0 +1,125 @@
+<form nz-form nzLayout="vertical" [formGroup]="addressForm">
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="country">
+      {{
+        'RAPPIDER_COMPONENTS_MODULE.ADDRESS_FORM_COMPONENT.COUNTRY' | translate
+      }}
+    </nz-form-label>
+    <nz-form-control [nzErrorTip]="requiredErrorTip">
+      <rappider-textbox formControlName="country"></rappider-textbox>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="street">
+      {{
+        'RAPPIDER_COMPONENTS_MODULE.ADDRESS_FORM_COMPONENT.STREET' | translate
+      }}
+    </nz-form-label>
+    <nz-form-control [nzErrorTip]="requiredErrorTip">
+      <rappider-textarea formControlName="street"></rappider-textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <div class="row">
+    <nz-form-item class="col-md-4 col-sm-12">
+      <nz-form-label nzRequired nzFor="city">
+        {{
+          'RAPPIDER_COMPONENTS_MODULE.ADDRESS_FORM_COMPONENT.CITY' | translate
+        }}
+      </nz-form-label>
+      <nz-form-control [nzErrorTip]="requiredErrorTip">
+        <rappider-textbox formControlName="city"></rappider-textbox>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="col-md-4 col-sm-12">
+      <nz-form-label nzRequired nzFor="state">
+        {{
+          'RAPPIDER_COMPONENTS_MODULE.ADDRESS_FORM_COMPONENT.STATE' | translate
+        }}
+      </nz-form-label>
+      <nz-form-control [nzErrorTip]="requiredErrorTip">
+        <rappider-textbox formControlName="state"></rappider-textbox>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="row">
+      <nz-form-item class="col-md-4 col-sm-12">
+        <nz-form-label nzRequired nzFor="city">
+          {{
+            'RAPPIDER_COMPONENTS_MODULE.ADDRESS_FORM_COMPONENT.CITY' | translate
+          }}
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="requiredErrorTip">
+          <rappider-textbox formControlName="city"></rappider-textbox>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="col-md-4 col-sm-12">
+        <nz-form-label nzRequired nzFor="state">
+          {{
+            'RAPPIDER_COMPONENTS_MODULE.ADDRESS_FORM_COMPONENT.STATE'
+              | translate
+          }}
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="requiredErrorTip">
+          <rappider-textbox formControlName="state"></rappider-textbox>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="col-md-4 col-sm-12">
+        <nz-form-label nzRequired nzFor="zip">
+          {{
+            'RAPPIDER_COMPONENTS_MODULE.ADDRESS_FORM_COMPONENT.ZIP' | translate
+          }}
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="requiredErrorTip">
+          <rappider-textbox formControlName="zip"></rappider-textbox>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <nz-form-item>
+      <rappider-button
+        [text]="submitButton?.text"
+        [type]="submitButton?.type"
+        [shape]="submitButton?.shape"
+        [size]="submitButton?.size"
+        [transparent]="submitButton?.transparent"
+        [loading]="submitButton?.loading"
+        [block]="submitButton?.loading"
+        [disabled]="submitButton?.disabled"
+        [colorType]="submitButton?.colorType"
+        [icon]="submitButton?.icon"
+        [formButtonType]="submitButton?.formButtonType"
+        [borderSettings]="submitButton?.borderSettings"
+        [customSizeSettings]="submitButton?.customSizeSettings"
+        [customColorSettings]="submitButton?.customColorSettings"
+        [shadowSettings]="submitButton?.shadowSettings"
+        [paddingSettings]="submitButton?.paddingSettings"
+        [marginSettings]="submitButton?.marginSettings"
+        (click)="submitForm()"
+      ></rappider-button>
+    </nz-form-item>
+  </div>
+
+  <nz-form-item>
+    <rappider-button
+      [text]="submitButton?.text"
+      [type]="submitButton?.type"
+      [shape]="submitButton?.shape"
+      [size]="submitButton?.size"
+      [transparent]="submitButton?.transparent"
+      [loading]="submitButton?.loading"
+      [block]="submitButton?.loading"
+      [disabled]="submitButton?.disabled"
+      [colorType]="submitButton?.colorType"
+      [icon]="submitButton?.icon"
+      (click)="submitForm()"
+    ></rappider-button>
+  </nz-form-item>
+</form>
+
+<ng-template #requiredErrorTip>
+  {{
+    'RAPPIDER_COMPONENTS_MODULE.ADDRESS_FORM_COMPONENT.REQUIRED_ERROR_TIP'
+      | translate
+  }}
+</ng-template>

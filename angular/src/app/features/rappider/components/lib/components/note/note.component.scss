@@ -1,0 +1,84 @@
+@media only screen and (max-width: 666px) {
+  .note-content-buttons {
+    align-items: baseline;
+  }
+}
+
+.note-header {
+  display: flex;
+  align-items: baseline;
+}
+
+.note-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.note-content-text {
+  display: flex;
+  flex-wrap: wrap;
+
+  .note-title,
+  .note-subtitle {
+    ::ng-deep {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        line-height: 1;
+        margin-right: var(--margin-x);
+      }
+    }
+  }
+
+  .note-title {
+    ::ng-deep {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: var(--font-weight-semibold);
+      }
+    }
+  }
+}
+
+.note-content-buttons {
+  display: flex;
+
+  ::ng-deep {
+    button {
+      color: black !important;
+      display: flex;
+      align-items: center;
+      margin-right: var(--margin-2x) !important;
+    }
+  }
+}
+
+.note-text {
+  background-color: var(--component-header-background-color);
+  min-height: var(--height-x);
+  padding: var(--padding-3x);
+  margin-top: var(--margin-2x);
+}
+
+.note-edit,
+.note-text {
+  margin: 10px 0px 0px 50px;
+}
+
+.note-edit-button {
+  margin-top: var(--margin-2x);
+  display: flex;
+}
+
+.save-button-wrapper {
+  margin-right: var(--margin-2x);
+}

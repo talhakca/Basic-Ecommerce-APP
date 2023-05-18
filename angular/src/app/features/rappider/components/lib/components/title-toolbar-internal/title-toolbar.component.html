@@ -1,0 +1,17 @@
+<!-- This title toolbar shouldn't be exposed to the component library as it has custom code for Rapider project -->
+
+<rappider-title-bar
+  [mainTitle]="mainTitle"
+  [options]="options"
+  [displayBreadcrumb]="displayBreadcrumb"
+  [switchSettings]="codeViewSwitchSettings"
+  [actionButtons]="titleBarActionButtons"
+  [dropdownMenu]="titleBarActionMenu"
+  (switchToggled)="onSwitchToggled($event)"
+  (actionButtonClick)="onTitleBarActionButtonClick($event)"
+></rappider-title-bar>
+
+<rappider-toolbar
+  *ngIf="displayToolbar"
+  [displayBackButton]="displayToolbarBackButton"
+></rappider-toolbar>

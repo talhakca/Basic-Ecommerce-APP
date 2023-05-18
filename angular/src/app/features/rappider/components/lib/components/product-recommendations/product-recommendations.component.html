@@ -1,0 +1,76 @@
+<section class="recommendation-items">
+  <div *ngIf="title" class="heading-area">
+    <rappider-heading
+      [content]="title.content"
+      [type]="title.type"
+    ></rappider-heading>
+  </div>
+
+  <div class="row items-area">
+    <section *ngFor="let item of items" class="col card-area">
+      <div class="item-properties">
+        <div *ngIf="item.image" class="image-area">
+          <rappider-image
+            [source]="item?.image?.source"
+            [width]="item?.image?.width ? item.image.width : '100%'"
+            [height]="item?.image?.height"
+            [placeholder]="item?.image?.placeholder"
+            [alternateText]="item?.image?.alternateText"
+            [fallback]="item?.image?.fallback"
+            [disablePreview]="item?.image?.disablePreview"
+            [borderSettings]="item?.image?.borderSettings"
+            [customSizeSettings]="item?.image?.width"
+            [shadowSettings]="item?.image?.shadowSettings"
+            [marginSettings]="item?.image?.marginSettings"
+            [paddingSettings]="item?.image?.paddingSettings"
+          ></rappider-image>
+        </div>
+
+        <div *ngIf="item.description" class="item-content-area">
+          <rappider-heading
+            [content]="item.description.content"
+            [type]="item.description.type"
+          ></rappider-heading>
+        </div>
+
+        <div *ngIf="item.rate">
+          <rappider-rate-display [rate]="item.rate"></rappider-rate-display>
+        </div>
+
+        <div *ngIf="item.subtitle">
+          <rappider-label [content]="item.subtitle"></rappider-label>
+        </div>
+
+        <div *ngIf="item.additionalContent">
+          <rappider-paragraph
+            [content]="item?.additionalContent?.content"
+            [customColorSettings]="item?.additionalContent?.customColorSettings"
+            [typographySettings]="item?.additinoalContent?.typographySettings"
+          ></rappider-paragraph>
+        </div>
+      </div>
+
+      <div *ngIf="item.button" class="button-area">
+        <rappider-button
+          [type]="item.button.type"
+          [shape]="item.button.shape"
+          [text]="item.button.text"
+          [icon]="item.button.icon"
+          [size]="item.button.size"
+          [transparent]="item.button.transparent"
+          [loading]="item.button.loading"
+          [block]="item.button.block"
+          [disabled]="item.button.disabled"
+          [formButtonType]="item.button?.formButtonType"
+          [borderSettings]="item.button?.borderSettings"
+          [customSizeSettings]="item.button?.customSizeSettings"
+          [customColorSettings]="item.utton?.customColorSettings"
+          [shadowSettings]="item.button?.shadowSettings"
+          [paddingSettings]="item.button?.paddingSettings"
+          [marginSettings]="item.button?.marginSettings"
+          [colorType]="item.button.colorType"
+        ></rappider-button>
+      </div>
+    </section>
+  </div>
+</section>

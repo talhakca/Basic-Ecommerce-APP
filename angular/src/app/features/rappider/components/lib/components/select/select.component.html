@@ -1,0 +1,113 @@
+<div
+  [ngClass]="
+    settings.mode === SelectMode.OptionSelect ? 'option-select' : 'select'
+  "
+>
+  <ng-container *ngIf="grouppedOptions">
+    <nz-select
+      [(ngModel)]="value"
+      [nzAllowClear]="settings?.allowClear"
+      [nzMode]="
+        (settings.mode === SelectMode.OptionSelect
+          ? SelectMode.OptionSelect
+          : settings?.mode) || DEFAULT_MODE
+      "
+      [nzDropdownMatchSelectWidth]="dropdownMatchSelectWidth"
+      [nzDropdownClassName]="dropdownClassName"
+      [nzShowSearch]="settings?.searchable"
+      [nzPlaceHolder]="placeholder || '' | translate"
+      [ngClass]="cssClass"
+      [ngStyle]="cssStyle"
+      [disabled]="disabled"
+      [nzSize]="size"
+      [nzDropdownRender]="footerTemplate"
+      [nzCustomTemplate]="customTemplate"
+      [nzOptions]="grouppedOptions"
+      (ngModelChange)="onBlur()"
+      (nzOnSearch)="onSearchTextChange($event)"
+    >
+    </nz-select>
+  </ng-container>
+  <ng-container *ngIf="!grouppedOptions">
+    <nz-select
+      [(ngModel)]="value"
+      [nzAllowClear]="settings?.allowClear"
+      [nzMode]="
+        (settings.mode === SelectMode.OptionSelect
+          ? SelectMode.Multiple
+          : settings?.mode) || DEFAULT_MODE
+      "
+      [nzSize]="size"
+      [nzMaxTagCount]="settings?.maxTagCount"
+      [nzMaxTagPlaceholder]="tagPlaceHolder"
+      [nzDropdownMatchSelectWidth]="dropdownMatchSelectWidth"
+      [nzDropdownClassName]="dropdownClassName"
+      [nzShowSearch]="settings?.searchable"
+      [nzPlaceHolder]="placeholder || '' | translate"
+      [ngClass]="cssClass"
+      [ngStyle]="cssStyle"
+      [disabled]="disabled"
+      [nzDropdownRender]="footerTemplate"
+      (ngModelChange)="onBlur()"
+      (nzOnSearch)="onSearchTextChange($event)"
+    >
+      <nz-option
+        *ngFor="let option of options"
+        [nzLabel]="option.key | translate"
+        [nzValue]="option.value"
+        [nzCustomContent]="true"
+      >
+        <div class="custom-option">
+          <rappider-icon
+            *ngIf="option.icon?.name"
+            [name]="option.icon.name"
+            [type]="option.icon.type"
+            [theme]="option.icon.theme"
+            [color]="option.icon.color"
+            [size]="option.icon.size"
+          ></rappider-icon>
+          <span>
+            {{ option.key | translate }}
+          </span>
+        </div>
+      </nz-option>
+    </nz-select>
+  </ng-container>
+
+  <ng-template #tagPlaceHolder let-selectedList
+    >+ {{ selectedList.length }}</ng-template
+  >
+
+  <ng-template #footerTemplate>
+    <div *ngIf="buttons">
+      <rappider-spin [spinning]="loading">
+        <div class="footer-template">
+          <div class="buttons-area">
+            <rappider-button
+              *ngFor="let button of buttons"
+              [type]="button?.type"
+              [shape]="button?.shape"
+              [text]="button?.text"
+              [size]="button?.size"
+              [transparent]="button?.transparent"
+              [loading]="button?.loading"
+              [block]="button?.block"
+              [disabled]="button?.disabled"
+              [colorType]="button?.colorType"
+              [icon]="button?.icon"
+              [formButtonType]="button?.formButtonType"
+              [borderSettings]="button?.borderSettings"
+              [customSizeSettings]="button?.customSizeSettings"
+              [customColorSettings]="button?.customColorSettings"
+              [shadowSettings]="button?.shadowSettings"
+              [paddingSettings]="button?.paddingSettings"
+              [marginSettings]="button?.marginSettings"
+              (click)="onButtonClick(button)"
+            >
+            </rappider-button>
+          </div>
+        </div>
+      </rappider-spin>
+    </div>
+  </ng-template>
+</div>

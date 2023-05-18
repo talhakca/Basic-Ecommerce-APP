@@ -1,0 +1,22 @@
+.ant-spin {
+  font-size: $font-size-base;
+  color: var(--primary-color);
+}
+
+.ant-spin-dot {
+  i {
+    background-color: var(--primary-color);
+  }
+}
+
+.ant-spin-nested-loading {
+  > div {
+    > .ant-spin {
+      .ant-spin-dot {
+        position: absolute;
+        left: 50%;
+        margin: -20px;
+      }
+    }
+  }
+}

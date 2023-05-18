@@ -1,0 +1,171 @@
+<!-- DEFAULT TEMPLATE CONTAINER -->
+<div class="input-template-component">
+  <nz-input-group
+    [nzAddOnAfter]="isInputOptionsVisible ? inputOptionsTemplate : null"
+  >
+    <div class="input-area">
+      <ng-template #defaultTextboxTemplate>
+        <rappider-textbox
+          [(ngModel)]="value"
+          [mask]="config?.mask"
+          [borderSettings]="config?.borderSettings"
+          [sizeSettings]="config?.sizeSettings"
+          [colorSettings]="config?.colorSettings"
+          [boxShadowSettings]="config?.boxShadowSettings"
+          [paddingSettings]="config?.paddingSettings"
+          [marginSettings]="config?.marginSettings"
+          [placeholder]="config?.placeholder"
+        ></rappider-textbox>
+      </ng-template>
+
+      <ng-container
+        *ngIf="
+          !typeAndFormat || !isTypeAndFormatSupported;
+          else supportedTemplates
+        "
+      >
+        <ng-container *ngTemplateOutlet="defaultTextboxTemplate"></ng-container>
+      </ng-container>
+
+      <ng-template #supportedTemplates>
+        <!-- STRING TEMPLATE CONTAINER -->
+        <div
+          *ngIf="
+            typeAndFormat.type === PropertyType.String ||
+            typeAndFormat.type === PropertyType.Null
+          "
+        >
+          <ng-container
+            *ngIf="
+              !typeAndFormat.format ||
+              typeAndFormat.format === PropertyFormat.UUID
+            "
+          >
+            <rappider-textbox
+              [(ngModel)]="value"
+              [mask]="config?.mask"
+              [borderSettings]="config?.borderSettings"
+              [sizeSettings]="config?.sizeSettings"
+              [colorSettings]="config?.colorSettings"
+              [boxShadowSettings]="config?.boxShadowSettings"
+              [paddingSettings]="config?.paddingSettings"
+              [marginSettings]="config?.marginSettings"
+              [placeholder]="config?.placeholder"
+            ></rappider-textbox>
+          </ng-container>
+
+          <ng-container
+            *ngIf="typeAndFormat.format === PropertyFormat.DateTime"
+          >
+            <rappider-date-picker
+              [(ngModel)]="value"
+              [borderSettings]="config?.borderSettings"
+              [customSizeSettings]="config?.customSizeSettings"
+              [shadowSettings]="config?.shadowSettings"
+              [marginSettings]="config?.marginSettings"
+              [paddingSettings]="config?.paddingSettings"
+            ></rappider-date-picker>
+          </ng-container>
+        </div>
+
+        <!-- NUMBER TEMPLATE CONTAINER -->
+        <div
+          *ngIf="
+            typeAndFormat.type === PropertyType.Integer ||
+            typeAndFormat.type === PropertyType.Number
+          "
+        >
+          <ng-container *ngIf="!typeAndFormat.format">
+            <rappider-number-input
+              [(ngModel)]="value"
+              [borderSettings]="config?.borderSettings"
+              [marginSettings]="config?.marginSettings"
+              [paddingSettings]="config?.paddingSettings"
+              [shadowSettings]="config?.shadowSettings"
+              [sizeSettings]="config?.sizeSettings"
+              [colorSettings]="config?.colorSettings"
+              [cssClass]="config?.cssClass"
+              [cssStyle]="config?.cssStyle"
+            ></rappider-number-input>
+          </ng-container>
+
+          <ng-container
+            *ngIf="typeAndFormat.format === PropertyFormat.DateTime"
+          >
+            <rappider-date-picker
+              [(ngModel)]="value"
+              [borderSettings]="config?.borderSettings"
+              [customSizeSettings]="config?.customSizeSettings"
+              [shadowSettings]="config?.shadowSettings"
+              [marginSettings]="config?.marginSettings"
+              [paddingSettings]="config?.paddingSettings"
+            ></rappider-date-picker>
+          </ng-container>
+        </div>
+
+        <!-- BOOLEAN TEMPLATE CONTAINER -->
+        <ng-container *ngIf="typeAndFormat.type === PropertyType.Boolean">
+          <div class="checkbox-area">
+            <rappider-switch
+              [(ngModel)]="value"
+              [text]="config?.text"
+              [size]="config?.size"
+              [disabled]="config?.disabled"
+              [loading]="config?.loading"
+            ></rappider-switch>
+            {{ value }}
+          </div>
+        </ng-container>
+
+        <!-- ARRAY - OBJECT TEMPLATE -->
+        <ng-container
+          *ngIf="
+            typeAndFormat.type === PropertyType.Array ||
+            typeAndFormat.type === PropertyType.Object
+          "
+        >
+          <div
+            *ngIf="showCodemirrorForObjectAndArray; else defaultTextboxTemplate"
+          >
+            <rappider-code-editor
+              [(ngModel)]="value"
+              [settings]="CODEMIRROR_JSON_SETTINGS"
+            ></rappider-code-editor>
+          </div>
+        </ng-container>
+
+        <!-- DATE TYPE TEMPLATE -->
+        <ng-container *ngIf="typeAndFormat.type === PropertyType.Date">
+          <rappider-date-picker
+            [(ngModel)]="value"
+            [borderSettings]="config?.borderSettings"
+            [customSizeSettings]="config?.customSizeSettings"
+            [shadowSettings]="config?.shadowSettings"
+            [marginSettings]="config?.marginSettings"
+            [paddingSettings]="config?.paddingSettings"
+          ></rappider-date-picker>
+        </ng-container>
+
+        <!-- SELECT TYPE TEMPLATE -->
+        <ng-container *ngIf="typeAndFormat.type === PropertyType.Enum">
+          <rappider-select
+            [(ngModel)]="value"
+            [options]="config?.options"
+            [settings]="config?.settings"
+            [placeholder]="config?.placeholder"
+          ></rappider-select>
+        </ng-container>
+      </ng-template>
+    </div>
+  </nz-input-group>
+
+  <ng-template #inputOptionsTemplate>
+    <div class="actions-dropdown">
+      <rappider-dropdown-menu
+        [items]="inputSettingsDropdownConfig.items"
+        [icon]="inputSettingsDropdownConfig.icon"
+        (menuItemClick)="onInputSettingsDropdownItemClick($event)"
+      ></rappider-dropdown-menu>
+    </div>
+  </ng-template>
+</div>

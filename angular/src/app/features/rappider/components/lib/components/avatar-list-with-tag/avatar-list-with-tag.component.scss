@@ -1,0 +1,28 @@
+.card-header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.card-title {
+  font-size: var(--font-size-x-large);
+  margin-bottom: 0;
+}
+
+.list {
+  margin-top: var(--margin-6x);
+}
+
+.item-title {
+  font-size: var(--font-size-medium);
+}
+
+.item-subtitle {
+  color: text-muted;
+  margin-bottom: 0;
+}
+
+:host ::ng-deep .ant-tag {
+  margin-right: 0;
+  margin-bottom: 0;
+}

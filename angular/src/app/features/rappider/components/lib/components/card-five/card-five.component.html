@@ -1,0 +1,83 @@
+<div class="card-five-container">
+  <nz-card>
+    <div *ngIf="avatar" class="card-five-avatar">
+      <rappider-avatar
+        [text]="avatar.text"
+        [iconName]="avatar.iconName"
+        [shape]="avatar.shape"
+        [imageUrl]="avatar.imageUrl"
+        [altText]="avatar.altText"
+        [cssStyle]="avatar.cssStyle"
+        [size]="avatar.size"
+        [borderSettings]="avatar.borderSettings"
+        [sizeSettings]="avatar.sizeSettings"
+        [colorSettings]="avatar.colorSettings"
+        [boxShadowSettings]="avatar.boxShadowSettings"
+        [paddingSettings]="avatar.paddingSettings"
+        [marginSettings]="avatar.marginSettings"
+        [description]="avatar.description"
+      ></rappider-avatar>
+    </div>
+
+    <div *ngIf="title" class="card-five-title">
+      <rappider-heading
+        [content]="title.content"
+        [type]="title.type"
+      ></rappider-heading>
+    </div>
+
+    <div class="card-five-content">
+      <rappider-paragraph
+        [content]="additionalContent?.content"
+        [customColorSettings]="additionalContent?.customColorSettings"
+        [typographySettings]="additionalContent?.typographySettings"
+      ></rappider-paragraph>
+    </div>
+
+    <div class="card-five-button-area">
+      <div *ngFor="let button of buttons" class="card-five-primary-button">
+        <rappider-button
+          [type]="button.type"
+          [shape]="button.shape"
+          [text]="button.text"
+          [size]="button.size"
+          [transparent]="button.transparent"
+          [loading]="button.loading"
+          [block]="button.block"
+          [disabled]="button.disabled"
+          [colorType]="button.colorType"
+          [formButtonType]="button?.formButtonType"
+          [borderSettings]="button?.borderSettings"
+          [customSizeSettings]="button?.customSizeSettings"
+          [customColorSettings]="button?.customColorSettings"
+          [shadowSettings]="button?.shadowSettings"
+          [paddingSettings]="button?.paddingSettings"
+          [marginSettings]="button?.marginSettings"
+          [icon]="button.icon"
+        ></rappider-button>
+      </div>
+    </div>
+
+    <div class="card-five-optional-button" *ngIf="optionalButton">
+      <rappider-button
+        [type]="optionalButton.type"
+        [shape]="optionalButton.shape"
+        [text]="optionalButton.text"
+        [size]="optionalButton.size"
+        [transparent]="optionalButton.transparent"
+        [loading]="optionalButton.loading"
+        [block]="optionalButton.block"
+        [disabled]="optionalButton.disabled"
+        [colorType]="optionalButton.colorType"
+        [formButtonType]="optionalButton?.formButtonType"
+        [borderSettings]="optionalButton?.borderSettings"
+        [customSizeSettings]="optionalButton?.customSizeSettings"
+        [customColorSettings]="optionalButton?.customColorSettings"
+        [shadowSettings]="optionalButton?.shadowSettings"
+        [paddingSettings]="optionalButton?.paddingSettings"
+        [marginSettings]="optionalButton?.marginSettings"
+        [icon]="optionalButton.icon"
+      ></rappider-button>
+    </div>
+  </nz-card>
+</div>

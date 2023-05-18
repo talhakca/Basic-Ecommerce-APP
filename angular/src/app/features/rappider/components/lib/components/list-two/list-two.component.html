@@ -1,0 +1,59 @@
+<div class="list-two-container">
+  <div *ngIf="title" class="card-header">
+    <rappider-heading
+      [content]="title.content"
+      [type]="title.type"
+    ></rappider-heading>
+  </div>
+  <div class="card-body">
+    <div *ngFor="let item of items" class="card-body-items">
+      <div class="item-container">
+        <div *ngIf="item.avatar" class="avatar-container">
+          <rappider-avatar
+            [text]="item.avatar.text"
+            [iconName]="item.avatar.iconName"
+            [shape]="item.avatar.shape"
+            [imageUrl]="item.avatar.imageUrl"
+            [altText]="item.avatar.altText"
+            [cssStyle]="item.avatar.cssStyle"
+            [size]="item.avatar.size"
+            [borderSettings]="item.avatar.borderSettings"
+            [sizeSettings]="item.avatar.sizeSettings"
+            [colorSettings]="item.avatar.colorSettings"
+            [boxShadowSettings]="item.avatar.boxShadowSettings"
+            [paddingSettings]="item.avatar.paddingSettings"
+            [marginSettings]="item.avatar.marginSettings"
+            [description]="item.avatar.description"
+          ></rappider-avatar>
+        </div>
+        <div class="text-container">
+          <div *ngIf="item.textContent" class="item-content">
+            <rappider-text
+              [content]="item.textContent.content"
+              [textMode]="item.textContent.textMode"
+              [text]="item.textContent.text"
+              [typography]="item.textContent.typography"
+              [colorSettings]="item.textContent.colorSettings"
+            ></rappider-text>
+          </div>
+          <div *ngIf="item.commentText">
+            <rappider-paragraph
+              [content]="item?.commentText?.content"
+              [customColorSettings]="item?.commentText?.customColorSettings"
+              [typographySettings]="item?.commentText?.typographySettings"
+            ></rappider-paragraph>
+          </div>
+          <div *ngIf="item.commentTime" class="comment-time">
+            <rappider-text
+              [content]="item.commentTime.content"
+              [textMode]="item.commentTime.textMode"
+              [text]="item.commentTime.text"
+              [typography]="item.commentTime.typography"
+              [colorSettings]="item.commentTime.colorSettings"
+            ></rappider-text>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

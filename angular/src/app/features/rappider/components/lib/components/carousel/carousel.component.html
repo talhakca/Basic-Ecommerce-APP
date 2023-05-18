@@ -1,0 +1,14 @@
+<nz-carousel
+  [nzAutoPlay]="autoplay"
+  [nzAutoPlaySpeed]="autoplaySpeed"
+  [nzDotPosition]="dotPosition"
+  [nzDots]="dots"
+  [nzEffect]="effect || CarouselEffect.Fade"
+  [nzEnableSwipe]="enableSwipe"
+>
+  <div class="carousel" nz-carousel-content *ngFor="let content of contents">
+    <div class="content">
+      <ng-container *ngTemplateOutlet="content.carouselTemplate"></ng-container>
+    </div>
+  </div>
+</nz-carousel>

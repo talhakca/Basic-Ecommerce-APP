@@ -1,0 +1,118 @@
+:host ::ng-deep {
+  nz-form-label {
+    font-weight: bold;
+  }
+
+  .ant-form-item {
+    padding-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .ant-form-item-explain {
+    min-height: auto;
+  }
+
+  .ant-form-item-control {
+    max-width: 100%;
+  }
+}
+
+.object-field-edit-modal {
+  .breadcrumb-area {
+    padding: var(--padding-2x);
+    border: var(--border-size-x) solid var(--primary-border-color);
+    background: var(--component-header-background-color);
+    margin-bottom: var(--margin-4x);
+    border-radius: var(--border-radius-2x);
+  }
+}
+
+.data-preview {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 1px;
+}
+
+.input-label-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+:host::ng-deep .vertical-row-label > label {
+  display: block !important;
+  width: 100% !important;
+}
+
+.groupped-items {
+  margin-bottom: var(--edit-form-groupped-items-margin);
+
+  .group-title {
+    margin-bottom: var(--edit-form-group-title-margin);
+  }
+
+  width: 100%;
+}
+
+.color-picker-lock-button {
+  align-self: center;
+  margin: 0px 0px 5px 5px;
+
+  ::ng-deep i {
+    color: var(--secondary-text-color);
+    font-size: 15px;
+  }
+}
+
+.responsive-lock-button {
+  display: flex;
+  align-items: center;
+
+  .color-picker-lock-button {
+    ::ng-deep i {
+      @media only screen and (min-width: 690px) {
+        margin-left: 45px;
+      }
+
+      @media only screen and (min-width: 860px) {
+        margin-left: 40px;
+      }
+
+      @media only screen and (min-width: 1100px) {
+        margin-left: 35px;
+      }
+
+      @media only screen and (min-width: 1350px) {
+        margin-left: 30px;
+      }
+
+      @media only screen and (min-width: 1600px) {
+        margin-left: 25px;
+      }
+
+      @media only screen and (min-width: 1900px) {
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+.alert {
+  border: var(--border-size-x) solid var(--danger-color);
+  border-radius: var(--border-radius-2x);
+  height: 40.59px;
+}
+
+// temporary solution
+// this style breaks the right aligned labels, we need to add a config for label alignment and width
+@media only screen and (min-width: 575px) {
+  nz-form-label {
+    min-width: 200px;
+  }
+}

@@ -1,0 +1,31 @@
+<nz-card class="title-image">
+  <div class="items-area">
+    <div *ngFor="let item of items" class="card-area">
+      <div class="container-area">
+        <div *ngIf="item.image" class="image-area" [style]="setOverflowMode()">
+          <a [routerLink]="item.imageRedirectUrl">
+            <rappider-image
+              [source]="item?.image?.source"
+              [width]="item?.image?.width"
+              [placeholder]="item?.image?.placeholder"
+              [height]="item?.image?.height"
+              [fallback]="item?.image?.fallback"
+              [alternateText]="item?.image?.alternateText"
+              [borderSettings]="item?.image?.borderSettings"
+              [customSizeSettings]="item?.image?.width"
+              [shadowSettings]="item?.image?.shadowSettings"
+              [marginSettings]="item?.image?.marginSettings"
+              [paddingSettings]="item?.image?.paddingSettings"
+            ></rappider-image>
+          </a>
+        </div>
+      </div>
+      <div *ngIf="item.description" class="item-content-area">
+        <rappider-heading
+          [content]="item.description.content"
+          [type]="item.description.type"
+        ></rappider-heading>
+      </div>
+    </div>
+  </div>
+</nz-card>

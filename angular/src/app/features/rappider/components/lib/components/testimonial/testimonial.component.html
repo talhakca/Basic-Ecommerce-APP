@@ -1,0 +1,39 @@
+<div class="testimonial">
+  <div *ngIf="content">
+    <p class="content">
+      <span [innerHTML]="content"></span>
+    </p>
+  </div>
+  <rappider-avatar
+    *ngIf="avatar"
+    [text]="avatar.text"
+    [iconName]="avatar.iconName"
+    [icon]="avatar.icon"
+    [shape]="avatar.shape"
+    [imageUrl]="avatar.imageUrl"
+    [altText]="avatar.altText"
+    [cssStyle]="avatar.cssStyle"
+    [size]="avatar.size"
+    [borderSettings]="avatar.borderSettings"
+    [sizeSettings]="avatar.sizeSettings"
+    [colorSettings]="avatar.colorSettings"
+    [boxShadowSettings]="avatar.boxShadowSettings"
+    [paddingSettings]="avatar.paddingSettings"
+    [marginSettings]="avatar.marginSettings"
+    [description]="avatar.description"
+  ></rappider-avatar>
+  <div *ngIf="title" class="title">
+    <rappider-heading
+      [content]="title.content"
+      [type]="title.type"
+    ></rappider-heading>
+  </div>
+  <div class="subtitle">
+    <div *ngIf="subtitle">
+      <rappider-heading
+        [content]="subtitle.content"
+        [type]="subtitle.type"
+      ></rappider-heading>
+    </div>
+  </div>
+</div>

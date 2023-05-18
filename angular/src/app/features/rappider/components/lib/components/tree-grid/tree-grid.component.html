@@ -1,0 +1,176 @@
+<rappider-spin [spinning]="!data?.length">
+  <nz-table #treeTable [nzData]="data" nzShowPagination="false">
+    <thead>
+      <tr>
+        <th *ngIf="isSelectable" nzWidth="10px"></th>
+        <th *ngFor="let item of headers">
+          {{ item.title | translate }}
+        </th>
+        <th *ngIf="folderDropdownMenu || fileDropdownMenu" nzWidth="10px"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let data of treeTable.data">
+        <ng-container *ngFor="let item of mapOfExpandedData[data?.key]">
+          <tr *ngIf="item.parent?.expanded || !item.parent">
+            <!-- CHECKBOX AREA -->
+            <!-- -------------------------------------------------------------------------------------------------- -->
+            <td
+              *ngIf="isSelectable && selectionType === SelectionType.All"
+              [nzChecked]="setOfChecked.has(item)"
+              (nzCheckedChange)="onItemChecked(item, $event)"
+            ></td>
+            <ng-container
+              *ngIf="isSelectable && selectionType === SelectionType.Folder"
+            >
+              <td
+                *ngIf="!item.isLeaf"
+                [nzChecked]="setOfChecked.has(item)"
+                (nzCheckedChange)="onItemChecked(item, $event)"
+              ></td>
+              <td *ngIf="item.isLeaf"></td>
+            </ng-container>
+            <ng-container
+              *ngIf="isSelectable && selectionType === SelectionType.File"
+            >
+              <td
+                *ngIf="item.isLeaf"
+                [nzChecked]="setOfChecked.has(item)"
+                (nzCheckedChange)="onItemChecked(item, $event)"
+              ></td>
+              <td *ngIf="!item.isLeaf"></td>
+            </ng-container>
+            <!-- / CHECKBOX AREA -->
+            <!-- -------------------------------------------------------------------------------------------------- -->
+
+            <ng-container *ngFor="let header of headers">
+              <ng-container
+                *ngIf="
+                  expandableFieldName === header.fieldName;
+                  else notLeafTmpl
+                "
+              >
+                <td
+                  [nzIndentSize]="item.level! * 10"
+                  [nzShowExpand]="!item.isLeaf"
+                  [(nzExpand)]="item.expanded"
+                  (nzExpandChange)="
+                    onChangeExpand($event, item, mapOfExpandedData[data.key])
+                  "
+                >
+                  <div class="icon-title">
+                    <!-- ICONS AREA -->
+                    <!-- -------------------------------------------------------------------------------------------------- -->
+                    <rappider-icon
+                      *ngIf="
+                        !item.isLeaf &&
+                        expandedIcon &&
+                        item.expanded &&
+                        expandedIcon?.name
+                      "
+                      [name]="expandedIcon.name"
+                      [theme]="expandedIcon.theme"
+                      [color]="expandedIcon.color"
+                      [type]="expandedIcon.type"
+                      [size]="expandedIcon.size"
+                    ></rappider-icon>
+                    <rappider-icon
+                      *ngIf="
+                        !item.isLeaf &&
+                        collapseIcon &&
+                        !item.expanded &&
+                        collapseIcon?.name
+                      "
+                      [name]="collapseIcon.name"
+                      [theme]="collapseIcon.theme"
+                      [color]="collapseIcon.color"
+                      [type]="collapseIcon.type"
+                      [size]="collapseIcon.size"
+                    ></rappider-icon>
+                    <rappider-icon
+                      *ngIf="item.isLeaf && leafIcon && leafIcon?.name"
+                      [name]="leafIcon.name"
+                      [theme]="leafIcon.theme"
+                      [color]="leafIcon.color"
+                      [type]="leafIcon.type"
+                      [size]="leafIcon.size"
+                    ></rappider-icon>
+                    <!-- / ICONS AREA -->
+                    <!-- -------------------------------------------------------------------------------------------------- -->
+                    <ng-container
+                      *ngIf="header.type === TreeGridColumnType.Text"
+                    >
+                      {{ item[header.fieldName] }}
+                    </ng-container>
+                    <!-- Date Type-->
+                    <ng-container
+                      *ngIf="header.type === TreeGridColumnType.Date"
+                    >
+                      <ng-container *ngIf="!item[header.fieldName]">
+                        --
+                      </ng-container>
+                      <ng-container *ngIf="item[header.fieldName]">
+                        {{ item[header.fieldName] | formatDate }}
+                      </ng-container>
+                    </ng-container>
+                    <!-- / Date Type -->
+                    <rappider-spin class="spinner" [spinning]="item.isLoading">
+                    </rappider-spin>
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-template #notLeafTmpl>
+                <td>
+                  <ng-container *ngIf="header.type === TreeGridColumnType.Text">
+                    {{ item[header.fieldName] }}
+                  </ng-container>
+                  <!-- Date Type-->
+                  <ng-container *ngIf="header.type === TreeGridColumnType.Date">
+                    <ng-container *ngIf="!item[header.fieldName]">
+                      --
+                    </ng-container>
+                    <ng-container *ngIf="item[header.fieldName]">
+                      {{ item[header.fieldName] | formatDate }}
+                    </ng-container>
+                  </ng-container>
+                  <!-- / Date Type-->
+                </td>
+              </ng-template>
+            </ng-container>
+
+            <!--  DROPDOWN MENU AREA -->
+            <!-- -------------------------------------------------------------------------------------------------- -->
+            <td *ngIf="fileDropdownMenu.items && item.isLeaf">
+              <rappider-dropdown-menu
+                [items]="fileDropdownMenu.items"
+                [label]="fileDropdownMenu.label"
+                [icon]="fileDropdownMenu.icon"
+                [triggerType]="fileDropdownMenu.triggerType"
+                [placement]="fileDropdownMenu.placement"
+                [labelMode]="fileDropdownMenu.labelMode"
+                (menuItemClick)="onDropdownMenuItemClick($event, item)"
+              >
+              </rappider-dropdown-menu>
+            </td>
+            <td *ngIf="folderDropdownMenu.items && !item.isLeaf">
+              <rappider-dropdown-menu
+                [items]="folderDropdownMenu.items"
+                [label]="folderDropdownMenu.label"
+                [icon]="folderDropdownMenu.icon"
+                [triggerType]="folderDropdownMenu.triggerType"
+                [placement]="folderDropdownMenu.placement"
+                [labelMode]="folderDropdownMenu.labelMode"
+                (menuItemClick)="onDropdownMenuItemClick($event, item)"
+              >
+              </rappider-dropdown-menu>
+            </td>
+          </tr>
+          <!-- / DROPDOWN MENU AREA -->
+          <!-- -------------------------------------------------------------------------------------------------- -->
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</rappider-spin>

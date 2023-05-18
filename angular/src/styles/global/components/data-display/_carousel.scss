@@ -1,0 +1,23 @@
+.ant-carousel {
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $body-color;
+}
+
+.carousel {
+  text-align: center;
+  padding: var(--padding-6x);
+  height: var(--height-3x);
+  line-height: var(--height-3x);
+  background-color: var(--component-header-background-color);
+  overflow: hidden;
+}
+
+.ant-carousel .slick-dots li button {
+  background-color: var(--lighter-gray);
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  background-color: var(--default-color);
+}

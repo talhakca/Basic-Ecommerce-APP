@@ -1,0 +1,43 @@
+<section>
+  <nz-card>
+    <div *ngIf="heading" class="card-title">
+      <rappider-heading
+        [content]="heading.content"
+        [type]="heading.type"
+      ></rappider-heading>
+    </div>
+    <div *ngIf="additionalContent" class="card-content">
+      <rappider-text
+        [content]="additionalContent.content"
+        [textMode]="additionalContent.textMode"
+        [text]="additionalContent.text"
+        [typography]="additionalContent.typography"
+        [colorSettings]="additionalContent.colorSettings"
+      ></rappider-text>
+    </div>
+    <div *ngIf="editFormComponentConfig">
+      <rappider-crud-view-edit-form
+        [config]="editFormComponentConfig.config"
+        [data]="editFormComponentConfig.data"
+        [submitted]="editFormComponentConfig.submitted"
+        (formSubmit)="onFormSubmit($event)"
+        (formValueChange)="onFormValueChange($event)"
+        (fieldValueChange)="onFieldValueChange($event)"
+        (validityChange)="onValidityChange($event)"
+        (buttonClick)="onButtonClick($event)"
+        (labelMenuItemClick)="onLabelMenuItemClick($event)"
+      ></rappider-crud-view-edit-form>
+    </div>
+    <div>
+      <div *ngIf="footerContent" class="footer-content">
+        <rappider-text
+          [content]="footerContent.content"
+          [textMode]="footerContent.textMode"
+          [text]="footerContent.text"
+          [typography]="footerContent.typography"
+          [colorSettings]="footerContent.colorSettings"
+        ></rappider-text>
+      </div>
+    </div>
+  </nz-card>
+</section>

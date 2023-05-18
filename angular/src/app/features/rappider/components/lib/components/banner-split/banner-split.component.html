@@ -1,0 +1,43 @@
+<div class="banner-split" [style.width]="width">
+  <div class="banner-area">
+    <div class="row">
+      <div class="col-6 content-area" [style.background]="backgroundColor">
+        <rappider-heading
+          *ngIf="title"
+          class="title"
+          [content]="title.content"
+          [type]="title.type"
+        >
+        </rappider-heading>
+        <span class="content" [innerHTML]="content"></span>
+        <div *ngIf="button" class="button-area">
+          <rappider-button
+            *ngIf="button"
+            [type]="button.type"
+            [shape]="button.shape"
+            [text]="button.text"
+            [size]="button.size"
+            [transparent]="button.transparent"
+            [loading]="button.loading"
+            [block]="button.block"
+            [disabled]="button.disabled"
+            [colorType]="button.colorType"
+            [formButtonType]="button?.formButtonType"
+            [borderSettings]="button?.borderSettings"
+            [customSizeSettings]="button?.customSizeSettings"
+            [customColorSettings]="button?.customColorSettings"
+            [shadowSettings]="button?.shadowSettings"
+            [paddingSettings]="button?.paddingSettings"
+            [marginSettings]="button?.marginSettings"
+            [icon]="button.icon"
+          ></rappider-button>
+        </div>
+      </div>
+      <div
+        *ngIf="url"
+        class="col-6 img-area"
+        [style.background-image]="url"
+      ></div>
+    </div>
+  </div>
+</div>

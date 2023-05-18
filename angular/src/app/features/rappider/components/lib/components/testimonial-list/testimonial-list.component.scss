@@ -1,0 +1,20 @@
+.titles {
+  margin-bottom: var(--margin-3x);
+}
+
+.testimonial-list-title {
+  margin-bottom: var(--margin-x);
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.testimonials {
+  margin-bottom: var(--margin-2x);
+
+  ::ng-deep .testimonial {
+    min-width: 70%;
+    width: 100%;
+  }
+}

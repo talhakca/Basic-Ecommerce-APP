@@ -1,0 +1,32 @@
+.radio::ng-deep {
+  .ant-radio {
+    top: 0;
+  }
+
+  .ant-radio-wrapper {
+    align-items: center;
+  }
+
+  .ant-radio-inner {
+    width: var(--radio-width);
+    height: var(--radio-height);
+    box-shadow: var(--radio-shadow);
+  }
+
+  .ant-radio-wrapper:hover .ant-radio .ant-radio-inner {
+    border-color: var(--radio-color);
+  }
+
+  .ant-radio-checked .ant-radio-inner {
+    border-color: var(--radio-color);
+    width: var(--radio-width);
+    height: var(--radio-height);
+  }
+
+  .ant-radio-inner:after {
+    background-color: var(--radio-color);
+    width: calc(var(--radio-width) - 10px);
+    height: calc(var(--radio-height) - 10px);
+    border-radius: 50%;
+  }
+}

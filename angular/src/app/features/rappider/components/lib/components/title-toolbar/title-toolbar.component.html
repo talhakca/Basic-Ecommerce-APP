@@ -1,0 +1,17 @@
+<rappider-title-bar
+  [mainTitle]="mainTitle"
+  [options]="options"
+  [displayBreadcrumb]="displayBreadcrumb"
+  [switchSettings]="titleBarSwitchSettings"
+  [actionButtons]="titleBarActionButtons"
+  [dropdownMenu]="titleBarActionMenu"
+  [radioButtonSettings]="titleBarRadioButtonSettings"
+  (radioButtonClick)="onTitleBarRadioButtonClick($event)"
+  (switchToggled)="onSwitchToggled($event)"
+  (actionButtonClick)="onTitleBarActionButtonClick($event)"
+></rappider-title-bar>
+
+<rappider-toolbar
+  *ngIf="displayToolbar"
+  [displayBackButton]="displayToolbarBackButton"
+></rappider-toolbar>

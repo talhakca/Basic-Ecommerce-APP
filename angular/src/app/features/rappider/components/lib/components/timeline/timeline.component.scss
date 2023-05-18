@@ -1,0 +1,35 @@
+.dot-icon {
+  font-size: var(--font-size-x-large);
+}
+
+.timeline-title {
+  display: flex;
+  font-size: var(--title-font-size);
+  color: var(--primary-text-color);
+}
+
+.timeline-subtitle {
+  display: flex;
+  margin-bottom: var(--margin-2x);
+  font-size: var(--main-font-size);
+  color: var(--primary-text-color);
+}
+
+.timeline-paragraph {
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+}
+
+.items {
+  margin-left: var(--margin-4x);
+}
+
+.date-area {
+  display: flex;
+  align-items: center;
+}
+
+.date-icon {
+  font-size: var(--font-size-small);
+  margin-right: var(--margin-2x);
+}

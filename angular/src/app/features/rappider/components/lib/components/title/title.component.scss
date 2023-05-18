@@ -1,0 +1,21 @@
+.main-title {
+  margin-bottom: var(--margin-2x);
+}
+
+.title {
+  font-size: var(--main-font-size);
+  display: inline;
+  color: var(--text-color);
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-bottom: 0px;
+  padding: var(--card-padding);
+}
+
+.section {
+  margin-bottom: 0px !important;
+}

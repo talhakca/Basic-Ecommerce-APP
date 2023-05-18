@@ -1,0 +1,46 @@
+<div class="card-ten">
+  <div *ngIf="title" class="card-title">
+    <rappider-heading
+      [type]="title.type"
+      [content]="title.content"
+    ></rappider-heading>
+  </div>
+  <div *ngIf="subtitle" class="card-subtitle">
+    <rappider-heading
+      [type]="subtitle.type"
+      [content]="subtitle.content"
+    ></rappider-heading>
+  </div>
+  <div *ngIf="additionalContent" class="card-content">
+    <rappider-text
+      [content]="additionalContent.content"
+      [textMode]="additionalContent.textMode"
+      [text]="additionalContent.text"
+      [typography]="additionalContent.typography"
+      [colorSettings]="additionalContent.colorSettings"
+    ></rappider-text>
+  </div>
+  <div *ngIf="button?.text" class="card-button">
+    <rappider-button
+      [transparent]="button.transparent"
+      [colorType]="button.colorType"
+      [shape]="button.shape"
+      [type]="button.type"
+      [text]="button.text"
+      [size]="button.size"
+      [icon]="button.icon"
+      [loading]="button.loading"
+      [block]="button.block"
+      [disabled]="button.disabled"
+      [icon]="button.icon"
+      [formButtonType]="button?.formButtonType"
+      [borderSettings]="button?.borderSettings"
+      [customSizeSettings]="button?.customSizeSettings"
+      [customColorSettings]="button?.customColorSettings"
+      [shadowSettings]="button?.shadowSettings"
+      [paddingSettings]="button?.paddingSettings"
+      [marginSettings]="button?.marginSettings"
+      (click)="onButtonClick()"
+    ></rappider-button>
+  </div>
+</div>

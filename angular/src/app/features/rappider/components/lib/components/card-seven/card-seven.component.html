@@ -1,0 +1,84 @@
+<section class="card-container">
+  <div *ngIf="image" class="image">
+    <rappider-image
+      [source]="image?.source"
+      [width]="image?.width"
+      [placeholder]="image?.placeholder"
+      [height]="image?.height"
+      [fallback]="image?.fallback"
+      [alternateText]="image?.alternateText"
+      [borderSettings]="image?.borderSettings"
+      [customSizeSettings]="image?.width"
+      [shadowSettings]="image?.shadowSettings"
+      [marginSettings]="image?.marginSettings"
+      [paddingSettings]="image?.paddingSettings"
+    ></rappider-image>
+  </div>
+  <div class="container">
+    <div *ngIf="heading" class="card-title">
+      <rappider-heading
+        [content]="heading.content"
+        [type]="heading.type"
+      ></rappider-heading>
+    </div>
+
+    <div class="avatar-area">
+      <div *ngIf="avatar" class="card-avatar">
+        <rappider-avatar
+          [text]="avatar.text"
+          [iconName]="avatar.iconName"
+          [shape]="avatar.shape"
+          [imageUrl]="avatar.imageUrl"
+          [altText]="avatar.altText"
+          [cssStyle]="avatar.cssStyle"
+          [size]="avatar.size"
+          [borderSettings]="avatar.borderSettings"
+          [sizeSettings]="avatar.sizeSettings"
+          [colorSettings]="avatar.colorSettings"
+          [boxShadowSettings]="avatar.boxShadowSettings"
+          [paddingSettings]="avatar.paddingSettings"
+          [marginSettings]="avatar.marginSettings"
+          [description]="avatar.description"
+        ></rappider-avatar>
+      </div>
+      <div *ngIf="authorName" class="author-name">
+        <rappider-label [content]="authorName.content"></rappider-label>
+        <div *ngIf="date" class="date">
+          <rappider-label [content]="date | formatDate"></rappider-label>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="description" class="card-description">
+      <rappider-paragraph
+        [content]="description?.content"
+        [customColorSettings]="description?.customColorSettings"
+        [typographySettings]="description?.typographySettings"
+      ></rappider-paragraph>
+    </div>
+
+    <div *ngIf="button" class="card-button">
+      <rappider-button
+        [type]="button.type"
+        [text]="button.text"
+        [shape]="button.shape"
+        [size]="button.size"
+        [transparent]="button.transparent"
+        [loading]="button.loading"
+        [block]="button.block"
+        [disabled]="button.disabled"
+        [colorType]="button.colorType"
+        [icon]="button.icon"
+        [formButtonType]="button?.formButtonType"
+        [borderSettings]="button?.borderSettings"
+        [customSizeSettings]="button?.customSizeSettings"
+        [customColorSettings]="button?.customColorSettings"
+        [shadowSettings]="button?.shadowSettings"
+        [paddingSettings]="button?.paddingSettings"
+        [marginSettings]="button?.marginSettings"
+        (click)="onButtonClick(button)"
+      >
+      </rappider-button>
+    </div>
+  </div>
+</section>

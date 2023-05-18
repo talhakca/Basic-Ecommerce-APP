@@ -1,0 +1,40 @@
+<article class="text-center m-auto overflow-hidden">
+  <div
+    [class]="zoom ? 'banner-zoom' : null"
+    [style.background-image]="url"
+    [style.width]="backgroundImage?.width"
+    class="banner-area"
+  >
+    <div class="main-text-area">
+      <div class="row">
+        <div class="col-12 text-area" *ngIf="text">
+          <rappider-heading
+            [type]="text.type"
+            [content]="text.content"
+          ></rappider-heading>
+        </div>
+        <div *ngIf="button" class="col-12 mt-5">
+          <rappider-button
+            [type]="button.type"
+            [shape]="button.shape"
+            [text]="button.text"
+            [size]="button.size"
+            [transparent]="button.transparent"
+            [loading]="button.loading"
+            [block]="button.block"
+            [disabled]="button.disabled"
+            [colorType]="button.colorType"
+            [formButtonType]="button?.formButtonType"
+            [borderSettings]="button?.borderSettings"
+            [customSizeSettings]="button?.customSizeSettings"
+            [customColorSettings]="button?.customColorSettings"
+            [shadowSettings]="button?.shadowSettings"
+            [paddingSettings]="button?.paddingSettings"
+            [marginSettings]="button?.marginSettings"
+            [icon]="button.icon"
+          ></rappider-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,35 @@
+.items-area {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.card-area {
+  text-align: center;
+  margin-right: var(--margin-3x);
+
+  &:last-child {
+    margin-right: 0px;
+  }
+}
+
+.image-area {
+  border-radius: var(--border-radius-2x);
+
+  ::ng-deep img {
+    display: block;
+    position: relative;
+    transition: transform 0.9s;
+  }
+}
+
+.image-area:hover {
+  ::ng-deep img {
+    transform: scale(1.06);
+  }
+}
+
+.item-content-area {
+  padding-top: var(--padding-4x);
+}

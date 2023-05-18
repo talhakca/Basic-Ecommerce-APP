@@ -1,0 +1,7 @@
+<div class="row">
+  <ng-container *ngFor="let cell of cells">
+    <div class="col-{{ cell.width }} cell">
+      <ng-container *ngTemplateOutlet="cell.cellTemplate"></ng-container>
+    </div>
+  </ng-container>
+</div>

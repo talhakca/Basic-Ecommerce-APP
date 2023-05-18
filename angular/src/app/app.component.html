@@ -1,0 +1,33 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="branding">
+      <div class="logo-area">
+        <a class="navbar-brand"
+           href="#">
+          ELearning
+        </a>
+      </div>
+      <div class="navbar-items">
+        <div *ngIf="!user"
+             class="signout">
+          <button nz-button
+                  (click)="onLoginClick()">
+            Login
+          </button>
+        </div>
+        &nbsp; &nbsp;
+        <div *ngIf="!user"
+             class="register">
+          <button nz-button
+                  (click)="onRegisterClick()">
+            Register
+          </button>
+        </div>
+        <div *ngIf="user">
+          Welcome, {{user.firstName}} &nbsp; {{user.lastName}}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

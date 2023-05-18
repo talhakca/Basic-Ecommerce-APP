@@ -1,0 +1,46 @@
+<div class="container-area" [style.width]="image?.width">
+  <div class="img-area">
+    <rappider-image
+      *ngIf="image"
+      class="image"
+      [source]="image?.source"
+      [width]="image?.width"
+      [alternateText]="image?.alternateText"
+      [placeholder]="image?.placeholder"
+      [height]="image?.height"
+      [fallback]="image?.fallback"
+      [borderSettings]="image?.borderSettings"
+      [customSizeSettings]="image?.width"
+      [shadowSettings]="image?.shadowSettings"
+      [marginSettings]="image?.marginSettings"
+      [paddingSettings]="image?.paddingSettings"
+    ></rappider-image>
+  </div>
+  <div *ngIf="title" class="title-area">
+    <rappider-heading
+      class="title"
+      [content]="title.content"
+      [type]="title.type"
+    ></rappider-heading>
+  </div>
+  <div *ngIf="subtitle" class="sub-title-area">
+    <rappider-heading
+      class="sub-title"
+      [content]="subtitle.content"
+      [type]="subtitle.type"
+    ></rappider-heading>
+  </div>
+  <div class="divider">
+    <rappider-divider
+      [borderSettings]="divider?.borderSettings"
+      [customSizeSettings]="divider?.customSizeSettings"
+      [shadowSettings]="divider?.shadowSettings"
+      [marginSettings]="divider?.marginSettings"
+      [paddingSettings]="divider?.paddingSettings"
+      [text]="divider?.text"
+    ></rappider-divider>
+  </div>
+  <div class="content">
+    <span class="content" [innerHTML]="content"></span>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="icon-area">
+  <rappider-radio-group
+    class="radio-group"
+    [options]="radioGroupConfig"
+    [size]="size"
+    (valueChange)="onListDisplayChange($event)"
+  ></rappider-radio-group>
+</div>
+<div
+  [ngClass]="
+    displayTypeCell === true ? 'data-area-table-cell' : 'data-area-table-list'
+  "
+>
+  <div
+    [ngClass]="
+      displayTypeCell === true ? 'font-card-table-cell' : 'font-card-table-list'
+    "
+    *ngFor="let fontCardItem of fontCardItems"
+    (click)="onFontCardItemSelect(fontCardItem)"
+  >
+    <div class="content-area">
+      <div class="title-area">
+        <div class="title">
+          <h4>{{ fontCardItem.fontFamily }}</h4>
+        </div>
+      </div>
+      <div class="line"></div>
+      <div class="description-area">
+        <p
+          *ngIf="fontCardItem.textType === 'custom'"
+          [ngStyle]="{
+            'font-size': fontCardItem.fontSize,
+            'font-family': fontCardItem.fontFamily
+          }"
+        >
+          {{ fontCardItem.customText | translate }}
+        </p>
+        <p
+          *ngIf="fontCardItem.textType === 'sentence'"
+          [ngStyle]="{
+            'font-size': fontCardItem.fontSize,
+            'font-family': fontCardItem.fontFamily
+          }"
+        >
+          {{ fontCardItem.sentenceText | translate }}
+        </p>
+        <p
+          *ngIf="fontCardItem.textType === 'paragraph'"
+          [ngStyle]="{
+            'font-size': fontCardItem.fontSize,
+            'font-family': fontCardItem.fontFamily
+          }"
+        >
+          {{ fontCardItem.paragraphText | translate }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

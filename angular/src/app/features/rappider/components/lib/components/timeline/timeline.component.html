@@ -1,0 +1,40 @@
+<div class="timeline">
+  <nz-timeline>
+    <nz-timeline-item *ngFor="let item of items" [nzDot]="iconTemplate">
+      <div class="items">
+        <span class="timeline-title">
+          {{ item.title }}
+        </span>
+        <span class="timeline-subtitle">
+          {{ item.subtitle }}
+        </span>
+        <p class="timeline-paragraph">
+          {{ item.paragraph }}
+        </p>
+        <div *ngIf="item.date" class="date-area" nz-row>
+          <div nz-col>
+            <i class="date-icon" nzType="clock-circle-o" nz-icon></i>
+          </div>
+          <div nz-col>
+            <span>
+              {{ item.date | formatDate }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <ng-template #iconTemplate>
+        <ng-container *ngIf="item.icon && item.icon?.name">
+          <rappider-icon
+            class="dot-icon"
+            [color]="item.icon.color"
+            [theme]="item.icon.theme"
+            [name]="item.icon.name"
+            [type]="item.icon.type"
+            [size]="item.icon.size"
+          >
+          </rappider-icon>
+        </ng-container>
+      </ng-template>
+    </nz-timeline-item>
+  </nz-timeline>
+</div>

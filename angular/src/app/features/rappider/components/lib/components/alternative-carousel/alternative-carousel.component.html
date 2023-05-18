@@ -1,0 +1,35 @@
+<div class="alternative-carousel">
+  <swiper
+    [slidesPerView]="slidesPerView"
+    [spaceBetween]="spaceBetween"
+    [navigation]="navigation"
+    [loop]="loop"
+    [mousewheel]="mousewheel"
+    [pagination]="pagination"
+    [autoplay]="autoplay"
+    [breakpoints]="breakpoints"
+    class="mySwiper"
+  >
+    <ng-template swiperSlide *ngFor="let cardItem of cardItems">
+      <rappider-card-one
+        [image]="cardItem.image"
+        [imageTags]="cardItem.imageTags"
+        [imageButtons]="cardItem.imageButtons"
+        [rate]="cardItem.rate"
+        [titles]="cardItem.titles"
+        [currency]="cardItem.currency"
+        [finalPrice]="cardItem.finalPrice"
+        [price]="cardItem.price"
+        [additionalTags]="cardItem.additionalTags"
+        [descriptions]="cardItem.descriptions"
+        [additionalButtons]="cardItem.additionalButtons"
+        [avatar]="cardItem.avatar"
+        [avatarButton]="cardItem.avatarButton"
+        [avatarPlacement]="cardItem.avatarPlacement"
+        (additionalButtonClick)="onClickCardOneAdditionalButton($event)"
+        (cardClick)="onClickCardOne($event)"
+        (imageButtonClick)="onClickCardOneImageButton($event)"
+      ></rappider-card-one>
+    </ng-template>
+  </swiper>
+</div>

@@ -1,0 +1,5 @@
+<nz-tabset>
+  <ng-container *ngFor="let tab of tabs | keyvalue">
+    <ng-container *ngTemplateOutlet="tab.template"></ng-container>
+  </ng-container>
+</nz-tabset>

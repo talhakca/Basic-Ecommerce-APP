@@ -1,0 +1,25 @@
+.ant-drawer-header {
+  padding: $modal-header-padding;
+  background: var(--component-inner-background-color);
+  color: var(--primary-text-color);
+  border-bottom: var(--border-size-x) solid var(--primary-border-color);
+}
+
+.ant-drawer-title {
+  color: var(--primary-text-color);
+  font-size: var(--primary-font-size);
+}
+
+.ant-drawer-content {
+  background-color: var(--component-inner-background-color);
+}
+
+.ant-drawer-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  border-top: var(--border-size-x) solid var(--primary-border-color);
+  padding: $modal-footer-padding;
+  left: 0px;
+  background: var(--component-inner-background-color);
+}

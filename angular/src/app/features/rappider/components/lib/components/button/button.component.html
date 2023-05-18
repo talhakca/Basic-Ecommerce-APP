@@ -1,0 +1,83 @@
+<div class="button">
+  <button
+    *ngIf="text || icon?.name"
+    [ngClass]="{
+      'button-icon-right': iconPlacement === IconPlacement.Right,
+      'ant-btn-xs': size === 'extra-small'
+    }"
+    nz-button
+    nz-popconfirm
+    nz-tooltip
+    [nzTooltipTitle]="tooltipText | translate"
+    [nzPopconfirmTitle]="popconfirmTitle | translate"
+    [nzCondition]="emitWithoutPopconfirm"
+    [nzType]="type || 'default'"
+    [nzCancelText]="popconfirmCancelText | translate"
+    [nzOkText]="popconfirmOkText | translate"
+    [nzOkDanger]="popconfirmOkDanger"
+    [nzShape]="shape || ''"
+    [nzSize]="size || 'default'"
+    [nzGhost]="transparent"
+    [nzBlock]="block"
+    [nzLoading]="loading"
+    [disabled]="disabled"
+    [class]="colorType"
+    [type]="formButtonType || 'button'"
+    [style.border]="borderSettings?.border"
+    [style.border-top]="
+      borderSettings?.borderTop + ' ' + borderSettings?.borderStyle
+    "
+    [style.border-right]="
+      borderSettings?.borderRight + ' ' + borderSettings?.borderStyle
+    "
+    [style.border-bottom]="
+      borderSettings?.borderBottom + ' ' + borderSettings?.borderStyle
+    "
+    [style.border-left]="
+      borderSettings?.borderLeft + ' ' + borderSettings?.borderStyle
+    "
+    [style.border-radius]="borderSettings?.borderRadius"
+    [style.border-top-left-radius]="borderSettings?.borderTopLeftRadius"
+    [style.border-top-right-radius]="borderSettings?.borderTopRightRadius"
+    [style.border-bottom-right-radius]="borderSettings?.borderBottomRightRadius"
+    [style.border-bottom-left-radius]="borderSettings?.borderBottomLeftRadius"
+    [style.border-color]="borderSettings?.borderColor"
+    [style.border-style]="borderSettings?.borderStyle"
+    [style.padding]="paddingSettings?.all"
+    [style.padding-top]="paddingSettings?.top"
+    [style.padding-right]="paddingSettings?.right"
+    [style.padding-bottom]="paddingSettings?.bottom"
+    [style.padding-left]="paddingSettings?.left"
+    [style.margin]="marginSettings?.all"
+    [style.margin-top]="marginSettings?.top"
+    [style.margin-right]="marginSettings?.right"
+    [style.margin-bottom]="marginSettings?.bottom"
+    [style.margin-left]="marginSettings?.left"
+    [style.box-shadow]="shadowSettings?.boxShadow"
+    [style.color]="customColorSettings?.color"
+    [style.background-color]="customColorSettings?.backgroundColor"
+    [style.width]="customSizeSettings?.width"
+    [style.max-width]="customSizeSettings?.maxWidth"
+    [style.min-width]="customSizeSettings?.minWidth"
+    [style.height]="customSizeSettings?.height"
+    [style.max-height]="customSizeSettings?.maxHeight"
+    [style.min-height]="customSizeSettings?.minHeight"
+    (nzOnConfirm)="onConfirm()"
+    (nzOnCancel)="onCancel()"
+  >
+    <div class="button-content">
+      <div *ngIf="icon?.name" class="icon">
+        <rappider-icon
+          [name]="icon.name"
+          [color]="icon.color"
+          [type]="icon.type"
+          [theme]="icon.theme"
+          [size]="icon.size"
+        ></rappider-icon>
+      </div>
+      <div *ngIf="text" class="text">
+        {{ text | translate }}
+      </div>
+    </div>
+  </button>
+</div>

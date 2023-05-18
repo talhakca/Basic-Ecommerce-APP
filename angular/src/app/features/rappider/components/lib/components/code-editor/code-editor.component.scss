@@ -1,0 +1,34 @@
+pre {
+  margin-bottom: 0;
+  padding: var(--padding-2x);
+  color: var(--primary-text-color);
+}
+
+/* class name comes from ngx-codemirror */
+.CodeMirror {
+  border: var(--border-size-x) solid var(--primary-border-color);
+  border-radius: var(--border-radius-2x);
+  background: var(--component-inner-background-color);
+  color: var(--text-color);
+}
+
+.CodeMirror-gutters {
+  border-right: var(--border-size-x) solid var(--primary-border-color);
+  background-color: var(--component-header-background-color);
+}
+
+.code-editor-toolbar {
+  background-color: var(--component-header-background-color);
+  border: var(--border-size-x) solid var(--primary-border-color);
+  border-radius: var(--border-radius-2x) var(--border-radius-2x) 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-editor-additional-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin: var(--margin-2x);
+}

@@ -1,0 +1,37 @@
+.card-five-avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.title-item {
+  margin-top: var(--margin-6x);
+}
+
+.card-five-primary-button {
+  text-align: center;
+  display: inline-block;
+  margin-top: var(--margin-4x);
+  margin-right: var(--margin-x);
+  margin-left: var(--margin-x);
+}
+
+.card-five-title {
+  text-align: center;
+  margin-top: var(--margin-4x);
+}
+
+.card-five-content {
+  text-align: center;
+  margin-top: var(--margin-4x);
+}
+
+.card-five-optional-button {
+  text-align: center;
+}
+
+.card-five-button-area {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--margin-4x);
+}

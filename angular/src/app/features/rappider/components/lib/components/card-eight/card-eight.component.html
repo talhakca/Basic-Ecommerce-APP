@@ -1,0 +1,76 @@
+<div class="card-eight-area">
+  <nz-card>
+    <div *ngIf="heading" class="card-header">
+      <rappider-heading
+        [content]="heading.content"
+        [type]="heading.type"
+      ></rappider-heading>
+    </div>
+
+    <div class="card-eight-container">
+      <div *ngIf="text" class="number-text">
+        <rappider-text
+          [content]="text.content"
+          [textMode]="text.textMode"
+          [text]="text.text"
+          [typography]="text.typography"
+          [colorSettings]="text.colorSettings"
+        ></rappider-text>
+      </div>
+
+      <div>
+        <div *ngIf="description" class="text-area">
+          <rappider-text
+            [content]="description.content"
+            [textMode]="description.textMode"
+            [text]="description.text"
+            [typography]="description.typography"
+            [colorSettings]="description.colorSettings"
+          ></rappider-text>
+        </div>
+
+        <div *ngIf="additionalContent" class="text-area">
+          <rappider-text
+            [content]="additionalContent.content"
+            [textMode]="additionalContent.textMode"
+            [text]="additionalContent.text"
+            [typography]="additionalContent.typography"
+            [colorSettings]="additionalContent.colorSettings"
+          ></rappider-text>
+        </div>
+
+        <div *ngIf="button">
+          <rappider-button
+            [type]="button.type"
+            [text]="button.text"
+            [shape]="button.shape"
+            [size]="button.size"
+            [transparent]="button.transparent"
+            [loading]="button.loading"
+            [block]="button.block"
+            [disabled]="button.disabled"
+            [colorType]="button.colorType"
+            [formButtonType]="button?.formButtonType"
+            [borderSettings]="button?.borderSettings"
+            [customSizeSettings]="button?.customSizeSettings"
+            [customColorSettings]="button?.customColorSettings"
+            [shadowSettings]="button?.shadowSettings"
+            [paddingSettings]="button?.paddingSettings"
+            [marginSettings]="button?.marginSettings"
+            [icon]="button.icon"
+          ></rappider-button>
+        </div>
+
+        <div *ngIf="icon?.name" class="icon">
+          <rappider-icon
+            [name]="icon.name"
+            [type]="icon.type"
+            [theme]="icon.theme"
+            [color]="icon.color"
+            [size]="icon.size"
+          ></rappider-icon>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+</div>

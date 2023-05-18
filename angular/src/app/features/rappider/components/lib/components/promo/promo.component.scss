@@ -1,0 +1,30 @@
+.img-area {
+  height: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+.content-area {
+  margin-top: var(--margin-4x);
+}
+
+.tag {
+  display: inline-block;
+  margin-left: var(--margin-2x);
+}
+
+.text {
+  display: inline-block;
+  font-weight: var(--font-weight-normal);
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+}
+
+.anchor {
+  text-decoration: none;
+}
+
+.container-area {
+  text-align: center;
+}

@@ -1,0 +1,72 @@
+<div class="pricing-plan">
+  <div *ngIf="title" class="title-area">
+    <rappider-heading
+      [content]="title.content"
+      [type]="title.type"
+    ></rappider-heading>
+  </div>
+  <div *ngIf="subtitle" class="sub-title-area">
+    <rappider-heading
+      [content]="subtitle.content"
+      [type]="subtitle.type"
+    ></rappider-heading>
+  </div>
+  <rappider-divider
+    [borderSettings]="divider?.borderSettings"
+    [text]="divider?.text"
+    [customSizeSettings]="divider?.customSizeSettings"
+    [shadowSettings]="divider?.shadowSettings"
+    [marginSettings]="divider?.marginSettings"
+    [paddingSettings]="divider?.paddingSettings"
+  ></rappider-divider>
+  <div class="price-area">
+    <span class="price">
+      {{ price }}
+    </span>
+  </div>
+  <div class="price-description-area">
+    <span class="price-description" [innerHTML]="priceDescription"></span>
+  </div>
+  <rappider-divider
+    [borderSettings]="divider?.borderSettings"
+    [customSizeSettings]="divider?.customSizeSettings"
+    [shadowSettings]="divider?.shadowSettings"
+    [marginSettings]="divider?.marginSettings"
+    [paddingSettings]="divider?.paddingSettings"
+    [text]="divider?.text"
+  ></rappider-divider>
+  <div class="feature-area">
+    <ng-container *ngFor="let feature of features">
+      <span class="feature" [innerHTML]="feature"></span>
+      <rappider-divider
+        [borderSettings]="divider?.borderSettings"
+        [customSizeSettings]="divider?.customSizeSettings"
+        [shadowSettings]="divider?.shadowSettings"
+        [marginSettings]="divider?.marginSettings"
+        [paddingSettings]="divider?.paddingSettings"
+        [text]="divider?.text"
+      ></rappider-divider>
+    </ng-container>
+  </div>
+  <div *ngIf="button" class="button-area">
+    <rappider-button
+      [type]="button.type"
+      [shape]="button.shape"
+      [text]="button.text"
+      [size]="button.size"
+      [transparent]="button.transparent"
+      [loading]="button.loading"
+      [block]="button.block"
+      [disabled]="button.disabled"
+      [colorType]="button.colorType"
+      [formButtonType]="button?.formButtonType"
+      [borderSettings]="button?.borderSettings"
+      [customSizeSettings]="button?.customSizeSettings"
+      [customColorSettings]="button?.customColorSettings"
+      [shadowSettings]="button?.shadowSettings"
+      [paddingSettings]="button?.paddingSettings"
+      [marginSettings]="button?.marginSettings"
+      [icon]="button.icon"
+    ></rappider-button>
+  </div>
+</div>

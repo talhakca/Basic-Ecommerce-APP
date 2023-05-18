@@ -1,0 +1,56 @@
+<div class="container-area" [style.width]="image?.width">
+  <div *ngIf="image" class="img-area">
+    <rappider-image
+      class="img"
+      [source]="image?.source"
+      [width]="image?.width"
+      [placeholder]="image?.placeholder"
+      [height]="image?.height"
+      [fallback]="image?.fallback"
+      [alternateText]="image?.alternateText"
+      [borderSettings]="image?.borderSettings"
+      [customSizeSettings]="image?.width"
+      [shadowSettings]="image?.shadowSettings"
+      [marginSettings]="image?.marginSettings"
+      [paddingSettings]="image?.paddingSettings"
+    ></rappider-image>
+  </div>
+  <div class="content-area">
+    <div class="content-section" [ngClass]="cssClass">
+      <div *ngIf="title" class="title">
+        <rappider-heading
+          [content]="title.content"
+          [type]="title.type"
+        ></rappider-heading>
+      </div>
+      <div *ngIf="subtitle" class="sub-title">
+        <rappider-heading
+          [content]="subtitle.content"
+          [type]="subtitle.type"
+        ></rappider-heading>
+      </div>
+      <div *ngIf="button" class="button">
+        <rappider-button
+          [type]="button.type"
+          [shape]="button.shape"
+          [text]="button.text"
+          [size]="button.size"
+          [transparent]="button.transparent"
+          [loading]="button.loading"
+          [block]="button.block"
+          [disabled]="button.disabled"
+          [colorType]="button.colorType"
+          [icon]="button.icon"
+          [formButtonType]="button?.formButtonType"
+          [borderSettings]="button?.borderSettings"
+          [customSizeSettings]="button?.customSizeSettings"
+          [customColorSettings]="button?.customColorSettings"
+          [shadowSettings]="button?.shadowSettings"
+          [paddingSettings]="button?.paddingSettings"
+          [marginSettings]="button?.marginSettings"
+          (click)="onButtonClick()"
+        ></rappider-button>
+      </div>
+    </div>
+  </div>
+</div>

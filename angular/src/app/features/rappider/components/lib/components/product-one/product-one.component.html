@@ -1,0 +1,50 @@
+<div class="product-one"
+     (click)="onCardClick()">
+  <div *ngIf="productImage"
+       class="image-wrapper">
+    <rappider-image [width]="productImage?.width"
+                    [source]="productImage?.source"
+                    [placeholder]="productImage?.placeholder"
+                    [height]="productImage?.height"
+                    [fallback]="productImage?.fallback"
+                    [alternateText]="productImage?.alternateText"
+                    [borderSettings]="productImage?.borderSettings"
+                    [customSizeSettings]="productImage?.width"
+                    [shadowSettings]="productImage?.shadowSettings"
+                    [marginSettings]="productImage?.marginSettings"
+                    [paddingSettings]="productImage?.paddingSettings"></rappider-image>
+    <rappider-tag *ngIf="tag"
+                  [text]="tag.text"
+                  [mode]="tag.mode"
+                  [color]="tag.color"
+                  [checked]="tag.checked"></rappider-tag>
+  </div>
+  <div *ngIf="additionalTitle"
+       class="additional-title-wrapper">
+    <rappider-heading [content]="additionalTitle?.content"
+                      [type]="additionalTitle?.type"></rappider-heading>
+    <rappider-divider [borderSettings]="divider?.borderSettings"
+                      [customSizeSettings]="divider?.customSizeSettings"
+                      [shadowSettings]="divider?.shadowSettings"
+                      [marginSettings]="divider?.marginSettings"
+                      [paddingSettings]="divider?.paddingSettings"
+                      [text]="divider?.text"></rappider-divider>
+  </div>
+  <div *ngIf="title"
+       class="title-wrapper">
+    <rappider-heading [content]="title.content"
+                      [type]="title.type"></rappider-heading>
+  </div>
+  <div *ngIf="rate"
+       class="rate-wrapper">
+    <rappider-rate-display [rate]="rate"></rappider-rate-display>
+  </div>
+  <div class="prices-wrapper">
+    <span *ngIf="finalPrice"
+          class="final-price"
+          [style.color]="tag?.color">
+      {{ finalPrice | currency: currency }}</span>
+    <span *ngIf="price"
+          class="price"> $ {{ price }} </span>
+  </div>
+</div>

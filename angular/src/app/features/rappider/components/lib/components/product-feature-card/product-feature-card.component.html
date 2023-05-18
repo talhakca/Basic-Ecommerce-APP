@@ -1,0 +1,77 @@
+<div class="card-container">
+  <div *ngIf="image" class="image">
+    <rappider-image
+      [source]="image?.source"
+      [width]="image?.width"
+      [alternateText]="image?.alternateText"
+      [placeholder]="image?.placeholder"
+      [height]="image?.height"
+      [fallback]="image?.fallback"
+      [borderSettings]="image?.borderSettings"
+      [customSizeSettings]="image?.width"
+      [shadowSettings]="image?.shadowSettings"
+      [marginSettings]="image?.marginSettings"
+      [paddingSettings]="image?.paddingSettings"
+    ></rappider-image>
+  </div>
+  <div class="product-area">
+    <div *ngIf="heading" class="heading">
+      <rappider-heading
+        [type]="heading.type"
+        [content]="heading.content"
+      ></rappider-heading>
+    </div>
+    <div class="product-detail-wrapper">
+      <div class="rate-price-additional-content-wrapper">
+        <div class="rate">
+          <rappider-rate-display [rate]="rate"></rappider-rate-display>
+        </div>
+        <div *ngIf="price" class="price">
+          <rappider-text
+            [content]="price.content"
+            [textMode]="price.textMode"
+            [text]="price.text"
+            [typography]="price.typography"
+            [colorSettings]="price.colorSettings"
+          ></rappider-text>
+        </div>
+        <div
+          *ngFor="let additionalContent of additionalContents"
+          class="additional-content"
+        >
+          <div *ngIf="additionalContent">
+            <rappider-text
+              [content]="additionalContent.content"
+              [textMode]="additionalContent.textMode"
+              [text]="additionalContent.text"
+              [typography]="additionalContent.typography"
+              [colorSettings]="additionalContent.colorSettings"
+            ></rappider-text>
+          </div>
+        </div>
+      </div>
+      <div class="detail-area">
+        <div *ngFor="let item of items" class="detail-item">
+          <div *ngIf="item.feature" class="feature">
+            <rappider-text
+              [content]="item.feature.content"
+              [textMode]="item.feature.textMode"
+              [text]="item.feature.text"
+              [typography]="item.feature.typography"
+              [colorSettings]="item.feature.colorSettings"
+            ></rappider-text>
+          </div>
+          <div *ngIf="item.detail" class="detail">
+            <rappider-text
+              [content]="item.detail.content"
+              [textMode]="item.detail.textMode"
+              [text]="item.detail.text"
+              [typography]="item.detail.typography"
+              [colorSettings]="item.detail.colorSettings"
+            ></rappider-text>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

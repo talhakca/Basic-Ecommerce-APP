@@ -1,0 +1,19 @@
+.paragraph-container {
+  margin-bottom: var(--margin-3x);
+}
+
+.avatar-container {
+  margin-right: var(--margin-4x);
+}
+
+.item-container {
+  display: flex;
+}
+
+.card-items {
+  margin-bottom: var(--margin-4x);
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}

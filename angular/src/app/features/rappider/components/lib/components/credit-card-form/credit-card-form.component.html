@@ -1,0 +1,85 @@
+<form nz-form nzLayout="vertical" [formGroup]="creditCardForm">
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="fullName">
+      {{
+        'RAPPIDER_COMPONENTS_MODULE.CREDIT_CARD_FORM_COMPONENT.FULL_NAME'
+          | translate
+      }}
+    </nz-form-label>
+    <nz-form-control [nzErrorTip]="requiredErrorTip">
+      <rappider-textbox formControlName="fullName"></rappider-textbox>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="cardNumber">
+      {{
+        'RAPPIDER_COMPONENTS_MODULE.CREDIT_CARD_FORM_COMPONENT.CARD_NUMBER'
+          | translate
+      }}
+    </nz-form-label>
+    <nz-form-control [nzErrorTip]="requiredErrorTip">
+      <rappider-textbox formControlName="cardNumber"></rappider-textbox>
+    </nz-form-control>
+  </nz-form-item>
+  <div class="row">
+    <nz-form-item class="col-md-6 col-sm-12">
+      <nz-form-label nzRequired nzFor="securityCode">
+        {{
+          'RAPPIDER_COMPONENTS_MODULE.CREDIT_CARD_FORM_COMPONENT.SECURITY_CODE'
+            | translate
+        }}
+      </nz-form-label>
+      <nz-form-control [nzErrorTip]="requiredErrorTip">
+        <rappider-textbox formControlName="securityCode"></rappider-textbox>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="col-md-6 col-sm-12">
+      <nz-form-label nzRequired nzFor="expirationDate">
+        {{
+          'RAPPIDER_COMPONENTS_MODULE.CREDIT_CARD_FORM_COMPONENT.EXPIRATION_DATE'
+            | translate
+        }}
+      </nz-form-label>
+      <nz-form-control [nzErrorTip]="requiredErrorTip">
+        <rappider-date-picker
+          formControlName="expirationDate"
+          [dateMode]="'month'"
+          [borderSettings]="datePicker?.borderSettings"
+          [customSizeSettings]="datePicker?.customSizeSettings"
+          [shadowSettings]="datePicker?.shadowSettings"
+          [marginSettings]="datePicker?.marginSettings"
+          [paddingSettings]="datePicker?.paddingSettings"
+        ></rappider-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <nz-form-item>
+    <rappider-button
+      [text]="submitButton?.text"
+      [type]="submitButton?.type"
+      [shape]="submitButton?.shape"
+      [size]="submitButton?.size"
+      [transparent]="submitButton?.transparent"
+      [loading]="submitButton?.loading"
+      [block]="submitButton?.loading"
+      [disabled]="submitButton?.disabled"
+      [colorType]="submitButton?.colorType"
+      [icon]="submitButton?.icon"
+      [formButtonType]="submitButton?.formButtonType"
+      [borderSettings]="submitButton?.borderSettings"
+      [customSizeSettings]="submitButton?.customSizeSettings"
+      [customColorSettings]="submitButton?.customColorSettings"
+      [shadowSettings]="submitButton?.shadowSettings"
+      [paddingSettings]="submitButton?.paddingSettings"
+      [marginSettings]="submitButton?.marginSettings"
+      (click)="submitForm()"
+    ></rappider-button>
+  </nz-form-item>
+</form>
+
+<ng-template #requiredErrorTip>
+  {{
+    'RAPPIDER_COMPONENTS_MODULE.CREDIT_CARD_FORM_COMPONENT.REQUIRED_ERROR_TIP'
+      | translate
+  }}
+</ng-template>

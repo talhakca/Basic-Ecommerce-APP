@@ -1,0 +1,34 @@
+.description-area {
+  margin-bottom: var(--margin-4x);
+  text-align: left;
+}
+
+.card-six-title {
+  margin-bottom: var(--margin-4x);
+}
+
+.date-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--margin-4x);
+}
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+  border-top: var(--border-size-x) solid var(--primary-border-color);
+  padding-top: var(--padding-3x);
+}
+
+.autohor-name {
+  margin-left: var(--margin-2x);
+}
+
+.title-container {
+  margin-left: 0px;
+}
+
+.author-name {
+  margin-left: var(--margin-4x);
+}

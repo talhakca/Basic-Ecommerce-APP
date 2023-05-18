@@ -1,0 +1,112 @@
+<section class="card-one-list">
+  <div *ngIf="listHeading || headerButton" class="list-header">
+    <div *ngIf="listHeading" class="heading">
+      <rappider-heading
+        [content]="listHeading.content"
+        [type]="listHeading.type"
+      ></rappider-heading>
+    </div>
+    <div *ngIf="headerButton" class="header-button">
+      <rappider-button
+        [text]="headerButton.text"
+        [type]="headerButton.type"
+        [shape]="headerButton.shape"
+        [size]="headerButton.size"
+        [transparent]="headerButton.transparent"
+        [loading]="headerButton.loading"
+        [block]="headerButton.loading"
+        [disabled]="headerButton.disabled"
+        [colorType]="headerButton.colorType"
+        [icon]="headerButton.icon"
+        [formButtonType]="headerButton?.formButtonType"
+        [borderSettings]="headerButton?.borderSettings"
+        [customSizeSettings]="headerButton?.customSizeSettings"
+        [customColorSettings]="headerButton?.customColorSettings"
+        [shadowSettings]="headerButton?.shadowSettings"
+        [paddingSettings]="headerButton?.paddingSettings"
+        [marginSettings]="headerButton?.marginSettings"
+        (click)="onClickHeaderButton(headerButton)"
+      ></rappider-button>
+    </div>
+  </div>
+  <div class="list-body" [@carouselSlide]="currentIndex">
+    <ng-container *ngFor="let items of displayedData; let i = index">
+      <div class="list-item" *ngIf="i === currentIndex">
+        <rappider-card-one
+          *ngFor="let data of items"
+          [image]="data.image"
+          [imageTags]="data.imageTags"
+          [imageButtons]="data.imageButtons"
+          [rate]="data.rate"
+          [titles]="data.titles"
+          [currency]="data.currency"
+          [finalPrice]="data.finalPrice"
+          [price]="data.price"
+          [additionalTags]="data.additionalTags"
+          [descriptions]="data.descriptions"
+          [additionalButtons]="data.additionalButtons"
+          [avatar]="data.avatar"
+          [avatarButton]="data.avatarButton"
+          [avatarPlacement]="data.avatarPlacement"
+          (additionalButtonClick)="onClickCardOneAdditionalButton($event)"
+          (cardClick)="onClickCardOne($event)"
+          (imageButtonClick)="onClickCardOneImageButton($event)"
+        ></rappider-card-one>
+      </div>
+    </ng-container>
+  </div>
+
+  <div *ngIf="isCarouselPaginatorVisible" class="carousel-dot">
+    <ng-container *ngFor="let data of displayedData; let i = index">
+      <div [ngClass]="handleDotClass(i)" (click)="onClickDot(i)"></div>
+    </ng-container>
+  </div>
+
+  <div *ngIf="!isCarouselPaginatorVisible">
+    <div class="back-button">
+      <rappider-button
+        [text]="backButton.text"
+        [type]="backButton.type"
+        [shape]="backButton.shape"
+        [size]="backButton.size"
+        [transparent]="backButton.transparent"
+        [loading]="backButton.loading"
+        [block]="backButton.loading"
+        [disabled]="backButton.disabled"
+        [colorType]="backButton.colorType"
+        [icon]="backButton.icon"
+        [formButtonType]="backButton?.formButtonType"
+        [borderSettings]="backButton?.borderSettings"
+        [customSizeSettings]="backButton?.customSizeSettings"
+        [customColorSettings]="backButton?.customColorSettings"
+        [shadowSettings]="backButton?.shadowSettings"
+        [paddingSettings]="backButton?.paddingSettings"
+        [marginSettings]="backButton?.marginSettings"
+        (click)="onClickBack()"
+      ></rappider-button>
+    </div>
+
+    <div class="next-button">
+      <rappider-button
+        [text]="nextButton.text"
+        [type]="nextButton.type"
+        [shape]="nextButton.shape"
+        [size]="nextButton.size"
+        [transparent]="nextButton.transparent"
+        [loading]="nextButton.loading"
+        [block]="nextButton.loading"
+        [disabled]="nextButton.disabled"
+        [colorType]="nextButton.colorType"
+        [icon]="nextButton.icon"
+        [formButtonType]="nextButton?.formButtonType"
+        [borderSettings]="nextButton?.borderSettings"
+        [customSizeSettings]="nextButton?.customSizeSettings"
+        [customColorSettings]="nextButton?.customColorSettings"
+        [shadowSettings]="nextButton?.shadowSettings"
+        [paddingSettings]="nextButton?.paddingSettings"
+        [marginSettings]="nextButton?.marginSettings"
+        (click)="onClickNext()"
+      ></rappider-button>
+    </div>
+  </div>
+</section>

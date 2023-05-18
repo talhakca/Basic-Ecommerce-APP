@@ -1,0 +1,17 @@
+<div class="slider">
+  <nz-slider
+    [class]="handleType === SliderHandleType.Stick ? 'stick' : null"
+    nz-input
+    [(ngModel)]="value"
+    [nzRange]="dualMode"
+    [nzMin]="minRange"
+    [nzMax]="maxRange"
+    [nzStep]="step"
+    [nzMarks]="marks"
+    [nzDisabled]="readonly"
+    [ngClass]="cssClass"
+    [ngStyle]="cssStyle"
+    [nzDisabled]="disabled"
+    (nzOnAfterChange)="onBlur()"
+  ></nz-slider>
+</div>

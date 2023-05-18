@@ -1,0 +1,15 @@
+.ant-statistic {
+  line-height: $line-height-base;
+}
+
+.ant-statistic-title {
+  margin-bottom: var(--margin-x);
+  font-size: var(--title-font-size);
+  color: var(--primary-text-color);
+}
+
+.ant-statistic-content {
+  font-family: $font-family-base;
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+}

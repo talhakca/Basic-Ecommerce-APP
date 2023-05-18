@@ -1,0 +1,16 @@
+.avatar-container {
+  margin-right: var(--margin-4x);
+  display: inline-block;
+}
+
+.card-body-items {
+  margin-bottom: var(--margin-4x);
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.item-container {
+  display: flex;
+}

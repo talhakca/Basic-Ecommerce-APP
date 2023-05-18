@@ -1,0 +1,59 @@
+<div class="heading row">
+  <div
+    *ngFor="let heading of headings; let i = index"
+    [ngClass]="i === 0 ? 'col-6' : 'col'"
+  >
+    <rappider-heading
+      [type]="heading.type"
+      [content]="heading.content"
+    ></rappider-heading>
+  </div>
+</div>
+
+<div class="body">
+  <div *ngFor="let item of items" class="row row-element">
+    <div class="col-md-6 col-xs-7">
+      <div class="product-area">
+        <rappider-card-three
+          [title]="item?.title"
+          [subtitle]="item?.subtitle"
+          [image]="item?.image"
+          [additionalContents]="item?.additionalContents"
+        ></rappider-card-three>
+      </div>
+    </div>
+    <div class="col-md col-xs">
+      <div class="price">
+        <rappider-text
+          [content]="item?.price.content"
+          [textMode]="item?.price.textMode"
+          [text]="item?.price.text"
+          [typography]="item?.price.typography"
+          [colorSettings]="item?.price.colorSettings"
+        ></rappider-text>
+      </div>
+    </div>
+    <div class="col-md col-xs">
+      <div class="quantity-area">
+        <rappider-number-input
+          [step]="item?.step"
+          [max]="item?.max"
+          [min]="item?.min"
+          [(ngModel)]="item.value"
+          (ngModelChange)="onCountChange(item, $event)"
+        ></rappider-number-input>
+      </div>
+    </div>
+    <div class="col-md col-xs">
+      <div class="total">
+        <rappider-text
+          [content]="item?.total.content"
+          [textMode]="item?.total.textMode"
+          [text]="item?.total.text"
+          [typography]="item?.total.typography"
+          [colorSettings]="item?.total.colorSettings"
+        ></rappider-text>
+      </div>
+    </div>
+  </div>
+</div>

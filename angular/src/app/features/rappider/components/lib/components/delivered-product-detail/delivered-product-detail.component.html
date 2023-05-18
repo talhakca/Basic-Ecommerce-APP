@@ -1,0 +1,158 @@
+<div class="row">
+  <div class="image-area col-lg-8 col-md-12">
+    <div *ngIf="image" class="image">
+      <rappider-image
+        [source]="image?.source"
+        [width]="image?.width"
+        [placeholder]="image?.placeholder"
+        [height]="image?.height"
+        [fallback]="image?.fallback"
+        [alternateText]="image?.alternateText"
+        [borderSettings]="image?.borderSettings"
+        [customSizeSettings]="image?.width"
+        [shadowSettings]="image?.shadowSettings"
+        [marginSettings]="image?.marginSettings"
+        [paddingSettings]="image?.paddingSettings"
+      ></rappider-image>
+    </div>
+    <div class="product-area">
+      <rappider-text
+        *ngIf="product"
+        class="product"
+        [content]="product.content"
+        [textMode]="product.textMode"
+        [text]="product.text"
+        [typography]="product.typography"
+        [colorSettings]="product.colorSettings"
+      ></rappider-text>
+      <rappider-text
+        *ngIf="detail"
+        class="detail"
+        [content]="detail.content"
+        [textMode]="detail.textMode"
+        [text]="detail.text"
+        [typography]="detail.typography"
+        [colorSettings]="detail.colorSettings"
+      ></rappider-text>
+    </div>
+  </div>
+  <div class="info-area col-lg-4 col-md-12">
+    <div *ngIf="info" class="info">
+      <rappider-text
+        [content]="info.content"
+        [textMode]="info.textMode"
+        [text]="info.text"
+        [typography]="info.typography"
+        [colorSettings]="info.colorSettings"
+      ></rappider-text>
+    </div>
+    <ng-container *ngIf="orderDetails">
+      <div *ngFor="let orderDetail of orderDetails" class="order-detail">
+        <rappider-text
+          [content]="orderDetail.content"
+          [textMode]="orderDetail.textMode"
+          [text]="orderDetail.text"
+          [typography]="orderDetail.typography"
+          [colorSettings]="orderDetail.colorSettings"
+        ></rappider-text>
+      </div>
+    </ng-container>
+    <rappider-divider
+      [borderSettings]="divider?.borderSettings"
+      [customSizeSettings]="divider?.customSizeSettings"
+      [shadowSettings]="divider?.shadowSettings"
+      [marginSettings]="divider?.marginSettings"
+      [paddingSettings]="divider?.paddingSettings"
+      [text]="divider?.text"
+    ></rappider-divider>
+    <div *ngIf="orderDate" class="order-date">
+      <rappider-text
+        [content]="orderDate.content"
+        [textMode]="orderDate.textMode"
+        [text]="orderDate.text"
+        [typography]="orderDate.typography"
+        [colorSettings]="orderDate.colorSettings"
+      ></rappider-text>
+    </div>
+  </div>
+</div>
+
+<div class="delivery-container col-8">
+  <div class="delivery-area">
+    <div *ngIf="deliveryTime" class="delivery">
+      <rappider-text
+        [content]="deliveryTime.content"
+        [textMode]="deliveryTime.textMode"
+        [text]="deliveryTime.text"
+        [typography]="deliveryTime.typography"
+        [colorSettings]="deliveryTime.colorSettings"
+      ></rappider-text>
+    </div>
+    <ng-container *ngIf="addresses">
+      <div *ngFor="let address of addresses" class="address">
+        <rappider-text
+          [content]="address.content"
+          [textMode]="address.textMode"
+          [text]="address.text"
+          [typography]="address.typography"
+          [colorSettings]="address.colorSettings"
+        ></rappider-text>
+      </div>
+    </ng-container>
+    <div *ngIf="deliveryRate" class="deliveryRate">
+      <rappider-text
+        [content]="deliveryRate.content"
+        [textMode]="deliveryRate.textMode"
+        [text]="deliveryRate.text"
+        [typography]="deliveryRate.typography"
+        [colorSettings]="deliveryRate.colorSettings"
+      ></rappider-text>
+    </div>
+    <rappider-rate-display [rate]="rate"></rappider-rate-display>
+  </div>
+  <div *ngIf="button" class="button-area">
+    <rappider-button
+      [type]="button.type"
+      [text]="button.text"
+      [shape]="button.shape"
+      [size]="button.size"
+      [transparent]="button.transparent"
+      [loading]="button.loading"
+      [block]="button.block"
+      [disabled]="button.disabled"
+      [colorType]="button.colorType"
+      [icon]="button.icon"
+      [formButtonType]="button?.formButtonType"
+      [borderSettings]="button?.borderSettings"
+      [customSizeSettings]="button?.customSizeSettings"
+      [customColorSettings]="button?.customColorSettings"
+      [shadowSettings]="button?.shadowSettings"
+      [paddingSettings]="button?.paddingSettings"
+      [marginSettings]="button?.marginSettings"
+      (click)="onButtonClick()"
+    ></rappider-button>
+  </div>
+</div>
+
+<div class="help-area col-8">
+  <div *ngIf="help" class="help">
+    <rappider-text
+      [content]="help.content"
+      [textMode]="help.textMode"
+      [text]="help.text"
+      [typography]="help.typography"
+      [colorSettings]="help.colorSettings"
+    ></rappider-text>
+  </div>
+  <ng-container *ngIf="supports">
+    <div *ngFor="let support of supports" class="support">
+      <rappider-text
+        [content]="support.content"
+        [textMode]="support.textMode"
+        [text]="support.text"
+        [typography]="support.typography"
+        [colorSettings]="support.colorSettings"
+      ></rappider-text>
+    </div>
+  </ng-container>
+</div>

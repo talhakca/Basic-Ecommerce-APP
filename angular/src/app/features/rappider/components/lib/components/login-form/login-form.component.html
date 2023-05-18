@@ -1,0 +1,71 @@
+<form nz-form nzLayout="vertical" [formGroup]="loginForm">
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="username">
+      {{
+        'RAPPIDER_COMPONENTS_MODULE.LOGIN_FORM_COMPONENT.USERNAME' | translate
+      }}
+    </nz-form-label>
+    <nz-form-control [nzErrorTip]="usernameFieldErrorTemplates">
+      <rappider-textbox formControlName="username"></rappider-textbox>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="password">
+      {{
+        'RAPPIDER_COMPONENTS_MODULE.LOGIN_FORM_COMPONENT.PASSWORD' | translate
+      }}
+    </nz-form-label>
+    <nz-form-control [nzErrorTip]="passwordFieldErrorTemplates">
+      <rappider-textbox
+        type="password"
+        formControlName="password"
+      ></rappider-textbox>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <rappider-button
+      [text]="submitButton?.text"
+      [type]="submitButton?.type"
+      [shape]="submitButton?.shape"
+      [size]="submitButton?.size"
+      [transparent]="submitButton?.transparent"
+      [loading]="submitButton?.loading"
+      [block]="submitButton?.block"
+      [disabled]="submitButton?.disabled"
+      [colorType]="submitButton?.colorType"
+      [icon]="submitButton?.icon"
+      [formButtonType]="submitButton?.formButtonType"
+      [borderSettings]="submitButton?.borderSettings"
+      [customSizeSettings]="submitButton?.customSizeSettings"
+      [customColorSettings]="submitButton?.customColorSettings"
+      [shadowSettings]="submitButton?.shadowSettings"
+      [paddingSettings]="submitButton?.paddingSettings"
+      [marginSettings]="submitButton?.marginSettings"
+      (click)="submitForm()"
+    ></rappider-button>
+  </nz-form-item>
+</form>
+
+<ng-template #usernameFieldErrorTemplates>
+  <ng-container *ngIf="getFieldErrors('username', 'required')">
+    {{
+      'RAPPIDER_COMPONENTS_MODULE.LOGIN_FORM_COMPONENT.REQUIRED_ERROR_TIP'
+        | translate
+    }}
+  </ng-container>
+  <ng-container *ngIf="getFieldErrors('username', 'pattern')">
+    {{ usernameRegExpErrorTip }}
+  </ng-container>
+</ng-template>
+
+<ng-template #passwordFieldErrorTemplates>
+  <ng-container *ngIf="getFieldErrors('password', 'required')">
+    {{
+      'RAPPIDER_COMPONENTS_MODULE.LOGIN_FORM_COMPONENT.REQUIRED_ERROR_TIP'
+        | translate
+    }}
+  </ng-container>
+  <ng-container *ngIf="getFieldErrors('password', 'pattern')">
+    {{ usernameRegExpErrorTip }}
+  </ng-container>
+</ng-template>

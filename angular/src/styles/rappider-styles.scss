@@ -1,0 +1,23 @@
+.rappider-container {
+  margin-top: var(--page-container-margin-top);
+  margin-right: var(--page-container-margin-right);
+  margin-bottom: var(--page-container-margin-bottom);
+  margin-left: var(--page-container-margin-left);
+
+  padding-top: var(--page-container-padding-top);
+  padding-right: var(--page-container-padding-right);
+  padding-bottom: var(--page-container-padding-bottom);
+  padding-left: var(--page-container-padding-left);
+}
+
+.rappider-component {
+  margin-top: var(--component-container-margin-top);
+  margin-right: var(--component-container-margin-right);
+  margin-bottom: var(--component-container-margin-bottom);
+  margin-left: var(--component-container-margin-left);
+
+  padding-top: var(--component-container-padding-top);
+  padding-right: var(--component-container-padding-right);
+  padding-bottom: var(--component-container-padding-bottom);
+  padding-left: var(--component-container-padding-left);
+}

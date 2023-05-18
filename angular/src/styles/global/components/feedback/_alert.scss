@@ -1,0 +1,56 @@
+.ant-alert {
+  font-size: var(--main-font-size);
+  line-height: $line-height-base;
+  color: var(--primary-text-color);
+  position: relative;
+  padding: $alert-padding-y $alert-padding-x $alert-padding-y
+    $alert-padding-w-icon;
+  border-radius: var(--border-radius-2x);
+}
+
+@each $alert in $alert-loop {
+  .#{nth($alert, 1)} {
+    background-color: #{nth($alert, 2)};
+    border: var(--border-size-x) solid #{nth($alert, 4)};
+
+    .ant-alert-icon {
+      color: #{nth($alert, 3)};
+    }
+  }
+}
+
+.ant-alert-description {
+  font-size: var(--main-font-size);
+}
+
+.ant-alert-message {
+  color: var(--primary-text-color);
+}
+
+.ant-alert-with-description {
+  padding: var(--padding-2x) var(--padding-4x);
+  position: relative;
+  border-radius: var(--border-radius-2x);
+  color: var(--text-color);
+  line-height: $line-height-base;
+
+  .ant-alert-message {
+    font-size: var(--title-font-size);
+    color: var(--primary-text-color);
+    margin-bottom: var(--margin-x);
+  }
+}
+
+.ant-alert-close-icon {
+  .anticon-close {
+    color: var(--text-color);
+
+    &:hover {
+      color: var(--primary-text-color);
+    }
+  }
+}
+
+.ant-alert-close-text {
+  color: var(--primary-text-color);
+}

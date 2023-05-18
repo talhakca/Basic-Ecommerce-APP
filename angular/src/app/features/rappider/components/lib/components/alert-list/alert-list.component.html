@@ -1,0 +1,20 @@
+<div [class]="'alert-list-' + direction" [style.gap]="gap">
+  <ng-container *ngFor="let alertItem of alertItems">
+    <rappider-alert
+      [type]="alertItem.type"
+      [title]="alertItem.title"
+      [description]="alertItem.description"
+      [showIcon]="alertItem.showIcon"
+      [closeable]="alertItem.closeable"
+      [actionConfig]="alertItem.actionConfig"
+      [actionConfigPlacement]="alertItem.actionConfigPlacement"
+      [data]="alertItem.data"
+      [borderSettings]="alertItem.borderSettings"
+      [sizeSettings]="alertItem.sizeSettings"
+      [colorSettings]="alertItem.colorSettings"
+      [boxShadowSettings]="alertItem.boxShadowSettings"
+      [paddingSettings]="alertItem.paddingSettings"
+      [marginSettings]="alertItem.marginSettings"
+    ></rappider-alert>
+  </ng-container>
+</div>

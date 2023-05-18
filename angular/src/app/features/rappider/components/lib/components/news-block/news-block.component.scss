@@ -1,0 +1,36 @@
+.row {
+  margin: 0px !important;
+}
+
+.img-area {
+  background-size: cover;
+  background-position: center;
+}
+
+.content-area {
+  background-color: var(--component-inner-background-color);
+  padding: var(--card-padding);
+}
+
+.link {
+  color: var(--link-color);
+  font-size: var(--title-font-size);
+  font-weight: var(--font-weight-semibold);
+}
+
+.col-12 {
+  padding: 0px !important;
+}
+
+.content {
+  background-size: 100%;
+  font-size: var(--main-font-size);
+  color: var(--text-color);
+}
+
+.date-area {
+  margin-top: var(--margin-2x);
+  margin-bottom: var(--margin-2x);
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+}

@@ -1,0 +1,56 @@
+<div class="compare-table">
+  <div class="table-title">
+    <rappider-heading
+      [content]="title?.content"
+      [type]="title?.type"
+    ></rappider-heading>
+  </div>
+  <nz-table nzShowPagination="false" [nzData]="items">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th *ngFor="let item of items" scope="col">
+          <div class="table-header">
+            <ng-container *ngIf="item?.header.image">
+              <rappider-image
+                [source]="item?.header?.image?.source"
+                [width]="item?.header?.image?.width"
+                [alternateText]="item?.header?.image?.alternateText"
+                [placeholder]="item?.header?.image?.placeholder"
+                [height]="item?.header?.image?.height"
+                [fallback]="item?.header?.image?.fallback"
+                [borderSettings]="item?.header?.image?.borderSettings"
+                [customSizeSettings]="item?.header?.image?.width"
+                [shadowSettings]="item?.header?.image?.shadowSettings"
+                [marginSettings]="item?.header?.image?.marginSettings"
+                [paddingSettings]="item?.header?.image?.paddingSettings"
+              ></rappider-image>
+            </ng-container>
+            <rappider-text
+              [content]="item?.header.text.content"
+              [textMode]="item?.header.text.textMode"
+              [text]="item?.header.text.text"
+              [typography]="item?.header.text.typography"
+              [colorSettings]="item?.header.text.colorSettings"
+            ></rappider-text>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let label of labels">
+        <td class="table-label" scope="row">{{ label?.text }}</td>
+        <ng-container *ngFor="let item of items">
+          <ng-container *ngFor="let content of item?.contents">
+            <td
+              *ngIf="content.fieldName === label?.fieldName"
+              [class]="setcompareTableCellClass(content)"
+            >
+              {{ content?.content }}
+            </td>
+          </ng-container>
+        </ng-container>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

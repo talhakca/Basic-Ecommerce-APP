@@ -1,0 +1,59 @@
+<section>
+  <div class="search-and-font-settings">
+    <div class="search">
+      <rappider-input-group
+        class="input-group"
+        [(ngModel)]="searchWord"
+        [suffixIcon]="InputGroupConfig.suffixIcon"
+        [textbox]="InputGroupConfig.textbox"
+        (ngModelChange)="onSearch()"
+      >
+      </rappider-input-group>
+    </div>
+    <div class="select-and-textbox">
+      <div class="select-area">
+        <rappider-select
+          [(ngModel)]="selectedfontPickerTypeValue"
+          [options]="fontPickerTypeValue"
+          (ngModelChange)="
+            onSelectFontPickerTypeValueChange(this.selectedfontPickerTypeValue)
+          "
+        ></rappider-select>
+      </div>
+      <div class="textbox-area">
+        <rappider-textbox
+          [(ngModel)]="customText"
+          (ngModelChange)="onTextBoxValueChange()"
+        ></rappider-textbox>
+      </div>
+    </div>
+    <div class="slider-area">
+      <rappider-slider
+        [(ngModel)]="fontSizeSliderValue"
+        [readonly]="slider.readonly"
+        [dualMode]="slider.dualMode"
+        [minRange]="slider.minRange"
+        [maxRange]="slider.maxRange"
+        [step]="slider.step"
+        [marks]="slider.marks"
+        (valueChange)="onFontPixelSliderValueChange($event)"
+      ></rappider-slider>
+    </div>
+  </div>
+</section>
+
+<section>
+  <rappider-font-card
+    [fontCardItems]="fontCardItems"
+    (emitData)="receiveTemplateData($event)"
+  ></rappider-font-card>
+</section>
+
+<section *ngIf="!isPaginationDisabled" class="pagination-area">
+  <nz-pagination
+    [nzResponsive]="true"
+    [(nzPageIndex)]="pageIndex"
+    [nzTotal]="fontCardDataSize"
+    (nzPageIndexChange)="onPageIndexChange($event)"
+  ></nz-pagination>
+</section>

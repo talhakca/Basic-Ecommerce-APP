@@ -1,0 +1,23 @@
+<nz-modal
+  [(nzVisible)]="visible"
+  [nzTitle]="title | translate"
+  [nzWidth]="width"
+  [nzOkText]="okText | translate"
+  [nzCancelText]="cancelText | translate"
+  [nzOkDisabled]="okDisabled"
+  [nzCancelDisabled]="cancelDisabled"
+  [nzFooter]="footer"
+  [nzOkDanger]="okDanger"
+  [nzOkLoading]="okLoading"
+  [nzMask]="mask"
+  [nzMaskClosable]="maskClosable"
+  [nzClassName]="className"
+  [nzBodyStyle]="bodyStyle"
+  [nzClosable]="closeIconVisibility"
+  (nzOnCancel)="onCancelClick()"
+  (nzOnOk)="onOkClick()"
+>
+  <ng-container *nzModalContent>
+    <ng-content></ng-content>
+  </ng-container>
+</nz-modal>

@@ -1,0 +1,27 @@
+<nz-card>
+  <div class="container-area">
+    <div>
+      <p class="title-item">{{ title }}</p>
+      <h2 class="content-item">
+        <span>{{ content }}</span>
+      </h2>
+    </div>
+    <rappider-avatar
+      *ngIf="avatar"
+      [text]="avatar.text"
+      [iconName]="avatar.iconName"
+      [shape]="avatar.shape"
+      [imageUrl]="avatar.imageUrl"
+      [altText]="avatar.altText"
+      [cssStyle]="avatar.cssStyle"
+      [size]="avatar.size"
+      [borderSettings]="avatar.borderSettings"
+      [sizeSettings]="avatar.sizeSettings"
+      [colorSettings]="avatar.colorSettings"
+      [boxShadowSettings]="avatar.boxShadowSettings"
+      [paddingSettings]="avatar.paddingSettings"
+      [marginSettings]="avatar.marginSettings"
+      [description]="avatar.description"
+    ></rappider-avatar>
+  </div>
+</nz-card>

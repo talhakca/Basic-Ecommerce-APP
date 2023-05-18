@@ -1,0 +1,103 @@
+<form [formGroup]="form">
+  <ng-container formArrayName="rows">
+    <table class="w-100">
+      <tbody
+        cdkDropList
+        cdkDropListLockAxis="y"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <tr
+          *ngFor="let row of getRowsFormArray()?.controls; let rowIndex = index"
+          cdkDrag
+          [formGroupName]="rowIndex"
+          [cdkDragDisabled]="!orderable"
+        >
+          <td *ngIf="orderable && emtyRowControl(rowIndex)">
+            <i class="fas fa-bars cursor-pointer"></i>
+          </td>
+          <td
+            *ngIf="
+              getRowsFormArray()?.length !== 1 &&
+              !emtyRowControl(rowIndex) &&
+              orderable
+            "
+            style="width: 15px"
+          >
+            <!-- empty column for alignment -->
+          </td>
+          <td *ngIf="orderNumbersVisibility">
+            <b>{{ rowIndex + 1 }}.</b>
+          </td>
+          <div class="input-template">
+            <td *ngFor="let column of getVisibleColumns(columns)" class="w-100">
+              <div
+                class="input-container"
+                [ngClass]="
+                  getErrorsByFieldName(rowIndex, column.fieldName)
+                    ? 'unvalid-form-item'
+                    : ''
+                "
+              >
+                <rappider-input-template
+                  class="w-100"
+                  [typeAndFormat]="column.typeAndFormat"
+                  [showCodemirrorForObjectAndArray]="
+                    column.showCodemirrorForObjectAndArray
+                  "
+                  [config]="column.config"
+                  [formControlName]="column.fieldName"
+                  (ngModelChange)="onRowDataChange(rowIndex)"
+                >
+                </rappider-input-template>
+
+                <div
+                  *ngFor="
+                    let error of getErrorsByFieldName(
+                      rowIndex,
+                      column.fieldName
+                    ) | keyvalue
+                  "
+                >
+                  <rappider-input-error
+                    [errors]="getErrorMessagesByErrors(error.key)"
+                  >
+                  </rappider-input-error>
+                </div>
+                <div
+                  *ngIf="
+                    getErrorsByFieldName(rowIndex, column.fieldName)?.unique
+                  "
+                >
+                  <rappider-input-error
+                    [errors]="['This field must be unique.']"
+                  >
+                  </rappider-input-error>
+                </div>
+              </div>
+            </td>
+          </div>
+          <td *ngIf="emtyRowControl(rowIndex)">
+            <i class="fas fa-trash" (click)="removeListItem(rowIndex)"></i>
+          </td>
+          <td
+            *ngIf="
+              getRowsFormArray()?.length !== 1 && !emtyRowControl(rowIndex)
+            "
+            style="width: 15px"
+          >
+            <!-- empty column for alignment -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="getRowsFormArray()?.length <= 2 && infoMessage">
+      <rappider-text
+        [textMode]="infoMessage.textMode"
+        [content]="infoMessage.content"
+        [text]="infoMessage.text"
+        [typography]="infoMessage.typography"
+        [colorSettings]="infoMessage.colorSettings"
+      ></rappider-text>
+    </div>
+  </ng-container>
+</form>

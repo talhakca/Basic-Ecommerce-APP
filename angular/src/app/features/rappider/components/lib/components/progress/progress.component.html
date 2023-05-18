@@ -1,0 +1,47 @@
+<ng-container
+  *ngIf="!isSuccessPercentVisible; else successPercentVisibleTemplate"
+>
+  <nz-progress
+    class="progress"
+    [nzPercent]="percent"
+    [nzStatus]="status"
+    [nzShowInfo]="showInfo"
+    [nzType]="type || 'line'"
+    [nzSize]="size"
+    [nzWidth]="width"
+    [nzStrokeWidth]="strokeWidth"
+    [style.padding]="paddingSettings?.all"
+    [style.padding-top]="paddingSettings?.top"
+    [style.padding-right]="paddingSettings?.right"
+    [style.padding-bottom]="paddingSettings?.bottom"
+    [style.padding-left]="paddingSettings?.left"
+    [style.margin]="marginSettings?.all"
+    [style.margin-top]="marginSettings?.top"
+    [style.margin-right]="marginSettings?.right"
+    [style.margin-bottom]="marginSettings?.bottom"
+    [style.margin-left]="marginSettings?.left"
+  ></nz-progress>
+</ng-container>
+<ng-template #successPercentVisibleTemplate>
+  <nz-progress
+    class="progress"
+    [nzPercent]="percent"
+    [nzStatus]="status"
+    [nzShowInfo]="showInfo"
+    [nzType]="type || 'line'"
+    [nzSuccessPercent]="successPercent"
+    [nzSize]="size"
+    [nzWidth]="width"
+    [nzStrokeWidth]="strokeWidth"
+    [style.padding]="paddingSettings?.all"
+    [style.padding-top]="paddingSettings?.top"
+    [style.padding-right]="paddingSettings?.right"
+    [style.padding-bottom]="paddingSettings?.bottom"
+    [style.padding-left]="paddingSettings?.left"
+    [style.margin]="marginSettings?.all"
+    [style.margin-top]="marginSettings?.top"
+    [style.margin-right]="marginSettings?.right"
+    [style.margin-bottom]="marginSettings?.bottom"
+    [style.margin-left]="marginSettings?.left"
+  ></nz-progress>
+</ng-template>

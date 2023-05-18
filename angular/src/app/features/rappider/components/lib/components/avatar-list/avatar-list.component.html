@@ -1,0 +1,83 @@
+<nz-card>
+  <div class="card-head">
+    <rappider-heading
+      *ngIf="title"
+      class="title"
+      [content]="title.content"
+      [type]="title.type"
+    ></rappider-heading>
+    <ng-container *ngIf="button">
+      <rappider-button
+        *ngIf="button"
+        [type]="button.type"
+        [shape]="button.shape"
+        [text]="button.text"
+        [size]="button.size"
+        [transparent]="button.transparent"
+        [loading]="button.loading"
+        [block]="button.block"
+        [disabled]="button.disabled"
+        [colorType]="button.colorType"
+        [icon]="button.icon"
+        [formButtonType]="button?.formButtonType"
+        [borderSettings]="button?.borderSettings"
+        [customSizeSettings]="button?.customSizeSettings"
+        [customColorSettings]="button?.customColorSettings"
+        [shadowSettings]="button?.shadowSettings"
+        [paddingSettings]="button?.paddingSettings"
+        [marginSettings]="button?.marginSettings"
+        (click)="onButtonClick()"
+      ></rappider-button>
+    </ng-container>
+  </div>
+
+  <div class="avatar-card-body">
+    <ng-container *ngFor="let item of items">
+      <ng-container *ngIf="item.redirectUrl; else noRedirectUrlTemplate">
+        <div class="avatar">
+          <a [routerLink]="item.redirectUrl">
+            <rappider-avatar
+              [text]="item?.avatar?.text"
+              [tooltipText]="item?.avatar?.tooltipText"
+              [iconName]="item?.avatar?.iconName"
+              [shape]="item?.avatar?.shape"
+              [imageUrl]="item?.avatar?.imageUrl"
+              [altText]="item?.avatar?.altText"
+              [cssStyle]="item?.avatar?.cssStyle"
+              [size]="item?.avatar?.size"
+              [borderSettings]="item?.avatar?.borderSettings"
+              [sizeSettings]="item?.avatar?.sizeSettings"
+              [colorSettings]="item?.avatar?.colorSettings"
+              [boxShadowSettings]="item?.avatar?.boxShadowSettings"
+              [paddingSettings]="item?.avatar?.paddingSettings"
+              [marginSettings]="item?.avatar?.marginSettings"
+              [description]="item?.avatar?.description"
+            ></rappider-avatar>
+          </a>
+        </div>
+      </ng-container>
+      <ng-template #noRedirectUrlTemplate>
+        <div class="avatar">
+          <rappider-avatar
+            [text]="item?.avatar?.text"
+            [tooltipText]="item?.avatar?.tooltipText"
+            [iconName]="item?.avatar?.iconName"
+            [shape]="item?.avatar?.shape"
+            [imageUrl]="item?.avatar?.imageUrl"
+            [altText]="item?.avatar?.altText"
+            [cssStyle]="item?.avatar?.cssStyle"
+            [size]="item?.avatar?.size"
+            [description]="item?.avatar?.description"
+            [borderSettings]="item?.avatar?.borderSettings"
+            [sizeSettings]="item?.avatar?.sizeSettings"
+            [colorSettings]="item?.avatar?.colorSettings"
+            [boxShadowSettings]="item?.avatar?.boxShadowSettings"
+            [paddingSettings]="item?.avatar?.paddingSettings"
+            [marginSettings]="item?.avatar?.marginSettings"
+            (click)="onAvatarClick(item)"
+          ></rappider-avatar>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+</nz-card>

@@ -1,0 +1,31 @@
+.content {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--padding-4x) 0px;
+  margin-top: var(--margin-4x);
+  rappider-icon {
+    margin-right: var(--margin-2x);
+    font-size: var(--font-size-x-large);
+  }
+}
+
+.addinational-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-x) 0px;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-x) 0px;
+  font-weight: bold;
+}
+
+.icon-text {
+  display: flex;
+  align-items: center;
+}

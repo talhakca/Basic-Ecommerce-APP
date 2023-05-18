@@ -1,0 +1,19 @@
+<div class="note-list">
+  <div *ngFor="let item of items; let index = index" class="note-list-item">
+    <rappider-note
+      [data]="item.data"
+      [tag]="item.tag"
+      [title]="item.title"
+      [subtitle]="item.subtitle"
+      [saveButton]="item.saveButton"
+      [cancelButton]="item.cancelButton"
+      [additionalButtons]="item.additionalButtons"
+      [richTextEditor]="item.richTextEditor"
+      [richTextEditorVisibility]="item.richTextEditorVisibility"
+      [content]="item.content"
+      (additionalButtonClick)="onAdditionalButtonClick($event, index)"
+      (cancelButtonClick)="onCancel(index)"
+      (saveButtonClick)="onSave($event, index)"
+    ></rappider-note>
+  </div>
+</div>

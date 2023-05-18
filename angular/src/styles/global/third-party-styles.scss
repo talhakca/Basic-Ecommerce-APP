@@ -1,0 +1,29 @@
+/*******************/
+/*** Third Party Styling ****/
+/*******************/
+
+/* quill */
+/*****************/
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+@import '~quill-mention/dist/quill.mention.min.css';
+
+/* bootstrap */
+@import '~bootstrap/scss/bootstrap';
+
+/* code mirror */
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/material';
+@import '~codemirror/theme/darcula';
+
+/* vime video player */
+/* Default theme. ~960B */
+@import '~@vime/core/themes/default.css';
+/* Optional light theme (extends default). ~400B */
+@import '~@vime/core/themes/light.css';
+
+/* swiper */
+@import 'swiper/scss';
+@import 'swiper/scss/navigation';
+@import 'swiper/scss/pagination';

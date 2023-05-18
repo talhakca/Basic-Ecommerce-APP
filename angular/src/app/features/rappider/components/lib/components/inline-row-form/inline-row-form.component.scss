@@ -1,0 +1,48 @@
+tr {
+  display: flex;
+  gap: var(--margin-4x);
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  i {
+    cursor: pointer;
+    color: var(--text-color);
+  }
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+
+  .input-template {
+    display: flex;
+    width: 100%;
+    gap: var(--margin-x);
+
+    &::ng-deep .ant-input {
+      height: 42.5px;
+    }
+  }
+}
+
+rappider-button {
+  display: block;
+  margin-top: var(--margin-2x);
+}
+
+@media only screen and (max-width: 420px) {
+  .input-template {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--margin-x);
+  }
+
+  tr {
+    border-bottom: var(--border-size-x) solid var(--primary-border-color);
+    padding-bottom: 1rem;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

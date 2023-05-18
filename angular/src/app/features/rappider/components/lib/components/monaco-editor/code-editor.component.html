@@ -1,0 +1,11 @@
+<div class="markdown-container">
+  <div class="code-editor-container">
+    <rappider-monaco-editor
+      [ngModel]="code"
+      [restrictions]="restrictions"
+      [monacoEditorOptions]="{ language: 'markdown-math' }"
+    ></rappider-monaco-editor>
+  </div>
+
+  <div [innerHTML]="htmlMarkdown"></div>
+</div>

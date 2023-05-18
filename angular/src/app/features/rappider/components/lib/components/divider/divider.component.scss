@@ -1,0 +1,9 @@
+.divider::ng-deep {
+  nz-divider {
+    &::before,
+    &::after {
+      border-color: var(--border-color) !important;
+      border-width: var(--border-width) !important;
+    }
+  }
+}

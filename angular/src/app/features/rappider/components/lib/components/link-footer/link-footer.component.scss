@@ -1,0 +1,20 @@
+.text {
+  padding: var(--padding-x) 0;
+}
+
+.anchor {
+  font-weight: var(--font-weight-medium);
+}
+
+.heading {
+  margin-bottom: var(--margin-3x);
+}
+
+.link-footer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--footer-background-color);
+  border-top: var(--border-size-x) solid var(--footer-border-color);
+  height: var(--footer-height);
+}

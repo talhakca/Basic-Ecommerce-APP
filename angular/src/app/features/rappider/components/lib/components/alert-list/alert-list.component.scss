@@ -1,0 +1,9 @@
+.alert-list-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.alert-list-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+}

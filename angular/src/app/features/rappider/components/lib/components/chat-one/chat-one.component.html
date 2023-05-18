@@ -1,0 +1,69 @@
+<div class="card-container">
+  <div *ngIf="description" class="card-header">
+    <rappider-label [content]="description.content"></rappider-label>
+  </div>
+  <section class="section-container">
+    <ng-container *ngFor="let item of items">
+      <div [class]="item?.senderType">
+        <div class="avatar-time-section">
+          <div *ngIf="item.time" class="time-area">
+            <rappider-text
+              [content]="item.time.content"
+              [textMode]="item.time.textMode"
+              [text]="item.time.text"
+              [typography]="item.time.typography"
+              [colorSettings]="item.time.colorSettings"
+            ></rappider-text>
+          </div>
+
+          <div *ngIf="item.avatar">
+            <rappider-avatar
+              [text]="item.avatar.text"
+              [iconName]="item.avatar.iconName"
+              [shape]="item.avatar.shape"
+              [imageUrl]="item.avatar.imageUrl"
+              [altText]="item.avatar.altText"
+              [cssStyle]="item.avatar.cssStyle"
+              [size]="item.avatar.size"
+              [borderSettings]="item.avatar.borderSettings"
+              [sizeSettings]="item.avatar.sizeSettings"
+              [colorSettings]="item.avatar.colorSettings"
+              [boxShadowSettings]="item.avatar.boxShadowSettings"
+              [paddingSettings]="item.avatar.paddingSettings"
+              [marginSettings]="item.avatar.marginSettings"
+              [description]="item.avatar.description"
+            ></rappider-avatar>
+          </div>
+        </div>
+
+        <div class="text-area">
+          <div *ngIf="item.name" class="name-area">
+            <rappider-label [content]="item.name"></rappider-label>
+          </div>
+
+          <div *ngIf="item.message" class="message-area">
+            <rappider-text
+              [content]="item.message.content"
+              [textMode]="item.message.textMode"
+              [text]="item.message.text"
+              [typography]="item.message.typography"
+              [colorSettings]="item.message.colorSettings"
+            ></rappider-text>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </section>
+  <div class="card-footer">
+    <div *ngIf="inputGroup">
+      <rappider-input-group
+        class="input-group"
+        [prefixButton]="inputGroup.prefixButton"
+        [suffixButton]="inputGroup.suffixButton"
+        [prefixIcon]="inputGroup.prefixIcon"
+        [suffixIcon]="inputGroup.suffixIcon"
+        [textbox]="inputGroup.textbox"
+      ></rappider-input-group>
+    </div>
+  </div>
+</div>

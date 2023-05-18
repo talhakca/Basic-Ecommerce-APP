@@ -1,0 +1,15 @@
+.item-area {
+  display: flex;
+  align-items: baseline;
+  padding-bottom: var(--padding-3x);
+}
+
+.property-title {
+  font-weight: var(--font-weight-medium);
+  padding-left: 0 !important;
+  color: var(--primary-text-color);
+}
+
+.property-value {
+  padding-left: var(--padding-3x);
+}

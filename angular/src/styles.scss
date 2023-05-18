@@ -1,0 +1,10 @@
+/* global scss files */
+@import './styles/global/index.scss';
+
+/* rappider scss files */
+@import './styles/rappider-styles.scss';
+
+/* active project theme */
+@import './styles/themes/default-theme.scss';
+/* custom styles by end-user */
+@import './styles/custom-styles.scss';

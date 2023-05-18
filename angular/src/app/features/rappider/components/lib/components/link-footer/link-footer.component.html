@@ -1,0 +1,15 @@
+<div *ngIf="items" class="link-footer">
+  <div *ngFor="let item of items">
+    <div *ngIf="item.heading" class="heading">
+      <rappider-heading
+        [type]="item.heading.type"
+        [content]="item.heading.content"
+      ></rappider-heading>
+    </div>
+    <div *ngFor="let subItem of item.subItems" class="text">
+      <a [routerLink]="subItem.routerUrl" class="anchor">
+        <rappider-text [content]="subItem.label"></rappider-text>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.ant-breadcrumb {
+  font-family: $font-family-base;
+  line-height: $line-height-base;
+  font-size: var(--main-font-size);
+  font-weight: $font-weight-semibold;
+
+  color: var(--secondary-text-color);
+
+  a {
+    color: var(--secondary-text-color);
+
+    &:hover {
+      color: var(--primary-text-color);
+    }
+  }
+
+  .ant-breadcrumb-separator {
+    color: var(--secondary-text-color);
+  }
+
+  nz-breadcrumb-item:last-child a {
+    color: var(--primary-text-color);
+  }
+}
+
+.ant-breadcrumb > nz-breadcrumb-item:last-child {
+  color: var(--primary-text-color);
+}

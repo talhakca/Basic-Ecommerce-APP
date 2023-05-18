@@ -1,0 +1,31 @@
+<div class="subscribe-source">
+  <div class="row align-items-center">
+    <div class="col-md-7 col-sm-12">
+      <div *ngIf="heading" class="heading">
+        <rappider-heading
+          [content]="heading.content"
+          [type]="heading.type"
+        ></rappider-heading>
+      </div>
+      <div *ngIf="text" class="content">
+        <rappider-paragraph
+          [content]="text?.content"
+          [customColorSettings]="text?.customColorSettings"
+          [typographySettings]="text?.typographySettings"
+        ></rappider-paragraph>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-12 input">
+      <div *ngIf="inputGroup">
+        <rappider-input-group
+          [(ngModel)]="value"
+          [prefixIcon]="inputGroup.prefixIcon"
+          [prefixButton]="inputGroup.prefixButton"
+          [suffixIcon]="inputGroup.suffixIcon"
+          [suffixButton]="inputGroup.suffixButton"
+          [textbox]="inputGroup.textbox"
+        ></rappider-input-group>
+      </div>
+    </div>
+  </div>
+</div>

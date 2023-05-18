@@ -1,0 +1,21 @@
+.input-template-component {
+  display: flex;
+  align-items: center;
+
+  .input-area {
+    width: 100%;
+
+    .checkbox-area {
+      display: flex;
+    }
+  }
+
+  .actions-dropdown {
+    ::ng-deep {
+      rappider-icon {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}

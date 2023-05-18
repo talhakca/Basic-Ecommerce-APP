@@ -1,0 +1,75 @@
+<rappider-title-toolbar
+  [mainTitle]="mainTitleConfig"
+  [displayToolbar]="displayToolbar"
+  [displayToolbarBackButton]="displayToolbarBackButton"
+  [displayBreadcrumb]="displayBreadCrumb"
+  [options]="breadCrumbOptions"
+  [titleBarActionButtons]="titleBarActionButtons"
+  [titleBarActionMenu]="titleBarActionMenu"
+  [titleBarSwitchSettings]="titleBarSwitchSettings"
+  [titleBarRadioButtonSettings]="titleBarRadioButtonSettings"
+  (titleBarRadioButtonClick)="onTitleBarRadioButtonClick($event)"
+  (titleBarActionButtonClick)="onTitleBarActionButtonClick($event)"
+>
+</rappider-title-toolbar>
+
+<ng-container *ngIf="!isDataLoading">
+  <!-- GRID mode -->
+  <ng-container *ngIf="listMode === ListMode.Grid">
+    <section class="grid-list-container">
+      <rappider-list-grid
+        [config]="listGridConfig"
+        [data]="data"
+        [loading]="isDataLoading"
+        [borderless]="isListGridBorderless"
+        [redirectUrlData]="redirectUrlData"
+        (listActionDropdownItemClick)="
+          onListGridListActionDropdownItemClick($event)
+        "
+        (columnActionClick)="onListGridColumnActionClick($event)"
+      ></rappider-list-grid>
+    </section>
+  </ng-container>
+
+  <!-- CARD mode -->
+  <ng-container *ngIf="listMode === ListMode.Card">
+    <section class="card-list-container">
+      <!-- Search for cards -->
+      <div class="cards-search-container">
+        <rappider-input-group
+          [(ngModel)]="cardListSearchText"
+          [textbox]="cardSearchInputConfig.textbox"
+          [suffixIcon]="cardSearchInputConfig.suffixIcon"
+        ></rappider-input-group>
+      </div>
+      <nz-empty
+        *ngIf="!filteredCardData || !filteredCardData?.length"
+        nzNotFoundImage="simple"
+        class="no-data"
+      ></nz-empty>
+
+      <div
+        *ngFor="let item of filteredCardData; let i = index"
+        class="item-card col-lg-3 col-md-6 col-sm-12 col-xs-12"
+      >
+        <rappider-card-ccs
+          [colorBand]="item?.color"
+          [title]="{
+            content:
+              item[cardListConfig?.titleFieldName] || item.title || item.name,
+            type: 'h3'
+          }"
+          [subtitles]="getCardSubtitles(item) || []"
+          [description]="
+            item[cardListConfig?.descriptionFieldName] || item.description
+          "
+          [secondActionButton]="cardListConfig?.editItemActionButton"
+          [thirdActionButton]="cardListConfig?.deleteItemActionButton"
+          (actionClick)="onCardViewActionClick($event, item)"
+          (itemSelect)="onCardViewItemSelected(item)"
+        >
+        </rappider-card-ccs>
+      </div>
+    </section>
+  </ng-container>
+</ng-container>

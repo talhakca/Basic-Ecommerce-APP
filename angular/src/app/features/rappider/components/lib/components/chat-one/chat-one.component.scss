@@ -1,0 +1,80 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+
+  &::ng-deep {
+    .card-header {
+      border-bottom: none !important;
+    }
+    .card-footer {
+      border-top: none !important;
+    }
+  }
+}
+
+.time-area {
+  color: var(--default-color);
+  white-space: nowrap;
+  margin-top: var(--margin-3x);
+  font-size: var(--font-size-smaller);
+  font-weight: var(--font-weight-normal);
+  margin-left: var(--margin-x);
+  margin-right: var(--margin-x);
+  align-items: baseline;
+}
+
+.text-area {
+  padding-left: var(--padding-3x);
+  padding-right: var(--padding-3x);
+  padding-bottom: var(--padding-2x);
+  padding-top: var(--padding-2x);
+  margin-left: var(--margin-3x);
+}
+
+.name-area {
+  margin-bottom: var(--margin-x);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--margin-x);
+  align-items: baseline;
+}
+
+.message-area {
+  font-weight: var(--font-weight-normal);
+}
+
+.media {
+  display: flex;
+  align-items: flex-start;
+}
+
+.receiver {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sender {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.button-area {
+  display: flex;
+}
+.section-container {
+  margin-bottom: 0px;
+}
+
+.avatar-time-section {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group {
+  width: 100%;
+}

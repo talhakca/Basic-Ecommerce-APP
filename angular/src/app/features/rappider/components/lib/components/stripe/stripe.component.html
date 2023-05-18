@@ -1,0 +1,83 @@
+<div class="section">
+  <form [formGroup]="paymentElementForm">
+    <nz-form-control
+      *ngIf="nameFieldVisibility"
+      class="form-element"
+      appearance="fill"
+    >
+      <nz-form-label>Name</nz-form-label>
+      <input nz-input placeholder="Name" formControlName="name" />
+    </nz-form-control>
+    <nz-form-control
+      *ngIf="emailFieldVisibility"
+      class="form-element"
+      appearance="fill"
+    >
+      <nz-form-label>E-mail</nz-form-label>
+      <input
+        nz-input
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+      />
+    </nz-form-control>
+    <nz-form-control
+      *ngIf="addressFieldVisibility"
+      class="form-element"
+      appearance="fill"
+    >
+      <nz-form-label>Address</nz-form-label>
+      <input nz-input placeholder="Address" formControlName="address" />
+    </nz-form-control>
+    <nz-form-control
+      *ngIf="zipcodeFieldVisibility"
+      class="form-element"
+      appearance="fill"
+    >
+      <nz-form-label>ZIP Code</nz-form-label>
+      <input nz-input placeholder="ZIP Code" formControlName="zipcode" />
+    </nz-form-control>
+    <nz-form-control
+      *ngIf="cityFieldVisibility"
+      class="form-element"
+      appearance="fill"
+    >
+      <nz-form-label>City</nz-form-label>
+      <input nz-input placeholder="City" formControlName="city" />
+    </nz-form-control>
+    <nz-form-control class="form-element">
+      <ngx-stripe-payment
+        [appearance]="appearance"
+        [options]="cardOptions"
+        [clientSecret]="clientSecret"
+      >
+      </ngx-stripe-payment>
+    </nz-form-control>
+    <rappider-button
+      *ngIf="submitButton"
+      formButtonType="submit"
+      [key]="submitButton.key"
+      [popconfirmTitle]="submitButton.popconfirmTitle"
+      [emitWithoutPopconfirm]="submitButton.emitWithoutPopconfirm"
+      [iconPlacement]="submitButton.iconPlacement"
+      [type]="submitButton.type"
+      [shape]="submitButton.shape"
+      [text]="submitButton.text"
+      [size]="submitButton.size"
+      [transparent]="submitButton.transparent"
+      [loading]="submitButton.loading"
+      [block]="submitButton.block"
+      [disabled]="submitButton.disabled"
+      [colorType]="submitButton.colorType"
+      [icon]="submitButton.icon"
+      [formButtonType]="submitButton?.formButtonType"
+      [borderSettings]="submitButton?.borderSettings"
+      [customSizeSettings]="submitButton?.customSizeSettings"
+      [customColorSettings]="submitButton?.customColorSettings"
+      [shadowSettings]="submitButton?.shadowSettings"
+      [paddingSettings]="submitButton?.paddingSettings"
+      [marginSettings]="submitButton?.marginSettings"
+      (confirm)="pay()"
+    ></rappider-button>
+  </form>
+</div>

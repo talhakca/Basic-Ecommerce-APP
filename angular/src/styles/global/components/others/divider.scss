@@ -1,0 +1,26 @@
+.ant-divider {
+  font-family: $font-family-base;
+  font-size: var(--main-font-size) !important;
+  line-height: $line-height-base;
+  color: var(--primary-text-color);
+  border-top: var(--border-size-x) solid var(--primary-border-color);
+}
+
+.ant-divider-horizontal {
+  &.ant-divider-with-text,
+  &.ant-divider-with-text-left,
+  &.ant-divider-with-text-right {
+    color: var(--text-color);
+    background: 0 0;
+
+    &:before,
+    &:after {
+      border-top: var(--border-size-2x) solid var(--primary-border-color);
+    }
+  }
+}
+
+.ant-divider-vertical {
+  height: 100%;
+  border-top: none !important;
+}

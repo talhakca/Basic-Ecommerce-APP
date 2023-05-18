@@ -1,0 +1,29 @@
+<div class="divider">
+  <ng-container *ngIf="!text?.content?.length; else dividerWithTextTemplate">
+    <nz-divider
+      [nzDashed]="style || 'false'"
+      [nzType]="type || 'horizontal'"
+      [nzOrientation]="textPlacement || 'center'"
+    >
+    </nz-divider>
+  </ng-container>
+
+  <ng-template #dividerWithTextTemplate>
+    <nz-divider
+      [nzDashed]="style || 'false'"
+      [nzType]="type || 'horizontal'"
+      [nzText]="textArea"
+      [nzOrientation]="textPlacement || 'center'"
+    >
+      <ng-template #textArea>
+        <rappider-text
+          [textMode]="text?.textMode"
+          [content]="text?.content"
+          [text]="text?.text"
+          [typography]="text?.typography"
+          [colorSettings]="text?.colorSettings"
+        ></rappider-text>
+      </ng-template>
+    </nz-divider>
+  </ng-template>
+</div>

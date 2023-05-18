@@ -1,0 +1,27 @@
+rappider-pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.search-filter {
+  display: flex;
+  justify-content: space-between;
+  gap: 20%;
+}
+
+rappider-input-group {
+  width: 80%;
+}
+
+.filter-columns-select {
+  width: 20%;
+}
+
+.filter-columns-placeholder {
+  display: flex;
+  align-items: center;
+}
+
+rappider-select {
+  width: 20%;
+}

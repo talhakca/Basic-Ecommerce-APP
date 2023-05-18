@@ -1,0 +1,29 @@
+<div class="card-one-list row">
+  <ng-container *ngFor="let item of items">
+    <rappider-card-one
+      [class]="calculateColumns()"
+      [data]="item.data"
+      [image]="item.image"
+      [imageTags]="item.imageTags"
+      [imageButtons]="item.imageButtons"
+      [rate]="item.rate"
+      [titles]="item.titles"
+      [currency]="item.currency"
+      [finalPrice]="item.finalPrice"
+      [price]="item.price"
+      [additionalTags]="item.additionalTags"
+      [additionalButtons]="item.additionalButtons"
+      [descriptions]="item.descriptions"
+      [avatar]="item.avatar"
+      [avatarButton]="item.avatarButton"
+      [avatarPlacement]="item.avatarPlacement"
+      [isSelected]="item.isSelected"
+      [selectedCardIcon]="item.selectedCardIcon"
+      [showTitleOnImage]="showTitleOnImage"
+      [showDescriptionOnImage]="showDescriptionOnImage"
+      (cardClick)="onCardClick($event, item)"
+      (imageButtonClick)="onImageButtonClick($event, item)"
+      (additionalButtonClick)="onAdditionalButtonClick($event, item)"
+    ></rappider-card-one>
+  </ng-container>
+</div>

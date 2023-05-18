@@ -1,0 +1,30 @@
+.container-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 72px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  max-width: 472px;
+  width: 100%;
+  background-color: #ffffff;
+  margin: 0 auto 62px;
+}
+
+.register-form {
+  margin-top: 25px;
+}
+
+.header {
+  text-align: center;
+  font-weight: 600;
+}
+
+.or-text {
+  font-weight: 300;
+}
+
+.sign-in-area {
+  margin: auto;
+  margin-top: 40px;
+}

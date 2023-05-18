@@ -1,0 +1,20 @@
+<nz-select
+  [(ngModel)]="value"
+  class="tag-select"
+  nzMode="tags"
+  nzAllowClear
+  [nzPlaceHolder]="placeholder || ''"
+  [nzShowSearch]="settings?.searchable"
+  [nzSize]="settings?.size"
+  [ngClass]="cssClass"
+  [ngStyle]="cssStyle"
+  [nzDropdownStyle]="{ display: 'none' }"
+  [nzShowArrow]="false"
+  (ngModelChange)="onBlur()"
+>
+  <nz-option
+    *ngFor="let option of options"
+    [nzLabel]="option.key"
+    [nzValue]="option.value"
+  ></nz-option>
+</nz-select>

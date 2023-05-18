@@ -1,0 +1,35 @@
+.content {
+  font-size: var(--main-font-size);
+  align-items: center;
+}
+
+.checkbox-button-type {
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  .label {
+    border: var(--border-size-x) solid var(--primary-border-color);
+    display: inline-block;
+    padding: 0.55rem 1.25rem;
+    font-size: var(--main-font-size);
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: var(--border-radius-2x);
+
+    &:hover {
+      color: var(--hover-color);
+    }
+  }
+
+  input[type='checkbox']:checked + .label {
+    background: var(--component-inner-background-color);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  input[type='checkbox']:disabled + .label {
+    background: var(--disabled-color);
+    cursor: not-allowed;
+  }
+}

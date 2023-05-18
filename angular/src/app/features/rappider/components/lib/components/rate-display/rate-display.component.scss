@@ -1,0 +1,5 @@
+.rate-display {
+  ::ng-deep .ant-rate {
+    color: var(--warning-color);
+  }
+}

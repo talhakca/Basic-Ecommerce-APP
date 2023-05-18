@@ -1,0 +1,140 @@
+<div class="rappider-product-card">
+  <nz-card>
+    <div *ngIf="tag" class="space">
+      <rappider-tag
+        [text]="tag.text"
+        [color]="tag.color"
+        [mode]="tag.mode"
+      ></rappider-tag>
+    </div>
+
+    <div *ngIf="title" class="space">
+      <rappider-heading
+        [content]="title.content"
+        [type]="title.type"
+      ></rappider-heading>
+    </div>
+
+    <div *ngIf="itemDescription" class="item-description-area space">
+      <rappider-paragraph
+        [content]="itemDescription?.content"
+        [customColorSettings]="itemDescription?.customColorSettings"
+        [typographySettings]="itemDescription?.typographySettings"
+      ></rappider-paragraph>
+    </div>
+
+    <div *ngIf="rate" class="rate-area space">
+      <rappider-rate-display [rate]="rate"></rappider-rate-display>
+    </div>
+
+    <div *ngIf="price" class="price-area space content-text">
+      <rappider-label [content]="price"></rappider-label>
+    </div>
+
+    <rappider-divider
+      [borderSettings]="divider?.borderSettings"
+      [text]="divider?.text"
+      [customSizeSettings]="divider?.customSizeSettings"
+      [shadowSettings]="divider?.shadowSettings"
+      [marginSettings]="divider?.marginSettings"
+      [paddingSettings]="divider?.paddingSettings"
+    ></rappider-divider>
+
+    <div *ngIf="optionItems">
+      <div class="option-items-area space" *ngFor="let item of optionItems">
+        <div *ngIf="item.text" class="content-text">
+          <rappider-label [content]="item.text"></rappider-label>
+        </div>
+
+        <div *ngIf="item.radioGroup">
+          <rappider-radio-group
+            [options]="item.radioGroup.options"
+            [cssStyle]="item.radioGroup.cssStyle"
+            [cssClass]="item.radioGroup.cssClass"
+            [invalidConfigText]="item.radioGroup.invalidConfigText"
+            [size]="item.radioGroup.size"
+            [disabled]="item.radioGroup.disabled"
+            [title]="item.radioGroup.title"
+            [buttonStyle]="item.radioGroup.buttonStyle"
+          ></rappider-radio-group>
+        </div>
+      </div>
+    </div>
+
+    <rappider-divider
+      [borderSettings]="divider?.borderSettings"
+      [customSizeSettings]="divider?.customSizeSettings"
+      [shadowSettings]="divider?.shadowSettings"
+      [marginSettings]="divider?.marginSettings"
+      [paddingSettings]="divider?.paddingSettings"
+      [text]="divider?.text"
+    ></rappider-divider>
+
+    <div *ngIf="additionalButtonsLabel" class="additional-button-label space">
+      <rappider-label [content]="additionalButtonsLabel"></rappider-label>
+    </div>
+
+    <div *ngIf="additionalButtons" class="additional-button-area space">
+      <rappider-button-group
+        [buttons]="additionalButtons"
+      ></rappider-button-group>
+    </div>
+
+    <div *ngIf="textareaLabel" class="notes-area space">
+      <div class="content-text">
+        <rappider-label [content]="textareaLabel"></rappider-label>
+      </div>
+      <div class="text-area">
+        <rappider-textarea
+          [rows]="textarea?.rows"
+          [cssStyle]="textarea?.cssStyle"
+          [cssClass]="textarea?.cssClass"
+          [placeholder]="textarea?.placeholder"
+          [autosize]="textarea?.autosize"
+          [borderSettings]="textarea?.borderSettings"
+          [customColorSettings]="textarea?.customColorSettings"
+          [customSizeSettings]="textarea?.customSizeSettings"
+          [shadowSettings]="textarea?.shadowSettings"
+          [marginSettings]="textarea?.marginSettings"
+          [paddingSettings]="textarea?.paddingSettings"
+        ></rappider-textarea>
+      </div>
+    </div>
+
+    <div class="bottom-area">
+      <div *ngIf="select" class="select-area">
+        <rappider-select
+          [options]="select.options"
+          [settings]="select.settings"
+          [placeholder]="select.placeholder"
+          [cssStyle]="select.cssStyle"
+          [cssClass]="select.cssClass"
+          [invalidConfigText]="select.invalidConfigText"
+        ></rappider-select>
+      </div>
+
+      <div *ngIf="button" class="button-area space">
+        <rappider-button
+          [type]="button.type"
+          [shape]="button.shape"
+          [text]="button.text"
+          [size]="button.size"
+          [transparent]="button.transparent"
+          [loading]="button.loading"
+          [block]="button.block"
+          [disabled]="button.disabled"
+          [colorType]="button.colorType"
+          [icon]="button.icon"
+          [formButtonType]="button?.formButtonType"
+          [borderSettings]="button?.borderSettings"
+          [customSizeSettings]="button?.customSizeSettings"
+          [customColorSettings]="button?.customColorSettings"
+          [shadowSettings]="button?.shadowSettings"
+          [paddingSettings]="button?.paddingSettings"
+          [marginSettings]="button?.marginSettings"
+          (click)="onButtonClick()"
+        ></rappider-button>
+      </div>
+    </div>
+  </nz-card>
+</div>

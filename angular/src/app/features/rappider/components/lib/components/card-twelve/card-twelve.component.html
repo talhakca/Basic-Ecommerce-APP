@@ -1,0 +1,28 @@
+<div class="card-section">
+  <div *ngIf="icon?.name" class="icon-section">
+    <rappider-icon
+      class="icon"
+      [name]="icon.name"
+      [color]="icon.color"
+      [type]="icon.type"
+      [theme]="icon.theme"
+      [size]="icon.size"
+    >
+    </rappider-icon>
+  </div>
+  <div *ngIf="title" class="content">
+    <div>
+      <rappider-heading
+        [type]="title.type"
+        [content]="title.content"
+      ></rappider-heading>
+    </div>
+    <div *ngIf="subtitle" class="additional-text">
+      <rappider-paragraph
+        [content]="subtitle?.content"
+        [customColorSettings]="subtitle?.customColorSettings"
+        [typographySettings]="subtitle?.typographySettings"
+      ></rappider-paragraph>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-5 img-area" [style.background-image]="url"></div>
+  <div class="col-7 content-area">
+    <div class="row row-area">
+      <div class="col-12">
+        <a class="link" [routerLink]="routerLink">
+          {{ title }}
+        </a>
+      </div>
+      <div class="col-12 date-area">
+        {{ date | date }}
+      </div>
+      <div class="col-12 content-area">
+        <span class="content" [innerHTML]="content"> </span>
+      </div>
+    </div>
+  </div>
+</div>

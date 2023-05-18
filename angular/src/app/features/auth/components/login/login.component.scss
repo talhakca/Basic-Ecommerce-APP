@@ -1,0 +1,66 @@
+// .login-container {
+//   display: flex; /* establish flex container */
+//   flex-direction: column; /* make main axis vertical */
+//   justify-content: center; /* center items vertically, in this case */
+//   align-items: center; /* center items horizontally, in this case */
+//   height: 300px;
+// }
+
+// .login-box {
+//   padding: 20px;
+//   border: 1px solid #ccc;
+//   background: white;
+//   width: 400px;
+//   text-align: center; /* will center text in <p>, which is not a flex item */
+// }
+
+// .forgot-password-container {
+//   margin-bottom: 20px;
+// }
+
+// .forgot-password {
+//   float: right;
+// }
+
+// .form{
+//   padding: 5px;
+// }
+
+// .login-text{
+//   font-size: larger;
+// }
+
+// .icon{
+//   margin-bottom: 9px;
+// }
+
+.container-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 72px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  max-width: 472px;
+  width: 100%;
+  background-color: #ffffff;
+  margin: 0 auto 62px;
+}
+
+.login-form {
+  margin-top: 25px;
+}
+
+.header {
+  text-align: center;
+  font-weight: 600;
+}
+
+.or-text {
+  font-weight: 300;
+}
+
+.signup-area {
+  margin: auto;
+  margin-top: 20px;
+}

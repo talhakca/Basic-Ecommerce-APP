@@ -1,0 +1,63 @@
+<nz-tag
+  *ngIf="text"
+  [nzMode]="mode"
+  [nzColor]="color"
+  [nzChecked]="checked"
+  [style.border]="borderSettings?.border"
+  [style.border-top]="
+    borderSettings?.borderTop + ' ' + borderSettings?.borderStyle
+  "
+  [style.border-right]="
+    borderSettings?.borderRight + ' ' + borderSettings?.borderStyle
+  "
+  [style.border-bottom]="
+    borderSettings?.borderBottom + ' ' + borderSettings?.borderStyle
+  "
+  [style.border-left]="
+    borderSettings?.borderLeft + ' ' + borderSettings?.borderStyle
+  "
+  [style.border-radius]="borderSettings?.borderRadius"
+  [style.border-top-left-radius]="borderSettings?.borderTopLeftRadius"
+  [style.border-top-right-radius]="borderSettings?.borderTopRightRadius"
+  [style.border-bottom-left-radius]="borderSettings?.borderBottomLeftRadius"
+  [style.border-bottom-right-radius]="borderSettings?.borderBottomRightRadius"
+  [style.border-color]="borderSettings?.borderColor"
+  [style.border-style]="borderSettings?.borderStyle"
+  [style.width]="sizeSettings?.width"
+  [style.height]="sizeSettings?.height"
+  [style.min-width]="sizeSettings?.minWidth"
+  [style.min-height]="sizeSettings?.minHeight"
+  [style.max-height]="sizeSettings?.maxHeight"
+  [style.max-width]="sizeSettings?.maxWidth"
+  [style.boxShadow]="boxShadowSettings?.boxShadow"
+  [style.padding]="paddingSettings?.all"
+  [style.padding-top]="paddingSettings?.top"
+  [style.padding-bottom]="paddingSettings?.bottom"
+  [style.padding-left]="paddingSettings?.left"
+  [style.padding-right]="paddingSettings?.right"
+  [style.margin]="marginSettings?.all"
+  [style.margin-top]="marginSettings?.top"
+  [style.margin-bottom]="marginSettings?.bottom"
+  [style.margin-left]="marginSettings?.left"
+  [style.margin-right]="marginSettings?.right"
+  (nzOnClose)="onTagClose()"
+  (nzCheckedChange)="onCheckChange()"
+>
+  <div class="inner-tag">
+    <rappider-icon
+      *ngIf="icon"
+      [name]="icon.name"
+      [color]="icon.color"
+      [type]="icon.type"
+      [theme]="icon.theme"
+    ></rappider-icon>
+    <rappider-text
+      *ngIf="text"
+      [textMode]="text?.textMode"
+      [content]="text?.content"
+      [text]="text?.text"
+      [colorSettings]="text?.colorSettings"
+      [typography]="text?.typography"
+    ></rappider-text>
+  </div>
+</nz-tag>

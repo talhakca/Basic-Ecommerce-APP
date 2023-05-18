@@ -1,0 +1,10 @@
+.loading-notification {
+  display: flex !important;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+nz-spin {
+  display: inline-block;
+  padding-left: 25px;
+}

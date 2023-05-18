@@ -1,0 +1,25 @@
+<div class="card-container">
+  <div *ngFor="let button of buttons" class="card-area">
+    <div *ngIf="button" class="button" (click)="onItemClick(button)">
+      <rappider-button
+        [text]="button.text"
+        [type]="button.type"
+        [shape]="button.shape"
+        [size]="button.size"
+        [icon]="button.icon"
+        [transparent]="button.transparent"
+        [loading]="button.loading"
+        [block]="button.block"
+        [disabled]="button.disabled"
+        [formButtonType]="button?.formButtonType"
+        [borderSettings]="button?.borderSettings"
+        [customSizeSettings]="button?.customSizeSettings"
+        [customColorSettings]="button?.customColorSettings"
+        [shadowSettings]="button?.shadowSettings"
+        [paddingSettings]="button?.paddingSettings"
+        [marginSettings]="button?.marginSettings"
+        [colorType]="button.colorType"
+      ></rappider-button>
+    </div>
+  </div>
+</div>

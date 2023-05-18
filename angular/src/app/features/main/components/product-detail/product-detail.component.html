@@ -1,0 +1,40 @@
+<section *ngIf="activeProduct"
+         class="container-fluid">
+  <div class="image-container">
+    <img [src]="activeProduct.imageUrl"
+         alt="product image here"
+         width="100%">
+  </div>
+  <div class="detail-container">
+    <div class="category-title">
+      {{activeCategory?.name}}
+    </div>
+    <div class="title-area">
+      <span class="distributor">{{distributor?.name}}</span> <span> {{activeProduct.name }}</span>
+    </div>
+    <div class="description">
+      <rappider-rate-display [rate]="activeProduct.rating"></rappider-rate-display>
+    </div>
+    <div class="price"
+         [ngClass]="activeProduct.discountRate ? 'text-decoration: line-through;' : ''">
+      ${{activeProduct.price}}
+    </div>
+    <div *ngIf="activeProduct.discountRate"
+         class="final-price">
+      {{activeProduct.rating - (activeProduct.rating * activeProduct.discountRate / 100)}}
+    </div>
+    <b>Stocks: </b> {{activeProduct.quantityInStocks}}
+
+    <nz-divider></nz-divider>
+
+    <div class="add-button">
+      <button nz-button
+              nzType="primary"
+              (click)="addToCart()">
+        Add To Cart
+      </button>
+    </div>
+  </div>
+
+
+</section>

@@ -1,0 +1,31 @@
+<div class="tab-component">
+  <nz-tabset>
+    <nz-tab [nzTitle]="titleTemplate" [nzDisabled]="disabled || 'false'">
+      <ng-template #titleTemplate>
+        <div class="tab">
+          <rappider-icon
+            *ngIf="icon && icon?.name"
+            [name]="icon.name"
+            [type]="icon.type"
+            [theme]="icon.theme"
+            [color]="icon.color"
+            [size]="icon.size"
+          ></rappider-icon>
+          <rappider-heading
+            *ngIf="title"
+            [content]="title.content"
+            [type]="title.type"
+          ></rappider-heading>
+        </div>
+      </ng-template>
+      <rappider-text
+        *ngIf="text"
+        [content]="text.content"
+        [textMode]="text.textMode"
+        [text]="text.text"
+        [typography]="text.typography"
+        [colorSettings]="text.colorSettings"
+      ></rappider-text>
+    </nz-tab>
+  </nz-tabset>
+</div>

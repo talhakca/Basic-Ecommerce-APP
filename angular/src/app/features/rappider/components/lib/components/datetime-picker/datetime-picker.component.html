@@ -1,0 +1,22 @@
+<rappider-date-picker
+  class="date-picker"
+  [(ngModel)]="date"
+  [minSelectableDate]="minSelectableDate"
+  [maxSelectableDate]="maxSelectableDate"
+  [dateFormat]="datePicker?.dateFormat"
+  [borderSettings]="datePicker?.borderSettings"
+  [customSizeSettings]="datePicker?.customSizeSettings"
+  [shadowSettings]="datePicker?.shadowSettings"
+  [marginSettings]="datePicker?.marginSettings"
+  [paddingSettings]="datePicker?.paddingSettings"
+  (ngModelChange)="onValueChange()"
+></rappider-date-picker>
+<rappider-time-picker
+  [(ngModel)]="time"
+  [borderSettings]="timePicker?.borderSettings"
+  [customSizeSettings]="timePicker?.customSizeSettings"
+  [shadowSettings]="timePicker?.shadowSettings"
+  [marginSettings]="timePicker?.marginSettings"
+  [paddingSettings]="timePicker?.paddingSettings"
+  (ngModelChange)="onValueChange()"
+></rappider-time-picker>

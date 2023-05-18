@@ -1,0 +1,136 @@
+.progress {
+  background-color: transparent !important;
+  height: 100% !important;
+}
+
+.ant-progress {
+  line-height: $line-height-base;
+  color: var(--text-color);
+}
+
+.ant-progress-inner {
+  background-color: var(--custom-progress-background-color);
+  vertical-align: middle;
+  position: relative;
+}
+
+.ant-progress-line {
+  width: 100%;
+  font-size: $font-size-base;
+  position: relative;
+}
+
+.ant-progress-bg {
+  border-radius: var(--border-radius-2x);
+  background-color: var(--custom-progress-color);
+  position: relative;
+}
+
+.ant-progress-circle-trail {
+  stroke: var(--custom-progress-background-color);
+}
+
+.ant-progress-circle-path {
+  stroke: var(--custom-progress-color);
+}
+
+.ant-progress-inner {
+  &:not(.ant-progress-circle-gradient) {
+    .ant-progress-circle-path {
+      stroke: var(--custom-progress-color);
+    }
+  }
+}
+
+.ant-progress-text {
+  width: 2em;
+  font-size: var(--main-font-size);
+  color: var(--text-color);
+  line-height: 1;
+  margin: 0 2px 0 8px;
+}
+
+.ant-progress-status-exception {
+  .ant-progress-bg {
+    background-color: var(--danger-color);
+  }
+
+  .ant-progress-text {
+    color: var(--danger-color) !important;
+  }
+
+  .ant-progress-circle-path {
+    stroke: var(--danger-color);
+  }
+
+  .ant-progress-inner {
+    &:not(.ant-progress-circle-gradient) {
+      .ant-progress-circle-path {
+        stroke: var(--danger-color);
+      }
+    }
+  }
+}
+
+.ant-progress-status-success {
+  .ant-progress-bg {
+    background-color: var(--success-color);
+  }
+
+  .ant-progress-text {
+    color: var(--success-color) !important;
+  }
+
+  .ant-progress-circle-path {
+    stroke: var(--success-color);
+  }
+
+  .ant-progress-inner {
+    &:not(.ant-progress-circle-gradient) {
+      .ant-progress-circle-path {
+        stroke: var(--success-color);
+      }
+    }
+  }
+}
+
+.ant-progress-success-bg {
+  background-color: var(--success-color);
+}
+
+.ant-progress-circle {
+  .ant-progress-text {
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 1;
+    top: 50%;
+    @include transform(translateY(-50%));
+    left: 0;
+    margin: 0;
+    color: var(--primary-text-color);
+  }
+
+  &.ant-progress-status-success {
+    .ant-progress-text {
+      color: var(--success-color);
+    }
+  }
+}
+
+.ant-progress-small {
+  &.ant-progress-line {
+    font-size: var(--subtext-font-size);
+
+    .ant-progress-text {
+      .anticon {
+        font-size: var(--subtext-font-size);
+      }
+    }
+  }
+
+  .ant-progress-bg {
+    height: 4px !important;
+  }
+}

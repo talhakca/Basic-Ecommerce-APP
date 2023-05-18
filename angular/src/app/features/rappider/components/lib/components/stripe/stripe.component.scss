@@ -1,0 +1,21 @@
+.form-element {
+  margin-bottom: var(--margin-2x);
+}
+
+nz-form-label {
+  ::ng-deep {
+    label {
+      margin-bottom: 0;
+      height: 20px;
+
+      &::after {
+        content: '';
+        display: none;
+      }
+    }
+  }
+}
+
+input {
+  height: 44.39px;
+}

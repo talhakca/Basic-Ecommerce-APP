@@ -1,0 +1,21 @@
+<nz-spin [nzSpinning]="isLoading">
+  <div class="container-area">
+    <header class="header">
+      <h2>Login</h2>
+    </header>
+    <div class="login-form">
+      <rappider-crud-view-edit-form
+        [config]="LOGIN_CONFIG"
+        (formSubmit)="onLoginFormSubmit($event)"
+      ></rappider-crud-view-edit-form>
+    </div>
+    <nz-divider [nzText]="orDivider"></nz-divider>
+    <ng-template #orDivider>
+      <span class="or-text"> or </span>
+    </ng-template>
+    <div class="signup-area">
+      Don't have an account?
+      <a [routerLink]="REGISTER_PAGE_PATH">Register</a>
+    </div>
+  </div>
+</nz-spin>
