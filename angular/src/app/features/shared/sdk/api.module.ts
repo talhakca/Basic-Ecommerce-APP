@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AuthControllerService } from './services/auth-controller.service';
+import { CartControllerService } from './services/cart-controller.service';
 import { CategoryControllerService } from './services/category-controller.service';
 import { CommentControllerService } from './services/comment-controller.service';
 import { DeliveryControllerService } from './services/delivery-controller.service';
@@ -15,8 +16,8 @@ import { ProductControllerService } from './services/product-controller.service'
 import { RefundRequestControllerService } from './services/refund-request-controller.service';
 import { RoleControllerService } from './services/role-controller.service';
 import { TaxControllerService } from './services/tax-controller.service';
-import { UserControllerService } from './services/user-controller.service';
 import { UserProductControllerService } from './services/user-product-controller.service';
+import { UserControllerService } from './services/user-controller.service';
 import { WishlistControllerService } from './services/wishlist-controller.service';
 
 /**
@@ -28,6 +29,7 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
   declarations: [],
   providers: [
     AuthControllerService,
+    CartControllerService,
     CategoryControllerService,
     CommentControllerService,
     DeliveryControllerService,
@@ -38,8 +40,8 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
     RefundRequestControllerService,
     RoleControllerService,
     TaxControllerService,
-    UserControllerService,
     UserProductControllerService,
+    UserControllerService,
     WishlistControllerService,
     ApiConfiguration
   ],

@@ -1,4 +1,5 @@
 export { AuthControllerService } from './services/auth-controller.service';
+export { CartControllerService } from './services/cart-controller.service';
 export { CategoryControllerService } from './services/category-controller.service';
 export { CommentControllerService } from './services/comment-controller.service';
 export { DeliveryControllerService } from './services/delivery-controller.service';
@@ -9,6 +10,6 @@ export { ProductControllerService } from './services/product-controller.service'
 export { RefundRequestControllerService } from './services/refund-request-controller.service';
 export { RoleControllerService } from './services/role-controller.service';
 export { TaxControllerService } from './services/tax-controller.service';
-export { UserControllerService } from './services/user-controller.service';
 export { UserProductControllerService } from './services/user-product-controller.service';
+export { UserControllerService } from './services/user-controller.service';
 export { WishlistControllerService } from './services/wishlist-controller.service';

@@ -8,6 +8,7 @@ import { TaxWithRelations } from './tax-with-relations';
  */
 export interface UserWithRelations {
   avatar?: string;
+  cart?: Array<ProductWithRelations>;
   createdBy?: string;
   createdById?: string;
   createdDate?: string;
@@ -22,7 +23,6 @@ export interface UserWithRelations {
   middleName?: string;
   password: string;
   phoneNumber?: string;
-  products?: Array<ProductWithRelations>;
   tax?: TaxWithRelations;
   taxId?: string;
   updatedBy?: string;
