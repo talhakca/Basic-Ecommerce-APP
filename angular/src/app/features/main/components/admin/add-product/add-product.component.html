@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    Add a new Product
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="formProduct" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label for="name">Name :</label>
+                            <input type="text" id="name" class="form-control" formControlName="name">
+                            <div *ngIf="formProduct.get('name')?.invalid && (formProduct.get('name')?.dirty || formProduct.get('name')?.touched)"
+                                class="text-danger">
+                                Name is required!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Model :</label>
+                            <input type="text" id="model" class="form-control" formControlName="model">
+                            <div class="text-danger"
+                                *ngIf="formProduct.get('model')?.invalid && (formProduct.get('model')?.dirty || formProduct.get('model')?.touched)">
+                                Model is required!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="number">Number :</label>
+                            <input type="text" id="number" class="form-control" formControlName="number">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description :</label>
+                            <input type="text" id="description" class="form-control" formControlName="description">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageUrl">Image Url :</label>
+                            <input type="text" id="imageUrl" class="form-control" formControlName="imageUrl">
+                            <div class="text-danger"
+                                *ngIf="formProduct.get('imageUrl')?.invalid && (formProduct.get('imageUrl')?.dirty || formProduct.get('imageUrl')?.touched)">
+                                ImageUrl is required!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantityInStocks">Quantity In Stocks :</label>
+                            <input type="text" id="quantityInStocks" class="form-control"
+                                formControlName="quantityInStocks">
+                            <div class="text-danger"
+                                *ngIf="formProduct.get('quantityInStocks')?.invalid && (formProduct.get('quantityInStocks')?.dirty || formProduct.get('quantityInStocks')?.touched)">
+                                Quantity In Stocks is required!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price :</label>
+                            <input type="text" id="price" class="form-control" formControlName="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="warrantyStatus">Warranty Status:</label>
+                            <select id="warrantyStatus" class="form-control" formControlName="warrantyStatus">
+                                <option value="">Select Warranty Status</option>
+                                <option value="warranty">Warranty</option>
+                                <option value="noWarranty">No Warranty</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Rating :</label>
+                            <input type="text" id="rating" class="form-control" formControlName="rating">
+                        </div>
+                        <div class="form-group">
+                            <label for="discountRate">Discount Rate % :</label>
+                            <input type="text" id="discountRate" class="form-control" formControlName="discountRate">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="myCheckbox">Is Deleted? </label>
+                            <select id="isDeleted" class="form-control" formControlName="isDeleted">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="distributorId">Distributor Id :</label>
+                            <input type="text" id="distributorId" class="form-control" formControlName="distributorId">
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryId">Category Id :</label>
+                            <input type="text" id="categoryId" class="form-control" formControlName="categoryId">
+                        </div>
+                        <div class=" text-center">
+                            <button type="submit" [disabled]="!formProduct.valid" class="btn btn-primary mt-3">Add
+                                Product</button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="card-footer text-left">
+                    <button (click)=navigateToAdminPanel() class="btn btn-primary mt-3">Back to Admin Panel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
