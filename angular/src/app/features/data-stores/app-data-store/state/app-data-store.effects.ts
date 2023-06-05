@@ -57,12 +57,12 @@ export class AppDataStoreEffects {
     )
   )
 
-  addToCart$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(AddToCart),
-      mergeMap((action) => this.userProductApi.create({ body: { id:} }).pipe(
-        map((categories: CategoryWithRelations[]) => GetCategoriesSuccessful({ payload: { categories } }))
-      ))
-    )
-  )
+  // addToCart$ = createEffect(
+  //   () => this.actions$.pipe(
+  //     ofType(AddToCart),
+  //     mergeMap((action) => this.userProductApi.create({ body: { id:} }).pipe(
+  //       map((categories: CategoryWithRelations[]) => GetCategoriesSuccessful({ payload: { categories } }))
+  //     ))
+  //   )
+  // )
 }
