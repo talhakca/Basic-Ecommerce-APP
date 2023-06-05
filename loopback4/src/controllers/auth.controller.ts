@@ -31,7 +31,7 @@ export class AuthController {
     public authService: IAuthService<User, Credentials>
   ) { }
 
-@post('/auth/register')
+  @post('/auth/register')
   @response(200, {
     description: 'User model instance',
     content: {
@@ -144,7 +144,7 @@ export class AuthController {
     tokenPayload: TokenPayload
   ): Promise<User> {
     const userId = tokenPayload.userId;
-    const user = await this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId, { include: [{ relation: 'cart' }] });
     return user;
   }
 

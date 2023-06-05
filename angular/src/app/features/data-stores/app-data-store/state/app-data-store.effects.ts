@@ -11,9 +11,10 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, DistributorControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { SetUser } from '../../auth-data-store/state/auth-data-store.actions';
 
 export const navigatePathAfterCreatingInstance = null;
 export const navigatePathAfterUpdatingInstance = null;
@@ -40,7 +41,7 @@ export class AppDataStoreEffects {
     )
   )
 
-  getDistributorss$ = createEffect(
+  getDistributors$ = createEffect(
     () => this.actions$.pipe(
       ofType(InitApp),
       mergeMap((action) => this.distributorApi.find().pipe(
@@ -58,13 +59,31 @@ export class AppDataStoreEffects {
     )
   )
 
-  // addToCart$ = createEffect(
-  //   () => this.actions$.pipe(
-  //     ofType(AddToCart),
-  //     withLatestFrom(this.store.select(state => )),
-  //     mergeMap((action) => this.cartApi.create({ body: {userId:} }).pipe(
-  //       map((categories: CategoryWithRelations[]) => GetCategoriesSuccessful({ payload: { categories } }))
-  //     ))
-  //   )
-  // )
+  addToCart$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(AddToCart),
+      withLatestFrom(
+        this.store.select(state => state.auth.user?.id),
+        this.store.select(state => state.app.products)
+      ),
+      mergeMap(([action, userId, products]) => {
+        return this.cartApi.create({ body: { userId: userId, productId: action.payload.productId } }).pipe(
+          map((cart) => {
+            this.notificationService.createNotification('success', 'Product Added To Cart', '');
+            return AddToCartSuccessful({ payload: { cart: { ...cart, product: products.find(product => product.id === action.payload.productId) } } });
+          })
+        )
+      })
+    )
+  )
+
+  getCart$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(SetUser),
+      withLatestFrom(this.store.select(state => state.auth.user?.id)),
+      mergeMap(([action, userId]) => this.cartApi.find({ filter: { where: { userId: userId }, include: [{ relation: 'product' }] } }).pipe(
+        map((carts) => GetCartSuccessful({ payload: { cart: carts } }))
+      ))
+    )
+  );
 }

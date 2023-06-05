@@ -1,6 +1,6 @@
 import { Entity, belongsTo, model, property } from '@loopback/repository';
 import { User } from './user.model';
-import { Product } from './product.model';
+import { Product, ProductWithRelations } from './product.model';
 
 @model()
 export class Cart extends Entity {
@@ -16,10 +16,18 @@ export class Cart extends Entity {
   })
   id: string;
 
-  @belongsTo(() => User)
+  @belongsTo(() => User, {
+    keyFrom: 'userId',
+    keyTo: 'id',
+    name: 'user'
+  })
   userId: string;
 
-  @belongsTo(() => Product)
+  @belongsTo(() => Product, {
+    keyFrom: 'productId',
+    keyTo: 'id',
+    name: 'product'
+  })
   productId: string;
 
   constructor(data?: Partial<Cart>) {
@@ -29,6 +37,7 @@ export class Cart extends Entity {
 
 export interface CartRelations {
   // describe navigational properties here
+  product: ProductWithRelations
 }
 
 export type CartWithRelations = Cart & CartRelations;

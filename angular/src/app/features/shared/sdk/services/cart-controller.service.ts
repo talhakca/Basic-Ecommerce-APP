@@ -283,6 +283,7 @@ export class CartControllerService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerFindPath, 'get');
     if (params) {
       rb.query('filter', params.filter, {});
+      console.log(params.filter)
     }
 
     return this.http.request(rb.build({

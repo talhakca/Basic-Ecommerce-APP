@@ -25,6 +25,10 @@
         </div>
         <div *ngIf="user">
           Welcome, {{user.firstName}} &nbsp; {{user.lastName}}
+          &nbsp; <nz-badge nzSize="small"
+                    [nzCount]="cart?.length ?? 0">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </nz-badge>
         </div>
       </div>
     </div>

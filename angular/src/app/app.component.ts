@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[];
   user;
+  cart;
 
   constructor(
     private store: Store<any>, private router: Router
@@ -35,7 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   subscribeToData() {
     this.subscriptions = [
-      this.subscribeToUser()
+      this.subscribeToUser(),
+      this.subscribeToCart()
     ];
   }
 
@@ -45,7 +47,14 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  subscribeToCart() {
+    return this.store.select(state => state.app.cart).subscribe(cart => {
+      this.cart = cart;
+    });
+  }
+
   onRegisterClick() {
     this.router.navigateByUrl('/auth/register');
   }
+
 }

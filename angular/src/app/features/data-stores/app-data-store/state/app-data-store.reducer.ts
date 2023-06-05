@@ -7,7 +7,7 @@ import { UtilityService } from 'src/app/features/shared/services';
 /* Service variables */
 const utilityService = new UtilityService();
 
-import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CartWithRelations, CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import * as ProductActions from './app-data-store.actions';
 
 /* State key */
@@ -18,13 +18,15 @@ export interface AppState {
   products: ProductWithRelations[];
   categories: CategoryWithRelations[];
   distributors: DistributorWithRelations[];
+  cart: CartWithRelations[];
 }
 
 /* Initial values */
 export const initialState: AppState = {
   products: [],
   categories: [],
-  distributors: []
+  distributors: [],
+  cart: []
 };
 
 export const reducer = createReducer(
@@ -41,4 +43,15 @@ export const reducer = createReducer(
     ...state,
     distributors: action.payload.distributors,
   })),
+  on(ProductActions.GetCartSuccessful, (state, action) => ({
+    ...state,
+    carts: action.payload.cart,
+  })),
+  on(ProductActions.AddToCartSuccessful, (state, action) => ({
+    ...state,
+    carts: [
+      ...state.cart,
+      action.payload.cart
+    ],
+  }))
 );

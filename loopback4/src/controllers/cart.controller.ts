@@ -17,19 +17,19 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {Cart} from '../models';
-import {CartRepository} from '../repositories';
+import { Cart } from '../models';
+import { CartRepository } from '../repositories';
 
 export class CartController {
   constructor(
     @repository(CartRepository)
-    public cartRepository : CartRepository,
-  ) {}
+    public cartRepository: CartRepository,
+  ) { }
 
   @post('/carts')
   @response(200, {
     description: 'Cart model instance',
-    content: {'application/json': {schema: getModelSchemaRef(Cart)}},
+    content: { 'application/json': { schema: getModelSchemaRef(Cart) } },
   })
   async create(
     @requestBody({
@@ -50,7 +50,7 @@ export class CartController {
   @get('/carts/count')
   @response(200, {
     description: 'Cart model count',
-    content: {'application/json': {schema: CountSchema}},
+    content: { 'application/json': { schema: CountSchema } },
   })
   async count(
     @param.where(Cart) where?: Where<Cart>,
@@ -65,7 +65,7 @@ export class CartController {
       'application/json': {
         schema: {
           type: 'array',
-          items: getModelSchemaRef(Cart, {includeRelations: true}),
+          items: getModelSchemaRef(Cart, { includeRelations: true }),
         },
       },
     },
@@ -73,19 +73,20 @@ export class CartController {
   async find(
     @param.filter(Cart) filter?: Filter<Cart>,
   ): Promise<Cart[]> {
+    console.log(filter)
     return this.cartRepository.find(filter);
   }
 
   @patch('/carts')
   @response(200, {
     description: 'Cart PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
+    content: { 'application/json': { schema: CountSchema } },
   })
   async updateAll(
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Cart, {partial: true}),
+          schema: getModelSchemaRef(Cart, { partial: true }),
         },
       },
     })
@@ -100,13 +101,13 @@ export class CartController {
     description: 'Cart model instance',
     content: {
       'application/json': {
-        schema: getModelSchemaRef(Cart, {includeRelations: true}),
+        schema: getModelSchemaRef(Cart, { includeRelations: true }),
       },
     },
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Cart, {exclude: 'where'}) filter?: FilterExcludingWhere<Cart>
+    @param.filter(Cart, { exclude: 'where' }) filter?: FilterExcludingWhere<Cart>
   ): Promise<Cart> {
     return this.cartRepository.findById(id, filter);
   }
@@ -120,7 +121,7 @@ export class CartController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Cart, {partial: true}),
+          schema: getModelSchemaRef(Cart, { partial: true }),
         },
       },
     })

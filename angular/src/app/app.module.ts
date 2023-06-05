@@ -11,7 +11,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 /* language for localization */
 import en from '@angular/common/locales/en';
 registerLocaleData(en);
@@ -117,7 +117,7 @@ function initAuthentication(
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-
+    NzBadgeModule,
     /* 3rd party modules */
     TranslateModule.forRoot({
       defaultLanguage: defaultLanguage.name,
