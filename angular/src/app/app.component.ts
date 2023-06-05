@@ -57,4 +57,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/auth/register');
   }
 
+  navigateToCartPage() {
+    this.router.navigateByUrl('/cart');
+  }
+
 }

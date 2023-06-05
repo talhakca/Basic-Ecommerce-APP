@@ -14,6 +14,7 @@ import { RappiderCardOneListModule, RappiderRateDisplayModule } from '../rappide
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -24,11 +25,15 @@ const routes: Routes = [
   {
     path: 'detail/:id',
     component: ProductDetailComponent
+  },
+  {
+    path: 'cart',
+    component: CartComponent
   }
 ];
 
 @NgModule({
-  declarations: [HomePageComponent, ProductDetailComponent],
+  declarations: [HomePageComponent, ProductDetailComponent, CartComponent],
   imports: [CommonModule, RouterModule.forChild(routes), ComponentsModule, RappiderCardOneListModule, RappiderRateDisplayModule,
     NzButtonModule,
     NzDividerModule],

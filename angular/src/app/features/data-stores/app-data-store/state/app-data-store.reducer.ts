@@ -45,11 +45,11 @@ export const reducer = createReducer(
   })),
   on(ProductActions.GetCartSuccessful, (state, action) => ({
     ...state,
-    carts: action.payload.cart,
+    cart: action.payload.cart,
   })),
   on(ProductActions.AddToCartSuccessful, (state, action) => ({
     ...state,
-    carts: [
+    cart: [
       ...state.cart,
       action.payload.cart
     ],

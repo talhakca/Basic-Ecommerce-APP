@@ -35,11 +35,11 @@ export class AppDataStoreEffects {
   getProducts$ = createEffect(
     () => this.actions$.pipe(
       ofType(InitApp),
-      mergeMap((action) => this.productApi.find({ filter: { include: ['distributor'] } }).pipe(
+      mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }] } }).pipe(
         map((products: ProductWithRelations[]) => GetProductsSuccessful({ payload: { products } }))
       ))
     )
-  )
+  );
 
   getDistributors$ = createEffect(
     () => this.actions$.pipe(
@@ -48,7 +48,7 @@ export class AppDataStoreEffects {
         map((distributors: DistributorWithRelations[]) => GetDistributorsSuccessful({ payload: { distributors } }))
       ))
     )
-  )
+  );
 
   getCategory$ = createEffect(
     () => this.actions$.pipe(
