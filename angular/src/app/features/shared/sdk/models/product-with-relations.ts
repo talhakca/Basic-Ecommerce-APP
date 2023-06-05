@@ -2,11 +2,13 @@
 /* eslint-disable */
 import { CategoryWithRelations } from './category-with-relations';
 import { DistributorWithRelations } from './distributor-with-relations';
+import { UserWithRelations } from './user-with-relations';
 
 /**
  * (tsType: ProductWithRelations, schemaOptions: { includeRelations: true })
  */
 export interface ProductWithRelations {
+  cart?: Array<UserWithRelations>;
   category?: CategoryWithRelations;
   categoryId?: string;
   description?: string;

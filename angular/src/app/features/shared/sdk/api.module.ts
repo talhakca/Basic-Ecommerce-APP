@@ -6,6 +6,8 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AuthControllerService } from './services/auth-controller.service';
 import { CartControllerService } from './services/cart-controller.service';
+import { CartProductControllerService } from './services/cart-product-controller.service';
+import { CartUserControllerService } from './services/cart-user-controller.service';
 import { CategoryControllerService } from './services/category-controller.service';
 import { CommentControllerService } from './services/comment-controller.service';
 import { DeliveryControllerService } from './services/delivery-controller.service';
@@ -30,6 +32,8 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
   providers: [
     AuthControllerService,
     CartControllerService,
+    CartProductControllerService,
+    CartUserControllerService,
     CategoryControllerService,
     CommentControllerService,
     DeliveryControllerService,

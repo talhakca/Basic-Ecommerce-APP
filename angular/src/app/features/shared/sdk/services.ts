@@ -1,5 +1,7 @@
 export { AuthControllerService } from './services/auth-controller.service';
 export { CartControllerService } from './services/cart-controller.service';
+export { CartProductControllerService } from './services/cart-product-controller.service';
+export { CartUserControllerService } from './services/cart-user-controller.service';
 export { CategoryControllerService } from './services/category-controller.service';
 export { CommentControllerService } from './services/comment-controller.service';
 export { DeliveryControllerService } from './services/delivery-controller.service';
