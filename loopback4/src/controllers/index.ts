@@ -33,3 +33,4 @@ export * from './role.controller';
 /* product model */
 export * from './product.controller';
 export * from './user-product.controller';
+export * from './cart.controller';

@@ -176,8 +176,14 @@ export class User extends Entity {
   })
   taxId: string;
 
-  @hasMany(() => Product, { through: { model: () => Cart } })
-  products: Product[];
+  @hasMany(() => Product, {
+    through: {
+      model: () => Cart,
+      keyFrom: 'userId',
+      keyTo: 'productId'
+    }
+  })
+  cart: Product[];
   [prop: string]: any;
 
 

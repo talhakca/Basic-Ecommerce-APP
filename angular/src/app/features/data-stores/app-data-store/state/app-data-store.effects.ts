@@ -60,7 +60,7 @@ export class AppDataStoreEffects {
   // addToCart$ = createEffect(
   //   () => this.actions$.pipe(
   //     ofType(AddToCart),
-  //     mergeMap((action) => this.userProductApi.create({ body: { id:} }).pipe(
+  //     mergeMap((action) => this.userProductApi.create({ body: { } }).pipe(
   //       map((categories: CategoryWithRelations[]) => GetCategoriesSuccessful({ payload: { categories } }))
   //     ))
   //   )

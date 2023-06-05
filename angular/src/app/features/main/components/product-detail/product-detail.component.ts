@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { AddToCart } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
 import { Category, CategoryWithRelations, DistributorWithRelations, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 
@@ -62,7 +63,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart() {
-
+    this.store.dispatch(AddToCart({ payload: { productId: this.activeProductId } }));
   }
 
 }
