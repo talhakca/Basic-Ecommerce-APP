@@ -12,7 +12,7 @@ import * as lodash from 'lodash';
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
 import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart } from './app-data-store.actions';
-import { CategoryControllerService, DistributorControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
+import { CartControllerService, CategoryControllerService, DistributorControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 
 export const navigatePathAfterCreatingInstance = null;
@@ -28,6 +28,7 @@ export class AppDataStoreEffects {
     private categoryApi: CategoryControllerService,
     private distributorApi: DistributorControllerService,
     private userProductApi: UserProductControllerService,
+    private cartApi: CartControllerService,
   ) { }
 
   getProducts$ = createEffect(
@@ -60,7 +61,8 @@ export class AppDataStoreEffects {
   // addToCart$ = createEffect(
   //   () => this.actions$.pipe(
   //     ofType(AddToCart),
-  //     mergeMap((action) => this.userProductApi.create({ body: { } }).pipe(
+  //     withLatestFrom(this.store.select(state => )),
+  //     mergeMap((action) => this.cartApi.create({ body: {userId:} }).pipe(
   //       map((categories: CategoryWithRelations[]) => GetCategoriesSuccessful({ payload: { categories } }))
   //     ))
   //   )

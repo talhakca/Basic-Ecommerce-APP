@@ -180,10 +180,12 @@ export class User extends Entity {
     through: {
       model: () => Cart,
       keyFrom: 'userId',
-      keyTo: 'productId'
-    }
+      keyTo: 'productId',
+    },
+    name: 'cart',
   })
   cart: Product[];
+
   [prop: string]: any;
 
 

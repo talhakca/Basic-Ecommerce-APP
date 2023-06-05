@@ -1,4 +1,6 @@
-import { Entity, model, property } from '@loopback/repository';
+import { Entity, belongsTo, model, property } from '@loopback/repository';
+import { User } from './user.model';
+import { Product } from './product.model';
 
 @model()
 export class Cart extends Entity {
@@ -14,15 +16,8 @@ export class Cart extends Entity {
   })
   id: string;
 
-  @property({
-    type: 'string',
-  })
-  userId?: string;
-
-  @property({
-    type: 'string',
-  })
-  productId?: string;
+  @belongsTo(() => User)
+  userId: string;
 
   constructor(data?: Partial<Cart>) {
     super(data);

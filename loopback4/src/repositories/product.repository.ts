@@ -18,6 +18,8 @@ import {
   Distributor,
   Category,
   ProductCategory,
+  Cart,
+  User,
 } from '../models';
 
 /* repository imports */
@@ -25,6 +27,8 @@ import {
   DistributorRepository,
   CategoryRepository,
   ProductCategoryRepository,
+  UserRepository,
+  CartRepository,
 } from '.';
 
 
@@ -40,6 +44,13 @@ export class ProductRepository extends DefaultCrudRepository<
     typeof Product.prototype.id
   >;
 
+  public readonly products: HasManyThroughRepositoryFactory<
+    User, typeof User.prototype.id,
+    Cart,
+    typeof Product.prototype.id
+  >;
+
+
   constructor(
     @inject('datasources.ELearningDataSource')
     dataSource: ELearningDataSource,
@@ -53,6 +64,12 @@ export class ProductRepository extends DefaultCrudRepository<
     @repository.getter('ProductCategoryRepository')
     protected productCategoryRepositoryGetter: Getter<ProductCategoryRepository>,
 
+    @repository.getter('UserRepository')
+    protected userRepositoryGetter: Getter<UserRepository>,
+
+    @repository.getter('CartRepository')
+    protected cartRepositoryGetter: Getter<CartRepository>,
+
   ) {
     super(Product, dataSource);
 
@@ -61,6 +78,9 @@ export class ProductRepository extends DefaultCrudRepository<
 
     this.category = this.createBelongsToAccessorFor('category', categoryRepositoryGetter);
     this.registerInclusionResolver('category', this.category.inclusionResolver);
+
+    this.products = this.createHasManyThroughRepositoryFactoryFor('cart', userRepositoryGetter, cartRepositoryGetter,);
+    this.registerInclusionResolver('cart', this.products.inclusionResolver);
 
   }
 }

@@ -42,7 +42,8 @@ export class UserRepository extends DefaultCrudRepository<
 
   public readonly tax: BelongsToAccessor<Tax, typeof User.prototype.id>;
 
-  public readonly products: HasManyThroughRepositoryFactory<Product, typeof Product.prototype.id,
+  public readonly products: HasManyThroughRepositoryFactory<
+    Product, typeof Product.prototype.id,
     Cart,
     typeof User.prototype.id
   >;
@@ -62,8 +63,8 @@ export class UserRepository extends DefaultCrudRepository<
 
   ) {
     super(User, dataSource);
-    this.products = this.createHasManyThroughRepositoryFactoryFor('products', productRepositoryGetter, cartRepositoryGetter,);
-    this.registerInclusionResolver('products', this.products.inclusionResolver);
+    this.products = this.createHasManyThroughRepositoryFactoryFor('cart', productRepositoryGetter, cartRepositoryGetter,);
+    this.registerInclusionResolver('cart', this.products.inclusionResolver);
 
     this.wishlist = this.createHasManyThroughRepositoryFactoryFor('wishlist', productRepositoryGetter, wishlistRepositoryGetter);
     this.registerInclusionResolver('wishlist', this.wishlist.inclusionResolver);

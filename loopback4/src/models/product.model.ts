@@ -13,6 +13,8 @@ import {
   Distributor,
   Category,
   ProductCategory,
+  User,
+  Cart,
 } from '.';
 
 
@@ -118,6 +120,16 @@ export class Product extends Entity {
     name: 'category'
   })
   categoryId: string;
+
+  @hasMany(() => User, {
+    through: {
+      model: () => Cart,
+      keyFrom: 'productId',
+      keyTo: 'userId',
+    },
+    name: 'cart',
+  })
+  cart: Product[];
 
   constructor(data?: Partial<Product>) {
     super(data);
