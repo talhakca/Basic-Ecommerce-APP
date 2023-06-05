@@ -19,6 +19,9 @@ export class Cart extends Entity {
   @belongsTo(() => User)
   userId: string;
 
+  @belongsTo(() => Product)
+  productId: string;
+
   constructor(data?: Partial<Cart>) {
     super(data);
   }

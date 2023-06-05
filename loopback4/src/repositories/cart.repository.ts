@@ -1,8 +1,9 @@
 import { inject, Getter} from '@loopback/core';
 import { DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
 import { ELearningDataSource } from '../datasources';
-import { Cart, CartRelations, User} from '../models';
+import { Cart, CartRelations, User, Product} from '../models';
 import {UserRepository} from './user.repository';
+import {ProductRepository} from './product.repository';
 
 export class CartRepository extends DefaultCrudRepository<
   Cart,
@@ -12,10 +13,14 @@ export class CartRepository extends DefaultCrudRepository<
 
   public readonly user: BelongsToAccessor<User, typeof Cart.prototype.id>;
 
+  public readonly product: BelongsToAccessor<Product, typeof Cart.prototype.id>;
+
   constructor(
-    @inject('datasources.') dataSource: ELearningDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>,
+    @inject('datasources.') dataSource: ELearningDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('ProductRepository') protected productRepositoryGetter: Getter<ProductRepository>,
   ) {
     super(Cart, dataSource);
+    this.product = this.createBelongsToAccessorFor('product', productRepositoryGetter,);
+    this.registerInclusionResolver('product', this.product.inclusionResolver);
     this.user = this.createBelongsToAccessorFor('user', userRepositoryGetter,);
     this.registerInclusionResolver('user', this.user.inclusionResolver);
   }

@@ -35,3 +35,4 @@ export * from './product.controller';
 export * from './user-product.controller';
 export * from './cart.controller';
 export * from './cart-user.controller';
+export * from './cart-product.controller';
