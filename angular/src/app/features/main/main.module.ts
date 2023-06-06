@@ -16,6 +16,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { CartComponent } from './components/cart/cart.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 const routes: Routes = [
   {
     path: '',
@@ -51,7 +52,8 @@ const routes: Routes = [
     RappiderRateDisplayModule,
     NzButtonModule,
     NzDividerModule,
-    RappiderStripeModule
+    RappiderStripeModule,
+    NzSpinModule
   ],
   exports: [],
 })

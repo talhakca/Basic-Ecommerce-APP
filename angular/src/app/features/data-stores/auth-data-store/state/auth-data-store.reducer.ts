@@ -1,7 +1,7 @@
 /* angular */
 import { createReducer, on } from '@ngrx/store';
 /* models */
-import { User } from 'src/app/features/shared/sdk/models';
+import { User, UserWithRelations } from 'src/app/features/shared/sdk/models';
 /* actions */
 import * as AuthDataStoreActions from './auth-data-store.actions';
 import * as ProductActions from '../../app-data-store/state/app-data-store.actions';
@@ -10,7 +10,7 @@ export const featureKey = 'auth';
 
 /* state interface */
 export interface AuthState {
-  user: User | null;
+  user: UserWithRelations | null;
   isLoading: boolean;
 }
 

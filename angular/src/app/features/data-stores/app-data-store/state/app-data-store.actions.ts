@@ -1,6 +1,6 @@
 /* angular */
 import { createAction, props } from '@ngrx/store';
-import { CartWithRelations, Category, Distributor, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CartWithRelations, Category, Distributor, DistributorWithRelations, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 
 /* action types */
 export enum ActionTypes {
@@ -13,6 +13,7 @@ export enum ActionTypes {
   GetCart = '[APP] GetCart',
   GetCartSuccessful = '[APP] GetCartSuccessful',
   AddToCartSuccessful = '[APP] AddToCartSuccessful',
+  CreateOrder = '[APP] CreateOrder',
 }
 
 /* actions */
@@ -22,6 +23,7 @@ export const InitApp = createAction(ActionTypes.InitApp);
 export const GetProducts = createAction(ActionTypes.GetProducts)
 
 export const GetProductsSuccessful = createAction(ActionTypes.GetProductsSuccessful, props<{ payload: { products: ProductWithRelations[] } }>());
+export const CreateOrder = createAction(ActionTypes.CreateOrder, props<{ payload: { order: OrderWithRelations } }>());
 export const GetCategoriesSuccessful = createAction(ActionTypes.GetCategoriesSuccessful, props<{ payload: { categories: Category[] } }>());
 export const GetDistributorsSuccessful = createAction(ActionTypes.GetDistributorsSuccessful, props<{ payload: { distributors: DistributorWithRelations[] } }>());
 export const AddToCart = createAction(ActionTypes.AddToCart, props<{ payload: { productId: string } }>());

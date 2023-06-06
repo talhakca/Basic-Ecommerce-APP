@@ -60,7 +60,7 @@ export class RappiderStripeComponent implements OnInit, OnChanges {
 
   paymentElementForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private stripeService: StripeService) {}
+  constructor(private fb: FormBuilder, private stripeService: StripeService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -75,6 +75,7 @@ export class RappiderStripeComponent implements OnInit, OnChanges {
   pay() {
     this.paymentElementForm.updateValueAndValidity();
     if (this.paymentElementForm.valid) {
+      this.submitButton.loading = true;
       this.stripeService
         .confirmPayment({
           elements: this.paymentElement.elements,

@@ -1,7 +1,7 @@
-import { Entity, model, property, hasMany, belongsTo} from '@loopback/repository';
-import {Cart} from './cart.model';
-import {User} from './user.model';
-import {Address} from './address.model';
+import { Entity, model, property, hasMany, belongsTo } from '@loopback/repository';
+import { Cart } from './cart.model';
+import { User } from './user.model';
+import { Address } from './address.model';
 
 @model()
 export class Order extends Entity {
@@ -17,12 +17,6 @@ export class Order extends Entity {
   id: string;
 
   @property({
-    type: 'object',
-    required: true,
-  })
-  address: object;
-
-  @property({
     type: 'number',
     required: true,
   })
@@ -32,7 +26,14 @@ export class Order extends Entity {
     type: 'string',
     required: true,
   })
-  status: string;
+  status: string; //pending approved on delivery
+
+  @property({
+    type: 'string',
+    required: true,
+    unique: true
+  })
+  paymentId: string;
 
   @hasMany(() => Cart)
   orderedProducts: Cart[];

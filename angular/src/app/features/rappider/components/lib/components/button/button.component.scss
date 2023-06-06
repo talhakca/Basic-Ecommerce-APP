@@ -1,4 +1,6 @@
 .button {
+  width: 100%;
+
   ::ng-deep {
     .warning {
       background-color: var(--warning-color);
@@ -182,4 +184,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--margin-x);
+}
+
+button {
+  width: 100%;
 }
