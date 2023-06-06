@@ -17,8 +17,7 @@ import {
   UserRelations,
   Product,
   Tax,
-  Wishlist, Cart
-} from '../models';
+  Wishlist, Cart, Address} from '../models';
 
 /* repository imports */
 import {
@@ -27,6 +26,7 @@ import {
   WishlistRepository,
 } from '.';
 import { CartRepository } from './cart.repository';
+import {AddressRepository} from './address.repository';
 
 export class UserRepository extends DefaultCrudRepository<
   User,
@@ -48,6 +48,8 @@ export class UserRepository extends DefaultCrudRepository<
     typeof User.prototype.id
   >;
 
+  public readonly addresses: HasManyRepositoryFactory<Address, typeof User.prototype.id>;
+
   constructor(
     @inject('datasources.ELearningDataSource')
     dataSource: ELearningDataSource,
@@ -59,10 +61,12 @@ export class UserRepository extends DefaultCrudRepository<
     protected taxRepositoryGetter: Getter<TaxRepository>,
 
     @repository.getter('WishlistRepository')
-    protected wishlistRepositoryGetter: Getter<WishlistRepository>, @repository.getter('CartRepository') protected cartRepositoryGetter: Getter<CartRepository>,
+    protected wishlistRepositoryGetter: Getter<WishlistRepository>, @repository.getter('CartRepository') protected cartRepositoryGetter: Getter<CartRepository>, @repository.getter('AddressRepository') protected addressRepositoryGetter: Getter<AddressRepository>,
 
   ) {
     super(User, dataSource);
+    this.addresses = this.createHasManyRepositoryFactoryFor('addresses', addressRepositoryGetter,);
+    this.registerInclusionResolver('addresses', this.addresses.inclusionResolver);
     this.products = this.createHasManyThroughRepositoryFactoryFor('cart', productRepositoryGetter, cartRepositoryGetter,);
     this.registerInclusionResolver('cart', this.products.inclusionResolver);
 

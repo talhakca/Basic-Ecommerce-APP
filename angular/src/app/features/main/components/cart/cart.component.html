@@ -1,1 +1,53 @@
-<p>cart works!</p>
+<div class="container-fluid">
+  <div class="summary-area">
+    <div class="title-area">
+      <h5>
+        My Cart ({{cartData?.length}} Items)
+      </h5>
+    </div>
+    <div *ngFor="let cartGroup of cartData"
+         class="summary">
+      <div *ngIf="cartGroup.product.distributor"
+           class="distributor-info">
+        Distributor: {{cartGroup.product.distributor.name}}
+      </div>
+      <div class="product-info">
+        <div class="product-detail">
+          <div class="image">
+            <img [src]="cartGroup.product.imageUrl"
+                 alt="Product Picture">
+          </div>
+          <div class="description-area">
+            <div class="name">
+              {{cartGroup.product.name }}
+            </div>
+            <div class="model">
+              {{cartGroup.product.model}}
+            </div>
+          </div>
+        </div>
+        <div class="quantity">
+          Quantity: {{cartGroup.quantity}}
+        </div>
+        <div class="price">
+          {{getFinalPrice(cartGroup.product)}} $
+        </div>
+        <div class="delete-button">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="order-area">
+    <div class="order-detail">
+      <span> Order Summary</span>
+      Total Price: {{fullPrice}} $
+      <nz-divider></nz-divider>
+    </div>
+    <div class="checkout">
+      <button nz-button
+              (click)="goToCheckout()"> Go To Checkout </button>
+    </div>
+  </div>
+</div>

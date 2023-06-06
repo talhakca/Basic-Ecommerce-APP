@@ -25,14 +25,18 @@
         </div>
         <div *ngIf="user">
           Welcome, {{user.firstName}} &nbsp; {{user.lastName}}
-          &nbsp; <nz-badge nzSize="small"
-                    [nzCount]="cart?.length ?? 0">
-            <i class="fa-solid fa-cart-shopping"
-               (click)="navigateToCartPage()"></i>
-          </nz-badge>
+          &nbsp;
+          <a href="/cart">
+            <nz-badge nzSize="small"
+                      [nzCount]="cart?.length ?? 0">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </nz-badge>
+          </a>
         </div>
       </div>
     </div>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<div class="content-area">
+  <router-outlet></router-outlet>
+</div>

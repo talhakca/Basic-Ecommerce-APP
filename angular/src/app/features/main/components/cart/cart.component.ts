@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { Product } from 'src/app/features/shared/sdk/models';
 
 @Component({
   selector: 'app-cart',
@@ -7,9 +11,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  subscriptions: Subscription[];
+  cartData: {
+    quantity: number;
+    product: Product
+  }[];
+  fullPrice = 0;
+
+  constructor(
+    private store: Store<any>,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.subscribeToData();
   }
 
+  subscribeToData() {
+    this.subscriptions = [
+      this.subscribeToCarts()
+    ];
+  }
+
+  subscribeToCarts() {
+    return this.store.select(state => state.app.cart).subscribe(cart => {
+      this.cartData = cart.reduce((acc, cur) => {
+        const productGroup = acc.find(productItem => productItem.product.id === cur.productId);
+        this.fullPrice = this.fullPrice + this.getFinalPrice(cur.product);
+        if (productGroup) {
+          productGroup.quantity++;
+        } else {
+          acc.push({ quantity: 1, product: cur.product });
+        }
+        return acc;
+      }, []);
+    });
+  }
+
+  getFinalPrice(product) {
+    if (product) {
+      return product.discountRate ? (product.price * product.discountRate / 100) : product.price;
+    }
+  }
+
+  goToCheckout() {
+    this.router.navigateByUrl('/payment');
+  }
 }

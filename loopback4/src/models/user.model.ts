@@ -15,6 +15,7 @@ import {
   Wishlist,
 } from '.';
 import { Cart } from './cart.model';
+import {Address} from './address.model';
 
 @model({
   settings: {
@@ -186,6 +187,8 @@ export class User extends Entity {
   })
   cart: Product[];
 
+  @hasMany(() => Address)
+  addresses: Address[];
   [prop: string]: any;
 
 

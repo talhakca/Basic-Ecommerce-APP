@@ -10,12 +10,12 @@ import { ComponentsModule } from '../rappider/components/lib/components.module';
 import { AuthGuard } from '../auth/guards';
 /* HomePage Component */
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { RappiderCardOneListModule, RappiderRateDisplayModule } from '../rappider/components';
+import { RappiderCardOneListModule, RappiderRateDisplayModule, RappiderStripeModule } from '../rappider/components';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { CartComponent } from './components/cart/cart.component';
-
+import { PaymentComponent } from './components/payment/payment.component';
 const routes: Routes = [
   {
     path: '',
@@ -29,14 +29,30 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent
+  },
+  {
+    path: 'checkout',
+    component: PaymentComponent
   }
 ];
 
 @NgModule({
-  declarations: [HomePageComponent, ProductDetailComponent, CartComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), ComponentsModule, RappiderCardOneListModule, RappiderRateDisplayModule,
+  declarations: [
+    HomePageComponent,
+    ProductDetailComponent,
+    CartComponent,
+    PaymentComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    ComponentsModule,
+    RappiderCardOneListModule,
+    RappiderRateDisplayModule,
     NzButtonModule,
-    NzDividerModule],
+    NzDividerModule,
+    RappiderStripeModule
+  ],
   exports: [],
 })
 export class MainModule { }

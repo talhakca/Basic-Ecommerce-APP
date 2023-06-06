@@ -22,3 +22,5 @@ export * from './role.repository';
 export * from './product.repository';
 export * from './cart.repository';
 export * from './user-product.repository';
+export * from './order.repository';
+export * from './address.repository';

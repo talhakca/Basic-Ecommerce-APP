@@ -30,6 +30,11 @@ export class Cart extends Entity {
   })
   productId: string;
 
+  @property({
+    type: 'string',
+  })
+  orderId?: string;
+
   constructor(data?: Partial<Cart>) {
     super(data);
   }
