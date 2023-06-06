@@ -48,6 +48,7 @@ export class AddProductComponent implements OnInit {
 
   onSubmit() {
     if (this.formProduct.valid) {
+      console.log(this.formProduct.value)
       const newProduct: Product = this.formProduct.value;
       this.store.dispatch(PostProduct({ payload: newProduct }));
       this.subscription = this.getSubscription();
