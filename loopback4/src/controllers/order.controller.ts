@@ -19,7 +19,7 @@ import {
 } from '@loopback/rest';
 import { Order } from '../models';
 import { OrderRepository } from '../repositories';
-import { CreatePaymentIntentDTO } from '../dtos';
+import { CreatePaymentIntentDTO, OrderCreateDTO } from '../dtos';
 
 export class OrderController {
   constructor(
@@ -36,14 +36,14 @@ export class OrderController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Order, {
+          schema: getModelSchemaRef(OrderCreateDTO, {
             title: 'NewOrder',
             exclude: ['id'],
           }),
         },
       },
     })
-    order: Omit<Order, 'id'>,
+    order: Omit<OrderCreateDTO, 'id'>,
   ): Promise<Order> {
     return this.orderRepository.create(order);
   }

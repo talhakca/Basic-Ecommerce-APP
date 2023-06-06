@@ -26,6 +26,48 @@ export class OrderControllerService extends BaseService {
     super(config, http);
   }
 
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `create()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  create$Response(params?: {
+    body?: OrderPartial
+  }): Observable<StrictHttpResponse<Order>> {
+
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerCreateIntentPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Order>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `create$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  create(params?: {
+    body?: OrderPartial
+  }): Observable<Order> {
+
+    return this.create$Response(params).pipe(
+      map((r: StrictHttpResponse<Order>) => r.body as Order)
+    );
+  }
+
   /**
    * Path part for operation orderControllerCount
    */

@@ -5,7 +5,8 @@ import { PriceService } from '../../services/price/price.service';
 import { Store } from '@ngrx/store';
 import { OrderControllerService } from 'src/app/features/shared/sdk/services';
 import { AuthState } from 'src/app/features/data-stores/auth-data-store/state/auth-data-store.reducer';
-import { Address } from 'src/app/features/shared/sdk/models';
+import { Address, Cart } from 'src/app/features/shared/sdk/models';
+import { CreateOrder } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 
 @Component({
   selector: 'app-payment',
@@ -24,6 +25,7 @@ export class PaymentComponent implements OnInit {
     text: 'Make Payment',
     type: 'primary'
   };
+  carts: Cart[];
 
   constructor(
     private store: Store<{ app: AppState, auth: AuthState }>,
@@ -44,6 +46,7 @@ export class PaymentComponent implements OnInit {
 
   subscribeToCart() {
     return this.store.select(state => state.app.cart).subscribe(cart => {
+      this.carts = cart;
       if (cart?.length) {
         this.amount = cart.reduce((acc, cur) => {
           acc = this.priceService.getFinalPrice(cur.product);
@@ -82,7 +85,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onPaymentSuccess(payment) {
-    console.log(payment)
+    this.store.dispatch(CreateOrder({ payload: { order: { paymentId: payment.id, price: this.amount, status: 'PENDING', orderedProducts: this.carts } } }))
   }
 
 }

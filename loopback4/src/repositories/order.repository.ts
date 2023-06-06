@@ -5,6 +5,7 @@ import { Order, OrderRelations, Cart, User, Address } from '../models';
 import { CartRepository } from './cart.repository';
 import { UserRepository } from './user.repository';
 import { AddressRepository } from './address.repository';
+import { HttpErrors } from '@loopback/rest';
 
 export class OrderRepository extends DefaultCrudRepository<
   Order,
@@ -41,5 +42,22 @@ export class OrderRepository extends DefaultCrudRepository<
       statement_descriptor: 'Custom descriptor',
     });
     return paymentIntent as string;
+  }
+
+  async customCreate(body: any) {
+    if (!body.paymentId) {
+      return new HttpErrors[401]('payment id is required');
+    }
+
+    const cartItems = body.orderedProducts;
+    delete body.orderedProducts;
+
+    const order = await this.create({ ...body, status: 'PENDING' });
+    if (order) {
+      const cartRepository = await this.cartRepositoryGetter();
+      for (let cartItem of cartItems) {
+        cartRepository.updateById(cartItem.id, { orderId: order.id });
+      }
+    }
   }
 }
