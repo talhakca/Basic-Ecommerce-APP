@@ -144,7 +144,7 @@ export class AuthController {
     tokenPayload: TokenPayload
   ): Promise<User> {
     const userId = tokenPayload.userId;
-    const user = await this.userRepository.findById(userId, { include: [{ relation: 'cart' }] });
+    const user = await this.userRepository.findById(userId, { include: [{ relation: 'cart' }, { relation: 'addresses' }] });
     return user;
   }
 

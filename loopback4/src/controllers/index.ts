@@ -40,3 +40,4 @@ export * from './order-cart.controller';
 export * from './order-user.controller';
 export * from './order-address.controller';
 export * from './user-address.controller';
+export * from './address.controller';

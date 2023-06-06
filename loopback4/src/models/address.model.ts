@@ -1,4 +1,4 @@
-import {Entity, model, property} from '@loopback/repository';
+import { Entity, model, property } from '@loopback/repository';
 
 @model()
 export class Address extends Entity {
@@ -20,6 +20,13 @@ export class Address extends Entity {
     required: true,
   })
   street: string;
+
+  @property({
+    type: 'string',
+    required: false,
+    jsonSchema: { nullable: true }
+  })
+  street2: string;
 
   @property({
     type: 'string',

@@ -9,7 +9,7 @@ export class AddressRepository extends DefaultCrudRepository<
   AddressRelations
 > {
   constructor(
-    @inject('datasources.') dataSource: ELearningDataSource,
+    @inject('datasources.ELearningDataSource') dataSource: ELearningDataSource,
   ) {
     super(Address, dataSource);
   }
