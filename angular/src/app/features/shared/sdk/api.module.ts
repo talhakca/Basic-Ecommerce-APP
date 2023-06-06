@@ -4,6 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { AddressControllerService } from './services/address-controller.service';
 import { AuthControllerService } from './services/auth-controller.service';
 import { CartControllerService } from './services/cart-controller.service';
 import { CartProductControllerService } from './services/cart-product-controller.service';
@@ -12,6 +13,10 @@ import { CategoryControllerService } from './services/category-controller.servic
 import { CommentControllerService } from './services/comment-controller.service';
 import { DeliveryControllerService } from './services/delivery-controller.service';
 import { DistributorControllerService } from './services/distributor-controller.service';
+import { OrderControllerService } from './services/order-controller.service';
+import { OrderAddressControllerService } from './services/order-address-controller.service';
+import { OrderCartControllerService } from './services/order-cart-controller.service';
+import { OrderUserControllerService } from './services/order-user-controller.service';
 import { PingControllerService } from './services/ping-controller.service';
 import { ProductCategoryControllerService } from './services/product-category-controller.service';
 import { ProductControllerService } from './services/product-controller.service';
@@ -19,6 +24,7 @@ import { RefundRequestControllerService } from './services/refund-request-contro
 import { RoleControllerService } from './services/role-controller.service';
 import { TaxControllerService } from './services/tax-controller.service';
 import { UserProductControllerService } from './services/user-product-controller.service';
+import { UserAddressControllerService } from './services/user-address-controller.service';
 import { UserControllerService } from './services/user-controller.service';
 import { WishlistControllerService } from './services/wishlist-controller.service';
 
@@ -30,6 +36,7 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
   exports: [],
   declarations: [],
   providers: [
+    AddressControllerService,
     AuthControllerService,
     CartControllerService,
     CartProductControllerService,
@@ -38,6 +45,10 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
     CommentControllerService,
     DeliveryControllerService,
     DistributorControllerService,
+    OrderControllerService,
+    OrderAddressControllerService,
+    OrderCartControllerService,
+    OrderUserControllerService,
     PingControllerService,
     ProductCategoryControllerService,
     ProductControllerService,
@@ -45,6 +56,7 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
     RoleControllerService,
     TaxControllerService,
     UserProductControllerService,
+    UserAddressControllerService,
     UserControllerService,
     WishlistControllerService,
     ApiConfiguration

@@ -6,6 +6,7 @@
  */
 export interface CartPartial {
   id?: string;
+  orderId?: string;
   productId?: string;
   userId?: string;
 }

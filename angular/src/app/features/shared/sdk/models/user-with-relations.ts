@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+import { AddressWithRelations } from './address-with-relations';
 import { ProductWithRelations } from './product-with-relations';
 import { TaxWithRelations } from './tax-with-relations';
 
@@ -7,6 +8,7 @@ import { TaxWithRelations } from './tax-with-relations';
  * (tsType: UserWithRelations, schemaOptions: { includeRelations: true })
  */
 export interface UserWithRelations {
+  addresses?: Array<AddressWithRelations>;
   avatar?: string;
   cart?: Array<ProductWithRelations>;
   createdBy?: string;

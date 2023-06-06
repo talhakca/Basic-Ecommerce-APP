@@ -1,7 +1,4 @@
 /* tslint:disable */
-
-import { ProductWithRelations } from "./product-with-relations";
-
 /* eslint-disable */
 export interface User {
   avatar?: string;
@@ -24,5 +21,4 @@ export interface User {
   updatedById?: string;
   updatedDate?: string;
   username: string;
-  cart?: ProductWithRelations[];
 }

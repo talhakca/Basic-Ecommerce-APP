@@ -143,9 +143,13 @@ class QueryParameter extends Parameter {
           }
         }
       } else if (this.options.explode) {
-        /* CUSTOMIZED FOR RAPPIDER */
         // Append a parameter for each key without using the parameter name
-        params = params.append(this.name, JSON.stringify(this.value));
+        for (const key of Object.keys(this.value)) {
+          const propVal = this.value[key];
+          if (propVal !== null && propVal !== undefined) {
+            params = params.append(key, this.serializeValue(propVal));
+          }
+        }
       } else {
         // Append a single parameter whose values are a comma-separated list of key,value,key,value...
         const array: any[] = [];

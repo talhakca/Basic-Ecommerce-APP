@@ -9,16 +9,16 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { Cart } from '../models/cart';
-import { CartPartial } from '../models/cart-partial';
-import { CartWithRelations } from '../models/cart-with-relations';
-import { NewCart } from '../models/new-cart';
+import { CreatePaymentIntentDto } from '../models/create-payment-intent-dto';
+import { Order } from '../models/order';
+import { OrderPartial } from '../models/order-partial';
+import { OrderWithRelations } from '../models/order-with-relations';
 import { Count as LoopbackCount } from '../models/loopback/count';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CartControllerService extends BaseService {
+export class OrderControllerService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -27,9 +27,9 @@ export class CartControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation cartControllerCount
+   * Path part for operation orderControllerCount
    */
-  static readonly CartControllerCountPath = '/carts/count';
+  static readonly OrderControllerCountPath = '/orders/count';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -41,7 +41,7 @@ export class CartControllerService extends BaseService {
     where?: any;
   }): Observable<StrictHttpResponse<LoopbackCount>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerCountPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerCountPath, 'get');
     if (params) {
       rb.query('where', params.where, {});
     }
@@ -73,9 +73,9 @@ export class CartControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation cartControllerFindById
+   * Path part for operation orderControllerFindById
    */
-  static readonly CartControllerFindByIdPath = '/carts/{id}';
+  static readonly OrderControllerFindByIdPath = '/orders/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -86,9 +86,9 @@ export class CartControllerService extends BaseService {
   findById$Response(params: {
     id: string;
     filter?: any;
-  }): Observable<StrictHttpResponse<CartWithRelations>> {
+  }): Observable<StrictHttpResponse<OrderWithRelations>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerFindByIdPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerFindByIdPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
       rb.query('filter', params.filter, {});
@@ -100,7 +100,7 @@ export class CartControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<CartWithRelations>;
+        return r as StrictHttpResponse<OrderWithRelations>;
       })
     );
   }
@@ -114,17 +114,17 @@ export class CartControllerService extends BaseService {
   findById(params: {
     id: string;
     filter?: any;
-  }): Observable<CartWithRelations> {
+  }): Observable<OrderWithRelations> {
 
     return this.findById$Response(params).pipe(
-      map((r: StrictHttpResponse<CartWithRelations>) => r.body as CartWithRelations)
+      map((r: StrictHttpResponse<OrderWithRelations>) => r.body as OrderWithRelations)
     );
   }
 
   /**
-   * Path part for operation cartControllerReplaceById
+   * Path part for operation orderControllerReplaceById
    */
-  static readonly CartControllerReplaceByIdPath = '/carts/{id}';
+  static readonly OrderControllerReplaceByIdPath = '/orders/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -134,10 +134,10 @@ export class CartControllerService extends BaseService {
    */
   replaceById$Response(params: {
     id: string;
-    body?: Cart
+    body?: Order
   }): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerReplaceByIdPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerReplaceByIdPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/json');
@@ -162,7 +162,7 @@ export class CartControllerService extends BaseService {
    */
   replaceById(params: {
     id: string;
-    body?: Cart
+    body?: Order
   }): Observable<any> {
 
     return this.replaceById$Response(params).pipe(
@@ -171,9 +171,9 @@ export class CartControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation cartControllerDeleteById
+   * Path part for operation orderControllerDeleteById
    */
-  static readonly CartControllerDeleteByIdPath = '/carts/{id}';
+  static readonly OrderControllerDeleteByIdPath = '/orders/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -185,7 +185,7 @@ export class CartControllerService extends BaseService {
     id: string;
   }): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerDeleteByIdPath, 'delete');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerDeleteByIdPath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -217,9 +217,9 @@ export class CartControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation cartControllerUpdateById
+   * Path part for operation orderControllerUpdateById
    */
-  static readonly CartControllerUpdateByIdPath = '/carts/{id}';
+  static readonly OrderControllerUpdateByIdPath = '/orders/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -229,10 +229,10 @@ export class CartControllerService extends BaseService {
    */
   updateById$Response(params: {
     id: string;
-    body?: CartPartial
+    body?: OrderPartial
   }): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerUpdateByIdPath, 'patch');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerUpdateByIdPath, 'patch');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/json');
@@ -257,7 +257,7 @@ export class CartControllerService extends BaseService {
    */
   updateById(params: {
     id: string;
-    body?: CartPartial
+    body?: OrderPartial
   }): Observable<any> {
 
     return this.updateById$Response(params).pipe(
@@ -266,9 +266,9 @@ export class CartControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation cartControllerFind
+   * Path part for operation orderControllerFind
    */
-  static readonly CartControllerFindPath = '/carts';
+  static readonly OrderControllerFindPath = '/orders';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -278,9 +278,9 @@ export class CartControllerService extends BaseService {
    */
   find$Response(params?: {
     filter?: any;
-  }): Observable<StrictHttpResponse<Array<CartWithRelations>>> {
+  }): Observable<StrictHttpResponse<Array<OrderWithRelations>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerFindPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerFindPath, 'get');
     if (params) {
       rb.query('filter', params.filter, {});
     }
@@ -291,7 +291,7 @@ export class CartControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<CartWithRelations>>;
+        return r as StrictHttpResponse<Array<OrderWithRelations>>;
       })
     );
   }
@@ -304,29 +304,29 @@ export class CartControllerService extends BaseService {
    */
   find(params?: {
     filter?: any;
-  }): Observable<Array<CartWithRelations>> {
+  }): Observable<Array<OrderWithRelations>> {
 
     return this.find$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<CartWithRelations>>) => r.body as Array<CartWithRelations>)
+      map((r: StrictHttpResponse<Array<OrderWithRelations>>) => r.body as Array<OrderWithRelations>)
     );
   }
 
   /**
-   * Path part for operation cartControllerCreate
+   * Path part for operation orderControllerCreateIntent
    */
-  static readonly CartControllerCreatePath = '/carts';
+  static readonly OrderControllerCreateIntentPath = '/orders';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `create()` instead.
+   * To access only the response body, use `createIntent()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  create$Response(params?: {
-    body?: NewCart
-  }): Observable<StrictHttpResponse<Cart>> {
+  createIntent$Response(params?: {
+    body?: CreatePaymentIntentDto
+  }): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerCreatePath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerCreateIntentPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -337,30 +337,30 @@ export class CartControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Cart>;
+        return r as StrictHttpResponse<any>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `create$Response()` instead.
+   * To access the full response (for headers, for example), `createIntent$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  create(params?: {
-    body?: NewCart
-  }): Observable<Cart> {
+  createIntent(params?: {
+    body?: CreatePaymentIntentDto
+  }): Observable<any> {
 
-    return this.create$Response(params).pipe(
-      map((r: StrictHttpResponse<Cart>) => r.body as Cart)
+    return this.createIntent$Response(params).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation cartControllerUpdateAll
+   * Path part for operation orderControllerUpdateAll
    */
-  static readonly CartControllerUpdateAllPath = '/carts';
+  static readonly OrderControllerUpdateAllPath = '/orders';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -370,10 +370,10 @@ export class CartControllerService extends BaseService {
    */
   updateAll$Response(params?: {
     where?: any;
-    body?: CartPartial
+    body?: OrderPartial
   }): Observable<StrictHttpResponse<LoopbackCount>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CartControllerService.CartControllerUpdateAllPath, 'patch');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerUpdateAllPath, 'patch');
     if (params) {
       rb.query('where', params.where, {});
       rb.body(params.body, 'application/json');
@@ -398,7 +398,7 @@ export class CartControllerService extends BaseService {
    */
   updateAll(params?: {
     where?: any;
-    body?: CartPartial
+    body?: OrderPartial
   }): Observable<LoopbackCount> {
 
     return this.updateAll$Response(params).pipe(
