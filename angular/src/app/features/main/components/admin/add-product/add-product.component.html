@@ -86,7 +86,7 @@
                             <input type="text" id="categoryId" class="form-control" formControlName="categoryId">
                         </div>
                         <div class="form-group">
-                            <p>Utku</p>
+                            <p *ngFor="let a of newProductsSub">{{a.name}}</p>
                         </div>
                         <div class=" text-center">
                             <button type="submit" [disabled]="!formProduct.valid" class="btn btn-primary mt-3">Add

@@ -35,7 +35,7 @@ export class AppDataStoreEffects {
   postProducts$ = createEffect(
     () => this.actions$.pipe(
       ofType(PostProduct),
-      mergeMap((action) => this.productApi.create({ body: action }).pipe(
+      mergeMap((action) => this.productApi.create({ body: action.payload }).pipe(
         map((product: Product) => PostProductSuccessful({ payload: { newProducts: [product] } }))
       ))
     )

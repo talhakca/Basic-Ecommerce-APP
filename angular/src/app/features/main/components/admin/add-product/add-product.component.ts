@@ -47,13 +47,11 @@ export class AddProductComponent implements OnInit {
   }
 
   onSubmit() {
-    const payload: { newProducts: Product[] } = {
-      newProducts: this.formProduct.value
-        ? this.formProduct.value
-        : this.formProduct.value ? [this.formProduct.value] : []
-    };
-    this.store.dispatch(PostProduct({ payload }));
-    this.subscription = this.getSubscription();
+    if (this.formProduct.valid) {
+      const newProduct: Product = this.formProduct.value;
+      this.store.dispatch(PostProduct({ payload: newProduct }));
+      this.subscription = this.getSubscription();
+    }
   }
   navigateToAdminPanel() {
     this.router.navigateByUrl('/admin');

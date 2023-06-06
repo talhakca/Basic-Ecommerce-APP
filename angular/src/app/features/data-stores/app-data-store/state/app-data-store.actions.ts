@@ -1,6 +1,6 @@
 /* angular */
 import { createAction, props } from '@ngrx/store';
-import { CartWithRelations, Category, Distributor, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CartWithRelations, Category, Distributor, DistributorWithRelations, NewProduct, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 
 /* action types */
 export enum ActionTypes {
@@ -31,5 +31,8 @@ export const AddToCart = createAction(ActionTypes.AddToCart, props<{ payload: { 
 export const GetCart = createAction(ActionTypes.GetCart);
 export const GetCartSuccessful = createAction(ActionTypes.GetCartSuccessful, props<{ payload: { cart: CartWithRelations[] } }>());
 export const AddToCartSuccessful = createAction(ActionTypes.AddToCartSuccessful, props<{ payload: { cart: CartWithRelations } }>());
-export const PostProduct = createAction(ActionTypes.PostProduct, props<{ payload: { newProducts: Product[] } }>());
+export const PostProduct = createAction(
+  ActionTypes.PostProduct,
+  props<{ payload: Product }>()
+);
 export const PostProductSuccessful = createAction(ActionTypes.PostProductSuccessful, props<{ payload: { newProducts: Product[] } }>())
