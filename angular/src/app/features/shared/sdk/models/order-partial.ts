@@ -5,9 +5,9 @@
  * (tsType: Partial<Order>, schemaOptions: { partial: true })
  */
 export interface OrderPartial {
-  address?: {  };
   addressId?: string;
   id?: string;
+  paymentId?: string;
   price?: number;
   status?: string;
   userId?: string;
