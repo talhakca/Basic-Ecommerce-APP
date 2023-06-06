@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  stripeApiKey: 'sk_test_51NFvUxKhHK35k6aqMr2mf7OuZkRlV55GNWXdpDL9kZDPEZvZfOS01rnmNSjZknDmoqlnCyB5yvufVIC1CBeeT8I200Hywq3bYF'
+  stripeApiKey: 'pk_test_51NFvUxKhHK35k6aqhoFi4zmW5fFNvWBvLdj8y2hylQNFYbt5LdpJK2dGKMAxLUFZQgCVKpQBIVnAsAApvq5hvHea00VHpbwlOY'
 };
 
 /*

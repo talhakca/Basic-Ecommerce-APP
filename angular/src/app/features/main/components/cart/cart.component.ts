@@ -55,6 +55,6 @@ export class CartComponent implements OnInit {
   }
 
   goToCheckout() {
-    this.router.navigateByUrl('/payment');
+    this.router.navigateByUrl('/checkout');
   }
 }
