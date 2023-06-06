@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { act, Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { map, mergeMap, withLatestFrom, catchError } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, PostProductSuccessful, PostProduct } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, DistributorControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { SetUser } from '../../auth-data-store/state/auth-data-store.actions';
@@ -31,6 +31,15 @@ export class AppDataStoreEffects {
     private userProductApi: UserProductControllerService,
     private cartApi: CartControllerService,
   ) { }
+
+  postProducts$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(PostProduct),
+      mergeMap((action) => this.productApi.create({ body: action }).pipe(
+        map((product: Product) => PostProductSuccessful({ payload: { newProducts: [product] } }))
+      ))
+    )
+  )
 
   getProducts$ = createEffect(
     () => this.actions$.pipe(

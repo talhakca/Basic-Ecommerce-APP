@@ -19,6 +19,7 @@ export interface AppState {
   categories: CategoryWithRelations[];
   distributors: DistributorWithRelations[];
   cart: CartWithRelations[];
+  newProducts: Product[];
 }
 
 /* Initial values */
@@ -26,7 +27,8 @@ export const initialState: AppState = {
   products: [],
   categories: [],
   distributors: [],
-  cart: []
+  cart: [],
+  newProducts: []
 };
 
 export const reducer = createReducer(
@@ -53,5 +55,9 @@ export const reducer = createReducer(
       ...state.cart,
       action.payload.cart
     ],
+  })),
+  on(ProductActions.PostProductSuccessful, (state, action) => ({
+    ...state,
+    newProducts: action.payload.newProducts
   }))
 );
