@@ -35,6 +35,12 @@ export class Address extends Entity {
 
   @property({
     type: 'string',
+    required: true
+  })
+  title: string;
+
+  @property({
+    type: 'string',
   })
   userId?: string;
 

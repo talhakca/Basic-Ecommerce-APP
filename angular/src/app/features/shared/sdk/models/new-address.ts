@@ -9,5 +9,6 @@ export interface NewAddress {
   details?: string;
   street: string;
   street2?: null | string;
+  title: string;
   userId?: string;
 }

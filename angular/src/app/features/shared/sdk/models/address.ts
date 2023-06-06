@@ -6,5 +6,6 @@ export interface Address {
   id?: string;
   street: string;
   street2?: null | string;
+  title: string;
   userId?: string;
 }
