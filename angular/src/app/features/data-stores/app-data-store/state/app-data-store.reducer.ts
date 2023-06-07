@@ -7,7 +7,7 @@ import { UtilityService } from 'src/app/features/shared/services';
 /* Service variables */
 const utilityService = new UtilityService();
 
-import { CartWithRelations, CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CartWithRelations, Category, CategoryWithRelations, DistributorWithRelations, NewCategory, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import * as ProductActions from './app-data-store.actions';
 
 /* State key */
@@ -21,6 +21,7 @@ export interface AppState {
   cart: CartWithRelations[];
   inactiveCarts: CartWithRelations[];
   newProducts: Product[];
+  newCategories: NewCategory[];
 }
 
 /* Initial values */
@@ -30,7 +31,8 @@ export const initialState: AppState = {
   distributors: [],
   cart: [],
   inactiveCarts: [],
-  newProducts: []
+  newProducts: [],
+  newCategories: []
 };
 
 export const reducer = createReducer(
@@ -62,8 +64,24 @@ export const reducer = createReducer(
       action.payload.cart
     ],
   })),
-  on(ProductActions.PostProductSuccessful, (state, action) => ({
+  on(ProductActions.AddProductSuccessful, (state, action) => ({
     ...state,
     newProducts: action.payload.newProducts
-  }))
+  })),
+  on(ProductActions.AddCategorySuccessful, (state, action) => ({
+    ...state,
+    newCategories: action.payload.newCategories
+  })),
+  on(ProductActions.DeleteCategorySuccessful, (state, { payload: deletedCategoryId }) => {
+    return {
+      ...state,
+      categories: state.categories.filter(category => category.id !== deletedCategoryId)
+    };
+  }),
+  on(ProductActions.UpdateCategorySuccessful, (state, { payload: updatedCategory }) => {
+    return {
+      ...state,
+      categories: state.categories.map(category => category.id === updatedCategory.id ? updatedCategory : category)
+    };
+  })
 );

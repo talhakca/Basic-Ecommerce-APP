@@ -22,6 +22,9 @@ import { AddProductComponent } from './components/admin/products-edit/add-produc
 import { DeleteProductComponent } from './components/admin/products-edit/delete-product/delete-product.component';
 import { UpdateProductComponent } from './components/admin/products-edit/update-product/update-product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddCategoryComponent } from './components/admin/category-edit/add-category/add-category.component';
+import { DeleteCategoryComponent } from './components/admin/category-edit/delete-category/delete-category.component';
+import { UpdateCategoryComponent } from './components/admin/category-edit/update-category/update-category.component';
 const routes: Routes = [
   {
     path: '',
@@ -47,6 +50,15 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent
   },
+  {
+    path: 'admin/addcategory', component: AddCategoryComponent
+  },
+  {
+    path: 'admin/deletecategory', component: DeleteCategoryComponent
+  },
+  {
+    path: 'admin/updatecategory', component: UpdateCategoryComponent
+  }
 ];
 
 @NgModule({
@@ -58,7 +70,10 @@ const routes: Routes = [
     AdminComponent,
     AddProductComponent,
     DeleteProductComponent,
-    UpdateProductComponent
+    UpdateProductComponent,
+    AddCategoryComponent,
+    DeleteCategoryComponent,
+    UpdateCategoryComponent
   ],
   imports: [
     CommonModule,

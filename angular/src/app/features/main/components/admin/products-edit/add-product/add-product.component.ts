@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { PostProduct } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
 import { Product } from 'src/app/features/shared/sdk/models';
 

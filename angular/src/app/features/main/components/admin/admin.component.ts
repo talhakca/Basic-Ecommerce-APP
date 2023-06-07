@@ -23,6 +23,15 @@ export class AdminComponent implements OnInit {
   navigateToUpdateProduct() {
     this.router.navigateByUrl('/admin/updateproduct');
   }
+  navigateToAddCategory() {
+    this.router.navigateByUrl('/admin/addcategory');
+  }
+  navigateToDeleteCategory() {
+    this.router.navigateByUrl('/admin/deletecategory');
+  }
+  navigateToUpdateCategory() {
+    this.router.navigateByUrl('/admin/updatecategory');
+  }
 
 
 }

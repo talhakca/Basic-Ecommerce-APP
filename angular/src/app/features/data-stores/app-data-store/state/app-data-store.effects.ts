@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { act, Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { map, mergeMap, withLatestFrom, catchError } from 'rxjs/operators';
 
@@ -11,9 +11,9 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, PostProductSuccessful, PostProduct } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, AddProduct, AddProductSuccessful, AddCategory, AddCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, UpdateCategory, UpdateCategorySuccessful } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
-import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { Category, CategoryWithRelations, DistributorWithRelations, NewCategory, NewProduct, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { SetUser } from '../../auth-data-store/state/auth-data-store.actions';
 
 export const navigatePathAfterCreatingInstance = null;
@@ -33,11 +33,19 @@ export class AppDataStoreEffects {
     private orderApi: OrderControllerService
   ) { }
 
-  postProducts$ = createEffect(
+  addCategory$ = createEffect(
     () => this.actions$.pipe(
-      ofType(PostProduct),
+      ofType(AddCategory),
+      mergeMap((action) => this.categoryApi.create({ body: action.payload }).pipe(
+        map((newCategory: Category) => AddCategorySuccessful({ payload: { newCategories: [newCategory] } }))
+      ))
+    ))
+
+  addProducts$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(AddProduct),
       mergeMap((action) => this.productApi.create({ body: action.payload }).pipe(
-        map((product: Product) => PostProductSuccessful({ payload: { newProducts: [product] } }))
+        map((newProduct: Product) => AddProductSuccessful({ payload: { newProducts: [newProduct] } }))
       ))
     )
   )
@@ -108,4 +116,22 @@ export class AppDataStoreEffects {
       ))
     )
   );
+
+  deleteCategory$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(DeleteCategory),
+      mergeMap((action) => this.categoryApi.deleteById({ id: action.payload }).pipe(
+        map((response: string) => DeleteCategorySuccessful({ payload: response }))
+      ))
+    ))
+  updateCategory$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(UpdateCategory),
+      mergeMap((action) => this.categoryApi.updateById({ id: action.payload.id, body: action.payload.updatedData }).pipe(
+        map((updatedCategory: Category) => UpdateCategorySuccessful({ payload: updatedCategory }))
+      ))
+    )
+  );
+
 }
+

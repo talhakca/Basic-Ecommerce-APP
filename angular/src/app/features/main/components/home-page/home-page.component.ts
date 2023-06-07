@@ -45,7 +45,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   subscribeToProducts() {
-    return this.store.select(state => state.app.products).subscribe(products => {
+    return this.store.select(state => state.app.product).subscribe(products => {
       this.products = products;
       if (products?.length) {
         this.displayedProducts = this.products.map(product => (
