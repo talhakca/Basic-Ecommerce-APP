@@ -11,7 +11,7 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, PostProductSuccessful, PostProduct } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { SetUser } from '../../auth-data-store/state/auth-data-store.actions';
@@ -33,6 +33,14 @@ export class AppDataStoreEffects {
     private orderApi: OrderControllerService
   ) { }
 
+  postProducts$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(PostProduct),
+      mergeMap((action) => this.productApi.create({ body: action.payload }).pipe(
+        map((product: Product) => PostProductSuccessful({ payload: { newProducts: [product] } }))
+      ))
+    )
+  )
   getProducts$ = createEffect(
     () => this.actions$.pipe(
       ofType(InitApp),

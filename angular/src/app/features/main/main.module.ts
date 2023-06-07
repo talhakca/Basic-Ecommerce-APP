@@ -17,6 +17,11 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { CartComponent } from './components/cart/cart.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { AdminComponent } from './components/admin/admin.component';
+import { AddProductComponent } from './components/admin/add-product/add-product.component';
+import { DeleteProductComponent } from './components/admin/delete-product/delete-product.component';
+import { UpdateProductComponent } from './components/admin/update-product/update-product.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
   {
     path: '',
@@ -34,7 +39,14 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: PaymentComponent
-  }
+  },
+  { path: 'admin/addproduct', component: AddProductComponent },
+  { path: 'admin/deleteproduct', component: DeleteProductComponent },
+  { path: 'admin/updateproduct', component: UpdateProductComponent },
+  {
+    path: 'admin',
+    component: AdminComponent
+  },
 ];
 
 @NgModule({
@@ -42,7 +54,11 @@ const routes: Routes = [
     HomePageComponent,
     ProductDetailComponent,
     CartComponent,
-    PaymentComponent
+    PaymentComponent,
+    AdminComponent,
+    AddProductComponent,
+    DeleteProductComponent,
+    UpdateProductComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +69,9 @@ const routes: Routes = [
     NzButtonModule,
     NzDividerModule,
     RappiderStripeModule,
-    NzSpinModule
+    NzSpinModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [],
 })
