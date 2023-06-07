@@ -26,7 +26,7 @@ export class AddProductComponent implements OnInit {
     warrantyStatus: new FormControl(''),
     rating: new FormControl(0),
     discountRate: new FormControl(0),
-    isDeleted: new FormControl(false),
+    isDeleted: new FormControl(true),
     distributorId: new FormControl(''),
     categoryId: new FormControl('')
 

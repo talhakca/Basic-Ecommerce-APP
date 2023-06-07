@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label for="quantityInStocks">Quantity In Stocks :</label>
-                            <input type="text" id="quantityInStocks" class="form-control"
+                            <input type="number" id="quantityInStocks" class="form-control"
                                 formControlName="quantityInStocks">
                             <div class="text-danger"
                                 *ngIf="formProduct.get('quantityInStocks')?.invalid && (formProduct.get('quantityInStocks')?.dirty || formProduct.get('quantityInStocks')?.touched)">
@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label for="price">Price :</label>
-                            <input type="text" id="price" class="form-control" formControlName="price">
+                            <input type="number" id="price" class="form-control" formControlName="price">
                         </div>
                         <div class="form-group">
                             <label for="warrantyStatus">Warranty Status:</label>
@@ -63,18 +63,18 @@
                         </div>
                         <div class="form-group">
                             <label for="rating">Rating :</label>
-                            <input type="text" id="rating" class="form-control" formControlName="rating">
+                            <input type="number" id="rating" class="form-control" formControlName="rating">
                         </div>
                         <div class="form-group">
                             <label for="discountRate">Discount Rate % :</label>
-                            <input type="text" id="discountRate" class="form-control" formControlName="discountRate">
+                            <input type="number" id="discountRate" class="form-control" formControlName="discountRate">
                         </div>
 
                         <div class="form-group">
                             <label for="myCheckbox">Is Deleted? </label>
                             <select id="isDeleted" class="form-control" formControlName="isDeleted">
-                                <option value=false>No</option>
-                                <option value=true>Yes</option>
+                                <option [value]=false>No</option>
+                                <option [value]=true>Yes</option>
                             </select>
                         </div>
                         <div class="form-group">

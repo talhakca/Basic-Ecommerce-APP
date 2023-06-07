@@ -18,9 +18,9 @@ import { CartComponent } from './components/cart/cart.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { AdminComponent } from './components/admin/admin.component';
-import { AddProductComponent } from './components/admin/add-product/add-product.component';
-import { DeleteProductComponent } from './components/admin/delete-product/delete-product.component';
-import { UpdateProductComponent } from './components/admin/update-product/update-product.component';
+import { AddProductComponent } from './components/admin/products-edit/add-product/add-product.component';
+import { DeleteProductComponent } from './components/admin/products-edit/delete-product/delete-product.component';
+import { UpdateProductComponent } from './components/admin/products-edit/update-product/update-product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
   {
