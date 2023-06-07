@@ -49,7 +49,7 @@ export class PaymentComponent implements OnInit {
       this.carts = cart;
       if (cart?.length) {
         this.amount = cart.reduce((acc, cur) => {
-          acc = this.priceService.getFinalPrice(cur.product);
+          acc = acc + this.priceService.getFinalPrice(cur.product);
           return acc;
         }, 0);
         console.log(this.amount)
@@ -62,7 +62,7 @@ export class PaymentComponent implements OnInit {
 
   subscribeToUser() {
     return this.store.select(state => state.auth.user).subscribe(user => {
-      this.addresses = user.addresses;
+      this.addresses = user?.addresses;
       console.log(this.addresses)
     })
   }
@@ -85,7 +85,8 @@ export class PaymentComponent implements OnInit {
   }
 
   onPaymentSuccess(payment) {
-    this.store.dispatch(CreateOrder({ payload: { order: { paymentId: payment.id, price: this.amount, status: 'PENDING', orderedProducts: this.carts } } }))
+    console.log(payment)
+    this.store.dispatch(CreateOrder({ payload: { order: { paymentId: payment.paymentIntent.id, price: this.amount, status: 'PENDING', orderedProducts: this.carts } } }))
   }
 
 }

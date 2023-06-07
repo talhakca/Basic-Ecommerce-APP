@@ -16,6 +16,7 @@ import {
   del,
   requestBody,
   response,
+  HttpErrors,
 } from '@loopback/rest';
 import { Order } from '../models';
 import { OrderRepository } from '../repositories';
@@ -45,7 +46,8 @@ export class OrderController {
     })
     order: Omit<OrderCreateDTO, 'id'>,
   ): Promise<Order> {
-    return this.orderRepository.create(order);
+    console.log('order')
+    return this.orderRepository.customCreate(order);
   }
 
   @get('/orders/count')
@@ -149,7 +151,7 @@ export class OrderController {
     await this.orderRepository.deleteById(id);
   }
 
-  @post('/orders')
+  @post('/orders/intent')
   @response(200, {
     description: 'Order model instance',
     content: { 'application/json': { schema: String } },

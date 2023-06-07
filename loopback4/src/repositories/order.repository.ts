@@ -44,9 +44,9 @@ export class OrderRepository extends DefaultCrudRepository<
     return paymentIntent as string;
   }
 
-  async customCreate(body: any) {
+  async customCreate(body: any): Promise<Order> {
     if (!body.paymentId) {
-      return new HttpErrors[401]('payment id is required');
+      throw new HttpErrors[401]('payment id is required');
     }
 
     const cartItems = body.orderedProducts;
@@ -58,6 +58,9 @@ export class OrderRepository extends DefaultCrudRepository<
       for (let cartItem of cartItems) {
         cartRepository.updateById(cartItem.id, { orderId: order.id });
       }
+      return order;
+    } else {
+      throw new HttpErrors[400]('order couldnot proceed.');
     }
   }
 }

@@ -37,7 +37,7 @@ export class OrderControllerService extends BaseService {
     body?: OrderPartial
   }): Observable<StrictHttpResponse<Order>> {
 
-    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerCreateIntentPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, '/orders', 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -356,7 +356,7 @@ export class OrderControllerService extends BaseService {
   /**
    * Path part for operation orderControllerCreateIntent
    */
-  static readonly OrderControllerCreateIntentPath = '/orders';
+  static readonly OrderControllerCreateIntentPath = '/orders/intent';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

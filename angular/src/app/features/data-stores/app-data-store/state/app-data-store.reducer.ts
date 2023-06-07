@@ -19,6 +19,7 @@ export interface AppState {
   categories: CategoryWithRelations[];
   distributors: DistributorWithRelations[];
   cart: CartWithRelations[];
+  inactiveCarts: CartWithRelations[];
 }
 
 /* Initial values */
@@ -26,7 +27,8 @@ export const initialState: AppState = {
   products: [],
   categories: [],
   distributors: [],
-  cart: []
+  cart: [],
+  inactiveCarts: []
 };
 
 export const reducer = createReducer(
@@ -45,7 +47,11 @@ export const reducer = createReducer(
   })),
   on(ProductActions.GetCartSuccessful, (state, action) => ({
     ...state,
-    cart: action.payload.cart,
+    cart: action.payload.cart.filter(cart => !cart.orderId),
+  })),
+  on(ProductActions.GetCartSuccessful, (state, action) => ({
+    ...state,
+    inactiveCarts: action.payload.cart.filter(cart => cart.orderId),
   })),
   on(ProductActions.AddToCartSuccessful, (state, action) => ({
     ...state,

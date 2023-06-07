@@ -92,7 +92,7 @@ export class AppDataStoreEffects {
     () => this.actions$.pipe(
       ofType(CreateOrder),
       withLatestFrom(this.store.select(state => state.auth.user?.id)),
-      mergeMap(([action, userId]) => this.orderApi.create({ body: { ...action.payload.order } }).pipe(
+      mergeMap(([action, userId]) => this.orderApi.create({ body: { ...action.payload.order, userId: userId } }).pipe(
         map((order) => {
           console.log(order);
           return CreateOrderSuccessful({ payload: { order } })
