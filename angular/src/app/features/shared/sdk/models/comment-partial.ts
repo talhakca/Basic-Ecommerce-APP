@@ -20,6 +20,7 @@ export interface CommentPartial {
   updatedBy?: string;
   updatedById?: string;
   updatedDate?: string;
+  userId?: string;
 
   [key: string]: any;
 }

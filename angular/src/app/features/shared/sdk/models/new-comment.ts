@@ -14,11 +14,12 @@ export interface NewComment {
   isDeleted?: boolean;
   message: string;
   productId?: string;
-  rate: number;
+  rate?: number;
   status: string;
   updatedBy?: string;
   updatedById?: string;
   updatedDate?: string;
+  userId?: string;
 
   [key: string]: any;
 }

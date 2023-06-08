@@ -11,6 +11,7 @@ import { CartProductControllerService } from './services/cart-product-controller
 import { CartUserControllerService } from './services/cart-user-controller.service';
 import { CategoryControllerService } from './services/category-controller.service';
 import { CommentControllerService } from './services/comment-controller.service';
+import { CommentUserControllerService } from './services/comment-user-controller.service';
 import { DeliveryControllerService } from './services/delivery-controller.service';
 import { DistributorControllerService } from './services/distributor-controller.service';
 import { OrderControllerService } from './services/order-controller.service';
@@ -44,6 +45,7 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
     CartUserControllerService,
     CategoryControllerService,
     CommentControllerService,
+    CommentUserControllerService,
     DeliveryControllerService,
     DistributorControllerService,
     OrderControllerService,

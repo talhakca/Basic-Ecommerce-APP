@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { ProductWithRelations } from './product-with-relations';
+import { UserWithRelations } from './user-with-relations';
 
 /**
  * (tsType: CommentWithRelations, schemaOptions: { includeRelations: true })
@@ -17,11 +18,13 @@ export interface CommentWithRelations {
   isDeleted?: boolean;
   message: string;
   productId?: string;
-  rate: number;
+  rate?: number;
   status: string;
   updatedBy?: string;
   updatedById?: string;
   updatedDate?: string;
+  user?: UserWithRelations;
+  userId?: string;
 
   [key: string]: any;
 }

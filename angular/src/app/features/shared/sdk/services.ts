@@ -5,6 +5,7 @@ export { CartProductControllerService } from './services/cart-product-controller
 export { CartUserControllerService } from './services/cart-user-controller.service';
 export { CategoryControllerService } from './services/category-controller.service';
 export { CommentControllerService } from './services/comment-controller.service';
+export { CommentUserControllerService } from './services/comment-user-controller.service';
 export { DeliveryControllerService } from './services/delivery-controller.service';
 export { DistributorControllerService } from './services/distributor-controller.service';
 export { OrderControllerService } from './services/order-controller.service';
