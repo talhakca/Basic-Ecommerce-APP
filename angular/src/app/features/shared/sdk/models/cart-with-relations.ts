@@ -9,6 +9,7 @@ import { UserWithRelations } from './user-with-relations';
 export interface CartWithRelations {
   id: string;
   orderId?: string;
+  price: number;
   product?: ProductWithRelations;
   productId?: string;
   user?: UserWithRelations;
