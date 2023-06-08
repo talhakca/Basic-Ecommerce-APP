@@ -10,6 +10,7 @@ import { UserWithRelations } from './user-with-relations';
 export interface OrderWithRelations {
   address?: AddressWithRelations;
   addressId?: string;
+  createdDate?: string;
   id: string;
   orderedProducts?: Array<CartWithRelations>;
   paymentId: string;

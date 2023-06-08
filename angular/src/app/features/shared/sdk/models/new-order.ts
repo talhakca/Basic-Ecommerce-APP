@@ -6,6 +6,7 @@
  */
 export interface NewOrder {
   addressId?: string;
+  createdDate?: string;
   orderedProducts: Array<{  }>;
   paymentId: string;
   price: number;

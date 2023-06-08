@@ -6,6 +6,7 @@
  */
 export interface OrderPartial {
   addressId?: string;
+  createdDate?: string;
   id?: string;
   paymentId?: string;
   price?: number;
