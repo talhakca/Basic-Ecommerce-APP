@@ -73,7 +73,7 @@ export const reducer = createReducer(
         ...state.inactiveCarts,
         ...inactiveCarts
       ],
-      cart: state.cart.filter(cartItem => !(action.payload as any).orderedProducts.some(product => product.id === cartItem.id)),
+      cart: state.cart.filter(cartItem => !((action.payload as any).orderedProducts.some(product => product.id === cartItem.id))),
       orders: [
         ...state.orders,
         action.payload.order

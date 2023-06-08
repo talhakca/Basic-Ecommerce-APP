@@ -61,12 +61,13 @@ export class OrderRepository extends DefaultCrudRepository<
       const cartRepository = await this.cartRepositoryGetter();
       const productRepository = await this.productRepositoryGetter();
       for (let cartItem of cartItems) {
-        cartRepository.updateById(cartItem.id, { orderId: order.id });
+        const fixedPrice = cartItem.product?.discountRate ? (cartItem.product.price * cartItem.product.discountRate / 100) : cartItem.product.price
+        cartRepository.updateById(cartItem.id, { orderId: order.id, price: fixedPrice });
         productRepository.updateById(cartItem.productId, { quantityInStocks: cartItem.product.quantity - 1 });
       }
       return order;
     } else {
-      throw new HttpErrors[400]('order couldnot proceed.');
+      throw new HttpErrors[400]('order couldnot proceeded.');
     }
   }
 }

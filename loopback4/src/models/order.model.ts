@@ -18,7 +18,7 @@ export class Order extends Entity {
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
   })
   price: number;
 
