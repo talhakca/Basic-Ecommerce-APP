@@ -4,6 +4,32 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header text-center">
+                    Add a new Category
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="formCategory" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label for="name">Name :</label>
+                            <input type="text" id="name" class="form-control" formControlName="name">
+                            <div *ngIf="formCategory.get('name')?.invalid && (formCategory.get('name')?.dirty || formCategory.get('name')?.touched)"
+                                class="text-danger">
+                                Name is required!
+                            </div>
+                        </div>
+                        <div class=" text-center">
+                            <button type="submit" [disabled]="!formCategory.valid" class="btn btn-primary mt-3">Add
+                                Category</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-left">
+                    <button (click)=navigateToAdminPanel() class="btn btn-primary mt-3">Back to Admin Panel</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
                     Categories
                 </div>
                 <div class="card-body">
@@ -34,32 +60,8 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-center">
-                    Add a new Category
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="formCategory" (ngSubmit)="onSubmit()">
-                        <div class="form-group">
-                            <label for="name">Name :</label>
-                            <input type="text" id="name" class="form-control" formControlName="name">
-                            <div *ngIf="formCategory.get('name')?.invalid && (formCategory.get('name')?.dirty || formCategory.get('name')?.touched)"
-                                class="text-danger">
-                                Name is required!
-                            </div>
-                        </div>
-                        <div class=" text-center">
-                            <button type="submit" [disabled]="!formCategory.valid" class="btn btn-primary mt-3">Add
-                                Category</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer text-left">
-                    <button (click)=navigateToAdminPanel() class="btn btn-primary mt-3">Back to Admin Panel</button>
+                <div class="card-footer text-right">
+                    <button type="button" class="btn btn-primary mt-3">Confirm</button>
                 </div>
             </div>
         </div>

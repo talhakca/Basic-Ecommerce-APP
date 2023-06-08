@@ -73,17 +73,21 @@
                         <div class="form-group">
                             <label for="myCheckbox">Is Deleted? </label>
                             <select id="isDeleted" class="form-control" formControlName="isDeleted">
-                                <option [value]=false>No</option>
+                                <!-- <option [value]=false>No</option> -->
                                 <option [value]=true>Yes</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="distributorId">Distributor Id :</label>
                             <input type="text" id="distributorId" class="form-control" formControlName="distributorId">
-                        </div>
+                        </div> -->
                         <div class="form-group">
-                            <label for="categoryId">Category Id :</label>
-                            <input type="text" id="categoryId" class="form-control" formControlName="categoryId">
+                            <label for="categoryId">Category:</label>
+                            <select id="categoryId" class="form-control" formControlName="categoryId">
+                                <option value="">Select a category</option>
+                                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}
+                                </option>
+                            </select>
                         </div>
                         <div class=" text-center">
                             <button type="submit" [disabled]="!formProduct.valid" class="btn btn-primary mt-3">Add

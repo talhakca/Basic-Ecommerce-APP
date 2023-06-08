@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,24 +11,23 @@ import { Category, NewCategory } from 'src/app/features/shared/sdk/models';
   templateUrl: './add-category.component.html',
   styleUrls: ['./add-category.component.scss']
 })
-export class AddCategoryComponent implements OnInit {
+export class AddCategoryComponent implements OnInit, OnDestroy {
   categoriesSub: NewCategory[] = [];
   private subscription: Subscription[] = [];
-  category: Category[];
+  category: Category[] = [];
   displayedCategory: Category[] = [];
+  formCategory: FormGroup;
+  isEditing: string = null;
+  editingName: string = '';
 
-  private categorySubscription: Subscription;
+  constructor(private router: Router, private store: Store<any>) {
+    this.formCategory = new FormGroup({
+      name: new FormControl('', Validators.required),
+    });
+  }
 
-  private getSubscriptions(): Subscription[] {
-    return [
-      this.store.select(state => state.newCategories).subscribe(data => {
-        this.categoriesSub = data;
-      }),
-      this.store.select(state => state.app.categories).subscribe(categories => {
-        this.category = categories;
-        this.displayedCategory = [...this.category];
-      })
-    ];
+  ngOnInit(): void {
+    this.subscribeToCategories();
   }
 
   ngOnDestroy(): void {
@@ -37,30 +36,32 @@ export class AddCategoryComponent implements OnInit {
         subscription.unsubscribe();
       }
     });
-    if (this.categorySubscription) {
-      this.categorySubscription.unsubscribe();
-    }
   }
 
-  constructor(private router: Router, private store: Store<any>) { }
-  formCategory = new FormGroup({
-    name: new FormControl('', Validators.required),
-  });
-
-  ngOnInit(): void {
-    this.categoriesSub;
-    this.subscription = this.getSubscriptions();
-
+  private subscribeToCategories(): void {
+    this.subscription.push(
+      this.store.select(state => state.newCategories).subscribe(data => {
+        this.categoriesSub = data;
+      }),
+      this.store.select(state => state.app.categories).subscribe(categories => {
+        this.category = categories;
+        this.displayedCategory = [...this.category];
+      })
+    );
   }
 
-  navigateToAdminPanel() {
+  navigateToAdminPanel(): void {
     this.router.navigateByUrl('/admin');
   }
-  onSubmit() {
+
+  onSubmit(): void {
+    if (!this.formCategory.valid) return;
+
     const newCategory: NewCategory = {
       name: this.formCategory.value.name
     };
     this.store.dispatch(AddCategory({ payload: newCategory }));
+
 
     const updatedDisplayedCategory: Category = {
       name: newCategory.name,
@@ -69,23 +70,33 @@ export class AddCategoryComponent implements OnInit {
     this.displayedCategory.push(updatedDisplayedCategory);
     this.formCategory.reset();
   }
-  deleteCategory(categoryId: string) {
+
+  deleteCategory(categoryId: string): void {
     this.store.dispatch(DeleteCategory({ payload: categoryId }));
   }
-  isEditing: string = null;
-  editingName: string = '';
 
-  editCategory(id: string, name: string) {
+  editCategory(id: string, name: string): void {
+    if (this.isEditing) return;
     this.isEditing = id;
     this.editingName = name;
   }
 
-  updateCategory(id: string) {
+  updateCategory(id: string): void {
+    if (!id || !this.editingName) {
+      console.error('Invalid id or name:', id, this.editingName);
+      return;
+    }
+
     const updatedData: NewCategory = {
       name: this.editingName
     };
-    this.store.dispatch(UpdateCategory({ payload: { id, updatedData } }));
-    this.isEditing = null;
 
+    this.store.dispatch(UpdateCategory({ payload: { id, updatedData } }));
+    const index = this.displayedCategory.findIndex(category => category.id === id);
+    if (index !== -1) {
+      this.displayedCategory[index] = { ...this.displayedCategory[index], name: this.editingName };
+    }
+    this.isEditing = null;
+    this.editingName = '';
   }
 }
