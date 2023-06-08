@@ -45,7 +45,8 @@
       Total Price: {{fullPrice}} $
       <nz-divider></nz-divider>
     </div>
-    <div class="checkout">
+    <div *ngIf="fullPrice"
+         class="checkout">
       <button nz-button
               (click)="goToCheckout()"> Go To Checkout </button>
     </div>
