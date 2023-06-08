@@ -35,6 +35,13 @@ export class Order extends Entity {
   })
   paymentId: string;
 
+  @property({
+    type: 'Date',
+    required: false,
+    defaultFn: 'now',
+  })
+  createdDate?: Date;
+
   @hasMany(() => Cart)
   orderedProducts: Cart[];
 
