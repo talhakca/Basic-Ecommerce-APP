@@ -111,12 +111,16 @@ export class PreviouslyPurchasedComponent implements OnInit {
   makeComment() {
     this.isCommentSubmitted = true;
     if (this.isCommentValid) {
-      this.store.dispatch(CreateComment({ payload: { comment: this.newComment as NewComment } }));
+      this.store.dispatch(CreateComment({ payload: { comment: { ...this.newComment, productId: this.commentedProduct.id } as NewComment } }));
       this.isCommentModalVisible = false;
     }
   }
 
   onCommentFormValidityChange(validity) {
     this.isCommentValid = validity;
+  }
+
+  onMessageChange(value) {
+    this.newComment = value;
   }
 }

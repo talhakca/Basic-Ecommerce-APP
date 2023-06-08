@@ -7,7 +7,7 @@ import { UtilityService } from 'src/app/features/shared/services';
 /* Service variables */
 const utilityService = new UtilityService();
 
-import { CartWithRelations, CategoryWithRelations, DistributorWithRelations, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CartWithRelations, CategoryWithRelations, CommentWithRelations, DistributorWithRelations, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import * as ProductActions from './app-data-store.actions';
 
 /* State key */
@@ -20,7 +20,8 @@ export interface AppState {
   distributors: DistributorWithRelations[];
   cart: CartWithRelations[];
   inactiveCarts: CartWithRelations[];
-  orders: OrderWithRelations[]
+  orders: OrderWithRelations[],
+  comments: CommentWithRelations[]
 }
 
 /* Initial values */
@@ -30,7 +31,8 @@ export const initialState: AppState = {
   distributors: [],
   cart: [],
   inactiveCarts: [],
-  orders: []
+  orders: [],
+  comments: []
 };
 
 export const reducer = createReducer(
@@ -81,12 +83,30 @@ export const reducer = createReducer(
   on(ProductActions.GetOrdersSuccessful, (state, action) => ({
     ...state,
     orders: action.payload.orders
-  }))
-  ,
+  })),
   on(ProductActions.UpdateProductSuccessful, (state, action) => ({
     ...state,
     products: updateProperties(state.products, action.payload.updatedProduct, action.payload.id)
-  }))
+  })),
+  on(ProductActions.CreateCommentSuccessful, (state, action) => {
+    let product = state.products.find(product => product.id === action.payload.comment.productId);
+    product = {
+      ...product,
+      comments: [
+        ...(
+          product.comments ?? []
+        ),
+        action.payload.comment
+      ]
+    };
+    return {
+      ...state,
+      products: [
+        ...state.products.filter(product => product.id !== action.payload.comment.productId),
+        product
+      ]
+    }
+  })
 );
 
 export function updateProperties(entities, updatedEntity, id) {

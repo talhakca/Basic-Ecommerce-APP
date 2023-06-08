@@ -24,6 +24,7 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import { FormsModule } from '@angular/forms';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzCommentModule } from 'ng-zorro-antd/comment';
 const routes: Routes = [
   {
     path: '',
@@ -77,7 +78,8 @@ const routes: Routes = [
     NzCollapseModule,
     NzRateModule,
     NzModalModule,
-    RappiderEditFormModule
+    RappiderEditFormModule,
+    NzCommentModule
   ],
   exports: [],
 })

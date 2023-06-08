@@ -61,6 +61,7 @@
       <rappider-crud-view-edit-form [config]="CREATE_COMMENT_CONFIG"
                                     [data]="newComment"
                                     [submitted]="isCommentSubmitted"
+                                    (fieldValueChange)="onMessageChange($event)"
                                     (validityChange)="onCommentFormValidityChange($event)"></rappider-crud-view-edit-form>
     </ng-container>
   </nz-modal>

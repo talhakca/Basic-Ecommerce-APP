@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { formatDistance } from 'date-fns';
 import { Subscription } from 'rxjs';
 import { AddToCart } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
@@ -18,6 +19,7 @@ export class ProductDetailComponent implements OnInit {
   categories: CategoryWithRelations[];
   activeCategory: CategoryWithRelations;
   distributor: DistributorWithRelations;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<{ app: AppState }>
@@ -45,6 +47,7 @@ export class ProductDetailComponent implements OnInit {
   subscribeToProducts() {
     return this.store.select(state => state.app.products).subscribe(products => {
       this.activeProduct = products.find(product => product.id === this.activeProductId);
+      console.log(this.activeProduct)
       this.activeCategory = this.categories.find(category => this.activeProduct.categoryId === category.id);
     })
   }
@@ -58,12 +61,15 @@ export class ProductDetailComponent implements OnInit {
   subscribeToDistributors() {
     return this.store.select(state => state.app.distributors).subscribe(distributors => {
       this.distributor = distributors.find(distributor => this.activeProduct.distributorId === distributor.id);
-      console.log(this.distributor)
     })
   }
 
   addToCart() {
     this.store.dispatch(AddToCart({ payload: { productId: this.activeProductId } }));
+  }
+
+  getTimeDiff(date) {
+    return formatDistance(new Date(), new Date(date));
   }
 
 }

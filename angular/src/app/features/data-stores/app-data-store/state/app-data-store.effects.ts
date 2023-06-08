@@ -11,7 +11,7 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
@@ -38,7 +38,7 @@ export class AppDataStoreEffects {
   getProducts$ = createEffect(
     () => this.actions$.pipe(
       ofType(InitApp),
-      mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }, { relation: 'comments' }] } }).pipe(
+      mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }, { relation: 'comments', scope: { include: [{ relation: 'user' }] } }] } }).pipe(
         map((products: ProductWithRelations[]) => GetProductsSuccessful({ payload: { products } }))
       ))
     )
@@ -145,16 +145,16 @@ export class AppDataStoreEffects {
     )
   );
 
-  // createComment$ = createEffect(
-  //   () => this.actions$.pipe(
-  //     ofType(CreateComment),
-  //     withLatestFrom(this.store.select(state => state.auth.user?.id)),
-  //     mergeMap(([action,userId]) => this.commentApi.create({ body:{...action.payload.comment, status: 'PENDING'}}).pipe(
-  //       map(() => {
-  //         this.notificationService.createNotification('success', 'Product Successfuly Updated.', '');
-  //         return UpdateProductSuccessful({ payload: action.payload });
-  //       })
-  //     ))
-  //   )
-  // );
+  createComment$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(CreateComment),
+      withLatestFrom(this.store.select(state => state.auth.user)),
+      mergeMap(([action, user]) => this.commentApi.create({ body: { ...action.payload.comment, status: 'PENDING', userId: user.id } }).pipe(
+        map((comment) => {
+          this.notificationService.createNotification('success', 'We have successfuly uploaded your comment. As soon as on of our staff reviews it, it will be published.', '');
+          return CreateCommentSuccessful({ payload: { comment: { ...comment, user: user } } });
+        })
+      ))
+    )
+  );
 }
