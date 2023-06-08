@@ -23,6 +23,8 @@ export enum ActionTypes {
   UpdateProductRateSuccessful = '[APP] UpdateProductRateSuccessful',
   CreateComment = '[APP] CreateComment',
   CreateCommentSuccessful = '[APP] CreateCommentSuccessful',
+  UpdateComment = '[APP] UpdateComment',
+  UpdateCommentSuccessful = '[APP] UpdateCommentSuccessful',
 }
 
 /* actions */
@@ -32,10 +34,12 @@ export const InitApp = createAction(ActionTypes.InitApp);
 export const GetProducts = createAction(ActionTypes.GetProducts)
 
 export const GetProductsSuccessful = createAction(ActionTypes.GetProductsSuccessful, props<{ payload: { products: ProductWithRelations[] } }>());
+export const UpdateComment = createAction(ActionTypes.UpdateComment, props<{ payload: { id: string, comment: Partial<CommentWithRelations>, productId: string } }>());
+export const UpdateCommentSuccessful = createAction(ActionTypes.UpdateCommentSuccessful, props<{ payload: { id: string, comment: CommentWithRelations, productId: string } }>());
 export const CreateComment = createAction(ActionTypes.CreateComment, props<{ payload: { comment: NewComment } }>());
 export const CreateCommentSuccessful = createAction(ActionTypes.CreateCommentSuccessful, props<{ payload: { comment: CommentWithRelations } }>());
 export const UpdateProductRate = createAction(ActionTypes.UpdateProductRate, props<{ payload: { productId: string, rating: number } }>());
-export const UpdateProduct = createAction(ActionTypes.UpdateProduct, props<{ payload: { id: string, updatedProduct: Partial<Product> } }>());
+export const UpdateProduct = createAction(ActionTypes.UpdateProduct, props<{ payload: { id: string, updatedProduct: Partial<ProductWithRelations> } }>());
 export const UpdateProductSuccessful = createAction(ActionTypes.UpdateProductSuccessful, props<{ payload: { id: string, updatedProduct: Partial<Product> } }>());
 export const UpdateProductRateSuccessful = createAction(ActionTypes.UpdateProductRateSuccessful);
 export const CreateOrder = createAction(ActionTypes.CreateOrder, props<{ payload: { order: NewOrder } }>());

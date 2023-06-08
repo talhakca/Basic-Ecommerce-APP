@@ -106,6 +106,20 @@ export const reducer = createReducer(
         product
       ]
     }
+  }),
+  on(ProductActions.UpdateCommentSuccessful, (state, action) => {
+    let product = state.products.find(product => product.id === action.payload.comment.productId);
+    product = {
+      ...product,
+      comments: updateProperties((product.comments ?? []), action.payload.comment, action.payload.id)
+    };
+    return {
+      ...state,
+      products: [
+        ...state.products.filter(product => product.id !== action.payload.productId),
+        product
+      ]
+    }
   })
 );
 

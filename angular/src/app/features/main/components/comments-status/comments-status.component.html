@@ -1,0 +1,26 @@
+<nz-table #basicTable
+          [nzData]="comments">
+  <thead>
+    <tr>
+      <th>Comment Owner</th>
+      <th>Product Name</th>
+      <th>Message</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let comment of basicTable.data">
+      <td>{{comment.user.firstName}} {{comment.user.lastName}}</td>
+      <td>{{comment.productName}}</td>
+      <td>{{comment.message}}</td>
+      <td>
+        <nz-select [ngModel]="comment.status"
+                   (ngModelChange)="onStatusChange(comment, $event)">
+          <nz-option *ngFor="let option of statusOptions"
+                     [nzValue]="option.value"
+                     [nzLabel]="option.key"></nz-option>
+        </nz-select>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

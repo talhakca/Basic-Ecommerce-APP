@@ -25,6 +25,9 @@ import { NzRateModule } from 'ng-zorro-antd/rate';
 import { FormsModule } from '@angular/forms';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCommentModule } from 'ng-zorro-antd/comment';
+import { CommentsStatusComponent } from './components/comments-status/comments-status.component';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 const routes: Routes = [
   {
     path: '',
@@ -50,6 +53,10 @@ const routes: Routes = [
   {
     path: 'order-successful',
     component: OrderSuccessfulComponent
+  },
+  {
+    path: 'comment-status',
+    component: CommentsStatusComponent
   }
 ];
 
@@ -60,7 +67,8 @@ const routes: Routes = [
     CartComponent,
     PaymentComponent,
     PreviouslyPurchasedComponent,
-    OrderSuccessfulComponent
+    OrderSuccessfulComponent,
+    CommentsStatusComponent
   ],
   imports: [
     FormsModule,
@@ -79,7 +87,9 @@ const routes: Routes = [
     NzRateModule,
     NzModalModule,
     RappiderEditFormModule,
-    NzCommentModule
+    NzCommentModule,
+    NzTableModule,
+    NzSelectModule
   ],
   exports: [],
 })

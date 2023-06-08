@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { AddToCart } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
 import { Category, CategoryWithRelations, DistributorWithRelations, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CommentStatus } from '../comments-status/utils/comment-type';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-product-detail',
@@ -46,9 +48,11 @@ export class ProductDetailComponent implements OnInit {
 
   subscribeToProducts() {
     return this.store.select(state => state.app.products).subscribe(products => {
-      this.activeProduct = products.find(product => product.id === this.activeProductId);
-      console.log(this.activeProduct)
-      this.activeCategory = this.categories.find(category => this.activeProduct.categoryId === category.id);
+      this.activeProduct = cloneDeep(products.find(product => product.id === this.activeProductId));
+      if (this.activeProduct) {
+        this.activeProduct.comments = this.activeProduct?.comments?.filter(comment => comment.status === CommentStatus.Approved);
+        this.activeCategory = this.categories.find(category => this.activeProduct.categoryId === category.id);
+      }
     })
   }
 

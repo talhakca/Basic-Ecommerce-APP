@@ -11,7 +11,7 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
@@ -153,6 +153,18 @@ export class AppDataStoreEffects {
         map((comment) => {
           this.notificationService.createNotification('success', 'We have successfuly uploaded your comment. As soon as on of our staff reviews it, it will be published.', '');
           return CreateCommentSuccessful({ payload: { comment: { ...comment, user: user } } });
+        })
+      ))
+    )
+  );
+
+  updateComment$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(UpdateComment),
+      mergeMap((action) => this.commentApi.updateById({ id: action.payload.id, body: action.payload.comment }).pipe(
+        map((comment) => {
+          this.notificationService.createNotification('success', 'We have successfuly updated comment', '');
+          return UpdateCommentSuccessful({ payload: { id: action.payload.id, comment: comment, productId: action.payload.productId } });
         })
       ))
     )
