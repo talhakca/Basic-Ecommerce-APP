@@ -19,8 +19,7 @@ import {
   Category,
   ProductCategory,
   Cart,
-  User,
-} from '../models';
+  User, Comment} from '../models';
 
 /* repository imports */
 import {
@@ -30,7 +29,7 @@ import {
   UserRepository,
   CartRepository,
 } from '.';
-
+import {CommentRepository} from './comment.repository';
 
 export class ProductRepository extends DefaultCrudRepository<
   Product,
@@ -50,6 +49,7 @@ export class ProductRepository extends DefaultCrudRepository<
     typeof Product.prototype.id
   >;
 
+  public readonly comments: HasManyRepositoryFactory<Comment, typeof Product.prototype.id>;
 
   constructor(
     @inject('datasources.ELearningDataSource')
@@ -68,10 +68,12 @@ export class ProductRepository extends DefaultCrudRepository<
     protected userRepositoryGetter: Getter<UserRepository>,
 
     @repository.getter('CartRepository')
-    protected cartRepositoryGetter: Getter<CartRepository>,
+    protected cartRepositoryGetter: Getter<CartRepository>, @repository.getter('CommentRepository') protected commentRepositoryGetter: Getter<CommentRepository>,
 
   ) {
     super(Product, dataSource);
+    this.comments = this.createHasManyRepositoryFactoryFor('comments', commentRepositoryGetter,);
+    this.registerInclusionResolver('comments', this.comments.inclusionResolver);
 
     this.distributor = this.createBelongsToAccessorFor('distributor', distributorRepositoryGetter);
     this.registerInclusionResolver('distributor', this.distributor.inclusionResolver);

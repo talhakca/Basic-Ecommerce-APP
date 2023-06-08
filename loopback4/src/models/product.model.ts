@@ -16,7 +16,7 @@ import {
   User,
   Cart,
 } from '.';
-
+import {Comment} from './comment.model';
 
 @model({
   settings: {
@@ -130,6 +130,9 @@ export class Product extends Entity {
     name: 'cart',
   })
   cart: Product[];
+
+  @hasMany(() => Comment)
+  comments: Comment[];
 
   constructor(data?: Partial<Product>) {
     super(data);
