@@ -123,14 +123,12 @@ export const reducer = createReducer(
   }),
   on(ProductActions.CreateCategorySuccessful, (state, action) => ({
     ...state,
-    categories: action.payload.category,
+    categories: [...state.categories, ...action.payload.category],
   })),
-  on(ProductActions.DeleteCategorySuccessful, (state, { payload: deletedCategoryId }) => {
-    return {
-      ...state,
-      categories: state.categories.filter(category => category.id !== deletedCategoryId)
-    }
-  }),
+  on(ProductActions.DeleteCategorySuccessful, (state, { payload: deletedCategoryId }) => ({
+    ...state,
+    categories: state.categories.filter(category => category.id !== deletedCategoryId)
+  })),
 );
 
 
