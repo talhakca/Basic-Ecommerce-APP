@@ -1,0 +1,24 @@
+.my-4 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.2s;
+    object-fit: contain;
+}
+
+.card:hover .card-img-top {
+    transform: translateY(-20px);
+}
+
+.card-body {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.card:hover .card-body {
+    opacity: 1;
+}

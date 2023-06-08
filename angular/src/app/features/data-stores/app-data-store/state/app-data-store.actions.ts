@@ -1,6 +1,6 @@
 /* angular */
 import { createAction, props } from '@ngrx/store';
-import { CartWithRelations, Category, CommentWithRelations, Distributor, DistributorWithRelations, NewComment, NewOrder, Order, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CartWithRelations, Category, CommentWithRelations, Distributor, DistributorWithRelations, NewCategory, NewComment, NewOrder, Order, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 
 /* action types */
 export enum ActionTypes {
@@ -25,6 +25,10 @@ export enum ActionTypes {
   CreateCommentSuccessful = '[APP] CreateCommentSuccessful',
   UpdateComment = '[APP] UpdateComment',
   UpdateCommentSuccessful = '[APP] UpdateCommentSuccessful',
+  CreateCategory = '[APP] CreateCategory',
+  CreateCategorySuccessful = '[APP] CreateCategorySuccessful',
+  DeleteCategory = '[APP] DeleteCategory',
+  DeleteCategorySuccessful = '[APP] DeleteCategorySuccessful'
 }
 
 /* actions */
@@ -52,3 +56,7 @@ export const AddToCart = createAction(ActionTypes.AddToCart, props<{ payload: { 
 export const GetCart = createAction(ActionTypes.GetCart);
 export const GetCartSuccessful = createAction(ActionTypes.GetCartSuccessful, props<{ payload: { cart: CartWithRelations[] } }>());
 export const AddToCartSuccessful = createAction(ActionTypes.AddToCartSuccessful, props<{ payload: { cart: CartWithRelations } }>());
+export const CreateCategory = createAction(ActionTypes.CreateCategory, props<{ payload: { category: NewCategory } }>());
+export const CreateCategorySuccessful = createAction(ActionTypes.CreateCategorySuccessful, props<{ payload: { category: Category[] } }>());
+export const DeleteCategory = createAction(ActionTypes.DeleteCategory, props<{ payload: string }>())
+export const DeleteCategorySuccessful = createAction(ActionTypes.DeleteCategorySuccessful, props<{ payload: string }>())

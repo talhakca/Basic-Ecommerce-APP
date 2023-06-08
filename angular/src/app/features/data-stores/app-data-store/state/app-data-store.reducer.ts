@@ -120,8 +120,19 @@ export const reducer = createReducer(
         product
       ]
     }
-  })
+  }),
+  on(ProductActions.CreateCategorySuccessful, (state, action) => ({
+    ...state,
+    categories: action.payload.category,
+  })),
+  on(ProductActions.DeleteCategorySuccessful, (state, { payload: deletedCategoryId }) => {
+    return {
+      ...state,
+      categories: state.categories.filter(category => category.id !== deletedCategoryId)
+    }
+  }),
 );
+
 
 export function updateProperties(entities, updatedEntity, id) {
   const beforeUpdatedEntity = entities.find(entity => entity.id === id);

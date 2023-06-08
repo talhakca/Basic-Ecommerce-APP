@@ -22,12 +22,14 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { OrderSuccessfulComponent } from './components/order-successful/order-successful.component'
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzRateModule } from 'ng-zorro-antd/rate';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCommentModule } from 'ng-zorro-antd/comment';
 import { CommentsStatusComponent } from './components/comments-status/comments-status.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel/admin-panel.component';
+import { EditCategoryComponent } from './components/admin/edit-category/edit-category/edit-category.component';
 const routes: Routes = [
   {
     path: '',
@@ -57,6 +59,14 @@ const routes: Routes = [
   {
     path: 'comment-status',
     component: CommentsStatusComponent
+  },
+  {
+    path: 'admin',
+    component: AdminPanelComponent
+  },
+  {
+    path: 'admin/edit-category',
+    component: EditCategoryComponent
   }
 ];
 
@@ -68,7 +78,9 @@ const routes: Routes = [
     PaymentComponent,
     PreviouslyPurchasedComponent,
     OrderSuccessfulComponent,
-    CommentsStatusComponent
+    CommentsStatusComponent,
+    AdminPanelComponent,
+    EditCategoryComponent,
   ],
   imports: [
     FormsModule,
@@ -89,7 +101,8 @@ const routes: Routes = [
     RappiderEditFormModule,
     NzCommentModule,
     NzTableModule,
-    NzSelectModule
+    NzSelectModule,
+    ReactiveFormsModule
   ],
   exports: [],
 })
