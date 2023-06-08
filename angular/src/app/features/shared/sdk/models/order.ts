@@ -5,7 +5,7 @@ export interface Order {
   createdDate?: string;
   id: string;
   paymentId: string;
-  price: number;
+  price?: number;
   status: string;
   userId?: string;
 }

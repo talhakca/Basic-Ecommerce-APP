@@ -9,7 +9,7 @@ export interface NewOrder {
   createdDate?: string;
   orderedProducts: Array<{  }>;
   paymentId: string;
-  price: number;
+  price?: number;
   status: string;
   userId?: string;
 }

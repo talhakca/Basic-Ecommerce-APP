@@ -14,7 +14,7 @@ export interface OrderWithRelations {
   id: string;
   orderedProducts?: Array<CartWithRelations>;
   paymentId: string;
-  price: number;
+  price?: number;
   status: string;
   user?: UserWithRelations;
   userId?: string;
