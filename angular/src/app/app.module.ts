@@ -59,6 +59,8 @@ import { TokenService } from './features/auth/services/token-service/token.servi
 /* Components */
 import { AppComponent } from './app.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 function subscribeToRouting(
   store: Store,
@@ -145,7 +147,9 @@ function initAuthentication(
 
     /* lottie module initialization */
     LottieModule.forRoot({ player: () => player }),
-    NzButtonModule
+    NzButtonModule,
+    NzDropDownModule,
+    NzIconModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

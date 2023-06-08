@@ -36,7 +36,7 @@ export class AppDataStoreEffects {
   getProducts$ = createEffect(
     () => this.actions$.pipe(
       ofType(InitApp),
-      mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }] } }).pipe(
+      mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }, { relation: 'comments' }] } }).pipe(
         map((products: ProductWithRelations[]) => GetProductsSuccessful({ payload: { products } }))
       ))
     )

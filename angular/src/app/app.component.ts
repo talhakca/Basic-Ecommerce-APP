@@ -61,4 +61,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/cart');
   }
 
+  goToPreviousPurchases() {
+    this.router.navigateByUrl('/previously-purchased')
+  }
+
 }

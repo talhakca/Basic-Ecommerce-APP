@@ -24,8 +24,21 @@
           </button>
         </div>
         <div *ngIf="user">
-          Welcome, {{user.firstName}} &nbsp; {{user.lastName}}
-          &nbsp;
+
+          <button nz-button
+                  nz-dropdown
+                  [nzDropdownMenu]="menu">
+            My Account
+            <span nz-icon
+                  nzType="down"></span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>{{user.firstName}} {{user.lastName}}</li>
+              <li nz-menu-item
+                  (click)="goToPreviousPurchases()">Previously Purchased Products</li>
+            </ul>
+          </nz-dropdown-menu>&nbsp;
           <a href="/cart">
             <nz-badge nzSize="small"
                       [nzCount]="cart?.length ?? 0">

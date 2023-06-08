@@ -17,6 +17,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { CartComponent } from './components/cart/cart.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { PreviouslyPurchasedComponent } from './components/previously-purchased/previously-purchased.component';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
 const routes: Routes = [
   {
     path: '',
@@ -34,6 +36,10 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: PaymentComponent
+  },
+  {
+    path: 'previously-purchased',
+    component: PreviouslyPurchasedComponent
   }
 ];
 
@@ -42,7 +48,8 @@ const routes: Routes = [
     HomePageComponent,
     ProductDetailComponent,
     CartComponent,
-    PaymentComponent
+    PaymentComponent,
+    PreviouslyPurchasedComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +60,8 @@ const routes: Routes = [
     NzButtonModule,
     NzDividerModule,
     RappiderStripeModule,
-    NzSpinModule
+    NzSpinModule,
+    NzDropDownModule
   ],
   exports: [],
 })
