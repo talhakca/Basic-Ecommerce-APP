@@ -1,6 +1,6 @@
 <nz-collapse>
   <nz-collapse-panel *ngFor="let order of orderGroup"
-                     [nzHeader]="'Total of ' + '' + getTotalQuantity(order) + ' products. Ordered at '"
+                     [nzHeader]="'Total of ' + '' + getTotalQuantity(order) + ' products. Ordered at ' + getShortDate(order?.orderId)"
                      [nzActive]="true">
     <div *ngFor="let productGroup of order.productGroup"
          class="summary">
@@ -21,6 +21,9 @@
             <div class="model">
               {{productGroup.product.model}}
             </div>
+          </div>
+          <div class="rating">
+
           </div>
         </div>
         <div class="quantity">

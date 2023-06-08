@@ -14,7 +14,7 @@ import { Navigate } from 'src/app/features/data-stores/router-data-store/state/r
 import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
-import { SetUser } from '../../auth-data-store/state/auth-data-store.actions';
+import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
 import { Router } from '@angular/router';
 
 export const navigatePathAfterCreatingInstance = null;
@@ -104,13 +104,19 @@ export class AppDataStoreEffects {
 
   getOrders$ = createEffect(
     () => this.actions$.pipe(
-      ofType(GetOrders),
+      ofType(SetUser),
       withLatestFrom(this.store.select(state => state.auth.user?.id)),
-      mergeMap(([action, userId]) => this.orderApi.find({ filter: { where: { userId: userId } } }).pipe(
-        map((orders) => {
-          return GetOrdersSuccessful({ payload: { orders } })
-        })
-      ))
+      mergeMap(([action, userId]) => {
+        if (userId) {
+          return this.orderApi.find({ filter: { where: { userId: userId } } }).pipe(
+            map((orders) => {
+              return GetOrdersSuccessful({ payload: { orders } })
+            })
+          )
+        } else {
+          return [GetOrdersSuccessful({ payload: { orders: [] } })];
+        }
+      })
     )
   );
 }

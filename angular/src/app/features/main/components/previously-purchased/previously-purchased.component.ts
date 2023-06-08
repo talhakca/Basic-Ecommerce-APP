@@ -63,6 +63,7 @@ export class PreviouslyPurchasedComponent implements OnInit {
         }
         return acc;
       }, []);
+      console.log(this.orderGroup);
     })
   }
 
@@ -73,7 +74,10 @@ export class PreviouslyPurchasedComponent implements OnInit {
   }
 
   getShortDate(orderId) {
-    return moment(this.orders?.find(order => order.id === orderId).createdDate).format('LL');
+    if (orderId) {
+      const date = this.orders?.find(order => order.id === orderId)?.createdDate;
+      return moment(date).format('LL');
+    }
   }
 
   getTotalQuantity(orderGroup) {

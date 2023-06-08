@@ -6,6 +6,7 @@ import { CartRepository } from './cart.repository';
 import { UserRepository } from './user.repository';
 import { AddressRepository } from './address.repository';
 import { HttpErrors } from '@loopback/rest';
+import { ProductRepository } from './product.repository';
 
 export class OrderRepository extends DefaultCrudRepository<
   Order,
@@ -22,7 +23,10 @@ export class OrderRepository extends DefaultCrudRepository<
   constructor(
     @inject('datasources.ELearningDataSource')
     dataSource: ELearningDataSource,
-    @repository.getter('CartRepository') protected cartRepositoryGetter: Getter<CartRepository>, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('AddressRepository') protected addressRepositoryGetter: Getter<AddressRepository>,
+    @repository.getter('CartRepository') protected cartRepositoryGetter: Getter<CartRepository>,
+    @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>,
+    @repository.getter('AddressRepository') protected addressRepositoryGetter: Getter<AddressRepository>,
+    @repository.getter('ProductRepository') protected productRepositoryGetter: Getter<ProductRepository>,
   ) {
     super(Order, dataSource);
     this.address = this.createBelongsToAccessorFor('address', addressRepositoryGetter,);
@@ -55,8 +59,10 @@ export class OrderRepository extends DefaultCrudRepository<
     const order = await this.create({ ...body, status: 'PENDING' });
     if (order) {
       const cartRepository = await this.cartRepositoryGetter();
+      const productRepository = await this.productRepositoryGetter();
       for (let cartItem of cartItems) {
         cartRepository.updateById(cartItem.id, { orderId: order.id });
+        productRepository.updateById(cartItem.productId, { quantityInStocks: cartItem.product.quantity - 1 });
       }
       return order;
     } else {

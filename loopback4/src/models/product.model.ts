@@ -16,7 +16,7 @@ import {
   User,
   Cart,
 } from '.';
-import {Comment} from './comment.model';
+import { Comment } from './comment.model';
 
 @model({
   settings: {
@@ -94,6 +94,12 @@ export class Product extends Entity {
     required: false,
   })
   rating?: number;
+
+  @property({
+    type: 'number',
+    required: false,
+  })
+  ratingCount?: number;
 
   @property({
     type: 'number',

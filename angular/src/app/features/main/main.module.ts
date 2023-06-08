@@ -21,6 +21,7 @@ import { PreviouslyPurchasedComponent } from './components/previously-purchased/
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { OrderSuccessfulComponent } from './components/order-successful/order-successful.component'
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzRateModule } from 'ng-zorro-antd/rate';
 const routes: Routes = [
   {
     path: '',
@@ -70,7 +71,8 @@ const routes: Routes = [
     NzSpinModule,
     NzDropDownModule,
     RappiderFeedbackModule,
-    NzCollapseModule
+    NzCollapseModule,
+    NzRateModule
   ],
   exports: [],
 })
