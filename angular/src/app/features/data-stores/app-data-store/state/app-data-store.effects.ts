@@ -11,10 +11,11 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { SetUser } from '../../auth-data-store/state/auth-data-store.actions';
+import { Router } from '@angular/router';
 
 export const navigatePathAfterCreatingInstance = null;
 export const navigatePathAfterUpdatingInstance = null;
@@ -28,9 +29,9 @@ export class AppDataStoreEffects {
     private productApi: ProductControllerService,
     private categoryApi: CategoryControllerService,
     private distributorApi: DistributorControllerService,
-    private userProductApi: UserProductControllerService,
     private cartApi: CartControllerService,
-    private orderApi: OrderControllerService
+    private orderApi: OrderControllerService,
+    private router: Router
   ) { }
 
   getProducts$ = createEffect(
@@ -94,8 +95,20 @@ export class AppDataStoreEffects {
       withLatestFrom(this.store.select(state => state.auth.user?.id)),
       mergeMap(([action, userId]) => this.orderApi.create({ body: { ...action.payload.order, userId: userId } }).pipe(
         map((order) => {
-          console.log(order);
-          return CreateOrderSuccessful({ payload: { order } })
+          this.router.navigateByUrl('/order-successful')
+          return CreateOrderSuccessful({ payload: { order: { id: order.id, ...action.payload.order } } })
+        })
+      ))
+    )
+  );
+
+  getOrders$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(GetOrders),
+      withLatestFrom(this.store.select(state => state.auth.user?.id)),
+      mergeMap(([action, userId]) => this.orderApi.find({ filter: { where: { userId: userId } } }).pipe(
+        map((orders) => {
+          return GetOrdersSuccessful({ payload: { orders } })
         })
       ))
     )

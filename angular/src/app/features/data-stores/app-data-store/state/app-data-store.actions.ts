@@ -15,6 +15,8 @@ export enum ActionTypes {
   AddToCartSuccessful = '[APP] AddToCartSuccessful',
   CreateOrder = '[APP] CreateOrder',
   CreateOrderSuccessful = '[APP] CreateOrderSuccessful',
+  GetOrdersSuccessful = '[APP] GetOrdersSuccessful',
+  GetOrders = '[APP] GetOrders',
 }
 
 /* actions */
@@ -26,6 +28,8 @@ export const GetProducts = createAction(ActionTypes.GetProducts)
 export const GetProductsSuccessful = createAction(ActionTypes.GetProductsSuccessful, props<{ payload: { products: ProductWithRelations[] } }>());
 export const CreateOrder = createAction(ActionTypes.CreateOrder, props<{ payload: { order: NewOrder } }>());
 export const CreateOrderSuccessful = createAction(ActionTypes.CreateOrderSuccessful, props<{ payload: { order: Order } }>());
+export const GetOrdersSuccessful = createAction(ActionTypes.GetOrdersSuccessful, props<{ payload: { orders: Order[] } }>());
+export const GetOrders = createAction(ActionTypes.GetOrders);
 export const GetCategoriesSuccessful = createAction(ActionTypes.GetCategoriesSuccessful, props<{ payload: { categories: Category[] } }>());
 export const GetDistributorsSuccessful = createAction(ActionTypes.GetDistributorsSuccessful, props<{ payload: { distributors: DistributorWithRelations[] } }>());
 export const AddToCart = createAction(ActionTypes.AddToCart, props<{ payload: { productId: string } }>());

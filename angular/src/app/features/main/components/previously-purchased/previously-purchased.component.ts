@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
-import { Product } from 'src/app/features/shared/sdk/models';
+import { OrderWithRelations, Product } from 'src/app/features/shared/sdk/models';
 
 @Component({
   selector: 'app-previously-purchased',
@@ -16,6 +17,7 @@ export class PreviouslyPurchasedComponent implements OnInit {
     orderId: string,
     productGroup: { quantity: number, product: Product }[]
   }[];
+  orders: OrderWithRelations[];
 
   constructor(
     private store: Store<{ app: AppState }>
@@ -27,13 +29,13 @@ export class PreviouslyPurchasedComponent implements OnInit {
 
   subscribeToData() {
     this.subscriptions = [
-      this.subscribeToInactiveCarts()
+      this.subscribeToInactiveCarts(),
+      this.subscribeToOrders()
     ];
   }
 
   subscribeToInactiveCarts() {
     return this.store.select(state => state.app.inactiveCarts).subscribe(inactiveCarts => {
-      console.log(inactiveCarts)
       this.orderGroup = inactiveCarts?.reduce((acc, curr) => {
         const order: {
           orderId: string,
@@ -44,11 +46,9 @@ export class PreviouslyPurchasedComponent implements OnInit {
           if (addedProduct) {
             addedProduct.quantity++;
           } else {
-            console.log(order)
             order.productGroup.push({ quantity: 1, product: curr.product });
           }
         } else {
-          console.log(acc)
           acc.push(
             {
               orderId: curr.orderId,
@@ -63,8 +63,21 @@ export class PreviouslyPurchasedComponent implements OnInit {
         }
         return acc;
       }, []);
-      console.log(this.orderGroup);
     })
+  }
+
+  subscribeToOrders() {
+    return this.store.select(state => state.app.orders).subscribe(orders => {
+      this.orders = orders;
+    })
+  }
+
+  getShortDate(orderId) {
+    return moment(this.orders?.find(order => order.id === orderId).createdDate).format('LL');
+  }
+
+  getTotalQuantity(orderGroup) {
+    return orderGroup?.productGroup?.reduce((acc, cur) => { return acc + cur.quantity }, 0);
   }
 
 }

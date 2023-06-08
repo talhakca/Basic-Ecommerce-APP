@@ -24,7 +24,8 @@
       <nz-spin [nzSpinning]="paymentLoading">
         <h5>Enter Payment Details</h5>
         <hr class="solid">
-        <rappider-stripe [clientSecret]="stripeClientSecret"
+        <rappider-stripe *ngIf="stripeClientSecret"
+                         [clientSecret]="stripeClientSecret"
                          [submitButton]="stripeSubmitButton"
                          (paymentSuccess)="onPaymentSuccess($event)"></rappider-stripe>
       </nz-spin>

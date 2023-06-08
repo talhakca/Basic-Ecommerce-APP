@@ -1,1 +1,32 @@
-<p>previously-purchased works!</p>
+<nz-collapse>
+  <nz-collapse-panel *ngFor="let order of orderGroup"
+                     [nzHeader]="'Total of ' + '' + getTotalQuantity(order) + ' products. Ordered at '"
+                     [nzActive]="true">
+    <div *ngFor="let productGroup of order.productGroup"
+         class="summary">
+      <div *ngIf="productGroup.product.distributor"
+           class="distributor-info">
+        Distributor: {{productGroup.product.distributor.name}}
+      </div>
+      <div class="product-info">
+        <div class="product-detail">
+          <div class="image">
+            <img [src]="productGroup.product.imageUrl"
+                 alt="Product Picture">
+          </div>
+          <div class="description-area">
+            <div class="name">
+              {{productGroup.product.name }}
+            </div>
+            <div class="model">
+              {{productGroup.product.model}}
+            </div>
+          </div>
+        </div>
+        <div class="quantity">
+          Quantity: {{productGroup.quantity}}
+        </div>
+      </div>
+
+    </div>
+  </nz-collapse-panel>
