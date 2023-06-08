@@ -26,6 +26,7 @@ export interface ProductWithRelations {
   price?: number;
   quantityInStocks: number;
   rating?: number;
+  ratingCount?: number;
   warrantyStatus?: string;
 
   [key: string]: any;
