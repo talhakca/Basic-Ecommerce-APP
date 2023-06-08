@@ -16,6 +16,12 @@ export class Cart extends Entity {
   })
   id: string;
 
+  @property({
+    type: 'number',
+    required: true,
+  })
+  price: number;
+
   @belongsTo(() => User, {
     keyFrom: 'userId',
     keyTo: 'id',
