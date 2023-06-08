@@ -82,4 +82,17 @@ export const reducer = createReducer(
     ...state,
     orders: action.payload.orders
   }))
+  ,
+  on(ProductActions.UpdateProductSuccessful, (state, action) => ({
+    ...state,
+    products: updateProperties(state.products, action.payload.updatedProduct, action.payload.id)
+  }))
 );
+
+export function updateProperties(entities, updatedEntity, id) {
+  const beforeUpdatedEntity = entities.find(entity => entity.id === id);
+  return [
+    ...entities.filter(entity => entity.id !== id),
+    { ...beforeUpdatedEntity, ...updatedEntity }
+  ]
+}

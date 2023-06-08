@@ -10,7 +10,7 @@ import { ComponentsModule } from '../rappider/components/lib/components.module';
 import { AuthGuard } from '../auth/guards';
 /* HomePage Component */
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { RappiderCardOneListModule, RappiderFeedbackModule, RappiderRateDisplayModule, RappiderStripeModule } from '../rappider/components';
+import { RappiderCardOneListModule, RappiderEditFormModule, RappiderFeedbackModule, RappiderRateDisplayModule, RappiderStripeModule } from '../rappider/components';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -22,6 +22,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { OrderSuccessfulComponent } from './components/order-successful/order-successful.component'
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzRateModule } from 'ng-zorro-antd/rate';
+import { FormsModule } from '@angular/forms';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 const routes: Routes = [
   {
     path: '',
@@ -60,6 +62,7 @@ const routes: Routes = [
     OrderSuccessfulComponent
   ],
   imports: [
+    FormsModule,
     CommonModule,
     RouterModule.forChild(routes),
     ComponentsModule,
@@ -72,8 +75,11 @@ const routes: Routes = [
     NzDropDownModule,
     RappiderFeedbackModule,
     NzCollapseModule,
-    NzRateModule
+    NzRateModule,
+    NzModalModule,
+    RappiderEditFormModule
   ],
   exports: [],
 })
 export class MainModule { }
+

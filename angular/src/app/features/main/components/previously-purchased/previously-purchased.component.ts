@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { cloneDeep } from 'lodash';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+import { CreateComment, UpdateProductRate } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
-import { OrderWithRelations, Product } from 'src/app/features/shared/sdk/models';
+import { Comment, NewComment, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CREATE_COMMENT_CONFIG } from './config/create-comment-form.config';
 
 @Component({
   selector: 'app-previously-purchased',
@@ -18,6 +21,13 @@ export class PreviouslyPurchasedComponent implements OnInit {
     productGroup: { quantity: number, product: Product }[]
   }[];
   orders: OrderWithRelations[];
+  newComment: Partial<NewComment> = {};
+  isCommentModalVisible = false;
+  commentedProduct: ProductWithRelations;
+
+  CREATE_COMMENT_CONFIG = CREATE_COMMENT_CONFIG;
+  isCommentSubmitted = false;
+  isCommentValid = false;
 
   constructor(
     private store: Store<{ app: AppState }>
@@ -36,7 +46,7 @@ export class PreviouslyPurchasedComponent implements OnInit {
 
   subscribeToInactiveCarts() {
     return this.store.select(state => state.app.inactiveCarts).subscribe(inactiveCarts => {
-      this.orderGroup = inactiveCarts?.reduce((acc, curr) => {
+      this.orderGroup = cloneDeep(inactiveCarts)?.reduce((acc, curr) => {
         const order: {
           orderId: string,
           productGroup: { quantity: number, product: Product }[]
@@ -84,4 +94,29 @@ export class PreviouslyPurchasedComponent implements OnInit {
     return orderGroup?.productGroup?.reduce((acc, cur) => { return acc + cur.quantity }, 0);
   }
 
+  onRate(product) {
+    this.store.dispatch(UpdateProductRate({ payload: { productId: product.id, rating: product.rating } }));
+  }
+
+  openCommentModal(product) {
+    this.commentedProduct = product;
+    this.isCommentModalVisible = true;
+  }
+
+  cancelComment() {
+    this.commentedProduct = null;
+    this.isCommentModalVisible = false;
+  }
+
+  makeComment() {
+    this.isCommentSubmitted = true;
+    if (this.isCommentValid) {
+      this.store.dispatch(CreateComment({ payload: { comment: this.newComment as NewComment } }));
+      this.isCommentModalVisible = false;
+    }
+  }
+
+  onCommentFormValidityChange(validity) {
+    this.isCommentValid = validity;
+  }
 }

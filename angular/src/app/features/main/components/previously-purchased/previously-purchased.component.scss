@@ -22,6 +22,9 @@
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
   background-color: #fafafa;
   border-bottom: 1px solid rgb(148, 142, 142);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .order-detail {
@@ -78,4 +81,21 @@ img {
 .checkout {
   display: flex;
   justify-content: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep {
+  .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
 }

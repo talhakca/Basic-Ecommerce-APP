@@ -11,8 +11,8 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful } from './app-data-store.actions';
-import { CartControllerService, CategoryControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment } from './app-data-store.actions';
+import { CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
 import { Router } from '@angular/router';
@@ -31,7 +31,8 @@ export class AppDataStoreEffects {
     private distributorApi: DistributorControllerService,
     private cartApi: CartControllerService,
     private orderApi: OrderControllerService,
-    private router: Router
+    private router: Router,
+    private commentApi: CommentControllerService
   ) { }
 
   getProducts$ = createEffect(
@@ -119,4 +120,41 @@ export class AppDataStoreEffects {
       })
     )
   );
+
+  updateProductRate$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(UpdateProductRate),
+      withLatestFrom(this.store.select(state => state.app.products)),
+      mergeMap(([action, products]) => {
+        const product = products.find(product => product.id === action.payload.productId);
+        const newRate = ((product.ratingCount * product.rating) + action.payload.rating) / (product.ratingCount + 1);
+        return [UpdateProduct({ payload: { id: action.payload.productId, updatedProduct: { rating: newRate, ratingCount: product.ratingCount + 1 } } })];
+      })
+    )
+  );
+
+  updateProduct$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(UpdateProduct),
+      mergeMap((action) => this.productApi.updateById({ id: action.payload.id, body: action.payload.updatedProduct }).pipe(
+        map(() => {
+          this.notificationService.createNotification('success', 'Product Successfuly Updated.', '');
+          return UpdateProductSuccessful({ payload: action.payload });
+        })
+      ))
+    )
+  );
+
+  // createComment$ = createEffect(
+  //   () => this.actions$.pipe(
+  //     ofType(CreateComment),
+  //     withLatestFrom(this.store.select(state => state.auth.user?.id)),
+  //     mergeMap(([action,userId]) => this.commentApi.create({ body:{...action.payload.comment, status: 'PENDING'}}).pipe(
+  //       map(() => {
+  //         this.notificationService.createNotification('success', 'Product Successfuly Updated.', '');
+  //         return UpdateProductSuccessful({ payload: action.payload });
+  //       })
+  //     ))
+  //   )
+  // );
 }

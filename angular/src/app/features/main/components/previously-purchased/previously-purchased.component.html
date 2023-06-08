@@ -1,12 +1,28 @@
 <nz-collapse>
   <nz-collapse-panel *ngFor="let order of orderGroup"
-                     [nzHeader]="'Total of ' + '' + getTotalQuantity(order) + ' products. Ordered at ' + getShortDate(order?.orderId)"
+                     [nzHeader]="headerTmpl"
                      [nzActive]="true">
+    <ng-template #headerTmpl>
+      <div class="header">
+        <div class="title">
+          Total of {{getTotalQuantity(order)}} products. Ordered at {{getShortDate(order?.orderId)}}
+        </div>
+        <div class="actions">
+        </div>
+      </div>
+    </ng-template>
     <div *ngFor="let productGroup of order.productGroup"
          class="summary">
       <div *ngIf="productGroup.product.distributor"
            class="distributor-info">
-        Distributor: {{productGroup.product.distributor.name}}
+        <div class="distributor">
+          Distributor: {{productGroup.product.distributor.name}}
+        </div>
+        <div class="comment-button">
+          <button nz-button
+                  [nzType]="'primary'"
+                  (click)="openCommentModal(productGroup.product)"><span>Make Comment</span></button>
+        </div>
       </div>
       <div class="product-info">
         <div class="product-detail">
@@ -21,9 +37,12 @@
             <div class="model">
               {{productGroup.product.model}}
             </div>
-          </div>
-          <div class="rating">
-
+            <div class="rating">
+              <nz-rate [(ngModel)]="productGroup.product.rating"
+                       nzAllowHalf></nz-rate>
+              <button nz-button
+                      (click)="onRate(productGroup.product)"> Save Rate</button>
+            </div>
           </div>
         </div>
         <div class="quantity">
@@ -33,3 +52,15 @@
 
     </div>
   </nz-collapse-panel>
+
+  <nz-modal [(nzVisible)]="isCommentModalVisible"
+            [nzTitle]="'Comment to ' + commentedProduct?.name"
+            (nzOnCancel)="cancelComment()"
+            (nzOnOk)="makeComment()">
+    <ng-container *nzModalContent>
+      <rappider-crud-view-edit-form [config]="CREATE_COMMENT_CONFIG"
+                                    [data]="newComment"
+                                    [submitted]="isCommentSubmitted"
+                                    (validityChange)="onCommentFormValidityChange($event)"></rappider-crud-view-edit-form>
+    </ng-container>
+  </nz-modal>

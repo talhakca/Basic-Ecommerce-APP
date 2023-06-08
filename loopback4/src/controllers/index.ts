@@ -43,3 +43,4 @@ export * from './user-address.controller';
 export * from './address.controller';
 export * from './order.controller';
 export * from './product-comment.controller';
+export * from './comment-user.controller';
