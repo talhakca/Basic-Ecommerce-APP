@@ -14,6 +14,7 @@ export { OrderUserControllerService } from './services/order-user-controller.ser
 export { PingControllerService } from './services/ping-controller.service';
 export { ProductCategoryControllerService } from './services/product-category-controller.service';
 export { ProductControllerService } from './services/product-controller.service';
+export { ProductCommentControllerService } from './services/product-comment-controller.service';
 export { RefundRequestControllerService } from './services/refund-request-controller.service';
 export { RoleControllerService } from './services/role-controller.service';
 export { TaxControllerService } from './services/tax-controller.service';

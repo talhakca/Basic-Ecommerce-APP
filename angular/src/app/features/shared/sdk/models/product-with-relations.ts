@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { CategoryWithRelations } from './category-with-relations';
+import { CommentWithRelations } from './comment-with-relations';
 import { DistributorWithRelations } from './distributor-with-relations';
 import { UserWithRelations } from './user-with-relations';
 
@@ -11,6 +12,7 @@ export interface ProductWithRelations {
   cart?: Array<UserWithRelations>;
   category?: CategoryWithRelations;
   categoryId?: string;
+  comments?: Array<CommentWithRelations>;
   description?: string;
   discountRate?: number;
   distributor?: DistributorWithRelations;

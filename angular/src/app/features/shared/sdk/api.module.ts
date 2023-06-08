@@ -20,6 +20,7 @@ import { OrderUserControllerService } from './services/order-user-controller.ser
 import { PingControllerService } from './services/ping-controller.service';
 import { ProductCategoryControllerService } from './services/product-category-controller.service';
 import { ProductControllerService } from './services/product-controller.service';
+import { ProductCommentControllerService } from './services/product-comment-controller.service';
 import { RefundRequestControllerService } from './services/refund-request-controller.service';
 import { RoleControllerService } from './services/role-controller.service';
 import { TaxControllerService } from './services/tax-controller.service';
@@ -52,6 +53,7 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
     PingControllerService,
     ProductCategoryControllerService,
     ProductControllerService,
+    ProductCommentControllerService,
     RefundRequestControllerService,
     RoleControllerService,
     TaxControllerService,

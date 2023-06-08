@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CreatePaymentIntentDto } from '../models/create-payment-intent-dto';
+import { NewOrder } from '../models/new-order';
 import { Order } from '../models/order';
 import { OrderPartial } from '../models/order-partial';
 import { OrderWithRelations } from '../models/order-with-relations';
@@ -24,48 +25,6 @@ export class OrderControllerService extends BaseService {
     http: HttpClient
   ) {
     super(config, http);
-  }
-
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `create()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  create$Response(params?: {
-    body?: OrderPartial
-  }): Observable<StrictHttpResponse<Order>> {
-
-    const rb = new RequestBuilder(this.rootUrl, '/orders', 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Order>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `create$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  create(params?: {
-    body?: OrderPartial
-  }): Observable<Order> {
-
-    return this.create$Response(params).pipe(
-      map((r: StrictHttpResponse<Order>) => r.body as Order)
-    );
   }
 
   /**
@@ -111,6 +70,52 @@ export class OrderControllerService extends BaseService {
 
     return this.count$Response(params).pipe(
       map((r: StrictHttpResponse<LoopbackCount>) => r.body as LoopbackCount)
+    );
+  }
+
+  /**
+   * Path part for operation orderControllerCreateIntent
+   */
+  static readonly OrderControllerCreateIntentPath = '/orders/intent';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `createIntent()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  createIntent$Response(params?: {
+    body?: CreatePaymentIntentDto
+  }): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerCreateIntentPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `createIntent$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  createIntent(params?: {
+    body?: CreatePaymentIntentDto
+  }): Observable<any> {
+
+    return this.createIntent$Response(params).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
@@ -354,21 +359,21 @@ export class OrderControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation orderControllerCreateIntent
+   * Path part for operation orderControllerCreate
    */
-  static readonly OrderControllerCreateIntentPath = '/orders/intent';
+  static readonly OrderControllerCreatePath = '/orders';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `createIntent()` instead.
+   * To access only the response body, use `create()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createIntent$Response(params?: {
-    body?: CreatePaymentIntentDto
-  }): Observable<StrictHttpResponse<any>> {
+  create$Response(params?: {
+    body?: NewOrder
+  }): Observable<StrictHttpResponse<Order>> {
 
-    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerCreateIntentPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerCreatePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -379,23 +384,23 @@ export class OrderControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<any>;
+        return r as StrictHttpResponse<Order>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `createIntent$Response()` instead.
+   * To access the full response (for headers, for example), `create$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createIntent(params?: {
-    body?: CreatePaymentIntentDto
-  }): Observable<any> {
+  create(params?: {
+    body?: NewOrder
+  }): Observable<Order> {
 
-    return this.createIntent$Response(params).pipe(
-      map((r: StrictHttpResponse<any>) => r.body as any)
+    return this.create$Response(params).pipe(
+      map((r: StrictHttpResponse<Order>) => r.body as Order)
     );
   }
 
