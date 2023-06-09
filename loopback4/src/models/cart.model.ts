@@ -18,7 +18,7 @@ export class Cart extends Entity {
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
   })
   price: number;
 
