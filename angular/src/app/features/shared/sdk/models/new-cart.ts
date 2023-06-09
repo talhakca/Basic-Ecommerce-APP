@@ -6,7 +6,7 @@
  */
 export interface NewCart {
   orderId?: string;
-  price: number;
+  price?: number;
   productId?: string;
   userId?: string;
 }
