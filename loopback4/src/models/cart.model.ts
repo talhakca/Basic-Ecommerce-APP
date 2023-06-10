@@ -22,6 +22,13 @@ export class Cart extends Entity {
   })
   price: number;
 
+
+  @property({
+    type: 'string',
+    required: false,
+  })
+  refundStatus: number; //approved, pending or declined
+
   @belongsTo(() => User, {
     keyFrom: 'userId',
     keyTo: 'id',
