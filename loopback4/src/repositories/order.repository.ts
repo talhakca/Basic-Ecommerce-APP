@@ -1,7 +1,7 @@
 import { inject, Getter } from '@loopback/core';
 import { DefaultCrudRepository, repository, HasManyRepositoryFactory, BelongsToAccessor } from '@loopback/repository';
 import { ELearningDataSource } from '../datasources';
-import { Order, OrderRelations, Cart, User, Address } from '../models';
+import { Order, OrderRelations, Cart, User, Address, Product, CartWithRelations } from '../models';
 import { CartRepository } from './cart.repository';
 import { UserRepository } from './user.repository';
 import { AddressRepository } from './address.repository';
@@ -65,9 +65,103 @@ export class OrderRepository extends DefaultCrudRepository<
         cartRepository.updateById(cartItem.id, { orderId: order.id, price: fixedPrice });
         productRepository.updateById(cartItem.productId, { quantityInStocks: cartItem.product.quantityInStocks - 1 });
       }
+      this.generatePDFFromOrder(cartItems, order.id, order.userId);
       return order;
     } else {
       throw new HttpErrors[400]('order couldnot proceeded.');
     }
   }
+
+  generatePDFFromOrder(cartItems: CartWithRelations[], orderId: string, userId: string) {
+    console.log(cartItems)
+    var html_to_pdf = require('html-pdf-node');
+
+    let options = { format: 'A4' };
+    // Example of options with args //
+    // let options = { format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
+    const html = this.getHTMLFromOrderForInvoice(cartItems);
+    let file = { content: html };
+
+    html_to_pdf.generatePdf(file, options).then((pdfBuffer: any) => {
+      const fs = require('fs');
+      const path = `/Users/talhaakca/Desktop/cagan-ecommerce/loopback4/pdfs/${orderId}.pdf`;
+      fs.writeFile(path, pdfBuffer, (err: any) => {
+        if (err) {
+          console.error(err);
+        }
+        this.sendMail(path, userId)
+        // file written successfully
+      });
+    });
+  }
+
+  async sendMail(pdfPath: string, userId: string) {
+    const userRepository = await this.userRepositoryGetter();
+    const user = await userRepository.findById(userId);
+    const email = user.email;
+    var nodemailer = require('nodemailer');
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'hayrettinsendag@gmail.com',
+        pass: 'maqnjrgkkmrmubxb'
+      }
+    });
+
+    var mailOptions = {
+      from: 'hayrettinsendag@gmail.com',
+      to: email,
+      subject: 'Invoice',
+      text: 'Thank you for choosing us. We have attached your invoice.',
+      attachments: [{
+        filename: 'invoice.pdf',
+        path: pdfPath,
+        contentType: 'application/pdf'
+      }]
+    };
+
+    transporter.sendMail(mailOptions, function (error: any, info: any) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
+
+  getProductHtml(cartItems: CartWithRelations[]) {
+    return cartItems.map((cart: CartWithRelations) => {
+      return `
+      <div style="width: 400px; display:flex; justify-content: space-between;">
+      <div>
+       ${cart.product.name}
+      </div>
+      <div>
+       Price: ${cart.product?.discountRate ? ((cart.product.price as number) * cart.product.discountRate / 100) : cart.product.price}
+      </div>
+    </div>`
+    })
+  }
+
+  getHTMLFromOrderForInvoice(cartItems: CartWithRelations[]) {
+    return `
+    <!DOCTYPE html>
+<html lang="en">
+<body>
+ <h3>Ordered Products</h3>
+  <hr class="solid">
+      ${this.getProductHtml(cartItems)}
+      <hr class="solid">
+      <div>
+        Total: ${cartItems?.reduce((acc, cur) => {
+      acc = (cur.product?.discountRate ? ((cur.product.price as number) * cur.product.discountRate / 100) : cur.product.price) as number + acc;
+      return acc;
+    }, 0)}$
+      </div>
+  </body>
+  </html>
+    `
+  }
+
 }

@@ -11,11 +11,12 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { Category, CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 export const navigatePathAfterCreatingInstance = null;
 export const navigatePathAfterUpdatingInstance = null;
@@ -84,7 +85,7 @@ export class AppDataStoreEffects {
     () => this.actions$.pipe(
       ofType(SetUser),
       withLatestFrom(this.store.select(state => state.auth.user?.id)),
-      mergeMap(([action, userId]) => this.cartApi.find({ filter: { where: { userId: userId }, include: [{ relation: 'product', scope: { include: [{ relation: 'distributor' }] } }] } }).pipe(
+      mergeMap(([action, userId]) => this.cartApi.find({ filter: { where: { userId: userId }, include: [{ relation: 'product', scope: { include: [{ relation: 'distributor' }] }, }, { relation: 'user' }] } }).pipe(
         map((carts) => GetCartSuccessful({ payload: { cart: carts.filter(cart => cart.product) } }))
       ))
     )
@@ -179,12 +180,40 @@ export class AppDataStoreEffects {
       )
     )
   );
+
   deleteCategory$ = createEffect(
     () => this.actions$.pipe(
       ofType(DeleteCategory),
       mergeMap((action) => this.categoryApi.deleteById({ id: action.payload.deletedCategoryId }).pipe(
         map(() => DeleteCategorySuccessful({ payload: { deletedCategoryId: action.payload.deletedCategoryId } }))
       ))
-    ))
+    ));
+
+  refundCarts$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(RefundCarts),
+      mergeMap((action) => {
+        const requests = action.payload.cartIds.map(cartId => this.cartApi.updateById({ id: cartId, body: { refundStatus: 'PENDING' } }));
+        return forkJoin(requests).pipe(
+          mergeMap(res => {
+            console.log(res);
+            this.notificationService.createNotification('success', 'We have successfuly send your refund requests. As soon as one of our staff inspect it, your refund status will be updated.', '');
+            return [RefundCartsSuccessful({ payload: { cartIds: action.payload.cartIds } })];
+          })
+        )
+      })
+    ));
+
+
+  updateCart$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(UpdateCart),
+      mergeMap((action) => this.cartApi.updateById({ id: action.payload.id, body: { ...action.payload.updatedCart } }).pipe(
+        map(() => {
+          this.notificationService.createNotification('success', 'We have successfuly updated cart.', '');
+          return UpdateCartSuccessful({ payload: action.payload });
+        })
+      ))
+    ));
 
 }

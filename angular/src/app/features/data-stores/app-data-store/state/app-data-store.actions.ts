@@ -1,6 +1,6 @@
 /* angular */
 import { createAction, props } from '@ngrx/store';
-import { CartWithRelations, Category, CommentWithRelations, Distributor, DistributorWithRelations, NewCategory, NewComment, NewOrder, Order, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { Cart, CartWithRelations, Category, CommentWithRelations, Distributor, DistributorWithRelations, NewCategory, NewComment, NewOrder, Order, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 
 /* action types */
 export enum ActionTypes {
@@ -25,10 +25,14 @@ export enum ActionTypes {
   CreateCommentSuccessful = '[APP] CreateCommentSuccessful',
   UpdateComment = '[APP] UpdateComment',
   UpdateCommentSuccessful = '[APP] UpdateCommentSuccessful',
+  UpdateCart = '[APP] UpdateCart',
+  UpdateCartSuccessful = '[APP] UpdateCartSuccessful',
   CreateCategory = '[APP] CreateCategory',
   CreateCategorySuccessful = '[APP] CreateCategorySuccessful',
   DeleteCategory = '[APP] DeleteCategory',
-  DeleteCategorySuccessful = '[APP] DeleteCategorySuccessful'
+  DeleteCategorySuccessful = '[APP] DeleteCategorySuccessful',
+  RefundCarts = '[APP] RefundCarts',
+  RefundCartsSuccessful = '[APP] RefundCartsSuccessful',
 }
 
 /* actions */
@@ -43,9 +47,11 @@ export const UpdateCommentSuccessful = createAction(ActionTypes.UpdateCommentSuc
 export const CreateComment = createAction(ActionTypes.CreateComment, props<{ payload: { comment: NewComment } }>());
 export const CreateCommentSuccessful = createAction(ActionTypes.CreateCommentSuccessful, props<{ payload: { comment: CommentWithRelations } }>());
 export const UpdateProductRate = createAction(ActionTypes.UpdateProductRate, props<{ payload: { productId: string, rating: number } }>());
+export const UpdateProductRateSuccessful = createAction(ActionTypes.UpdateProductRateSuccessful);
 export const UpdateProduct = createAction(ActionTypes.UpdateProduct, props<{ payload: { id: string, updatedProduct: Partial<ProductWithRelations> } }>());
 export const UpdateProductSuccessful = createAction(ActionTypes.UpdateProductSuccessful, props<{ payload: { id: string, updatedProduct: Partial<Product> } }>());
-export const UpdateProductRateSuccessful = createAction(ActionTypes.UpdateProductRateSuccessful);
+export const UpdateCart = createAction(ActionTypes.UpdateCart, props<{ payload: { id: string, updatedCart: Partial<Cart>, isInactive?: boolean } }>());
+export const UpdateCartSuccessful = createAction(ActionTypes.UpdateCartSuccessful, props<{ payload: { id: string, updatedCart: Partial<Cart>, isInactive?: boolean } }>());
 export const CreateOrder = createAction(ActionTypes.CreateOrder, props<{ payload: { order: NewOrder } }>());
 export const CreateOrderSuccessful = createAction(ActionTypes.CreateOrderSuccessful, props<{ payload: { order: Order } }>());
 export const GetOrdersSuccessful = createAction(ActionTypes.GetOrdersSuccessful, props<{ payload: { orders: Order[] } }>());
@@ -60,3 +66,5 @@ export const CreateCategory = createAction(ActionTypes.CreateCategory, props<{ p
 export const CreateCategorySuccessful = createAction(ActionTypes.CreateCategorySuccessful, props<{ payload: { category: Category } }>());
 export const DeleteCategory = createAction(ActionTypes.DeleteCategory, props<{ payload: { deletedCategoryId } }>());
 export const DeleteCategorySuccessful = createAction(ActionTypes.DeleteCategorySuccessful, props<{ payload: { deletedCategoryId: string } }>());
+export const RefundCarts = createAction(ActionTypes.RefundCarts, props<{ payload: { cartIds: string[] } }>());
+export const RefundCartsSuccessful = createAction(ActionTypes.RefundCartsSuccessful, props<{ payload: { cartIds: string[] } }>());
