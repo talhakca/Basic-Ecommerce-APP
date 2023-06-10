@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { AuthGuard } from './features/auth/guards';
+import { AuthGuard, IsAdminGuard } from './features/auth/guards';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./features/auth/auth.module').then((m) => m.AuthModule),
+      import('./features/auth/auth.module').then((m) => m.AuthModule)
   },
 ];
 

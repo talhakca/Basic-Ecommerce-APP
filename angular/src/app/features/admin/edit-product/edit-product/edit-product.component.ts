@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CreateProduct, DeleteProduct, GetProducts, InitApp, UpdateProduct } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
-import { Category, Product } from 'src/app/features/shared/sdk/models';
+import { Category, Product, UserWithRelations } from 'src/app/features/shared/sdk/models';
 
 @Component({
   selector: 'app-edit-product',
@@ -15,21 +15,18 @@ export class EditProductComponent implements OnInit {
 
   formProduct: FormGroup;
   products$: Product[] = [];
-  private productsSub: Subscription = new Subscription();
   editMode = false;
   editingProduct: Product | null = null;
   editForm: FormGroup;
   categories$: Category[] = [];
-  private categoriesSub: Subscription = new Subscription();
   addFormCard = false;
-
-
+  subscriptions: Subscription[];
+  user: UserWithRelations;
 
   constructor(private store: Store<any>, private router: Router) {
     this.formProduct = new FormGroup({
       name: new FormControl('', Validators.required),
       model: new FormControl('', Validators.required),
-      number: new FormControl(''),
       description: new FormControl(''),
       imageUrl: new FormControl('', Validators.required),
       quantityInStocks: new FormControl(0, [Validators.required, Validators.min(0)]),
@@ -37,14 +34,12 @@ export class EditProductComponent implements OnInit {
       warrantyStatus: new FormControl(''),
       rating: new FormControl(0),
       discountRate: new FormControl(0),
-      isDeleted: new FormControl(true),
       // distributorId: new FormControl(''),
       categoryId: new FormControl('')
     });
     this.editForm = new FormGroup({
       name: new FormControl('', Validators.required),
       model: new FormControl('', Validators.required),
-      number: new FormControl(''),
       description: new FormControl(''),
       imageUrl: new FormControl('', Validators.required),
       quantityInStocks: new FormControl(0, [Validators.required, Validators.min(0)]),
@@ -52,26 +47,43 @@ export class EditProductComponent implements OnInit {
       warrantyStatus: new FormControl(''),
       rating: new FormControl(0),
       discountRate: new FormControl(0),
-      isDeleted: new FormControl(true),
       // distributorId: new FormControl(''),
       categoryId: new FormControl('')
     });
   }
 
   ngOnInit(): void {
-    this.store.dispatch(GetProducts())
-    this.productsSub = this.store.select(state => state.app.products).subscribe(data => {
+    this.subscribeToData();
+  }
+
+  subscribeToData() {
+    this.subscriptions = [
+      this.subscribeToCategories(),
+      this.subscribeToProducts(),
+      this.subscribeToUser()
+    ];
+  }
+
+  subscribeToProducts() {
+    return this.store.select(state => state.app.products).subscribe(data => {
       this.products$ = data;
-    })
-    this.store.dispatch(InitApp());
-    this.categoriesSub = this.store.select(state => state.app.categories).subscribe(data => {
+    });
+  }
+
+  subscribeToCategories() {
+    return this.store.select(state => state.app.categories).subscribe(data => {
       this.categories$ = data;
+    });
+  }
+
+  subscribeToUser() {
+    return this.store.select(state => state.auth.user).subscribe(user => {
+      this.user = user;
     })
   }
 
   ngOnDestroy(): void {
-    this.productsSub.unsubscribe();
-    this.categoriesSub.unsubscribe();
+    this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
   navigateToAdminPanel(): void {
@@ -85,15 +97,17 @@ export class EditProductComponent implements OnInit {
     this.store.dispatch(CreateProduct({ payload: newProduct }));
     this.formProduct.reset();
   }
+
   onDelete(productId: string): void {
     this.store.dispatch(DeleteProduct({ payload: { deletedProductId: productId } }));
   }
+
   onEdit(product: Product): void {
     this.editMode = true;
     this.editingProduct = product;
     this.editForm.patchValue(product);
-    console.log(this.editingProduct)
   }
+
   onEditSubmit(): void {
     if (this.editingProduct) {
       const updatedProduct = this.editForm.getRawValue();
@@ -101,14 +115,23 @@ export class EditProductComponent implements OnInit {
     }
     this.editMode = false;
     this.editForm.reset();
-    console.log()
   }
+
   addProductCardOpen() {
     this.addFormCard = true;
     this.editMode = false;
   }
+
   addProductCardClose() {
     this.addFormCard = false;
     this.editMode = false;
+  }
+
+  isProductManager() {
+    return this.user.role.key === 'productManager';
+  }
+
+  isSalesManager() {
+    return this.user.role.key === 'salesManager';
   }
 }

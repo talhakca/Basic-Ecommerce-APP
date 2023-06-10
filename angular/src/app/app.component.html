@@ -37,6 +37,9 @@
               <li nz-menu-item>{{user.firstName}} {{user.lastName}}</li>
               <li nz-menu-item
                   (click)="goToPreviousPurchases()">Previously Purchased Products</li>
+              <li *ngIf="['productManager', 'salesManager'].includes(user.role?.key)"
+                  nz-menu-item
+                  (click)="goToAdminPage()">Admin Page</li>
             </ul>
           </nz-dropdown-menu>&nbsp;
           <a href="/cart">

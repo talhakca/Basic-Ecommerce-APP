@@ -65,4 +65,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/previously-purchased')
   }
 
+  goToAdminPage() {
+    this.router.navigateByUrl('/admin')
+  }
+
 }
