@@ -174,7 +174,7 @@ export class AppDataStoreEffects {
       ofType(CreateCategory),
       mergeMap((action) =>
         this.categoryApi.create({ body: { ...action.payload.category } }).pipe(
-          map((category: Category) => CreateCategorySuccessful({ payload: { category: [category] } }))
+          map((category: Category) => CreateCategorySuccessful({ payload: { category } }))
         )
       )
     )
@@ -182,8 +182,8 @@ export class AppDataStoreEffects {
   deleteCategory$ = createEffect(
     () => this.actions$.pipe(
       ofType(DeleteCategory),
-      mergeMap((action) => this.categoryApi.deleteById({ id: action.payload }).pipe(
-        map((response: string) => DeleteCategorySuccessful({ payload: response }))
+      mergeMap((action) => this.categoryApi.deleteById({ id: action.payload.deletedCategoryId }).pipe(
+        map(() => DeleteCategorySuccessful({ payload: action.payload.deletedCategoryId }))
       ))
     ))
 
