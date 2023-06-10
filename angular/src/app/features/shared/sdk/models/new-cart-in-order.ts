@@ -6,7 +6,7 @@
  */
 export interface NewCartInOrder {
   orderId?: string;
-  price: number;
+  price?: number;
   productId?: string;
   userId?: string;
 }

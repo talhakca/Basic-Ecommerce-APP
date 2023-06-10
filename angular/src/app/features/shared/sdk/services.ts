@@ -22,4 +22,5 @@ export { TaxControllerService } from './services/tax-controller.service';
 export { UserProductControllerService } from './services/user-product-controller.service';
 export { UserAddressControllerService } from './services/user-address-controller.service';
 export { UserControllerService } from './services/user-controller.service';
+export { UserRoleControllerService } from './services/user-role-controller.service';
 export { WishlistControllerService } from './services/wishlist-controller.service';

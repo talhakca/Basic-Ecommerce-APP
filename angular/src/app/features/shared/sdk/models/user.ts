@@ -16,6 +16,7 @@ export interface User {
   middleName?: string;
   password: string;
   phoneNumber?: string;
+  roleId?: string;
   taxId?: string;
   updatedBy?: string;
   updatedById?: string;

@@ -17,12 +17,12 @@
         <rappider-rate-display [rate]="activeProduct.rating"></rappider-rate-display>
       </div>
       <div class="price"
-           [ngClass]="activeProduct.discountRate ? 'text-decoration: line-through;' : ''">
+           [ngClass]="{'line-through':activeProduct.discountRate}">
         ${{activeProduct.price}}
       </div>
       <div *ngIf="activeProduct.discountRate"
            class="final-price">
-        {{activeProduct.rating - (activeProduct.rating * activeProduct.discountRate / 100)}}
+        ${{activeProduct.price - (activeProduct.price * activeProduct.discountRate / 100)}}
       </div>
       <b>Stocks: </b> {{activeProduct.quantityInStocks}}
 

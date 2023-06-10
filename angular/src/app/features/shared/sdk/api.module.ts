@@ -28,6 +28,7 @@ import { TaxControllerService } from './services/tax-controller.service';
 import { UserProductControllerService } from './services/user-product-controller.service';
 import { UserAddressControllerService } from './services/user-address-controller.service';
 import { UserControllerService } from './services/user-controller.service';
+import { UserRoleControllerService } from './services/user-role-controller.service';
 import { WishlistControllerService } from './services/wishlist-controller.service';
 
 /**
@@ -62,6 +63,7 @@ import { WishlistControllerService } from './services/wishlist-controller.servic
     UserProductControllerService,
     UserAddressControllerService,
     UserControllerService,
+    UserRoleControllerService,
     WishlistControllerService,
     ApiConfiguration
   ],

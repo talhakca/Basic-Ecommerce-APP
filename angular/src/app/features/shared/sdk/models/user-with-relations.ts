@@ -2,6 +2,7 @@
 /* eslint-disable */
 import { AddressWithRelations } from './address-with-relations';
 import { ProductWithRelations } from './product-with-relations';
+import { RoleWithRelations } from './role-with-relations';
 import { TaxWithRelations } from './tax-with-relations';
 
 /**
@@ -25,6 +26,9 @@ export interface UserWithRelations {
   middleName?: string;
   password: string;
   phoneNumber?: string;
+  role?: RoleWithRelations;
+  roleId?: string;
+  roles?: Array<RoleWithRelations>;
   tax?: TaxWithRelations;
   taxId?: string;
   updatedBy?: string;
