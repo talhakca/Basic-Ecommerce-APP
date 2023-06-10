@@ -16,6 +16,7 @@ import {
 } from '.';
 import { Cart } from './cart.model';
 import {Address} from './address.model';
+import {Role} from './role.model';
 
 @model({
   settings: {
@@ -189,6 +190,9 @@ export class User extends Entity {
 
   @hasMany(() => Address)
   addresses: Address[];
+
+  @hasMany(() => Role)
+  roles: Role[];
   [prop: string]: any;
 
 

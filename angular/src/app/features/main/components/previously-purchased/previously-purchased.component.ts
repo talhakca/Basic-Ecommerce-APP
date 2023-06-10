@@ -49,14 +49,14 @@ export class PreviouslyPurchasedComponent implements OnInit {
       this.orderGroup = cloneDeep(inactiveCarts)?.reduce((acc, curr) => {
         const order: {
           orderId: string,
-          productGroup: { quantity: number, product: Product }[]
+          productGroup: { quantity: number, product: Product, price: number; }[]
         } = acc?.find(item => item.orderId === curr.orderId);
         if (order) {
           const addedProduct = order.productGroup.find(group => group.product.id === curr.productId);
           if (addedProduct) {
             addedProduct.quantity++;
           } else {
-            order.productGroup.push({ quantity: 1, product: curr.product });
+            order.productGroup.push({ quantity: 1, product: curr.product, price: curr.price });
           }
         } else {
           acc.push(
@@ -65,7 +65,8 @@ export class PreviouslyPurchasedComponent implements OnInit {
               productGroup: [
                 {
                   quantity: 1,
-                  product: curr.product
+                  product: curr.product,
+                  price: curr.price
                 }
               ]
             }

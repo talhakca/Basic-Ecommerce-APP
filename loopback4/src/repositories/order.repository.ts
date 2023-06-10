@@ -63,7 +63,7 @@ export class OrderRepository extends DefaultCrudRepository<
       for (let cartItem of cartItems) {
         const fixedPrice = cartItem.product?.discountRate ? (cartItem.product.price * cartItem.product.discountRate / 100) : cartItem.product.price
         cartRepository.updateById(cartItem.id, { orderId: order.id, price: fixedPrice });
-        productRepository.updateById(cartItem.productId, { quantityInStocks: cartItem.product.quantity - 1 });
+        productRepository.updateById(cartItem.productId, { quantityInStocks: cartItem.product.quantityInStocks - 1 });
       }
       return order;
     } else {

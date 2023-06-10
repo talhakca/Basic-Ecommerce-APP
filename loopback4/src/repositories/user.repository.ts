@@ -17,7 +17,7 @@ import {
   UserRelations,
   Product,
   Tax,
-  Wishlist, Cart, Address} from '../models';
+  Wishlist, Cart, Address, Role} from '../models';
 
 /* repository imports */
 import {
@@ -27,6 +27,7 @@ import {
 } from '.';
 import { CartRepository } from './cart.repository';
 import {AddressRepository} from './address.repository';
+import {RoleRepository} from './role.repository';
 
 export class UserRepository extends DefaultCrudRepository<
   User,
@@ -50,6 +51,8 @@ export class UserRepository extends DefaultCrudRepository<
 
   public readonly addresses: HasManyRepositoryFactory<Address, typeof User.prototype.id>;
 
+  public readonly roles: HasManyRepositoryFactory<Role, typeof User.prototype.id>;
+
   constructor(
     @inject('datasources.ELearningDataSource')
     dataSource: ELearningDataSource,
@@ -61,10 +64,12 @@ export class UserRepository extends DefaultCrudRepository<
     protected taxRepositoryGetter: Getter<TaxRepository>,
 
     @repository.getter('WishlistRepository')
-    protected wishlistRepositoryGetter: Getter<WishlistRepository>, @repository.getter('CartRepository') protected cartRepositoryGetter: Getter<CartRepository>, @repository.getter('AddressRepository') protected addressRepositoryGetter: Getter<AddressRepository>,
+    protected wishlistRepositoryGetter: Getter<WishlistRepository>, @repository.getter('CartRepository') protected cartRepositoryGetter: Getter<CartRepository>, @repository.getter('AddressRepository') protected addressRepositoryGetter: Getter<AddressRepository>, @repository.getter('RoleRepository') protected roleRepositoryGetter: Getter<RoleRepository>,
 
   ) {
     super(User, dataSource);
+    this.roles = this.createHasManyRepositoryFactoryFor('roles', roleRepositoryGetter,);
+    this.registerInclusionResolver('roles', this.roles.inclusionResolver);
     this.addresses = this.createHasManyRepositoryFactoryFor('addresses', addressRepositoryGetter,);
     this.registerInclusionResolver('addresses', this.addresses.inclusionResolver);
     this.products = this.createHasManyThroughRepositoryFactoryFor('cart', productRepositoryGetter, cartRepositoryGetter,);
