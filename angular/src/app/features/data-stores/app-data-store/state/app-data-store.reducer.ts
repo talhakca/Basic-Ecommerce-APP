@@ -128,11 +128,59 @@ export const reducer = createReducer(
       action.payload.category
     ],
   })),
+  on(ProductActions.CreateProductSuccessful, (state, action) => ({
+    ...state,
+    products: [
+      ...state.products,
+      action.payload.product
+    ]
+  }))
+  ,
   on(ProductActions.DeleteCategorySuccessful, (state, action) => ({
     ...state,
     categories: state.categories.filter(category => category.id !== action.payload.deletedCategoryId)
   })),
+  on(ProductActions.DeleteProductSuccessful, (state, action) => ({
+    ...state,
+    products: state.products.filter(product => product.id !== action.payload.deletedProductId)
+  })),
+  on(ProductActions.UpdateCategorySuccessful, (state, action) => {
+    const updatedCategoryId = action.payload.id;
+    const updatedCategoryName = action.payload.updatedCategory.name;
+    const updatedCategories = state.categories.map(category => {
+      if (category.id === updatedCategoryId) {
+        return {
+          ...category,
+          name: updatedCategoryName
+        };
+      }
+      return category;
+    });
+    return {
+      ...state,
+      categories: updatedCategories
+    };
+  }),
+  on(ProductActions.UpdateProductSuccessful, (state, action) => {
+    const updatedProductId = action.payload.id;
+    const updatedProduct = action.payload.updatedProduct;
+    const updatedProducts = state.products.map(product => {
+      if (product.id === updatedProductId) {
+        return {
+          ...product,
+          ...updatedProduct
+        };
+      }
+      return product;
+    });
+    return {
+      ...state,
+      products: updatedProducts
+    }
+  })
 );
+
+
 
 
 export function updateProperties(entities, updatedEntity, id) {

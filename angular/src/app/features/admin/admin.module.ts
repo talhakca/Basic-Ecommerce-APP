@@ -4,6 +4,7 @@ import { EditCategoryComponent } from './edit-category/edit-category/edit-catego
 import { AdminPanelComponent } from './admin-panel/admin-panel/admin-panel.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditProductComponent } from './edit-product/edit-product/edit-product.component';
 
 export const routes: Routes = [
   {
@@ -13,13 +14,18 @@ export const routes: Routes = [
   {
     path: '',
     component: AdminPanelComponent
+  },
+  {
+    path: 'edit-product',
+    component: EditProductComponent
   }
 ];
 
 @NgModule({
   declarations: [
     EditCategoryComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    EditProductComponent
   ],
   imports: [
     CommonModule,
