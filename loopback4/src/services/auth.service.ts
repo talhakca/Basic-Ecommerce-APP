@@ -99,7 +99,7 @@ export class AuthService implements IAuthService<User, Credentials> {
     return <TokenPayload>{
       fullName: `${user.firstName} ${user.middleName ? (user.middleName + ' ') : ''}${user.lastName}`,
       userId: user.id,
-      roles: user.roles,
+      // roles: user.roles,
       username: user.username,
       [securityId]: user.id
     };
