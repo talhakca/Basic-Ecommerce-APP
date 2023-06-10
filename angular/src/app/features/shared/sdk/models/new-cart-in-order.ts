@@ -8,5 +8,6 @@ export interface NewCartInOrder {
   orderId?: string;
   price?: number;
   productId?: string;
+  refundStatus?: string;
   userId?: string;
 }

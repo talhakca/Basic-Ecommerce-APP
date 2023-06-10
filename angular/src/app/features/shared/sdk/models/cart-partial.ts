@@ -9,5 +9,6 @@ export interface CartPartial {
   orderId?: string;
   price?: number;
   productId?: string;
+  refundStatus?: string;
   userId?: string;
 }

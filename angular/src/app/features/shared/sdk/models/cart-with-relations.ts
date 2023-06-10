@@ -12,6 +12,7 @@ export interface CartWithRelations {
   price?: number;
   product?: ProductWithRelations;
   productId?: string;
+  refundStatus?: string;
   user?: UserWithRelations;
   userId?: string;
 }

@@ -5,5 +5,6 @@ export interface Cart {
   orderId?: string;
   price?: number;
   productId?: string;
+  refundStatus?: string;
   userId?: string;
 }
