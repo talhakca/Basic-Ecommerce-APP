@@ -1,0 +1,28 @@
+<nz-table #basicTable
+          [nzData]="refundedCarts">
+  <thead>
+    <tr>
+      <th>User Name</th>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data.user.firstName}} {{data.user.lastName}}</td>
+      <td>{{data.product.name}}</td>
+      <td> {{getQuantity(data.orderId,data.productId)}}</td>
+      <td>{{getQuantity(data.orderId,data.productId) * data.price}}</td>
+      <td>
+        <nz-select [ngModel]="data.refundStatus"
+                   (ngModelChange)="onStatusChange(data, $event)">
+          <nz-option *ngFor="let option of statusOptions"
+                     [nzValue]="option.value"
+                     [nzLabel]="option.key"></nz-option>
+        </nz-select>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

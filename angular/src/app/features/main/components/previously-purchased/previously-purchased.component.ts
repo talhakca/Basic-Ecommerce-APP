@@ -3,10 +3,11 @@ import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { CreateComment, UpdateProductRate } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
+import { CreateComment, RefundCarts, UpdateProductRate } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
-import { Comment, NewComment, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { Cart, CartWithRelations, Comment, NewComment, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { CREATE_COMMENT_CONFIG } from './config/create-comment-form.config';
+import { NotificationService } from 'src/app/features/shared/services';
 
 @Component({
   selector: 'app-previously-purchased',
@@ -30,7 +31,8 @@ export class PreviouslyPurchasedComponent implements OnInit {
   isCommentValid = false;
 
   constructor(
-    private store: Store<{ app: AppState }>
+    private store: Store<{ app: AppState }>,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -45,18 +47,19 @@ export class PreviouslyPurchasedComponent implements OnInit {
   }
 
   subscribeToInactiveCarts() {
-    return this.store.select(state => state.app.inactiveCarts).subscribe(inactiveCarts => {
+    return this.store.select(state => state.app.inactiveCarts).subscribe((inactiveCarts: CartWithRelations[]) => {
       this.orderGroup = cloneDeep(inactiveCarts)?.reduce((acc, curr) => {
         const order: {
           orderId: string,
-          productGroup: { quantity: number, product: Product, price: number; }[]
+          productGroup: { quantity: number, product: Product, carts: Cart[]; }[]
         } = acc?.find(item => item.orderId === curr.orderId);
         if (order) {
           const addedProduct = order.productGroup.find(group => group.product.id === curr.productId);
           if (addedProduct) {
             addedProduct.quantity++;
+            addedProduct.carts.push(curr);
           } else {
-            order.productGroup.push({ quantity: 1, product: curr.product, price: curr.price });
+            order.productGroup.push({ quantity: 1, product: curr.product, carts: [curr] });
           }
         } else {
           acc.push(
@@ -66,7 +69,8 @@ export class PreviouslyPurchasedComponent implements OnInit {
                 {
                   quantity: 1,
                   product: curr.product,
-                  price: curr.price
+                  price: curr.price,
+                  carts: [curr]
                 }
               ]
             }
@@ -74,7 +78,6 @@ export class PreviouslyPurchasedComponent implements OnInit {
         }
         return acc;
       }, []);
-      console.log(this.orderGroup);
     })
   }
 
@@ -123,5 +126,19 @@ export class PreviouslyPurchasedComponent implements OnInit {
 
   onMessageChange(value) {
     this.newComment = value;
+  }
+
+  onRefundRequest(productGroup: { quantity: number, product: Product, carts: Cart[]; }, orderId: string) {
+    const order = this.orders.find(order => order.id === orderId);
+    const today = moment(new Date());
+    const orderDate = moment(order.createdDate);
+    const diff = today.diff(orderDate, 'days');
+    console.log(productGroup)
+    console.log(diff);
+    if (diff > 30) {
+      this.notificationService.createNotification('error', 'For Products ordered more than 30 days ago, we can not make refunds. ', '');
+    } else {
+      this.store.dispatch(RefundCarts({ payload: { cartIds: productGroup.carts?.map(cart => cart.id) } }));
+    }
   }
 }

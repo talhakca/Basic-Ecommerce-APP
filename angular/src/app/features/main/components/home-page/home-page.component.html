@@ -1,3 +1,17 @@
+<div class="toolbar">
+  <div class="title-area">
+    <h4> Our Products </h4>
+  </div>
+  <div class="search-area">
+    <input type="text"
+           nz-input
+           [(ngModel)]="searchText"
+           (ngModelChange)="onSearch()"
+           placeholder="Search Products" />
+  </div>
+</div>
+<hr class="solid">
+
 <rappider-card-one-list [items]="displayedProducts"
                         [itemCountPerRow]="4"
                         (cardClick)="onProductClick($event)"></rappider-card-one-list>

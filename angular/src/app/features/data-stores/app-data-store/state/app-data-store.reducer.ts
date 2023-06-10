@@ -9,6 +9,7 @@ const utilityService = new UtilityService();
 
 import { CartWithRelations, CategoryWithRelations, CommentWithRelations, DistributorWithRelations, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import * as ProductActions from './app-data-store.actions';
+import { update } from 'lodash';
 
 /* State key */
 export const featureKey = 'AppDataStore';
@@ -177,7 +178,33 @@ export const reducer = createReducer(
       ...state,
       products: updatedProducts
     }
-  })
+  }),
+  on(ProductActions.RefundCartsSuccessful, (state, action) => ({
+    ...state,
+    inactiveCarts: state.inactiveCarts.map(cart => {
+      if (action.payload.cartIds.includes(cart.id)) {
+        return {
+          ...cart,
+          refundStatus: 'PENDING'
+        }
+      } else {
+        return cart;
+      }
+    })
+  })),
+  on(ProductActions.UpdateCartSuccessful, (state, action) => {
+    if (action.payload.isInactive) {
+      return {
+        ...state,
+        inactiveCarts: updateProperties(state.inactiveCarts, action.payload.updatedCart, action.payload.id)
+      }
+    } else {
+      return {
+        ...state,
+        carts: updateProperties(state.cart, action.payload.updatedCart, action.payload.id)
+      }
+    }
+  }),
 );
 
 

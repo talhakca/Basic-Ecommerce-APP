@@ -24,6 +24,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   products: ProductWithRelations[];
   displayedProducts = [];
+  searchText: string;
 
   constructor(
     private store: Store<any>,
@@ -72,12 +73,16 @@ export class HomePageComponent implements OnInit, OnDestroy {
             ],
             rate: product.rating
           }));
+        this.products = lodash.cloneDeep(this.displayedProducts);
       }
     });
   }
 
   onProductClick(action: CardOneListCardClickOutput) {
-    console.log(action)
     this.router.navigateByUrl(`detail/${action.data.data.id}`);
+  }
+
+  onSearch() {
+    this.displayedProducts = this.products.filter(product => product.data.name.toLowerCase().includes(this.searchText.toLowerCase()));
   }
 }

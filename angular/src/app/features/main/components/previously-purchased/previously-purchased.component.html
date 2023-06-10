@@ -17,6 +17,19 @@
            class="distributor-info">
         <div class="distributor">
           Distributor: {{productGroup.product.distributor.name}}
+          <ng-container *ngIf="productGroup.carts[0].refundStatus">
+            - Refund Status:
+            <ng-container *ngIf="productGroup.carts[0].refundStatus === 'PENDING'">
+              <nz-tag [nzColor]="'orange'">Pending</nz-tag>
+            </ng-container>
+            <ng-container *ngIf="productGroup.carts[0].refundStatus === 'APPROVED'">
+              <nz-tag [nzColor]="'green'">Approved</nz-tag>
+            </ng-container>
+            <ng-container *ngIf="productGroup.carts[0].refundStatus === 'DECLINED'">
+              <nz-tag [nzColor]="'red'">Declined</nz-tag>
+            </ng-container>
+          </ng-container>
+
         </div>
         <div class="comment-button">
           <button nz-button
@@ -46,7 +59,12 @@
           </div>
         </div>
         <div class="quantity">
-          Quantity: {{productGroup.quantity}}
+          <div class="quantity-detail">
+            Quantity: {{productGroup.quantity}}
+          </div>
+          <div class="refund">
+            <a (click)="onRefundRequest(productGroup,order.orderId)">Ask For A Refund</a>
+          </div>
         </div>
       </div>
 

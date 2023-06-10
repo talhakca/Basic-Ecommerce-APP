@@ -28,6 +28,9 @@ import { NzCommentModule } from 'ng-zorro-antd/comment';
 import { CommentsStatusComponent } from './components/comments-status/comments-status.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 const routes: Routes = [
   {
     path: '',
@@ -95,7 +98,10 @@ const routes: Routes = [
     NzCommentModule,
     NzTableModule,
     NzSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzTagModule,
+    NzInputModule,
+    NzIconModule
   ],
   exports: [],
 })
