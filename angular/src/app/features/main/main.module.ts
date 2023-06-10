@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentsModule } from '../rappider/components/lib/components.module';
 
 /* Guards */
-import { AuthGuard } from '../auth/guards';
+import { AuthGuard, IsAdminGuard } from '../auth/guards';
 /* HomePage Component */
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { RappiderCardOneListModule, RappiderEditFormModule, RappiderFeedbackModule, RappiderRateDisplayModule, RappiderStripeModule } from '../rappider/components';
@@ -64,7 +64,8 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('src/app/features/admin/admin.module')
-      .then(module => module.AdminModule)
+      .then(module => module.AdminModule),
+    canActivate: [AuthGuard, IsAdminGuard]
   }
 ];
 

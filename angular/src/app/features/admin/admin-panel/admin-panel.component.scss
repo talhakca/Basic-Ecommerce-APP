@@ -22,3 +22,16 @@
 .card:hover .card-body {
     opacity: 1;
 }
+
+.crud-sections {
+    display: flex;
+    justify-content: space-between;
+}
+
+.crud-area {
+    display: flex;
+    padding: 25px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

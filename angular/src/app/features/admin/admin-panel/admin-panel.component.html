@@ -1,37 +1,55 @@
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12 text-center">
-            <h1 class="my-4">Admin Panel</h1>
-        </div>
-        <div class="col-md-4">
+    <div class="col-md-12 text-center">
+        <h1 class="my-4">Admin Panel</h1>
+    </div>
+    <div class="crud-sections">
+        <div>
             <div class="card">
-                <img src="../assets/product.png" class="card-img-top" alt="Edit Product">
+                <img src="../assets/product.png"
+                     class="card-img-top"
+                     alt="Edit Product">
                 <div class="card-body">
-                    <h5 class="card-title">Product Edit</h5>
-                    <p class="card-text">Click here to edit products</p>
-                    <button class="btn btn-primary">Go to Product Edit</button>
+                    <h5 class="card-title">Products</h5>
+                    <p class="card-text">Click here to see and edit products</p>
+                    <button (click)="navigateToEditProduct()"
+                            class="btn btn-primary">Go to Products</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div *ngIf="isProductManager()">
             <div class="card">
-                <img src="../assets/category.png" class="card-img-top" alt="Edit Category">
+                <img src="../assets/category.png"
+                     class="card-img-top"
+                     alt="Edit Category">
                 <div class="card-body">
-                    <h5 class="card-title">Category Edit</h5>
-                    <p class="card-text">Click here to edit category.</p>
-                    <button (click)="navigateToEditCategory()" class="btn btn-primary">Go to Category Edit</button>
+                    <h5 class="card-title">Categories Edit</h5>
+                    <p class="card-text">Click here to edit categories.</p>
+                    <button (click)="navigateToEditCategory()"
+                            class="btn btn-primary">Go to Categories Edit</button>
                 </div>
             </div>
         </div>
-        <div class=" col-md-4">
+        <div>
             <div class="card">
-                <img src="../assets/dist.png" class="card-img-top" alt="Edit Distrubitor">
+                <img src="../assets/dist.png"
+                     class="card-img-top"
+                     alt="Edit Distrubitor">
                 <div class="card-body">
-                    <h5 class="card-title">Distributor Edit</h5>
-                    <p class="card-text">Click here to edit distributor.</p>
-                    <button class="btn btn-primary">Go to Distributor Edit</button>
+                    <h5 class="card-title">Distributors Edit</h5>
+                    <p class="card-text">Click here to edit distributors.</p>
+                    <button class="btn btn-primary">Go to Distributors Edit</button>
                 </div>
             </div>
         </div>
+        <section *ngIf="isSalesManager()"
+                 class="crud-area"
+                 (click)="goToRefundStatus()">
+            Refund Status
+        </section>
+        <section *ngIf="isProductManager()"
+                 class="crud-area"
+                 (click)="goToCommentStatus()">
+            Comment Status
+        </section>
     </div>
 </div>

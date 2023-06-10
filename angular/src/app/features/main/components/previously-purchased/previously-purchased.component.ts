@@ -141,4 +141,8 @@ export class PreviouslyPurchasedComponent implements OnInit {
       this.store.dispatch(RefundCarts({ payload: { cartIds: productGroup.carts?.map(cart => cart.id) } }));
     }
   }
+
+  getOrderStatus(orderId) {
+    return this.orders?.find(order => order.id === orderId).status;
+  }
 }

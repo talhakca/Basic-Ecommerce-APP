@@ -7,6 +7,23 @@
   margin-bottom: 20px;
 }
 
+.delivery-status {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-area {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .summary {
   display: flex;
   flex-direction: column;
@@ -86,6 +103,8 @@ img {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 ::ng-deep {

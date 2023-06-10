@@ -5,7 +5,21 @@
     <ng-template #headerTmpl>
       <div class="header">
         <div class="title">
-          Total of {{getTotalQuantity(order)}} products. Ordered at {{getShortDate(order?.orderId)}}
+          <div class="quantity-area">
+            Total of {{getTotalQuantity(order)}} products. Ordered at {{getShortDate(order?.orderId)}}.
+          </div>
+          <div class="delivery-status">
+            Delivery Status:
+            <ng-container *ngIf="getOrderStatus(order.orderId) === 'PENDING'">
+              <nz-tag [nzColor]="'orange'">Pending</nz-tag>
+            </ng-container>
+            <ng-container *ngIf="getOrderStatus(order.orderId) === 'APPROVED'">
+              <nz-tag [nzColor]="'green'">Approved</nz-tag>
+            </ng-container>
+            <ng-container *ngIf="getOrderStatus(order.orderId) === 'DECLINED'">
+              <nz-tag [nzColor]="'red'">Declined</nz-tag>
+            </ng-container>
+          </div>
         </div>
         <div class="actions">
         </div>

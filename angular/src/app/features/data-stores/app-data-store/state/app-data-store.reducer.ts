@@ -66,7 +66,8 @@ export const reducer = createReducer(
     ],
   })),
   on(ProductActions.CreateOrderSuccessful, (state, action) => {
-    let inactiveCarts = state.cart.filter(cartItem => (action.payload as any).orderedProducts.some(product => product.id === cartItem.id));
+    console.log(action.payload)
+    let inactiveCarts = state.cart.filter(cartItem => (action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id));
     inactiveCarts = inactiveCarts.map(cart => ({ ...cart, orderId: action.payload.order.id }));
     return {
       ...state,
@@ -74,7 +75,7 @@ export const reducer = createReducer(
         ...state.inactiveCarts,
         ...inactiveCarts
       ],
-      cart: state.cart.filter(cartItem => !((action.payload as any).orderedProducts.some(product => product.id === cartItem.id))),
+      cart: state.cart.filter(cartItem => !((action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id))),
       orders: [
         ...state.orders,
         action.payload.order
@@ -129,10 +130,56 @@ export const reducer = createReducer(
       action.payload.category
     ],
   })),
+  on(ProductActions.CreateProductSuccessful, (state, action) => ({
+    ...state,
+    products: [
+      ...state.products,
+      action.payload.product
+    ]
+  }))
+  ,
   on(ProductActions.DeleteCategorySuccessful, (state, action) => ({
     ...state,
     categories: state.categories.filter(category => category.id !== action.payload.deletedCategoryId)
   })),
+  on(ProductActions.DeleteProductSuccessful, (state, action) => ({
+    ...state,
+    products: state.products.filter(product => product.id !== action.payload.deletedProductId)
+  })),
+  on(ProductActions.UpdateCategorySuccessful, (state, action) => {
+    const updatedCategoryId = action.payload.id;
+    const updatedCategoryName = action.payload.updatedCategory.name;
+    const updatedCategories = state.categories.map(category => {
+      if (category.id === updatedCategoryId) {
+        return {
+          ...category,
+          name: updatedCategoryName
+        };
+      }
+      return category;
+    });
+    return {
+      ...state,
+      categories: updatedCategories
+    };
+  }),
+  on(ProductActions.UpdateProductSuccessful, (state, action) => {
+    const updatedProductId = action.payload.id;
+    const updatedProduct = action.payload.updatedProduct;
+    const updatedProducts = state.products.map(product => {
+      if (product.id === updatedProductId) {
+        return {
+          ...product,
+          ...updatedProduct
+        };
+      }
+      return product;
+    });
+    return {
+      ...state,
+      products: updatedProducts
+    }
+  }),
   on(ProductActions.RefundCartsSuccessful, (state, action) => ({
     ...state,
     inactiveCarts: state.inactiveCarts.map(cart => {
@@ -160,6 +207,8 @@ export const reducer = createReducer(
     }
   }),
 );
+
+
 
 
 export function updateProperties(entities, updatedEntity, id) {

@@ -62,9 +62,14 @@ export class HomePageComponent implements OnInit, OnDestroy {
             currency: 'usd',
             price: product.price,
             finalPrice: product.price - (product.price * product.discountRate / 100),
-            descriptions: [{
-              content: product.description
-            }],
+            descriptions: [
+              {
+                content: product.description
+              },
+              {
+                content: `Stocks: ${product.quantityInStocks}`
+              }
+            ],
             titles: [
               {
                 type: HeadingType.H3,
