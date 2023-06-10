@@ -28,8 +28,6 @@ import { NzCommentModule } from 'ng-zorro-antd/comment';
 import { CommentsStatusComponent } from './components/comments-status/comments-status.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel/admin-panel.component';
-import { EditCategoryComponent } from './components/admin/edit-category/edit-category/edit-category.component';
 const routes: Routes = [
   {
     path: '',
@@ -62,11 +60,8 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminPanelComponent
-  },
-  {
-    path: 'admin/edit-category',
-    component: EditCategoryComponent
+    loadChildren: () => import('src/app/features/admin/admin.module')
+      .then(module => module.AdminModule)
   }
 ];
 
@@ -79,8 +74,6 @@ const routes: Routes = [
     PreviouslyPurchasedComponent,
     OrderSuccessfulComponent,
     CommentsStatusComponent,
-    AdminPanelComponent,
-    EditCategoryComponent,
   ],
   imports: [
     FormsModule,

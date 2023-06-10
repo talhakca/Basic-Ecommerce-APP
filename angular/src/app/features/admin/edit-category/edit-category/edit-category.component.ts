@@ -42,10 +42,9 @@ export class EditCategoryComponent implements OnInit {
       category: { name: this.formCategory.value.name }
     };
     this.store.dispatch(CreateCategory({ payload: newCategory }));
-    this.formCategory.reset();
   }
 
   onDelete(categoryId: string): void {
-    this.store.dispatch(DeleteCategory({ payload: categoryId }));
+    this.store.dispatch(DeleteCategory({ payload: { deletedCategoryId: categoryId } }));
   }
 }

@@ -183,7 +183,7 @@ export class AppDataStoreEffects {
     () => this.actions$.pipe(
       ofType(DeleteCategory),
       mergeMap((action) => this.categoryApi.deleteById({ id: action.payload.deletedCategoryId }).pipe(
-        map(() => DeleteCategorySuccessful({ payload: action.payload.deletedCategoryId }))
+        map(() => DeleteCategorySuccessful({ payload: { deletedCategoryId: action.payload.deletedCategoryId } }))
       ))
     ))
 
