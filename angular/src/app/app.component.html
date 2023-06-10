@@ -40,6 +40,9 @@
               <li *ngIf="['productManager', 'salesManager'].includes(user.role?.key)"
                   nz-menu-item
                   (click)="goToAdminPage()">Admin Page</li>
+              <li *ngIf="user"
+                  nz-menu-item
+                  (click)="logout()">Logout</li>
             </ul>
           </nz-dropdown-menu>&nbsp;
           <a href="/cart">

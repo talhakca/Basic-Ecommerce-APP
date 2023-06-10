@@ -54,8 +54,16 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     return this.user.role?.key === 'salesManager';
   }
 
+  isProductManager() {
+    return this.user.role?.key === 'productManager';
+  }
+
   goToRefundStatus() {
     this.router.navigateByUrl('/admin/refund-status')
+  }
+
+  goToCommentStatus() {
+    this.router.navigateByUrl('/comment-status')
   }
 
 }

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { InitApp } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
+import { Logout } from './features/data-stores/auth-data-store/state/auth-data-store.actions';
 
 @Component({
   selector: 'app-root',
@@ -67,6 +68,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   goToAdminPage() {
     this.router.navigateByUrl('/admin')
+  }
+
+  logout() {
+    this.store.dispatch(Logout());
   }
 
 }

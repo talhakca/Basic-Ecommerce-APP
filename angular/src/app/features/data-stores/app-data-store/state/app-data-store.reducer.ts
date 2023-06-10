@@ -66,7 +66,8 @@ export const reducer = createReducer(
     ],
   })),
   on(ProductActions.CreateOrderSuccessful, (state, action) => {
-    let inactiveCarts = state.cart.filter(cartItem => (action.payload as any).orderedProducts.some(product => product.id === cartItem.id));
+    console.log(action.payload)
+    let inactiveCarts = state.cart.filter(cartItem => (action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id));
     inactiveCarts = inactiveCarts.map(cart => ({ ...cart, orderId: action.payload.order.id }));
     return {
       ...state,
@@ -74,7 +75,7 @@ export const reducer = createReducer(
         ...state.inactiveCarts,
         ...inactiveCarts
       ],
-      cart: state.cart.filter(cartItem => !((action.payload as any).orderedProducts.some(product => product.id === cartItem.id))),
+      cart: state.cart.filter(cartItem => !((action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id))),
       orders: [
         ...state.orders,
         action.payload.order

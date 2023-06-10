@@ -3,18 +3,20 @@
         <h1 class="my-4">Admin Panel</h1>
     </div>
     <div class="crud-sections">
-        <div class="card">
-            <img src="../assets/product.png"
-                 class="card-img-top"
-                 alt="Edit Product">
-            <div class="card-body">
-                <h5 class="card-title">Products</h5>
-                <p class="card-text">Click here to see and edit products</p>
-                <button (click)="navigateToEditProduct()"
-                        class="btn btn-primary">Go to Products</button>
+        <div>
+            <div class="card">
+                <img src="../assets/product.png"
+                     class="card-img-top"
+                     alt="Edit Product">
+                <div class="card-body">
+                    <h5 class="card-title">Products</h5>
+                    <p class="card-text">Click here to see and edit products</p>
+                    <button (click)="navigateToEditProduct()"
+                            class="btn btn-primary">Go to Products</button>
+                </div>
             </div>
         </div>
-        <div>
+        <div *ngIf="isProductManager()">
             <div class="card">
                 <img src="../assets/category.png"
                      class="card-img-top"
@@ -43,6 +45,11 @@
                  class="crud-area"
                  (click)="goToRefundStatus()">
             Refund Status
+        </section>
+        <section *ngIf="isProductManager()"
+                 class="crud-area"
+                 (click)="goToCommentStatus()">
+            Comment Status
         </section>
     </div>
 </div>
