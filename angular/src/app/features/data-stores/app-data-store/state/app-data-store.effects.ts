@@ -11,9 +11,9 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful } from './app-data-store.actions';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful } from './app-data-store.actions';
 import { CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
-import { CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { Category, CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
 import { Router } from '@angular/router';
 
@@ -169,4 +169,22 @@ export class AppDataStoreEffects {
       ))
     )
   );
+  addCategory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CreateCategory),
+      mergeMap((action) =>
+        this.categoryApi.create({ body: { ...action.payload.category } }).pipe(
+          map((category: Category) => CreateCategorySuccessful({ payload: { category } }))
+        )
+      )
+    )
+  );
+  deleteCategory$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(DeleteCategory),
+      mergeMap((action) => this.categoryApi.deleteById({ id: action.payload.deletedCategoryId }).pipe(
+        map(() => DeleteCategorySuccessful({ payload: { deletedCategoryId: action.payload.deletedCategoryId } }))
+      ))
+    ))
+
 }
