@@ -17,7 +17,8 @@ import {
   UserRelations,
   Product,
   Tax,
-  Wishlist, Cart, Address, Role} from '../models';
+  Wishlist, Cart, Address, Role
+} from '../models';
 
 /* repository imports */
 import {
@@ -26,8 +27,8 @@ import {
   WishlistRepository,
 } from '.';
 import { CartRepository } from './cart.repository';
-import {AddressRepository} from './address.repository';
-import {RoleRepository} from './role.repository';
+import { AddressRepository } from './address.repository';
+import { RoleRepository } from './role.repository';
 
 export class UserRepository extends DefaultCrudRepository<
   User,
@@ -51,7 +52,7 @@ export class UserRepository extends DefaultCrudRepository<
 
   public readonly addresses: HasManyRepositoryFactory<Address, typeof User.prototype.id>;
 
-  public readonly roles: HasManyRepositoryFactory<Role, typeof User.prototype.id>;
+  public readonly role: BelongsToAccessor<Role, typeof User.prototype.id>;
 
   constructor(
     @inject('datasources.ELearningDataSource')
@@ -68,8 +69,8 @@ export class UserRepository extends DefaultCrudRepository<
 
   ) {
     super(User, dataSource);
-    this.roles = this.createHasManyRepositoryFactoryFor('roles', roleRepositoryGetter,);
-    this.registerInclusionResolver('roles', this.roles.inclusionResolver);
+    this.role = this.createBelongsToAccessorFor('role', roleRepositoryGetter,);
+    this.registerInclusionResolver('role', this.role.inclusionResolver);
     this.addresses = this.createHasManyRepositoryFactoryFor('addresses', addressRepositoryGetter,);
     this.registerInclusionResolver('addresses', this.addresses.inclusionResolver);
     this.products = this.createHasManyThroughRepositoryFactoryFor('cart', productRepositoryGetter, cartRepositoryGetter,);

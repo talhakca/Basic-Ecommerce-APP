@@ -193,6 +193,9 @@ export class User extends Entity {
 
   @hasMany(() => Role)
   roles: Role[];
+
+  @belongsTo(() => Role)
+  roleId: string;
   [prop: string]: any;
 
 

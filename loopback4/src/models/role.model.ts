@@ -1,4 +1,4 @@
-import { 
+import {
   Entity,
   belongsTo,
   hasMany,
@@ -106,11 +106,6 @@ export class Role extends Entity {
     required: false,
   })
   isDeleted?: boolean;
-
-  @property({
-    type: 'string',
-  })
-  userId?: string;
 
   constructor(data?: Partial<Role>) {
     super(data);
