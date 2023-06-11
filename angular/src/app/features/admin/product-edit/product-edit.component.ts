@@ -145,6 +145,8 @@ export class ProductEditComponent implements OnInit {
       ],
     };
 
+  updatedProduct: Partial<Product>;
+
   dynamicDataForSelectbox: DynamicDataForSelectBox[] = [
     {
       fieldName: 'categoryId',
@@ -208,10 +210,17 @@ export class ProductEditComponent implements OnInit {
 
   subscribeToRoute() {
     this.activeProductId = this.activatedRoute.snapshot.params.id;
-    console.log(this.activatedRoute.snapshot.params)
   }
-  formSubmit(product) {
-    this.store.dispatch(UpdateProduct({ payload: { id: this.activeProductId, updatedProduct: product } }));
+  formSubmit() {
+    this.store.dispatch(UpdateProduct({ payload: { id: this.activeProductId, updatedProduct: this.updatedProduct } }));
     this.router.navigateByUrl('/admin/products');
+  }
+
+  onFormValueChange(data) {
+    this.updatedProduct = {
+      ...this.updatedProduct,
+      ...data
+    };
+    console.log(this.updatedProduct)
   }
 }
