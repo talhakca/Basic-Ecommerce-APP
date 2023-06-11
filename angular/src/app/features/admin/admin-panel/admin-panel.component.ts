@@ -41,7 +41,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   navigateToEditProduct() {
-    this.router.navigateByUrl('/admin/edit-product');
+    this.router.navigateByUrl('/admin/products');
   }
   navigateToEditCategory() {
     this.router.navigateByUrl('/admin/edit-category');
