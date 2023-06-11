@@ -80,7 +80,7 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart() {
     const quantityInCart = this.carts?.filter(cart => cart.productId === this.activeProductId)?.length;
-    if (quantityInCart < this.activeProduct.quantityInStocks) {
+    if (this.activeProduct.quantityInStocks <= quantityInCart) {
       this.notificationService.createNotification('error', `You have exceed the stock number. You can not add more then ${this.activeProduct.quantityInStocks}`, '')
     } else {
       this.store.dispatch(AddToCart({ payload: { productId: this.activeProductId } }));
