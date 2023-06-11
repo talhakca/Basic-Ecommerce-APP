@@ -51,5 +51,10 @@
                  (click)="goToCommentStatus()">
             Comment Status
         </section>
+        <section *ngIf="isProductManager()"
+                 class="crud-area"
+                 (click)="goToDeliveryList()">
+            Delivery List
+        </section>
     </div>
 </div>

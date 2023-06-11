@@ -51,11 +51,11 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   isSalesManager() {
-    return this.user.role?.key === 'salesManager';
+    return this.user?.role?.key === 'salesManager';
   }
 
   isProductManager() {
-    return this.user.role?.key === 'productManager';
+    return this.user?.role?.key === 'productManager';
   }
 
   goToRefundStatus() {
@@ -64,6 +64,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   goToCommentStatus() {
     this.router.navigateByUrl('/comment-status')
+  }
+
+  goToDeliveryList() {
+    this.router.navigateByUrl('/admin/deliveries')
   }
 
 }
