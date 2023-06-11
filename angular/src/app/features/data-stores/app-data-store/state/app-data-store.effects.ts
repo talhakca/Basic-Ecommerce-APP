@@ -130,7 +130,7 @@ export class AppDataStoreEffects {
       ofType(SetUser),
       withLatestFrom(this.store.select(state => state.auth.user)),
       mergeMap(([action, user]) => {
-        if (user.id && ['salesManager', 'productManager'].includes(user.role.key)) {
+        if (user.id && ['salesManager', 'productManager'].includes(user.role?.key)) {
           return this.addressApi.find().pipe(
             map((addresses) => {
               return GetAddressesSuccessful({ payload: { addresses } });

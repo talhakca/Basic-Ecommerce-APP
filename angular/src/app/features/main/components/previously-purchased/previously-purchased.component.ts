@@ -143,6 +143,6 @@ export class PreviouslyPurchasedComponent implements OnInit {
   }
 
   getOrderStatus(orderId) {
-    return this.orders?.find(order => order.id === orderId).status;
+    return this.orders?.find(order => order.id === orderId)?.status;
   }
 }

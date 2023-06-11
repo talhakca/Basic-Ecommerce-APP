@@ -80,7 +80,7 @@ export class PaymentComponent implements OnInit {
   }
 
   createPaymentIntent() {
-    this.orderService.createIntent({ body: { amount: this.amount } }).subscribe(res => {
+    this.orderService.createIntent({ body: { amount: this.amount * 100 } }).subscribe(res => {
       this.stripeClientSecret = res.client_secret;
       this.paymentLoading = false;
     });
@@ -91,7 +91,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onPaymentSuccess(payment) {
-    this.store.dispatch(CreateOrder({ payload: { order: { paymentId: payment.paymentIntent.id, price: this.amount, status: 'PENDING', orderedProducts: this.carts, addressId: this.selectedAddress.id } } }))
+    this.store.dispatch(CreateOrder({ payload: { order: { paymentId: payment.paymentIntent.id, price: this.amount, status: 'processing', orderedProducts: this.carts, addressId: this.selectedAddress.id } } }))
   }
 
 }
