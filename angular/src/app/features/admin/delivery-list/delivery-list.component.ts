@@ -4,9 +4,10 @@ import { AppState } from '../../data-stores/app-data-store/state/app-data-store.
 import { AuthState } from '../../data-stores/auth-data-store/state/auth-data-store.reducer';
 import { Subscription } from 'rxjs';
 import { CartWithRelations, OrderWithRelations, UserWithRelations } from '../../shared/sdk/models';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, orderBy, sortBy } from 'lodash';
 import { UpdateOrder } from '../../data-stores/app-data-store/state/app-data-store.actions';
-
+import { OrderControllerService } from '../../shared/sdk/services';
+import { FileSaverService } from 'ngx-filesaver';
 @Component({
   selector: 'app-delivery-list',
   templateUrl: './delivery-list.component.html',
@@ -35,7 +36,9 @@ export class DeliveryListComponent implements OnInit {
   ];
 
   constructor(
-    private store: Store<{ app: AppState, auth: AuthState }>
+    private store: Store<{ app: AppState, auth: AuthState }>,
+    private orderApi: OrderControllerService,
+    private fileSaverService: FileSaverService
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +56,7 @@ export class DeliveryListComponent implements OnInit {
   subscribeToOrders() {
     return this.store.select(state => state.app.adminOrders).subscribe(orders => {
       console.log(this.user);
-      this.orders = cloneDeep(orders)?.map(order => ({ ...order, address: this.user.addresses.find(address => address.id === order.addressId) }));
+      this.orders = orderBy(cloneDeep(orders)?.map(order => ({ ...order, address: this.user.addresses.find(address => address.id === order.addressId) })), 'createdDate', 'desc');
       if (this.orders?.length && this.carts?.length) {
         this.orders = this.orders.map(order => ({ ...order, orderedProducts: this.carts?.filter(cart => cart.orderId === order.id) }));
       }
@@ -64,7 +67,7 @@ export class DeliveryListComponent implements OnInit {
     return this.store.select(state => state.app.inactiveCarts).subscribe(carts => {
       this.carts = carts;
       if (this.orders?.length && this.carts?.length) {
-        this.orders = this.orders.map(order => ({ ...order, orderedProducts: this.carts?.filter(cart => cart.orderId === order.id) }));
+        this.orders = orderBy(this.orders.map(order => ({ ...order, orderedProducts: this.carts?.filter(cart => cart.orderId === order.id) })), 'createdDate', 'desc');
       }
     })
   }
@@ -84,6 +87,22 @@ export class DeliveryListComponent implements OnInit {
 
   onStatusChange(order, status: string) {
     this.store.dispatch(UpdateOrder({ payload: { id: order.id, updatedOrder: { status: status } } }));
+  }
+
+  getInvoiceFromOrderId(orderId: string) {
+    this.orderApi.getInvoiceByOrderId({ id: orderId }).subscribe(data => {
+      var blob = new Blob([data], { type: 'application/pdf' });
+      this.saveAs(blob, `${orderId}.pdf`);
+    });
+  }
+
+  saveAs(blob: any, filename: string) {
+    try {
+      this.fileSaverService.save(blob, filename);
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 
 }

@@ -10,6 +10,10 @@
         <th>Address</th>
         <th>Customer Id</th>
         <th>Status</th>
+        <th>
+
+        </th>
+
       </tr>
     </thead>
     <tbody>
@@ -25,6 +29,10 @@
                        [nzValue]="option.value"
                        [nzLabel]="option.key"></nz-option>
           </nz-select>
+        </td>
+        <td>
+          <a (click)="getInvoiceFromOrderId(data?.id)"> Download Invoice</a>
+
         </td>
       </tr>
     </tbody>

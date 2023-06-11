@@ -112,10 +112,10 @@ export class OrderControllerService extends BaseService {
    */
   getInvoiceByOrderId(params: {
     id: string;
-  }): Observable<any> {
+  }): Observable<Blob> {
 
     return this.getInvoiceByOrderId$Response(params).pipe(
-      map((r: StrictHttpResponse<any>) => r.body as any)
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
     );
   }
 
@@ -132,7 +132,7 @@ export class OrderControllerService extends BaseService {
    */
   createIntent$Response(params?: {
     body?: CreatePaymentIntentDto
-  }): Observable<StrictHttpResponse<any>> {
+  }): Observable<StrictHttpResponse<Blob>> {
 
     const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerCreateIntentPath, 'post');
     if (params) {
@@ -140,12 +140,12 @@ export class OrderControllerService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json'
+      responseType: 'blob',
+      accept: 'application/pdf'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<any>;
+      map((r: HttpResponse<Blob>) => {
+        return r as StrictHttpResponse<Blob>;
       })
     );
   }

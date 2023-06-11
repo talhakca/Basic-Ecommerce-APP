@@ -21,6 +21,7 @@ import {
 import { Order } from '../models';
 import { OrderRepository } from '../repositories';
 import { CreatePaymentIntentDTO, OrderCreateDTO } from '../dtos';
+import { Blob } from 'buffer';
 
 export class OrderController {
   constructor(
@@ -53,11 +54,11 @@ export class OrderController {
   @get('/orders/get-invoice/{id}')
   @response(200, {
     description: 'Order model instance',
-    content: { 'application/json': { schema: getModelSchemaRef(Object) } },
+    content: { 'application/json': { schema: getModelSchemaRef(Blob) } },
   })
   async getInvoiceByOrderId(
     @param.path.string('id') id: string,
-  ): Promise<Object> {
+  ): Promise<Blob> {
     return this.orderRepository.getInvoiceFromOrderId(id);
   }
 

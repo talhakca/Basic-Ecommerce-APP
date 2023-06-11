@@ -48,18 +48,11 @@ export class OrderRepository extends DefaultCrudRepository<
     return paymentIntent as string;
   }
 
-  async getInvoiceFromOrderId(orderId: string) {
+  getInvoiceFromOrderId(orderId: string) {
     const fs = require('fs');
     const path = `/Users/talhaakca/Desktop/cagan-ecommerce/loopback4/pdfs/${orderId}.pdf`;
-    const data = await fs.readFile(path, (err: any, data: any) => {
-      if (err) {
-        console.error(err);
-      }
-      if (data) {
-        return data
-      }
-      // file written successfully
-    });
+    const data = fs.readFileSync(path, 'utf8',);
+    console.log(data)
     return data;
   }
 
