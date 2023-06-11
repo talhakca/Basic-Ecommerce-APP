@@ -74,6 +74,52 @@ export class OrderControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation orderControllerGetInvoiceByOrderId
+   */
+  static readonly OrderControllerGetInvoiceByOrderIdPath = '/orders/get-invoice/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getInvoiceByOrderId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getInvoiceByOrderId$Response(params: {
+    id: string;
+  }): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, OrderControllerService.OrderControllerGetInvoiceByOrderIdPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getInvoiceByOrderId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getInvoiceByOrderId(params: {
+    id: string;
+  }): Observable<any> {
+
+    return this.getInvoiceByOrderId$Response(params).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
    * Path part for operation orderControllerCreateIntent
    */
   static readonly OrderControllerCreateIntentPath = '/orders/intent';
