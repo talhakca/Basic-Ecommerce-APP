@@ -54,7 +54,6 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeToData();
-    console.log(this.user.role.key === 'salesManager')
   }
 
   subscribeToData() {
