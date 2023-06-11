@@ -3,9 +3,11 @@ import { Validators } from '@angular/forms';
 import { act } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { CreateProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
-import { FormLayout, CrudViewFormItemType } from '../../rappider/components/lib/utils';
+import { CreateProduct, UpdateProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
+import { FormLayout, CrudViewFormItemType, CrudFormSelectItem, DynamicDataForSelectBox } from '../../rappider/components/lib/utils';
 import { Product } from '../../shared/sdk/models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
 
 @Component({
   selector: 'app-product-edit',
@@ -75,11 +77,36 @@ export class ProductEditComponent implements OnInit {
           title: 'Price',
           type: CrudViewFormItemType.TextBox,
           fieldName: 'price',
+          validators: [
+            {
+              type: Validators.required,
+              errorKey: 'required',
+              errorMessage: 'This field is required'
+            }
+          ]
         },
-        {
+        <CrudFormSelectItem>{
           title: 'Warranty Status',
           type: CrudViewFormItemType.Select,
           fieldName: 'warrantyStatus',
+          options: [
+            {
+              key: 'Yes',
+              value: 'yes'
+            },
+            {
+              key: 'No',
+              value: 'no'
+            }
+          ],
+          validators: [
+            {
+              type: Validators.required,
+              errorKey: 'required',
+              errorMessage: 'This field is required'
+            }
+          ]
+
         },
         {
           title: 'Rate',
@@ -93,35 +120,98 @@ export class ProductEditComponent implements OnInit {
         },
         {
           title: 'Distributor',
-          type: CrudViewFormItemType.TextBox,
+          type: CrudViewFormItemType.Select,
           fieldName: 'distributorId',
+          validators: [
+            {
+              type: Validators.required,
+              errorKey: 'required',
+              errorMessage: 'This field is required'
+            }
+          ]
         },
         {
           title: 'Category',
-          type: CrudViewFormItemType.TextBox,
+          type: CrudViewFormItemType.Select,
           fieldName: 'categoryId',
+          validators: [
+            {
+              type: Validators.required,
+              errorKey: 'required',
+              errorMessage: 'This field is required'
+            }
+          ]
         },
       ],
+    };
+
+  dynamicDataForSelectbox: DynamicDataForSelectBox[] = [
+    {
+      fieldName: 'categoryId',
+      options: []
+    },
+    {
+      fieldName: 'distributorId',
+      options: []
     }
-  constructor(private store: Store<any>) { }
+  ];
+
+  constructor(
+    private store: Store<{ app: AppState }>,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   subscriptions: Subscription[];
   products: Product[];
+  activeProduct: Product;
+  activeProductId: string;
 
   ngOnInit(): void {
+    this.subscribeToRoute();
     this.subscribeToData()
   }
   subscribeToData() {
     this.subscriptions = [
-      this.subscribeToProducts()
+      this.subscribeToProducts(),
+      this.subscribeToCategory(),
+      this.subscribeToDistributors()
     ]
   }
   subscribeToProducts() {
     return this.store.select(state => state.app.products).subscribe(data => {
       this.products = data;
+      if (this.products?.length) {
+        this.activeProduct = this.products.find(product => product.id === this.activeProductId);
+        console.log(this.activeProductId)
+      }
     });
   }
-  formSubmit(action) {
-    console.log(action);
+
+  subscribeToCategory() {
+    return this.store.select(state => state.app.categories).subscribe(categories => {
+      if (categories?.length) {
+        let categoryOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'categoryId');
+        categoryOptions.options = categories.map(category => ({ key: category.name, value: category.id }));
+      }
+    });
+  }
+
+  subscribeToDistributors() {
+    return this.store.select(state => state.app.distributors).subscribe(distributors => {
+      if (distributors?.length) {
+        let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
+        distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
+      }
+    });
+  }
+
+  subscribeToRoute() {
+    this.activeProductId = this.activatedRoute.snapshot.params.id;
+    console.log(this.activatedRoute.snapshot.params)
+  }
+  formSubmit(product) {
+    this.store.dispatch(UpdateProduct({ payload: { id: this.activeProductId, updatedProduct: product } }));
+    this.router.navigateByUrl('/admin/products');
   }
 }

@@ -71,10 +71,10 @@ export class RappiderEditFormComponent implements OnInit, OnChanges {
     breadcrumbOptions: BreadcrumbOption[];
     activeBreadcrumbOption: BreadcrumbOption;
   } = {
-    visible: false,
-    breadcrumbOptions: [],
-    activeBreadcrumbOption: null,
-  };
+      visible: false,
+      breadcrumbOptions: [],
+      activeBreadcrumbOption: null,
+    };
 
   /* DEFAULT DEFINITIONS */
   FULL_COMPONENT_SIZE: ComponentSize = { xs: 24 };
@@ -92,7 +92,7 @@ export class RappiderEditFormComponent implements OnInit, OnChanges {
     lg: 19,
     xxl: 19,
   };
-  DEFAULT_SUBMIT_BUTTON_TEXT = 'SHARED.SAVE';
+  DEFAULT_SUBMIT_BUTTON_TEXT = 'Save';
   DEFAULT_FORM_LAYOUT = FormLayout.Horizontal;
 
   FormLayout = FormLayout;
@@ -125,7 +125,7 @@ export class RappiderEditFormComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private formService: FormService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.config = cloneDeep(this.config);
@@ -580,7 +580,7 @@ export class RappiderEditFormComponent implements OnInit, OnChanges {
     /* backward from selected breadcrumb option */
     const breadcrumbOption =
       this.objectFieldEditModal.breadcrumbOptions[
-        selectedBreadcrumbOptionIndex - 1
+      selectedBreadcrumbOptionIndex - 1
       ];
     if (breadcrumbOption) {
       this.onObjectFieldEditModalBreadcrumbOptionClick(breadcrumbOption);

@@ -1,2 +1,9 @@
-<rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG" [data]="products" (formSubmit)="formSubmit($event)">
+<h4>
+  Update Product: {{activeProduct?.name}}
+</h4>
+<hr class="solid">
+<rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG"
+                              [data]="activeProduct"
+                              [dynamicDataForSelectBox]="dynamicDataForSelectbox"
+                              (formSubmit)="formSubmit($event)">
 </rappider-crud-view-edit-form>

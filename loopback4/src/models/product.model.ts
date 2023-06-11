@@ -113,6 +113,13 @@ export class Product extends Entity {
   })
   isDeleted?: boolean;
 
+  @property({
+    type: 'Date',
+    required: false,
+    defaultFn: 'now',
+  })
+  createdDate?: Date;
+
   @belongsTo(() => Distributor, {
     keyFrom: 'distributorId',
     keyTo: 'id',
