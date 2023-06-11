@@ -51,8 +51,7 @@ export class OrderRepository extends DefaultCrudRepository<
   getInvoiceFromOrderId(orderId: string) {
     const fs = require('fs');
     const path = `/Users/talhaakca/Desktop/cagan-ecommerce/loopback4/pdfs/${orderId}.pdf`;
-    const data = fs.readFileSync(path, 'utf8',);
-    console.log(data)
+    const data = fs.readFileSync(path);
     return data;
   }
 

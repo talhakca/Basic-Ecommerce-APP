@@ -34,6 +34,7 @@ export class DeliveryListComponent implements OnInit {
       value: 'delivered'
     }
   ];
+  pdfSrc;
 
   constructor(
     private store: Store<{ app: AppState, auth: AuthState }>,
@@ -92,6 +93,11 @@ export class DeliveryListComponent implements OnInit {
   getInvoiceFromOrderId(orderId: string) {
     this.orderApi.getInvoiceByOrderId({ id: orderId }).subscribe(data => {
       var blob = new Blob([data], { type: 'application/pdf' });
+      console.log(blob)
+      const reader = new FileReader();
+      /* assign preview src to modal data */
+      reader.onload = () => this.pdfSrc = <string>reader.result;
+      reader.readAsDataURL(data);
       this.saveAs(blob, `${orderId}.pdf`);
     });
   }

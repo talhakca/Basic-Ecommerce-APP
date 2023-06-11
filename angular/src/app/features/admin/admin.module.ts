@@ -11,6 +11,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { DeliveryListComponent } from './delivery-list/delivery-list.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 export const routes: Routes = [
   {
     path: 'edit-category',
@@ -49,7 +50,8 @@ export const routes: Routes = [
     ReactiveFormsModule,
     RappiderListGridModule,
     NzTableModule,
-    NzSelectModule
+    NzSelectModule,
+    PdfViewerModule
   ]
 })
 export class AdminModule { }
