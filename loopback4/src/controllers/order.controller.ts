@@ -50,6 +50,17 @@ export class OrderController {
     return this.orderRepository.customCreate(order);
   }
 
+  @get('/orders/get-invoice/{id}')
+  @response(200, {
+    description: 'Order model instance',
+    content: { 'application/json': { schema: getModelSchemaRef(Object) } },
+  })
+  async getInvoiceByOrderId(
+    @param.path.string('id') id: string,
+  ): Promise<Object> {
+    return this.orderRepository.getInvoiceFromOrderId(id);
+  }
+
   @get('/orders/count')
   @response(200, {
     description: 'Order model count',
