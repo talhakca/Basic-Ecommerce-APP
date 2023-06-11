@@ -80,7 +80,7 @@ export class PaymentComponent implements OnInit {
   }
 
   createPaymentIntent() {
-    this.orderService.createIntent({ body: { amount: this.amount } }).subscribe(res => {
+    this.orderService.createIntent({ body: { amount: this.amount * 100 } }).subscribe(res => {
       this.stripeClientSecret = res.client_secret;
       this.paymentLoading = false;
     });
