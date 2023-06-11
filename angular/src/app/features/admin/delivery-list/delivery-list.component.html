@@ -10,6 +10,7 @@
         <th>Address</th>
         <th>Customer Id</th>
         <th>Status</th>
+        <th>Created Date</th>
         <th>
 
         </th>
@@ -30,9 +31,9 @@
                        [nzLabel]="option.key"></nz-option>
           </nz-select>
         </td>
+        <td>{{getCreatedDate(data.createdDate)}}</td>
         <td>
           <a (click)="getInvoiceFromOrderId(data?.id)"> Download Invoice</a>
-
         </td>
       </tr>
     </tbody>

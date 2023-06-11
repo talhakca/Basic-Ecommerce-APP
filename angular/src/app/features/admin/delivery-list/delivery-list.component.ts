@@ -8,6 +8,7 @@ import { cloneDeep, orderBy, sortBy } from 'lodash';
 import { UpdateOrder } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { OrderControllerService } from '../../shared/sdk/services';
 import { FileSaverService } from 'ngx-filesaver';
+import * as moment from 'moment-timezone';
 @Component({
   selector: 'app-delivery-list',
   templateUrl: './delivery-list.component.html',
@@ -129,6 +130,12 @@ export class DeliveryListComponent implements OnInit {
     }
     catch (e) {
       console.log(e);
+    }
+  }
+
+  getCreatedDate(date) {
+    if (date) {
+      return moment(new Date(date)).format('LL');
     }
   }
 
