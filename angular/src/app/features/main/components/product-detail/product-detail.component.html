@@ -43,14 +43,19 @@
   <br>
   <h5>Comments</h5>
   <hr class="solid">
-  <ng-container *ngFor="let comment of activeProduct.comments">
-    <nz-comment nzAuthor="{{comment.user.firstName}} {{comment.user.lastName}}"
-                [nzDatetime]="getTimeDiff(comment.createdDate)">
-      <nz-comment-content>
-        <p>
-          {{comment.message}}
-        </p>
-      </nz-comment-content>
-    </nz-comment>
+  <ng-container *ngIf="activeProduct?.comments?.length; else noCommentTmpl">
+    <ng-container *ngFor="let comment of activeProduct.comments">
+      <nz-comment nzAuthor="{{comment.user.firstName}} {{comment.user.lastName}}"
+                  [nzDatetime]="getTimeDiff(comment.createdDate)">
+        <nz-comment-content>
+          <p>
+            {{comment.message}}
+          </p>
+        </nz-comment-content>
+      </nz-comment>
+    </ng-container>
   </ng-container>
+  <ng-template #noCommentTmpl>
+    There are currently no comments.
+  </ng-template>
 </section>
