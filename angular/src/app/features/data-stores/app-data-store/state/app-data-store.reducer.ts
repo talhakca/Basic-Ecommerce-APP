@@ -164,8 +164,14 @@ export const reducer = createReducer(
       ...state.products,
       action.payload.product
     ]
-  }))
-  ,
+  })),
+  on(ProductActions.CreateDistributorSuccessful, (state, action) => ({
+    ...state,
+    distributors: [
+      ...state.distributors,
+      action.payload.distributor
+    ]
+  })),
   on(ProductActions.DeleteCategorySuccessful, (state, action) => ({
     ...state,
     categories: state.categories.filter(category => category.id !== action.payload.deletedCategoryId)
@@ -173,6 +179,10 @@ export const reducer = createReducer(
   on(ProductActions.DeleteProductSuccessful, (state, action) => ({
     ...state,
     products: state.products.filter(product => product.id !== action.payload.deletedProductId)
+  })),
+  on(ProductActions.DeleteDistributorSuccessful, (state, action) => ({
+    ...state,
+    distributors: state.distributors.filter(distributor => distributor.id !== action.payload.deletedDistributorId)
   })),
   on(ProductActions.UpdateCategorySuccessful, (state, action) => {
     const updatedCategoryId = action.payload.id;
@@ -208,6 +218,24 @@ export const reducer = createReducer(
       products: updatedProducts
     }
   }),
+  on(ProductActions.UpdateDistributorSuccessful, (state, action) => {
+    const updatedDistributorId = action.payload.id;
+    const updatedDistributor = action.payload.updatedDistributor;
+    const updatedDistributors = state.distributors.map(distributor => {
+      if (distributor.id === updatedDistributorId) {
+        return {
+          ...distributor,
+          ...updatedDistributor
+        };
+      }
+      return distributor;
+    });
+    return {
+      ...state,
+      distributors: updatedDistributors
+    }
+  })
+  ,
   on(ProductActions.RefundCartsSuccessful, (state, action) => ({
     ...state,
     inactiveCarts: state.inactiveCarts.map(cart => {

@@ -44,10 +44,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/admin/products');
   }
   navigateToEditCategory() {
-    this.router.navigateByUrl('/admin/edit-category');
+    this.router.navigateByUrl('/admin/categories');
   }
   navigateToEditDist() {
-    this.router.navigateByUrl('/admin/edit-distrubitor');
+    this.router.navigateByUrl('/admin/distributors');
   }
 
   isSalesManager() {
