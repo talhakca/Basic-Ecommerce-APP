@@ -1,7 +1,7 @@
 import { inject, Getter } from '@loopback/core';
 import { DefaultCrudRepository, repository, BelongsToAccessor } from '@loopback/repository';
 import { ELearningDataSource } from '../datasources';
-import { Cart, CartRelations, User, Product } from '../models';
+import { Cart, CartRelations, User, Product, CartWithRelations } from '../models';
 import { UserRepository } from './user.repository';
 import { ProductRepository } from './product.repository';
 
@@ -23,5 +23,20 @@ export class CartRepository extends DefaultCrudRepository<
     this.registerInclusionResolver('product', this.product.inclusionResolver);
     this.user = this.createBelongsToAccessorFor('user', userRepositoryGetter,);
     this.registerInclusionResolver('user', this.user.inclusionResolver);
+  }
+
+  async customUpdate(id: string, updatedCart: Cart) {
+    await this.updateById(id, updatedCart);
+    if (updatedCart.refundStatus === 'APPROVED') {
+      const cart = await this.findById(id);
+      if (cart) {
+        const productRepository = await this.productRepositoryGetter();
+        const product = await productRepository.findById(cart.productId);
+        if (product) {
+          productRepository.updateById(product.id, { quantityInStocks: product.quantityInStocks + 1 })
+        }
+      }
+
+    }
   }
 }

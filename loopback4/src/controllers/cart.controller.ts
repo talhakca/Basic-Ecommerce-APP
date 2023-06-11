@@ -127,7 +127,7 @@ export class CartController {
     })
     cart: Cart,
   ): Promise<void> {
-    await this.cartRepository.updateById(id, cart);
+    await this.cartRepository.customUpdate(id, cart);
   }
 
   @put('/carts/{id}')
