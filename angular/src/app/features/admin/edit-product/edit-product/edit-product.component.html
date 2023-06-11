@@ -1,14 +1,11 @@
-<div *ngIf="!addFormCard && !editMode"
-     class="container">
+<div *ngIf="!addFormCard && !editMode" class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     Products
-                    <button *ngIf="isProductManager()"
-                            (click)="addProductCardOpen()"
-                            type="button"
-                            class="btn btn-primary float-end">
+                    <button *ngIf="isProductManager()" (click)="addProductCardOpen()" type="button"
+                        class="btn btn-primary float-end">
                         Add Product
                     </button>
                 </div>
@@ -27,16 +24,12 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button *ngIf="isProductManager()"
-                                            (click)="onDelete(product.id)"
-                                            type="button"
-                                            class="btn btn-danger">
+                                    <button *ngIf="isProductManager()" (click)="onDelete(product.id)" type="button"
+                                        class="btn btn-danger">
                                         Delete
                                     </button>
                                     &nbsp;
-                                    <button (click)="onEdit(product)"
-                                            type="button"
-                                            class="btn btn-warning">
+                                    <button (click)="onEdit(product)" type="button" class="btn btn-warning">
                                         Update
                                     </button>
                                 </td>
@@ -45,15 +38,13 @@
                     </table>
                 </div>
                 <div class="card-footer text-left">
-                    <button (click)=navigateToAdminPanel()
-                            class="btn btn-primary mt-3">Back to Admin Panel</button>
+                    <button (click)=navigateToAdminPanel() class="btn btn-primary mt-3">Back to Admin Panel</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container"
-     *ngIf="editMode">
+<div class="container" *ngIf="editMode">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -61,78 +52,57 @@
                     Update Category
                 </div>
                 <div class="card-body">
-                    <form [formGroup]="editForm"
-                          (ngSubmit)="onEditSubmit()">
+                    <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
                         <div class="form-group">
                             <label for="name">Name :</label>
-                            <input type="text"
-                                   id="name"
-                                   class="form-control"
-                                   formControlName="name"
-                                   [attr.disabled]="!isProductManager()">
+                            <input type="text" id="name" class="form-control" formControlName="name"
+                                [attr.disabled]="!isProductManager()">
                             <div *ngIf="editForm.get('name')?.invalid && (editForm.get('name')?.dirty || editForm.get('name')?.touched)"
-                                 class="text-danger">
+                                class="text-danger">
                                 Name is required!
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="model">Model :</label>
-                            <input type="text"
-                                   id="model"
-                                   class="form-control"
-                                   formControlName="model"
-                                   [attr.disabled]="!isProductManager()">
+                            <input type="text" id="model" class="form-control" formControlName="model"
+                                [attr.disabled]="!isProductManager()">
                             <div class="text-danger"
-                                 *ngIf="editForm.get('model')?.invalid && (editForm.get('model')?.dirty || editForm.get('model')?.touched)">
+                                *ngIf="editForm.get('model')?.invalid && (editForm.get('model')?.dirty || editForm.get('model')?.touched)">
                                 Model is required!
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description">Description :</label>
-                            <input type="text"
-                                   id="description"
-                                   class="form-control"
-                                   formControlName="description"
-                                   [attr.disabled]="!isProductManager()">
+                            <input type="text" id="description" class="form-control" formControlName="description"
+                                [attr.disabled]="!isProductManager()">
                         </div>
                         <div class="form-group">
                             <label for="imageUrl">Image Url :</label>
-                            <input type="text"
-                                   id="imageUrl"
-                                   class="form-control"
-                                   formControlName="imageUrl"
-                                   [attr.disabled]="!isProductManager()">
+                            <input type="text" id="imageUrl" class="form-control" formControlName="imageUrl"
+                                [attr.disabled]="!isProductManager()">
                             <div class="text-danger"
-                                 *ngIf="editForm.get('imageUrl')?.invalid && (editForm.get('imageUrl')?.dirty || editForm.get('imageUrl')?.touched)">
+                                *ngIf="editForm.get('imageUrl')?.invalid && (editForm.get('imageUrl')?.dirty || editForm.get('imageUrl')?.touched)">
                                 ImageUrl is required!
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="quantityInStocks">Quantity In Stocks :</label>
-                            <input type="number"
-                                   id="quantityInStocks"
-                                   class="form-control"
-                                   formControlName="quantityInStocks"
-                                   [attr.disabled]="!isProductManager()">
+                            <input type="number" id="quantityInStocks" class="form-control"
+                                formControlName="quantityInStocks" [attr.disabled]="!isProductManager()">
                             <div class="text-danger"
-                                 *ngIf="editForm.get('quantityInStocks')?.invalid && (editForm.get('quantityInStocks')?.dirty || editForm.get('quantityInStocks')?.touched)">
+                                *ngIf="editForm.get('quantityInStocks')?.invalid && (editForm.get('quantityInStocks')?.dirty || editForm.get('quantityInStocks')?.touched)">
                                 Quantity In Stocks is required!
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="price">Price :</label>
-                            <input type="number"
-                                   id="price"
-                                   class="form-control"
-                                   formControlName="price"
-                                   [disabled]="!isSalesManager()">
+                            <input type="number" id="price" class="form-control" formControlName="price"
+                                [disabled]="!isSalesManager()">
                         </div>
                         <div class="form-group">
                             <label for="warrantyStatus">Warranty Status:</label>
-                            <select id="warrantyStatus"
-                                    class="form-control"
-                                    formControlName="warrantyStatus"
-                                    [attr.disabled]="!isProductManager()">
+                            <select id="warrantyStatus" class="form-control" formControlName="warrantyStatus"
+                                [attr.disabled]="!isProductManager()">
                                 <option value="">Select Warranty Status</option>
                                 <option value="warranty">Warranty</option>
                                 <option value="noWarranty">No Warranty</option>
@@ -140,19 +110,18 @@
                         </div>
                         <div class="form-group">
                             <label for="rating">Rating :</label>
-                            <input type="number"
-                                   id="rating"
-                                   class="form-control"
-                                   formControlName="rating"
-                                   [attr.disabled]="true">
+                            <input type="number" id="rating" class="form-control" formControlName="rating"
+                                [attr.disabled]="true">
+                            <div class="text-danger"
+                                *ngIf="editForm.get('rating')?.invalid && (editForm.get('rating')?.dirty || editForm.get('rating')?.touched)">
+                                <div *ngIf="editForm.get('rating')?.errors?.min">Rating cannot be less than 0.</div>
+                                <div *ngIf="editForm.get('rating')?.errors?.max">Rating cannot be greater than 5.</div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="discountRate">Discount Rate % :</label>
-                            <input type="number"
-                                   id="discountRate"
-                                   class="form-control"
-                                   formControlName="discountRate"
-                                   [attr.disabled]="!isSalesManager()">
+                            <input type="number" id="discountRate" class="form-control" formControlName="discountRate"
+                                [attr.disabled]="!isSalesManager()">
                         </div>
 
                         <!-- <div class="form-group">
@@ -161,27 +130,21 @@
                         </div> -->
                         <div class="form-group">
                             <label for="categoryId">Category:</label>
-                            <select id="categoryId"
-                                    class="form-control"
-                                    formControlName="categoryId"
-                                    [attr.disabled]="true">
+                            <select id="categoryId" class="form-control" formControlName="categoryId"
+                                [attr.disabled]="true">
                                 <option value="">Select a category</option>
-                                <option *ngFor="let category of categories$"
-                                        [value]="category.id">{{ category.name }}
+                                <option *ngFor="let category of categories$" [value]="category.id">{{ category.name }}
                                 </option>
                             </select>
                         </div>
                         <div class=" text-center">
-                            <button type="submit"
-                                    [attr.disabled]="!editForm.valid"
-                                    class="btn btn-primary mt-3">Update
+                            <button type="submit" class="btn btn-primary mt-3">Update
                                 Product</button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer text-left">
-                    <button (click)="addProductCardClose()"
-                            class="btn btn-primary mt-3">Back</button>
+                    <button (click)="addProductCardClose()" class="btn btn-primary mt-3">Back</button>
                 </div>
             </div>
         </div>
@@ -189,8 +152,7 @@
 </div>
 
 
-<div *ngIf="addFormCard && isProductManager()"
-     class="container">
+<div *ngIf="addFormCard && isProductManager()" class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -198,78 +160,55 @@
                     Add a new Product
                 </div>
                 <div class="card-body">
-                    <form [formGroup]="formProduct"
-                          (ngSubmit)="onSubmit()">
+                    <form [formGroup]="formProduct" (ngSubmit)="onSubmit()">
                         <div class="form-group">
                             <label for="name">Name :</label>
-                            <input type="text"
-                                   id="name"
-                                   class="form-control"
-                                   formControlName="name">
+                            <input type="text" id="name" class="form-control" formControlName="name">
                             <div *ngIf="formProduct.get('name')?.invalid && (formProduct.get('name')?.dirty || formProduct.get('name')?.touched)"
-                                 class="text-danger">
+                                class="text-danger">
                                 Name is required!
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="model">Model :</label>
-                            <input type="text"
-                                   id="model"
-                                   class="form-control"
-                                   formControlName="model">
+                            <input type="text" id="model" class="form-control" formControlName="model">
                             <div class="text-danger"
-                                 *ngIf="formProduct.get('model')?.invalid && (formProduct.get('model')?.dirty || formProduct.get('model')?.touched)">
+                                *ngIf="formProduct.get('model')?.invalid && (formProduct.get('model')?.dirty || formProduct.get('model')?.touched)">
                                 Model is required!
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="number">Number :</label>
-                            <input type="text"
-                                   id="number"
-                                   class="form-control"
-                                   formControlName="number">
+                            <input type="text" id="number" class="form-control" formControlName="number">
                         </div>
                         <div class="form-group">
                             <label for="description">Description :</label>
-                            <input type="text"
-                                   id="description"
-                                   class="form-control"
-                                   formControlName="description">
+                            <input type="text" id="description" class="form-control" formControlName="description">
                         </div>
                         <div class="form-group">
                             <label for="imageUrl">Image Url :</label>
-                            <input type="text"
-                                   id="imageUrl"
-                                   class="form-control"
-                                   formControlName="imageUrl">
+                            <input type="text" id="imageUrl" class="form-control" formControlName="imageUrl">
                             <div class="text-danger"
-                                 *ngIf="formProduct.get('imageUrl')?.invalid && (formProduct.get('imageUrl')?.dirty || formProduct.get('imageUrl')?.touched)">
+                                *ngIf="formProduct.get('imageUrl')?.invalid && (formProduct.get('imageUrl')?.dirty || formProduct.get('imageUrl')?.touched)">
                                 ImageUrl is required!
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="quantityInStocks">Quantity In Stocks :</label>
-                            <input type="number"
-                                   id="quantityInStocks"
-                                   class="form-control"
-                                   formControlName="quantityInStocks">
+                            <input type="number" id="quantityInStocks" class="form-control"
+                                formControlName="quantityInStocks">
                             <div class="text-danger"
-                                 *ngIf="formProduct.get('quantityInStocks')?.invalid && (formProduct.get('quantityInStocks')?.dirty || formProduct.get('quantityInStocks')?.touched)">
+                                *ngIf="formProduct.get('quantityInStocks')?.invalid && (formProduct.get('quantityInStocks')?.dirty || formProduct.get('quantityInStocks')?.touched)">
                                 Quantity In Stocks is required!
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="price">Price :</label>
-                            <input type="number"
-                                   id="price"
-                                   class="form-control"
-                                   formControlName="price">
+                            <input type="number" id="price" class="form-control" formControlName="price">
                         </div>
                         <div class="form-group">
                             <label for="warrantyStatus">Warranty Status:</label>
-                            <select id="warrantyStatus"
-                                    class="form-control"
-                                    formControlName="warrantyStatus">
+                            <select id="warrantyStatus" class="form-control" formControlName="warrantyStatus">
                                 <option value="">Select Warranty Status</option>
                                 <option value="warranty">Warranty</option>
                                 <option value="noWarranty">No Warranty</option>
@@ -277,47 +216,40 @@
                         </div>
                         <div class="form-group">
                             <label for="rating">Rating :</label>
-                            <input type="number"
-                                   id="rating"
-                                   class="form-control"
-                                   formControlName="rating">
+                            <input type="number" id="rating" class="form-control" formControlName="rating">
+                            <div class="text-danger"
+                                *ngIf="formProduct.get('rating')?.invalid && (formProduct.get('rating')?.dirty || formProduct.get('rating')?.touched)">
+                                <div *ngIf="formProduct.get('rating')?.errors?.min">Rating cannot be less than 0.</div>
+                                <div *ngIf="formProduct.get('rating')?.errors?.max">Rating cannot be greater than 5.
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="discountRate">Discount Rate % :</label>
-                            <input type="number"
-                                   id="discountRate"
-                                   class="form-control"
-                                   formControlName="discountRate">
+                            <input type="number" id="discountRate" class="form-control" formControlName="discountRate">
                         </div>
 
                         <!-- <div class="form-group">
                             <label for="distributorId">Distributor Id :</label>
                             <input type="text" id="distributorId" class="form-control" formControlName="distributorId" [attr.disabled]="!isProductManager()">
                         </div> -->
-                        <div class="form-group">
+                        <div class="form-group" [attr.disabled]="!isProductManager()">
                             <label for="categoryId">Category:</label>
-                            <select id="categoryId"
-                                    class="form-control"
-                                    formControlName="categoryId"
-                                    [attr.disabled]="!isProductManager()">
-                                <option value="">Select a category</option>
-                                <option *ngFor="let category of categories$"
-                                        [value]="category.id">{{ category.name }}
+                            <select id="categoryId" class="form-control" formControlName="categoryId">
+                                <option value="Araba">Select a category</option>
+                                <option *ngFor="let category of categories$" [value]="category.id">{{ category.name }}
                                 </option>
                             </select>
                         </div>
                         <div class=" text-center">
-                            <button type="submit"
-                                    [attr.disabled]="!formProduct.valid"
-                                    class="btn btn-primary mt-3">Add
+
+                            <button type="submit" [disabled]="!formProduct.valid" class="btn btn-primary mt-3">Add
                                 Product</button>
                         </div>
                     </form>
-
                 </div>
                 <div class="card-footer text-left">
-                    <button (click)=addProductCardClose()
-                            class="btn btn-primary mt-3">Back</button>
+                    <button (click)=addProductCardClose() class="btn btn-primary mt-3">Back</button>
                 </div>
             </div>
         </div>
