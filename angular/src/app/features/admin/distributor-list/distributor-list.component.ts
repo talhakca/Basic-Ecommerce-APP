@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { DeleteCategory } from '../../data-stores/app-data-store/state/app-data-store.actions';
+import { DeleteDistributor, DeleteProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { CrudViewColumnType, ActionBehavior } from '../../rappider/components/lib/utils';
-import { Category } from '../../shared/sdk/models';
+import { Distributor, Product } from '../../shared/sdk/models';
 
 @Component({
-  selector: 'app-category-list',
-  templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.scss']
+  selector: 'app-distributor-list',
+  templateUrl: './distributor-list.component.html',
+  styleUrls: ['./distributor-list.component.scss']
 })
-export class CategoryListComponent implements OnInit {
+export class DistributorListComponent implements OnInit {
 
   LIST_CONFIG = {
     defaultSearchField: 'name',
@@ -34,9 +34,9 @@ export class CategoryListComponent implements OnInit {
     listActions: [
       {
         name: 'new',
-        text: 'New Category',
+        text: 'New Distributor',
         behavior: ActionBehavior.Route,
-        redirectUrl: 'admin/category-add',
+        redirectUrl: 'admin/distributor-add',
         buttonType: 'primary'
       }
     ],
@@ -45,7 +45,7 @@ export class CategoryListComponent implements OnInit {
         text: 'Edit',
         name: 'edit',
         behavior: ActionBehavior.Route,
-        redirectUrl: 'admin/category-edit/{{id}}'
+        redirectUrl: 'admin/distributor-edit/{{id}}'
       },
       {
         text: 'Delete',
@@ -55,9 +55,8 @@ export class CategoryListComponent implements OnInit {
       },
     ]
   };
-
   subscriptions: Subscription[];
-  categories: Category[];
+  distributors: Distributor[];
   constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
@@ -65,20 +64,19 @@ export class CategoryListComponent implements OnInit {
   }
   subscribeToData() {
     this.subscriptions = [
-      this.subscribeToCategories()
+      this.subscribeToDistributors()
     ]
   }
-  subscribeToCategories() {
-    return this.store.select(state => state.app.categories).subscribe(data => {
-      this.categories = data;
+  subscribeToDistributors() {
+    return this.store.select(state => state.app.distributors).subscribe(data => {
+      this.distributors = data;
     });
   }
   onColumnActionClick(action) {
     console.log(action);
     if (action.action.name === 'Delete') {
-      this.store.dispatch(DeleteCategory({ payload: { deletedCategoryId: action.data.id } }))
+      this.store.dispatch(DeleteDistributor({ payload: { deletedDistributorId: action.data.id } }))
     }
   }
-
 
 }

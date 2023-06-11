@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EditCategoryComponent } from './edit-category/edit-category/edit-category.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EditProductComponent } from './edit-product/edit-product/edit-product.component';
 
 import { RefundStatusComponent } from './refund-status/refund-status.component';
 import { RappiderEditFormModule, RappiderListGridModule } from '../rappider/components';
@@ -17,18 +15,14 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryEditComponent } from './category-edit/category-edit.component';
+import { AddDistributorComponent } from './add-distributor/add-distributor.component';
+import { DistributorEditComponent } from './distributor-edit/distributor-edit.component';
+import { DistributorListComponent } from './distributor-list/distributor-list.component';
 export const routes: Routes = [
-  {
-    path: 'edit-category',
-    component: EditCategoryComponent
-  },
   {
     path: '',
     component: AdminPanelComponent
-  },
-  {
-    path: 'edit-product',
-    component: EditProductComponent
   },
   {
     path: 'refund-status',
@@ -49,21 +43,47 @@ export const routes: Routes = [
   {
     path: 'product-add',
     component: AddProductComponent
-  }
+  },
+  {
+    path: 'categories',
+    component: CategoryListComponent
+  },
+  {
+    path: 'category-add',
+    component: AddCategoryComponent
+  },
+  {
+    path: 'category-edit/:id',
+    component: CategoryEditComponent
+  },
+  {
+    path: 'distributors',
+    component: DistributorListComponent
+  },
+  {
+    path: 'distributor-edit/:id',
+    component: DistributorEditComponent
+  },
+  {
+    path: 'distributor-add',
+    component: AddDistributorComponent
+  },
 ];
 
 @NgModule({
   declarations: [
-    EditCategoryComponent,
     AdminPanelComponent,
-    EditProductComponent,
     RefundStatusComponent,
     ProductListComponent,
     ProductEditComponent,
     DeliveryListComponent,
     AddProductComponent,
     AddCategoryComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    CategoryEditComponent,
+    AddDistributorComponent,
+    DistributorEditComponent,
+    DistributorListComponent
   ],
   imports: [
     CommonModule,
