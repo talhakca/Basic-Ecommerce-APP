@@ -43,10 +43,11 @@ export class ProductListComponent implements OnInit {
     ],
     listActions: [
       {
-        name: 'New Product',
-        key: 'new',
+        name: 'new',
+        text: 'New Product',
         ActionBehavior: ActionBehavior.Route,
-        redirectUrl: 'admin/product-add'
+        redirectUrl: 'admin/product-add',
+        buttonType: 'primary'
       }
     ],
     itemActions: [
