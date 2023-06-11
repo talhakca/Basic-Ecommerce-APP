@@ -5,9 +5,10 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CreateProduct, UpdateProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { FormLayout, CrudViewFormItemType, CrudFormSelectItem, DynamicDataForSelectBox } from '../../rappider/components/lib/utils';
-import { Product } from '../../shared/sdk/models';
+import { Product, UserWithRelations } from '../../shared/sdk/models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
+import { AuthState } from '../../data-stores/auth-data-store/state/auth-data-store.reducer';
 
 @Component({
   selector: 'app-product-edit',
@@ -159,7 +160,7 @@ export class ProductEditComponent implements OnInit {
   ];
 
   constructor(
-    private store: Store<{ app: AppState }>,
+    private store: Store<{ app: AppState, auth: AuthState }>,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -168,6 +169,7 @@ export class ProductEditComponent implements OnInit {
   products: Product[];
   activeProduct: Product;
   activeProductId: string;
+  user: UserWithRelations;
 
   ngOnInit(): void {
     this.subscribeToRoute();
@@ -177,7 +179,8 @@ export class ProductEditComponent implements OnInit {
     this.subscriptions = [
       this.subscribeToProducts(),
       this.subscribeToCategory(),
-      this.subscribeToDistributors()
+      this.subscribeToDistributors(),
+      this.subscribeToUser()
     ]
   }
   subscribeToProducts() {
@@ -185,7 +188,29 @@ export class ProductEditComponent implements OnInit {
       this.products = data;
       if (this.products?.length) {
         this.activeProduct = this.products.find(product => product.id === this.activeProductId);
-        console.log(this.activeProductId)
+      }
+    });
+  }
+
+  subscribeToUser() {
+    return this.store.select(state => state.auth.user).subscribe(user => {
+      this.user = user;
+      if (this.user?.role?.key === 'productManager') {
+        this.LIST_CREATE_CONFIG.items = this.LIST_CREATE_CONFIG.items.map(item => {
+          if (item.fieldName !== 'quantityInStocks') {
+            return { ...item, disabled: true };
+          } else {
+            return item;
+          }
+        })
+      } else if (this.user?.role?.key === 'salesManager') {
+        this.LIST_CREATE_CONFIG.items = this.LIST_CREATE_CONFIG.items.map(item => {
+          if (!['discountRate', 'price'].includes(item.fieldName)) {
+            return { ...item, disabled: true };
+          } else {
+            return item;
+          }
+        })
       }
     });
   }

@@ -29,6 +29,7 @@ export class RappiderRateComponent implements ControlValueAccessor, OnInit {
   @Input() cssStyle: { [key: string]: any };
   @Input() cssClass: string;
   @Input() color: string;
+  @Input() disabled = false;
   @Input() size: string;
   @Input() gap: string;
 
@@ -53,8 +54,8 @@ export class RappiderRateComponent implements ControlValueAccessor, OnInit {
     this.valueChange.emit(value);
   }
 
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: any = () => { };
+  onTouched: any = () => { };
 
   ngOnInit(): void {
     if (this.color) {
