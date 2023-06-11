@@ -75,7 +75,7 @@ export class ProductEditComponent implements OnInit {
         },
         {
           title: 'Price',
-          type: CrudViewFormItemType.TextBox,
+          type: CrudViewFormItemType.Number,
           fieldName: 'price',
           validators: [
             {

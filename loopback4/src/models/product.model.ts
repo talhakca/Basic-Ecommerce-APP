@@ -62,6 +62,7 @@ export class Product extends Entity {
   @property({
     type: 'string',
     required: false,
+    jsonSchema: { nullable: true }
   })
   description?: string;
 
