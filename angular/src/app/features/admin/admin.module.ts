@@ -6,12 +6,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product/edit-product.component';
 
 import { RefundStatusComponent } from './refund-status/refund-status.component';
-import { RappiderListGridModule } from '../rappider/components';
+import { RappiderEditFormModule, RappiderListGridModule } from '../rappider/components';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AddProductComponent } from './add-product/add-product.component';
 export const routes: Routes = [
   {
     path: 'edit-category',
@@ -30,8 +33,20 @@ export const routes: Routes = [
     component: RefundStatusComponent
   },
   {
+    path: 'products',
+    component: ProductListComponent
+  },
+  {
+    path: 'products-edit/:id',
+    component: ProductEditComponent
+  },
+  {
     path: 'deliveries',
     component: DeliveryListComponent
+  },
+  {
+    path: 'product-add',
+    component: AddProductComponent
   }
 ];
 
@@ -41,7 +56,10 @@ export const routes: Routes = [
     AdminPanelComponent,
     EditProductComponent,
     RefundStatusComponent,
-    DeliveryListComponent
+    ProductListComponent,
+    ProductEditComponent,
+    DeliveryListComponent,
+    AddProductComponent
   ],
   imports: [
     CommonModule,
@@ -51,6 +69,7 @@ export const routes: Routes = [
     RappiderListGridModule,
     NzTableModule,
     NzSelectModule,
+    RappiderEditFormModule,
     PdfViewerModule
   ]
 })

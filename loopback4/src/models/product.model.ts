@@ -62,6 +62,7 @@ export class Product extends Entity {
   @property({
     type: 'string',
     required: false,
+    jsonSchema: { nullable: true }
   })
   description?: string;
 
@@ -112,6 +113,13 @@ export class Product extends Entity {
     required: false,
   })
   isDeleted?: boolean;
+
+  @property({
+    type: 'Date',
+    required: false,
+    defaultFn: 'now',
+  })
+  createdDate?: Date;
 
   @belongsTo(() => Distributor, {
     keyFrom: 'distributorId',

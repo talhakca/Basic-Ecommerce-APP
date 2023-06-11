@@ -32,10 +32,10 @@ export class EditProductComponent implements OnInit {
       quantityInStocks: new FormControl(0, [Validators.required, Validators.min(0)]),
       price: new FormControl(0),
       warrantyStatus: new FormControl(''),
-      rating: new FormControl(0),
+      rating: new FormControl(0, [Validators.min(0), Validators.max(5)]),
       discountRate: new FormControl(0),
       // distributorId: new FormControl(''),
-      categoryId: new FormControl('')
+      // categoryId: new FormControl('')
     });
     this.editForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -45,7 +45,7 @@ export class EditProductComponent implements OnInit {
       quantityInStocks: new FormControl(0, [Validators.required, Validators.min(0)]),
       price: new FormControl(0),
       warrantyStatus: new FormControl(''),
-      rating: new FormControl(0),
+      rating: new FormControl(0, [Validators.min(0), Validators.max(5)]),
       discountRate: new FormControl(0),
       // distributorId: new FormControl(''),
       categoryId: new FormControl('')
@@ -54,6 +54,7 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeToData();
+    console.log(this.user.role.key === 'salesManager')
   }
 
   subscribeToData() {
