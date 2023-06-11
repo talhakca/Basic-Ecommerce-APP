@@ -10,14 +10,14 @@
           </div>
           <div class="delivery-status">
             Delivery Status:
-            <ng-container *ngIf="getOrderStatus(order.orderId) === 'PENDING'">
-              <nz-tag [nzColor]="'orange'">Pending</nz-tag>
+            <ng-container *ngIf="getOrderStatus(order.orderId) === 'processing'">
+              <nz-tag [nzColor]="'orange'">Processing</nz-tag>
             </ng-container>
-            <ng-container *ngIf="getOrderStatus(order.orderId) === 'APPROVED'">
-              <nz-tag [nzColor]="'green'">Approved</nz-tag>
+            <ng-container *ngIf="getOrderStatus(order.orderId) === 'in-transit'">
+              <nz-tag [nzColor]="'orange'">In Transit</nz-tag>
             </ng-container>
-            <ng-container *ngIf="getOrderStatus(order.orderId) === 'DECLINED'">
-              <nz-tag [nzColor]="'red'">Declined</nz-tag>
+            <ng-container *ngIf="getOrderStatus(order.orderId) === 'delivered'">
+              <nz-tag [nzColor]="'green'">Delivered</nz-tag>
             </ng-container>
           </div>
         </div>

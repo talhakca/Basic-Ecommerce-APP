@@ -1,1 +1,32 @@
-<p>delivery-list works!</p>
+<section>
+  <h4>Deliveries</h4>
+  <hr class="solid">
+  <nz-table #basicTable
+            [nzData]="orders">
+    <thead>
+      <tr>
+        <th>Delivery Id</th>
+        <th>Product Ids</th>
+        <th>Address</th>
+        <th>Customer Id</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.id}}</td>
+        <td>{{getProductsOfOrder(data)}}</td>
+        <td>{{(data.address?.street1 ?? '') + ' ' + (data.address?.street2 ?? '') + ' ' + data.address?.city}}</td>
+        <td>{{data.userId}}</td>
+        <td>
+          <nz-select [ngModel]="data.status"
+                     (ngModelChange)="onStatusChange(data, $event)">
+            <nz-option *ngFor="let option of statusOptions"
+                       [nzValue]="option.value"
+                       [nzLabel]="option.key"></nz-option>
+          </nz-select>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</section>

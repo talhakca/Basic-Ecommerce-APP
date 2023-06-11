@@ -39,6 +39,9 @@ export enum ActionTypes {
   DeleteProductSuccessful = '[APP] DeleteProductSuccessful',
   RefundCarts = '[APP] RefundCarts',
   RefundCartsSuccessful = '[APP] RefundCartsSuccessful',
+  UpdateOrder = '[APP] UpdateOrder',
+  UpdateOrderSuccessful = '[APP] UpdateOrderSuccessful',
+  GetAdminOrdersSuccessful = '[APP] GetAdminOrdersSuccessful',
 }
 
 /* actions */
@@ -58,10 +61,13 @@ export const UpdateProduct = createAction(ActionTypes.UpdateProduct, props<{ pay
 export const UpdateProductSuccessful = createAction(ActionTypes.UpdateProductSuccessful, props<{ payload: { id: string, updatedProduct: Partial<Product> } }>());
 export const UpdateCart = createAction(ActionTypes.UpdateCart, props<{ payload: { id: string, updatedCart: Partial<Cart>, isInactive?: boolean } }>());
 export const UpdateCartSuccessful = createAction(ActionTypes.UpdateCartSuccessful, props<{ payload: { id: string, updatedCart: Partial<Cart>, isInactive?: boolean } }>());
+export const UpdateOrder = createAction(ActionTypes.UpdateOrder, props<{ payload: { id: string, updatedOrder: Partial<OrderWithRelations> } }>());
+export const UpdateOrderSuccessful = createAction(ActionTypes.UpdateOrderSuccessful, props<{ payload: { id: string, updatedOrder: Partial<OrderWithRelations> } }>());
 export const CreateOrder = createAction(ActionTypes.CreateOrder, props<{ payload: { order: NewOrder } }>());
 export const CreateOrderSuccessful = createAction(ActionTypes.CreateOrderSuccessful, props<{ payload: { order: Order } }>());
 export const GetOrdersSuccessful = createAction(ActionTypes.GetOrdersSuccessful, props<{ payload: { orders: Order[] } }>());
 export const GetOrders = createAction(ActionTypes.GetOrders);
+export const GetAdminOrdersSuccessful = createAction(ActionTypes.GetAdminOrdersSuccessful, props<{ payload: { orders: Order[] } }>());
 export const GetCategoriesSuccessful = createAction(ActionTypes.GetCategoriesSuccessful, props<{ payload: { categories: Category[] } }>());
 export const GetDistributorsSuccessful = createAction(ActionTypes.GetDistributorsSuccessful, props<{ payload: { distributors: DistributorWithRelations[] } }>());
 export const AddToCart = createAction(ActionTypes.AddToCart, props<{ payload: { productId: string } }>());

@@ -22,6 +22,7 @@ export interface AppState {
   cart: CartWithRelations[];
   inactiveCarts: CartWithRelations[];
   orders: OrderWithRelations[],
+  adminOrders: OrderWithRelations[],
   comments: CommentWithRelations[]
 }
 
@@ -33,7 +34,8 @@ export const initialState: AppState = {
   cart: [],
   inactiveCarts: [],
   orders: [],
-  comments: []
+  comments: [],
+  adminOrders: []
 };
 
 export const reducer = createReducer(
@@ -79,6 +81,10 @@ export const reducer = createReducer(
       orders: [
         ...state.orders,
         action.payload.order
+      ],
+      adminOrders: [
+        ...state.orders,
+        action.payload.order
       ]
     };
   }),
@@ -86,9 +92,18 @@ export const reducer = createReducer(
     ...state,
     orders: action.payload.orders
   })),
+  on(ProductActions.GetAdminOrdersSuccessful, (state, action) => ({
+    ...state,
+    adminOrders: action.payload.orders
+  })),
   on(ProductActions.UpdateProductSuccessful, (state, action) => ({
     ...state,
     products: updateProperties(state.products, action.payload.updatedProduct, action.payload.id)
+  })),
+  on(ProductActions.UpdateOrderSuccessful, (state, action) => ({
+    ...state,
+    orders: updateProperties(state.orders, action.payload.updatedOrder, action.payload.id),
+    adminOrders: updateProperties(state.adminOrders, action.payload.updatedOrder, action.payload.id)
   })),
   on(ProductActions.CreateCommentSuccessful, (state, action) => {
     let product = state.products.find(product => product.id === action.payload.comment.productId);
