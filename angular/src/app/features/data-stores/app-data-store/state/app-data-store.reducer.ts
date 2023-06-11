@@ -22,6 +22,7 @@ export interface AppState {
   cart: CartWithRelations[];
   inactiveCarts: CartWithRelations[];
   orders: OrderWithRelations[],
+  adminInactiveCarts: CartWithRelations[];
   adminOrders: OrderWithRelations[],
   comments: CommentWithRelations[],
   addresses: Address[];
@@ -37,7 +38,8 @@ export const initialState: AppState = {
   orders: [],
   comments: [],
   adminOrders: [],
-  addresses: []
+  addresses: [],
+  adminInactiveCarts: []
 };
 
 export const reducer = createReducer(
@@ -61,6 +63,7 @@ export const reducer = createReducer(
   on(ProductActions.GetCartSuccessful, (state, action) => ({
     ...state,
     inactiveCarts: action.payload.cart.filter(cart => cart.orderId),
+    adminInactiveCarts: action.payload.adminCart
   })),
   on(ProductActions.AddToCartSuccessful, (state, action) => ({
     ...state,
@@ -77,6 +80,10 @@ export const reducer = createReducer(
       ...state,
       inactiveCarts: [
         ...state.inactiveCarts,
+        ...inactiveCarts
+      ],
+      adminInactiveCarts: [
+        ...state.adminInactiveCarts,
         ...inactiveCarts
       ],
       cart: state.cart.filter(cartItem => !((action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id))),
@@ -212,13 +219,24 @@ export const reducer = createReducer(
       } else {
         return cart;
       }
+    }),
+    adminInactiveCarts: state.adminInactiveCarts.map(cart => {
+      if (action.payload.cartIds.includes(cart.id)) {
+        return {
+          ...cart,
+          refundStatus: 'PENDING'
+        }
+      } else {
+        return cart;
+      }
     })
   })),
   on(ProductActions.UpdateCartSuccessful, (state, action) => {
     if (action.payload.isInactive) {
       return {
         ...state,
-        inactiveCarts: updateProperties(state.inactiveCarts, action.payload.updatedCart, action.payload.id)
+        inactiveCarts: updateProperties(state.inactiveCarts, action.payload.updatedCart, action.payload.id),
+        adminInactiveCarts: updateProperties(state.inactiveCarts, action.payload.updatedCart, action.payload.id)
       }
     } else {
       return {

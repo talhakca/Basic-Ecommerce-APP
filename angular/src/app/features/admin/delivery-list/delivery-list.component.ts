@@ -73,7 +73,7 @@ export class DeliveryListComponent implements OnInit {
   }
 
   subscribeToCarts() {
-    return this.store.select(state => state.app.inactiveCarts).subscribe(carts => {
+    return this.store.select(state => state.app.adminInactiveCarts).subscribe(carts => {
       this.carts = carts;
       if (this.orders?.length && this.carts?.length) {
         this.orders = orderBy(this.orders.map(order => ({ ...order, orderedProducts: this.carts?.filter(cart => cart.orderId === order.id) })), 'createdDate', 'desc');
@@ -98,6 +98,9 @@ export class DeliveryListComponent implements OnInit {
   }
 
   getProductsOfOrder(order: OrderWithRelations) {
+    if (order.id === 'f11bfc91-c9c8-40a4-a0e4-6df6a7011173') {
+      console.log(order)
+    }
     return order.orderedProducts?.reduce((acc, cur, index) => {
       acc = acc + (index === (order.orderedProducts?.length - 1) ? ', ' : '') + cur.productId;
       return acc;

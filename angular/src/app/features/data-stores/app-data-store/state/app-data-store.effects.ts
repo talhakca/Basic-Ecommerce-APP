@@ -86,8 +86,8 @@ export class AppDataStoreEffects {
     () => this.actions$.pipe(
       ofType(SetUser),
       withLatestFrom(this.store.select(state => state.auth.user?.id)),
-      mergeMap(([action, userId]) => this.cartApi.find({ filter: { where: { userId: userId }, include: [{ relation: 'product', scope: { include: [{ relation: 'distributor' }] }, }, { relation: 'user' }] } }).pipe(
-        map((carts) => GetCartSuccessful({ payload: { cart: carts.filter(cart => cart.product) } }))
+      mergeMap(([action, userId]) => this.cartApi.find({ filter: { include: [{ relation: 'product', scope: { include: [{ relation: 'distributor' }] }, }, { relation: 'user' }] } }).pipe(
+        map((carts) => GetCartSuccessful({ payload: { cart: carts.filter(cart => cart.product && cart.userId === userId), adminCart: carts.filter(cart => cart.orderId) } }))
       ))
     )
   );
