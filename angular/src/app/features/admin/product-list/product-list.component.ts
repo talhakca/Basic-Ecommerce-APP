@@ -26,14 +26,19 @@ export class ProductListComponent implements OnInit {
         type: CrudViewColumnType.Text,
       },
       {
+        title: 'Model',
+        fieldName: 'model',
+        type: CrudViewColumnType.Text,
+      },
+      {
         title: 'Rate',
         fieldName: 'rating',
         type: CrudViewColumnType.Rate,
       },
       {
-        title: 'Status',
-        fieldName: 'status',
-        type: CrudViewColumnType.Text
+        title: 'Description',
+        fieldName: 'description',
+        type: CrudViewColumnType.Text,
       },
       {
         title: 'Created Date',
