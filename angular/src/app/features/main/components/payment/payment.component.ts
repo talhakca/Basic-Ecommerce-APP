@@ -91,7 +91,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onPaymentSuccess(payment) {
-    this.store.dispatch(CreateOrder({ payload: { order: { paymentId: payment.paymentIntent.id, price: this.amount, status: 'PENDING', orderedProducts: this.carts, addressId: this.selectedAddress.id } } }))
+    this.store.dispatch(CreateOrder({ payload: { order: { paymentId: payment.paymentIntent.id, price: this.amount, status: 'processing', orderedProducts: this.carts, addressId: this.selectedAddress.id } } }))
   }
 
 }
