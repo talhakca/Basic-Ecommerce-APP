@@ -18,6 +18,7 @@ import * as RouterDataStoreActions from '../../router-data-store/state/router-da
 /* auth data store actions */
 import * as AuthDataStoreActions from './auth-data-store.actions';
 import { UsernameType } from 'src/app/features/auth/utils';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthDataStoreEffects {
@@ -25,7 +26,8 @@ export class AuthDataStoreEffects {
     private actions$: Actions,
     private store: Store<any>,
     private authApi: AuthControllerService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) { }
 
   register$ = createEffect(() =>
@@ -232,16 +234,13 @@ export class AuthDataStoreEffects {
     this.actions$.pipe(
       ofType(AuthDataStoreActions.Logout),
       mergeMap((action) => {
+        this.router.navigateByUrl('/auth');
         return [
           { type: AuthDataStoreActions.ActionTypes.ClearToken },
           {
             type: AuthDataStoreActions.ActionTypes.SetUser,
             payload: { user: null },
-          },
-          {
-            type: RouterDataStoreActions.ActionTypes.Navigate,
-            payload: { url: '/auth' },
-          },
+          }
         ];
       })
     )
