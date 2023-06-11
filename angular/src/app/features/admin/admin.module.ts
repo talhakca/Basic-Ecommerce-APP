@@ -15,6 +15,8 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
 import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AddProductComponent } from './add-product/add-product.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 export const routes: Routes = [
   {
     path: 'edit-category',
@@ -59,7 +61,9 @@ export const routes: Routes = [
     ProductListComponent,
     ProductEditComponent,
     DeliveryListComponent,
-    AddProductComponent
+    AddProductComponent,
+    AddCategoryComponent,
+    CategoryListComponent
   ],
   imports: [
     CommonModule,
