@@ -79,7 +79,8 @@ export class ProductListComponent implements OnInit {
   }
   subscribeToData() {
     this.subscriptions = [
-      this.subscribeToProducts()
+      this.subscribeToProducts(),
+      this.subscribeToUser()
     ]
   }
   subscribeToProducts() {
@@ -87,8 +88,17 @@ export class ProductListComponent implements OnInit {
       this.products = data;
     });
   }
+
+  subscribeToUser() {
+    return this.store.select(state => state.auth.user).subscribe(user => {
+      if (user?.role?.key === 'salesManager') {
+        this.LIST_CONFIG.itemActions = this.LIST_CONFIG.itemActions.filter(action => action.name !== 'Delete');
+        this.LIST_CONFIG = { ...this.LIST_CONFIG };
+      }
+    });
+  }
+
   onColumnActionClick(action) {
-    console.log(action);
     if (action.action.name === 'Delete') {
       this.store.dispatch(DeleteProduct({ payload: { deletedProductId: action.data.id } }))
     }
