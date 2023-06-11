@@ -11,8 +11,8 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful, CreateProduct, CreateProductSuccessful, DeleteProduct, DeleteProductSuccessful, UpdateCategory, UpdateCategorySuccessful, UpdateOrder, UpdateOrderSuccessful, GetAdminOrdersSuccessful } from './app-data-store.actions';
-import { CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful, CreateProduct, CreateProductSuccessful, DeleteProduct, DeleteProductSuccessful, UpdateCategory, UpdateCategorySuccessful, UpdateOrder, UpdateOrderSuccessful, GetAdminOrdersSuccessful, GetAddresses, GetAddressesSuccessful } from './app-data-store.actions';
+import { AddressControllerService, CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { Category, CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
 import { Router } from '@angular/router';
@@ -33,7 +33,8 @@ export class AppDataStoreEffects {
     private cartApi: CartControllerService,
     private orderApi: OrderControllerService,
     private router: Router,
-    private commentApi: CommentControllerService
+    private commentApi: CommentControllerService,
+    private addressApi: AddressControllerService
   ) { }
 
   getProducts$ = createEffect(
@@ -119,6 +120,24 @@ export class AppDataStoreEffects {
           )
         } else {
           return [GetOrdersSuccessful({ payload: { orders: [] } })];
+        }
+      })
+    )
+  );
+
+  getAddresses$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(SetUser),
+      withLatestFrom(this.store.select(state => state.auth.user)),
+      mergeMap(([action, user]) => {
+        if (user.id && ['salesManager', 'productManager'].includes(user.role.key)) {
+          return this.addressApi.find().pipe(
+            map((addresses) => {
+              return GetAddressesSuccessful({ payload: { addresses } });
+            })
+          )
+        } else {
+          return [GetAddressesSuccessful({ payload: { addresses: [] } })];
         }
       })
     )

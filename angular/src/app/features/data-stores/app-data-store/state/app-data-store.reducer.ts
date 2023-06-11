@@ -7,7 +7,7 @@ import { UtilityService } from 'src/app/features/shared/services';
 /* Service variables */
 const utilityService = new UtilityService();
 
-import { CartWithRelations, CategoryWithRelations, CommentWithRelations, DistributorWithRelations, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { Address, CartWithRelations, CategoryWithRelations, CommentWithRelations, DistributorWithRelations, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import * as ProductActions from './app-data-store.actions';
 import { update } from 'lodash';
 
@@ -23,7 +23,8 @@ export interface AppState {
   inactiveCarts: CartWithRelations[];
   orders: OrderWithRelations[],
   adminOrders: OrderWithRelations[],
-  comments: CommentWithRelations[]
+  comments: CommentWithRelations[],
+  addresses: Address[];
 }
 
 /* Initial values */
@@ -35,7 +36,8 @@ export const initialState: AppState = {
   inactiveCarts: [],
   orders: [],
   comments: [],
-  adminOrders: []
+  adminOrders: [],
+  addresses: []
 };
 
 export const reducer = createReducer(
@@ -104,6 +106,10 @@ export const reducer = createReducer(
     ...state,
     orders: updateProperties(state.orders, action.payload.updatedOrder, action.payload.id),
     adminOrders: updateProperties(state.adminOrders, action.payload.updatedOrder, action.payload.id)
+  })),
+  on(ProductActions.GetAddressesSuccessful, (state, action) => ({
+    ...state,
+    addresses: action.payload.addresses,
   })),
   on(ProductActions.CreateCommentSuccessful, (state, action) => {
     let product = state.products.find(product => product.id === action.payload.comment.productId);

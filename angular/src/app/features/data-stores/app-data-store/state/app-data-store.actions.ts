@@ -1,6 +1,6 @@
 /* angular */
 import { createAction, props } from '@ngrx/store';
-import { Cart, CartWithRelations, Category, CommentWithRelations, Distributor, DistributorWithRelations, NewCategory, NewComment, NewOrder, NewProduct, Order, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { Address, Cart, CartWithRelations, Category, CommentWithRelations, Distributor, DistributorWithRelations, NewCategory, NewComment, NewOrder, NewProduct, Order, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 
 /* action types */
 export enum ActionTypes {
@@ -41,6 +41,8 @@ export enum ActionTypes {
   RefundCartsSuccessful = '[APP] RefundCartsSuccessful',
   UpdateOrder = '[APP] UpdateOrder',
   UpdateOrderSuccessful = '[APP] UpdateOrderSuccessful',
+  GetAddresses = '[APP] GetAddresses',
+  GetAddressesSuccessful = '[APP] GetAddressesSuccessful',
   GetAdminOrdersSuccessful = '[APP] GetAdminOrdersSuccessful',
 }
 
@@ -67,6 +69,8 @@ export const CreateOrder = createAction(ActionTypes.CreateOrder, props<{ payload
 export const CreateOrderSuccessful = createAction(ActionTypes.CreateOrderSuccessful, props<{ payload: { order: Order } }>());
 export const GetOrdersSuccessful = createAction(ActionTypes.GetOrdersSuccessful, props<{ payload: { orders: Order[] } }>());
 export const GetOrders = createAction(ActionTypes.GetOrders);
+export const GetAddressesSuccessful = createAction(ActionTypes.GetAddressesSuccessful, props<{ payload: { addresses: Address[] } }>());
+export const GetAddresses = createAction(ActionTypes.GetAddresses);
 export const GetAdminOrdersSuccessful = createAction(ActionTypes.GetAdminOrdersSuccessful, props<{ payload: { orders: Order[] } }>());
 export const GetCategoriesSuccessful = createAction(ActionTypes.GetCategoriesSuccessful, props<{ payload: { categories: Category[] } }>());
 export const GetDistributorsSuccessful = createAction(ActionTypes.GetDistributorsSuccessful, props<{ payload: { distributors: DistributorWithRelations[] } }>());

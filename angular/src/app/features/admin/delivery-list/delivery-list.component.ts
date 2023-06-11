@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
 import { AuthState } from '../../data-stores/auth-data-store/state/auth-data-store.reducer';
 import { Subscription } from 'rxjs';
-import { CartWithRelations, OrderWithRelations, UserWithRelations } from '../../shared/sdk/models';
+import { Address, CartWithRelations, OrderWithRelations, UserWithRelations } from '../../shared/sdk/models';
 import { cloneDeep, orderBy, sortBy } from 'lodash';
 import { UpdateOrder } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { OrderControllerService } from '../../shared/sdk/services';
@@ -35,6 +35,7 @@ export class DeliveryListComponent implements OnInit {
     }
   ];
   pdfSrc;
+  addresses: Address[];
 
   constructor(
     private store: Store<{ app: AppState, auth: AuthState }>,
@@ -50,14 +51,21 @@ export class DeliveryListComponent implements OnInit {
     this.subscriptions = [
       this.subscribeToUsers(),
       this.subscribeToOrders(),
-      this.subscribeToCarts()
+      this.subscribeToCarts(),
+      this.subscribeToAddresses()
     ];
   }
 
   subscribeToOrders() {
     return this.store.select(state => state.app.adminOrders).subscribe(orders => {
-      console.log(this.user);
-      this.orders = orderBy(cloneDeep(orders)?.map(order => ({ ...order, address: this.user.addresses.find(address => address.id === order.addressId) })), 'createdDate', 'desc');
+      if (this.addresses?.length && orders?.length) {
+
+        this.orders = orderBy(cloneDeep(orders)?.map(order => ({ ...order, address: this.addresses.find(address => address.id === order.addressId) })), 'createdDate', 'desc');
+      } else if (orders?.length) {
+        this.orders = orderBy(cloneDeep(orders), 'createdDate', 'asc');
+      } else {
+        this.orders = [];
+      }
       if (this.orders?.length && this.carts?.length) {
         this.orders = this.orders.map(order => ({ ...order, orderedProducts: this.carts?.filter(cart => cart.orderId === order.id) }));
       }
@@ -69,6 +77,16 @@ export class DeliveryListComponent implements OnInit {
       this.carts = carts;
       if (this.orders?.length && this.carts?.length) {
         this.orders = orderBy(this.orders.map(order => ({ ...order, orderedProducts: this.carts?.filter(cart => cart.orderId === order.id) })), 'createdDate', 'desc');
+      }
+    })
+  }
+
+  subscribeToAddresses() {
+    return this.store.select(state => state.app.addresses).subscribe(addresses => {
+      this.addresses = addresses;
+      if (this.orders?.length && addresses?.length) {
+        this.orders = orderBy(this.orders?.map(order => ({ ...order, address: addresses.find(address => address.id === order.addressId) })), 'createdDate', 'desc');
+        console.log(this.orders)
       }
     })
   }
