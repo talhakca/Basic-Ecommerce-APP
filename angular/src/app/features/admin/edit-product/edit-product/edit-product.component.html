@@ -4,8 +4,7 @@
             <div class="card">
                 <div class="card-header">
                     Products
-                    <button *ngIf="isProductManager()" (click)="addProductCardOpen()" type="button"
-                        class="btn btn-primary float-end">
+                    <button (click)="addProductCardOpen()" type="button" class="btn btn-primary float-end">
                         Add Product
                     </button>
                 </div>
@@ -24,8 +23,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button *ngIf="isProductManager()" (click)="onDelete(product.id)" type="button"
-                                        class="btn btn-danger">
+                                    <button [disabled]="!isProductManager()" (click)="onDelete(product.id)"
+                                        type="button" class="btn btn-danger">
                                         Delete
                                     </button>
                                     &nbsp;
@@ -88,7 +87,7 @@
                         <div class="form-group">
                             <label for="quantityInStocks">Quantity In Stocks :</label>
                             <input type="number" id="quantityInStocks" class="form-control"
-                                formControlName="quantityInStocks" [attr.disabled]="!isProductManager()">
+                                formControlName="quantityInStocks" [disabled]="isSalesManager()">
                             <div class="text-danger"
                                 *ngIf="editForm.get('quantityInStocks')?.invalid && (editForm.get('quantityInStocks')?.dirty || editForm.get('quantityInStocks')?.touched)">
                                 Quantity In Stocks is required!
@@ -97,7 +96,7 @@
                         <div class="form-group">
                             <label for="price">Price :</label>
                             <input type="number" id="price" class="form-control" formControlName="price"
-                                [disabled]="!isSalesManager()">
+                                [disabled]="!isSalesManager() || !isProductManager()">
                         </div>
                         <div class="form-group">
                             <label for="warrantyStatus">Warranty Status:</label>
@@ -151,8 +150,7 @@
     </div>
 </div>
 
-
-<div *ngIf="addFormCard && isProductManager()" class="container">
+<div *ngIf="addFormCard" class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -233,7 +231,7 @@
                             <label for="distributorId">Distributor Id :</label>
                             <input type="text" id="distributorId" class="form-control" formControlName="distributorId" [attr.disabled]="!isProductManager()">
                         </div> -->
-                        <div class="form-group" [attr.disabled]="!isProductManager()">
+                        <div class="form-group">
                             <label for="categoryId">Category:</label>
                             <select id="categoryId" class="form-control" formControlName="categoryId">
                                 <option value="Araba">Select a category</option>

@@ -6,10 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product/edit-product.component';
 
 import { RefundStatusComponent } from './refund-status/refund-status.component';
-import { RappiderListGridModule } from '../rappider/components';
+import { RappiderEditFormModule, RappiderListGridModule } from '../rappider/components';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 export const routes: Routes = [
   {
     path: 'edit-category',
@@ -26,6 +28,14 @@ export const routes: Routes = [
   {
     path: 'refund-status',
     component: RefundStatusComponent
+  },
+  {
+    path: 'products',
+    component: ProductListComponent
+  },
+  {
+    path: 'products-edit/:id',
+    component: ProductEditComponent
   }
 ];
 
@@ -34,7 +44,9 @@ export const routes: Routes = [
     EditCategoryComponent,
     AdminPanelComponent,
     EditProductComponent,
-    RefundStatusComponent
+    RefundStatusComponent,
+    ProductListComponent,
+    ProductEditComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +55,8 @@ export const routes: Routes = [
     ReactiveFormsModule,
     RappiderListGridModule,
     NzTableModule,
-    NzSelectModule
+    NzSelectModule,
+    RappiderEditFormModule
   ]
 })
 export class AdminModule { }
