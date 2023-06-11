@@ -12,7 +12,7 @@ import { Logout } from './features/data-stores/auth-data-store/state/auth-data-s
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'E Learning';
+  title = 'ECommerce';
 
   subscriptions: Subscription[];
   user;
