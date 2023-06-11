@@ -7,6 +7,8 @@ import { OrderControllerService } from 'src/app/features/shared/sdk/services';
 import { AuthState } from 'src/app/features/data-stores/auth-data-store/state/auth-data-store.reducer';
 import { Address, Cart } from 'src/app/features/shared/sdk/models';
 import { CreateOrder } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
+import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/features/shared/services';
 
 @Component({
   selector: 'app-payment',
@@ -30,7 +32,9 @@ export class PaymentComponent implements OnInit {
   constructor(
     private store: Store<{ app: AppState, auth: AuthState }>,
     private priceService: PriceService,
-    private orderService: OrderControllerService
+    private orderService: OrderControllerService,
+    private router: Router,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -52,9 +56,11 @@ export class PaymentComponent implements OnInit {
           acc = acc + this.priceService.getFinalPrice(cur.product);
           return acc;
         }, 0);
-        console.log(this.amount)
         if (this.amount) {
           this.createPaymentIntent()
+        } else {
+          this.router.navigateByUrl('');
+          this.notificationService.createNotification('error', 'Your cart is empty', 'Please add some products to your cart to be able to checkout')
         }
       }
     });
