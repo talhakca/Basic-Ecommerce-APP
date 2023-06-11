@@ -46,7 +46,7 @@ export class RefundStatusComponent implements OnInit {
   }
 
   subscribeToInactiveCarts() {
-    return this.store.select(state => state.app.inactiveCarts).subscribe(inactiveCarts => {
+    return this.store.select(state => state.app.adminInactiveCarts).subscribe(inactiveCarts => {
       this.refundedCarts = inactiveCarts.filter(cart => cart.refundStatus).reduce((acc, cur) => {
         if (!acc.some(item => item.orderId == cur.orderId && cur.productId === item.productId)) {
           acc.push(cur);

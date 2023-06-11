@@ -48,6 +48,13 @@ export class OrderRepository extends DefaultCrudRepository<
     return paymentIntent as string;
   }
 
+  getInvoiceFromOrderId(orderId: string) {
+    const fs = require('fs');
+    const path = `/Users/talhaakca/Desktop/cagan-ecommerce/loopback4/pdfs/${orderId}.pdf`;
+    const data = fs.readFileSync(path);
+    return data;
+  }
+
   async customCreate(body: any): Promise<Order> {
     if (!body.paymentId) {
       throw new HttpErrors[401]('payment id is required');
@@ -56,7 +63,7 @@ export class OrderRepository extends DefaultCrudRepository<
     const cartItems = body.orderedProducts;
     delete body.orderedProducts;
 
-    const order = await this.create({ ...body, status: 'PENDING' });
+    const order = await this.create({ ...body, status: 'processing' });
     if (order) {
       const cartRepository = await this.cartRepositoryGetter();
       const productRepository = await this.productRepositoryGetter();

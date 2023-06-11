@@ -11,8 +11,8 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful, CreateProduct, CreateProductSuccessful, DeleteProduct, DeleteProductSuccessful, UpdateCategory, UpdateCategorySuccessful } from './app-data-store.actions';
-import { CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
+import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful, CreateProduct, CreateProductSuccessful, DeleteProduct, DeleteProductSuccessful, UpdateCategory, UpdateCategorySuccessful, UpdateOrder, UpdateOrderSuccessful, GetAdminOrdersSuccessful, GetAddresses, GetAddressesSuccessful } from './app-data-store.actions';
+import { AddressControllerService, CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { Category, CategoryWithRelations, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
 import { Router } from '@angular/router';
@@ -33,7 +33,8 @@ export class AppDataStoreEffects {
     private cartApi: CartControllerService,
     private orderApi: OrderControllerService,
     private router: Router,
-    private commentApi: CommentControllerService
+    private commentApi: CommentControllerService,
+    private addressApi: AddressControllerService
   ) { }
 
   getProducts$ = createEffect(
@@ -85,8 +86,8 @@ export class AppDataStoreEffects {
     () => this.actions$.pipe(
       ofType(SetUser),
       withLatestFrom(this.store.select(state => state.auth.user?.id)),
-      mergeMap(([action, userId]) => this.cartApi.find({ filter: { where: { userId: userId }, include: [{ relation: 'product', scope: { include: [{ relation: 'distributor' }] }, }, { relation: 'user' }] } }).pipe(
-        map((carts) => GetCartSuccessful({ payload: { cart: carts.filter(cart => cart.product) } }))
+      mergeMap(([action, userId]) => this.cartApi.find({ filter: { include: [{ relation: 'product', scope: { include: [{ relation: 'distributor' }] }, }, { relation: 'user' }] } }).pipe(
+        map((carts) => GetCartSuccessful({ payload: { cart: carts.filter(cart => cart.product && cart.userId === userId), adminCart: carts.filter(cart => cart.orderId) } }))
       ))
     )
   );
@@ -110,13 +111,33 @@ export class AppDataStoreEffects {
       withLatestFrom(this.store.select(state => state.auth.user?.id)),
       mergeMap(([action, userId]) => {
         if (userId) {
-          return this.orderApi.find({ filter: { where: { userId: userId } } }).pipe(
-            map((orders) => {
-              return GetOrdersSuccessful({ payload: { orders } })
+          return this.orderApi.find().pipe(
+            mergeMap((orders) => {
+              return [
+                GetOrdersSuccessful({ payload: { orders: orders.filter(order => order.userId === userId) } }),
+                GetAdminOrdersSuccessful({ payload: { orders } })];
             })
           )
         } else {
           return [GetOrdersSuccessful({ payload: { orders: [] } })];
+        }
+      })
+    )
+  );
+
+  getAddresses$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(SetUser),
+      withLatestFrom(this.store.select(state => state.auth.user)),
+      mergeMap(([action, user]) => {
+        if (user.id && ['salesManager', 'productManager'].includes(user.role.key)) {
+          return this.addressApi.find().pipe(
+            map((addresses) => {
+              return GetAddressesSuccessful({ payload: { addresses } });
+            })
+          )
+        } else {
+          return [GetAddressesSuccessful({ payload: { addresses: [] } })];
         }
       })
     )
@@ -141,6 +162,18 @@ export class AppDataStoreEffects {
         map(() => {
           this.notificationService.createNotification('success', 'Product Successfuly Updated.', '');
           return UpdateProductSuccessful({ payload: action.payload });
+        })
+      ))
+    )
+  );
+
+  updateOrder$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(UpdateOrder),
+      mergeMap((action) => this.orderApi.updateById({ id: action.payload.id, body: action.payload.updatedOrder }).pipe(
+        map(() => {
+          this.notificationService.createNotification('success', 'Product Successfuly Updated.', '');
+          return UpdateOrderSuccessful({ payload: action.payload });
         })
       ))
     )

@@ -7,7 +7,7 @@ import { UtilityService } from 'src/app/features/shared/services';
 /* Service variables */
 const utilityService = new UtilityService();
 
-import { CartWithRelations, CategoryWithRelations, CommentWithRelations, DistributorWithRelations, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { Address, CartWithRelations, CategoryWithRelations, CommentWithRelations, DistributorWithRelations, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import * as ProductActions from './app-data-store.actions';
 import { update } from 'lodash';
 
@@ -22,7 +22,10 @@ export interface AppState {
   cart: CartWithRelations[];
   inactiveCarts: CartWithRelations[];
   orders: OrderWithRelations[],
-  comments: CommentWithRelations[]
+  adminInactiveCarts: CartWithRelations[];
+  adminOrders: OrderWithRelations[],
+  comments: CommentWithRelations[],
+  addresses: Address[];
 }
 
 /* Initial values */
@@ -33,7 +36,10 @@ export const initialState: AppState = {
   cart: [],
   inactiveCarts: [],
   orders: [],
-  comments: []
+  comments: [],
+  adminOrders: [],
+  addresses: [],
+  adminInactiveCarts: []
 };
 
 export const reducer = createReducer(
@@ -57,6 +63,7 @@ export const reducer = createReducer(
   on(ProductActions.GetCartSuccessful, (state, action) => ({
     ...state,
     inactiveCarts: action.payload.cart.filter(cart => cart.orderId),
+    adminInactiveCarts: action.payload.adminCart
   })),
   on(ProductActions.AddToCartSuccessful, (state, action) => ({
     ...state,
@@ -75,8 +82,16 @@ export const reducer = createReducer(
         ...state.inactiveCarts,
         ...inactiveCarts
       ],
+      adminInactiveCarts: [
+        ...state.adminInactiveCarts,
+        ...inactiveCarts
+      ],
       cart: state.cart.filter(cartItem => !((action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id))),
       orders: [
+        ...state.orders,
+        action.payload.order
+      ],
+      adminOrders: [
         ...state.orders,
         action.payload.order
       ]
@@ -86,9 +101,22 @@ export const reducer = createReducer(
     ...state,
     orders: action.payload.orders
   })),
+  on(ProductActions.GetAdminOrdersSuccessful, (state, action) => ({
+    ...state,
+    adminOrders: action.payload.orders
+  })),
   on(ProductActions.UpdateProductSuccessful, (state, action) => ({
     ...state,
     products: updateProperties(state.products, action.payload.updatedProduct, action.payload.id)
+  })),
+  on(ProductActions.UpdateOrderSuccessful, (state, action) => ({
+    ...state,
+    orders: updateProperties(state.orders, action.payload.updatedOrder, action.payload.id),
+    adminOrders: updateProperties(state.adminOrders, action.payload.updatedOrder, action.payload.id)
+  })),
+  on(ProductActions.GetAddressesSuccessful, (state, action) => ({
+    ...state,
+    addresses: action.payload.addresses,
   })),
   on(ProductActions.CreateCommentSuccessful, (state, action) => {
     let product = state.products.find(product => product.id === action.payload.comment.productId);
@@ -191,13 +219,24 @@ export const reducer = createReducer(
       } else {
         return cart;
       }
+    }),
+    adminInactiveCarts: state.adminInactiveCarts.map(cart => {
+      if (action.payload.cartIds.includes(cart.id)) {
+        return {
+          ...cart,
+          refundStatus: 'PENDING'
+        }
+      } else {
+        return cart;
+      }
     })
   })),
   on(ProductActions.UpdateCartSuccessful, (state, action) => {
     if (action.payload.isInactive) {
       return {
         ...state,
-        inactiveCarts: updateProperties(state.inactiveCarts, action.payload.updatedCart, action.payload.id)
+        inactiveCarts: updateProperties(state.inactiveCarts, action.payload.updatedCart, action.payload.id),
+        adminInactiveCarts: updateProperties(state.inactiveCarts, action.payload.updatedCart, action.payload.id)
       }
     } else {
       return {

@@ -129,10 +129,10 @@ export class EditProductComponent implements OnInit {
   }
 
   isProductManager() {
-    return this.user.role.key === 'productManager';
+    return this.user?.role?.key === 'productManager';
   }
 
   isSalesManager() {
-    return this.user.role.key === 'salesManager';
+    return this.user?.role?.key === 'salesManager';
   }
 }

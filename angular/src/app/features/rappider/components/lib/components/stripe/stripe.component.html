@@ -50,7 +50,7 @@
       </nz-form-control>
     </div>
     <div class="submit-button">
-      <rappider-button *ngIf="submitButton"
+      <rappider-button *ngIf="submitButton && clientSecret"
                        formButtonType="submit"
                        [key]="submitButton.key"
                        [popconfirmTitle]="submitButton.popconfirmTitle"

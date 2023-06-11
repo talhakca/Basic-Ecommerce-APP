@@ -5,9 +5,10 @@ import { formatDistance } from 'date-fns';
 import { Subscription } from 'rxjs';
 import { AddToCart } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
-import { Category, CategoryWithRelations, DistributorWithRelations, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { CartWithRelations, Category, CategoryWithRelations, DistributorWithRelations, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { CommentStatus } from '../comments-status/utils/comment-type';
 import { cloneDeep } from 'lodash';
+import { NotificationService } from 'src/app/features/shared/services';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,10 +22,12 @@ export class ProductDetailComponent implements OnInit {
   categories: CategoryWithRelations[];
   activeCategory: CategoryWithRelations;
   distributor: DistributorWithRelations;
+  carts: CartWithRelations[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private store: Store<{ app: AppState }>
+    private store: Store<{ app: AppState }>,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +39,8 @@ export class ProductDetailComponent implements OnInit {
       this.subscribeToRoute(),
       this.subscribeToCategories(),
       this.subscribeToProducts(),
-      this.subscribeToDistributors()
+      this.subscribeToDistributors(),
+      this.subscribeToCarts()
     ]
   }
 
@@ -44,6 +48,12 @@ export class ProductDetailComponent implements OnInit {
     return this.activatedRoute.params.subscribe(params => {
       this.activeProductId = params.id;
     });
+  }
+
+  subscribeToCarts() {
+    return this.store.select(state => state.app.cart).subscribe(carts => {
+      this.carts = carts;
+    })
   }
 
   subscribeToProducts() {
@@ -69,7 +79,12 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart() {
-    this.store.dispatch(AddToCart({ payload: { productId: this.activeProductId } }));
+    const quantityInCart = this.carts?.filter(cart => cart.productId === this.activeProductId)?.length;
+    if (this.activeProduct.quantityInStocks <= quantityInCart) {
+      this.notificationService.createNotification('error', `You have exceed the stock number. You can not add more then ${this.activeProduct.quantityInStocks}`, '')
+    } else {
+      this.store.dispatch(AddToCart({ payload: { productId: this.activeProductId } }));
+    }
   }
 
   getTimeDiff(date) {

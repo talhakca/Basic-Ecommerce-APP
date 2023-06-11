@@ -12,6 +12,8 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
+import { DeliveryListComponent } from './delivery-list/delivery-list.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 export const routes: Routes = [
   {
     path: 'edit-category',
@@ -36,6 +38,10 @@ export const routes: Routes = [
   {
     path: 'products-edit/:id',
     component: ProductEditComponent
+  },
+  {
+    path: 'deliveries',
+    component: DeliveryListComponent
   }
 ];
 
@@ -46,7 +52,8 @@ export const routes: Routes = [
     EditProductComponent,
     RefundStatusComponent,
     ProductListComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    DeliveryListComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +63,8 @@ export const routes: Routes = [
     RappiderListGridModule,
     NzTableModule,
     NzSelectModule,
-    RappiderEditFormModule
+    RappiderEditFormModule,
+    PdfViewerModule
   ]
 })
 export class AdminModule { }

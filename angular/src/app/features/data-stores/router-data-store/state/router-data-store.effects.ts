@@ -13,7 +13,7 @@ export class RouterDataStoreEffects {
     private actions$: Actions,
     private store: Store<any>,
     private router: Router
-  ) {}
+  ) { }
 
   navigate$ = createEffect(() =>
     this.actions$.pipe(
