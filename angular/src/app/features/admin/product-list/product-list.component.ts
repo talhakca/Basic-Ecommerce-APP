@@ -41,7 +41,14 @@ export class ProductListComponent implements OnInit {
         type: CrudViewColumnType.Date
       }
     ],
-    listActions: [],
+    listActions: [
+      {
+        name: 'New Product',
+        key: 'new',
+        ActionBehavior: ActionBehavior.Route,
+        redirectUrl: 'admin/product-add'
+      }
+    ],
     itemActions: [
       {
         text: 'Edit',
