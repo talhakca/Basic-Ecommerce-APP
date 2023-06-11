@@ -55,6 +55,7 @@
 
       .image-buttons {
         ::ng-deep {
+
           i,
           svg {
             font-size: var(--main-font-size);
@@ -123,11 +124,18 @@
       margin-right: var(--margin-x);
       margin-bottom: var(--margin-x);
       width: min-content;
+
       &:last-child {
         margin-right: 0px;
       }
     }
   }
+}
+
+.price-through {
+  margin-right: var(--margin-x);
+  font-size: var(--font-size-medium);
+  color: var(--text-color)
 }
 
 .image-position-top {
