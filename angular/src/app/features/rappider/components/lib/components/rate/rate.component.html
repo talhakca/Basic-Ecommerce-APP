@@ -1,9 +1,8 @@
 <div class="rate">
-  <nz-rate
-    [(ngModel)]="value"
-    [nzAllowHalf]="allowHalf"
-    [nzAllowClear]="allowClear"
-    [ngClass]="cssClass"
-    [ngStyle]="cssStyle"
-  ></nz-rate>
+  <nz-rate [(ngModel)]="value"
+           [nzAllowHalf]="allowHalf"
+           [nzDisabled]="disabled"
+           [nzAllowClear]="allowClear"
+           [ngClass]="cssClass"
+           [ngStyle]="cssStyle"></nz-rate>
 </div>

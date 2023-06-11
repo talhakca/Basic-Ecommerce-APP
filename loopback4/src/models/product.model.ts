@@ -93,6 +93,7 @@ export class Product extends Entity {
   @property({
     type: 'number',
     required: false,
+    jsonSchema: { nullable: true }
   })
   rating?: number;
 
@@ -105,6 +106,7 @@ export class Product extends Entity {
   @property({
     type: 'number',
     required: false,
+    jsonSchema: { nullable: true }
   })
   discountRate?: number;
 

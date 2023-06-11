@@ -32,6 +32,7 @@ export class RappiderTextareaComponent implements ControlValueAccessor {
   @Input() rows: number;
   @Input() cssStyle: { [key: string]: any };
   @Input() cssClass: string;
+  @Input() disabled = false;
   @Input() placeholder: string;
   @Input() autosize = true;
   @Input() borderSettings: BorderConfig;
@@ -59,8 +60,8 @@ export class RappiderTextareaComponent implements ControlValueAccessor {
     this.valueChange.emit(value);
   }
 
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: any = () => { };
+  onTouched: any = () => { };
 
   writeValue(value: string) {
     this._value = value;

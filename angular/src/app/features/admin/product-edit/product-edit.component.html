@@ -5,5 +5,6 @@
 <rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG"
                               [data]="activeProduct"
                               [dynamicDataForSelectBox]="dynamicDataForSelectbox"
-                              (formSubmit)="formSubmit($event)">
+                              (fieldValueChange)="onFormValueChange($event)"
+                              (formSubmit)="formSubmit()">
 </rappider-crud-view-edit-form>
