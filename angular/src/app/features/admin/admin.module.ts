@@ -10,6 +10,7 @@ import { RappiderListGridModule } from '../rappider/components';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 export const routes: Routes = [
   {
     path: 'edit-category',
@@ -26,6 +27,10 @@ export const routes: Routes = [
   {
     path: 'refund-status',
     component: RefundStatusComponent
+  },
+  {
+    path: 'deliveries',
+    component: DeliveryListComponent
   }
 ];
 
@@ -34,7 +39,8 @@ export const routes: Routes = [
     EditCategoryComponent,
     AdminPanelComponent,
     EditProductComponent,
-    RefundStatusComponent
+    RefundStatusComponent,
+    DeliveryListComponent
   ],
   imports: [
     CommonModule,

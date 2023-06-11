@@ -56,7 +56,7 @@ export class OrderRepository extends DefaultCrudRepository<
     const cartItems = body.orderedProducts;
     delete body.orderedProducts;
 
-    const order = await this.create({ ...body, status: 'PENDING' });
+    const order = await this.create({ ...body, status: 'processing' });
     if (order) {
       const cartRepository = await this.cartRepositoryGetter();
       const productRepository = await this.productRepositoryGetter();
