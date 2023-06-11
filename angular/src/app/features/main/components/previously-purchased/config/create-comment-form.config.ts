@@ -6,7 +6,7 @@ export const CREATE_COMMENT_CONFIG: CrudFormConfig = {
   items: [
     {
       title: 'Message',
-      type: CrudViewFormItemType.TextArea,
+      type: CrudViewFormItemType.TextArea, // 
       fieldName: 'message',
       validators: [
         {
