@@ -45,7 +45,7 @@ export class ProductListComponent implements OnInit {
       {
         name: 'new',
         text: 'New Product',
-        ActionBehavior: ActionBehavior.Route,
+        behavior: ActionBehavior.Route,
         redirectUrl: 'admin/product-add',
         buttonType: 'primary'
       }

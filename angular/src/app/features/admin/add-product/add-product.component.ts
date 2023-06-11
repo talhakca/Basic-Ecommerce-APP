@@ -193,7 +193,7 @@ export class AddProductComponent implements OnInit {
   }
 
   formSubmit(product) {
-    this.store.dispatch(CreateProduct({ payload: { product: product } }));
+    this.store.dispatch(CreateProduct({ payload: { product: { ...product, ratingCount: 0 } } }));
     this.router.navigateByUrl('/admin/products');
   }
 
