@@ -3,10 +3,11 @@ import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { UpdateCategory, UpdateDistributor } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
+import { UpdateDistributor } from '../../data-stores/distributor-data-store/state/distributor-data-store.actions';
+import { DistributorState } from '../../data-stores/distributor-data-store/state/distributor-data-store.reducer';
 import { FormLayout, CrudViewFormItemType } from '../../rappider/components/lib/utils';
-import { Category, Distributor } from '../../shared/sdk/models';
+import { Distributor } from '../../shared/sdk/models';
 
 @Component({
   selector: 'app-distributor-edit',
@@ -34,7 +35,7 @@ export class DistributorEditComponent implements OnInit {
     }
 
   constructor(
-    private store: Store<{ app: AppState }>,
+    private store: Store<{ distKey: DistributorState }>,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -54,7 +55,7 @@ export class DistributorEditComponent implements OnInit {
     ]
   }
   subscribeToDistributors() {
-    return this.store.select(state => state.app.distributors).subscribe(data => {
+    return this.store.select(state => state.distKey.distributors).subscribe(data => {
       this.distributors = data;
       if (this.distributors?.length) {
         this.activeDistributor = this.distributors.find(distributor => distributor.id === this.activeDistributorId);

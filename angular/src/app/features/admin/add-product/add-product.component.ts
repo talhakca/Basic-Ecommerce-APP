@@ -3,7 +3,10 @@ import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
+import { GetCategories } from '../../data-stores/category-data-store/state/category-data-store.actions';
+import { CategoryState } from '../../data-stores/category-data-store/state/category-data-store.reducer';
+import { GetDistributors } from '../../data-stores/distributor-data-store/state/distributor-data-store.actions';
+import { DistributorState } from '../../data-stores/distributor-data-store/state/distributor-data-store.reducer';
 import { CreateProduct } from '../../data-stores/product-data-store/state/product-data-store.actions';
 import { ProductState } from '../../data-stores/product-data-store/state/product-data-store.reducer';
 import { FormLayout, CrudViewFormItemType, CrudFormSelectItem, DynamicDataForSelectBox } from '../../rappider/components/lib/utils';
@@ -157,7 +160,7 @@ export class AddProductComponent implements OnInit {
   ];
 
   constructor(
-    private store: Store<{ productKey: ProductState, app: AppState }>,
+    private store: Store<{ productKey: ProductState, categoryKey: CategoryState, distKey: DistributorState }>,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -171,26 +174,29 @@ export class AddProductComponent implements OnInit {
   subscribeToData() {
     this.subscriptions = [
       this.subscribeToCategory(),
-      this.subscribeToDistributors()
+      this.subscribeToDistributors(),
+      this.subscribeToCategory()
     ]
   }
 
   subscribeToCategory() {
-    return this.store.select(state => state.app.categories).subscribe(categories => {
-      if (categories?.length) {
-        let categoryOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'categoryId');
-        categoryOptions.options = categories.map(category => ({ key: category.name, value: category.id }));
-      }
-    });
+    return this.store.dispatch(GetCategories()),
+      this.store.select(state => state.categoryKey.categories).subscribe(categories => {
+        if (categories?.length) {
+          let categoryOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'categoryId');
+          categoryOptions.options = categories.map(category => ({ key: category.name, value: category.id }));
+        }
+      });
   }
 
   subscribeToDistributors() {
-    return this.store.select(state => state.app.distributors).subscribe(distributors => {
-      if (distributors?.length) {
-        let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
-        distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
-      }
-    });
+    return this.store.dispatch(GetDistributors()),
+      this.store.select(state => state.distKey.distributors).subscribe(distributors => {
+        if (distributors?.length) {
+          let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
+          distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
+        }
+      });
   }
 
   formSubmit(product) {

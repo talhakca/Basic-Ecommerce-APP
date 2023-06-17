@@ -11,7 +11,7 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful, UpdateCategory, UpdateCategorySuccessful, UpdateOrder, UpdateOrderSuccessful, GetAdminOrdersSuccessful, GetAddresses, GetAddressesSuccessful, CreateDistributor, CreateDistributorSuccessful, DeleteDistributor, DeleteDistributorSuccessful, UpdateDistributor, UpdateDistributorSuccessful } from './app-data-store.actions';
+import { InitApp, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful, UpdateOrder, UpdateOrderSuccessful, GetAdminOrdersSuccessful, GetAddresses, GetAddressesSuccessful, } from './app-data-store.actions';
 import { AddressControllerService, CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { Category, CategoryWithRelations, Distributor, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
@@ -27,34 +27,12 @@ export class AppDataStoreEffects {
     private actions$: Actions,
     private store: Store<any>,
     private notificationService: NotificationService,
-    private productApi: ProductControllerService,
-    private categoryApi: CategoryControllerService,
-    private distributorApi: DistributorControllerService,
     private cartApi: CartControllerService,
     private orderApi: OrderControllerService,
     private router: Router,
     private commentApi: CommentControllerService,
     private addressApi: AddressControllerService
   ) { }
-
-
-  getDistributors$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(InitApp),
-      mergeMap((action) => this.distributorApi.find().pipe(
-        map((distributors: DistributorWithRelations[]) => GetDistributorsSuccessful({ payload: { distributors } }))
-      ))
-    )
-  );
-
-  getCategory$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(InitApp),
-      mergeMap((action) => this.categoryApi.find().pipe(
-        map((categories: CategoryWithRelations[]) => GetCategoriesSuccessful({ payload: { categories } }))
-      ))
-    )
-  )
 
   addToCart$ = createEffect(
     () => this.actions$.pipe(
@@ -171,74 +149,7 @@ export class AppDataStoreEffects {
       ))
     )
   );
-  addCategory$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CreateCategory),
-      mergeMap((action) =>
-        this.categoryApi.create({ body: { ...action.payload.category } }).pipe(
-          map((category: Category) => {
-            this.notificationService.createNotification('success', 'Category Successful Added.', '');
-            return CreateCategorySuccessful({ payload: { category } })
-          })
-        )
-      )
-    )
-  );
-  addDistributor$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CreateDistributor),
-      mergeMap((action) =>
-        this.distributorApi.create({ body: { ...action.payload.distributor } }).pipe(
-          map((distributor: Distributor) => {
-            this.notificationService.createNotification('success', 'Distributor Successful Added.', '');
-            return CreateDistributorSuccessful({ payload: { distributor } })
-          }
-          ))
-      )))
-  deleteCategory$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(DeleteCategory),
-      mergeMap((action) => this.categoryApi.deleteById({ id: action.payload.deletedCategoryId }).pipe(
-        map(() => {
-          this.notificationService.createNotification('success', 'Category Successful Deleted.', '');
-          return DeleteCategorySuccessful({ payload: { deletedCategoryId: action.payload.deletedCategoryId } })
-        })
-      ))
-    ))
-  deleteDistributor$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(DeleteDistributor),
-      mergeMap((action) => this.distributorApi.deleteById({ id: action.payload.deletedDistributorId }).pipe(
-        map(() => {
-          this.notificationService.createNotification('success', 'Distributor Successful Deleted.', '');
-          return DeleteDistributorSuccessful({ payload: { deletedDistributorId: action.payload.deletedDistributorId } })
-        })
-      ))
-    )
-  )
-  updateCategory$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(UpdateCategory),
-      mergeMap((action) => this.categoryApi.updateById({ id: action.payload.id, body: action.payload.updatedCategory }).pipe(
-        map(() => {
-          this.notificationService.createNotification('success', 'Category Successfuly Updated.', '');
-          return UpdateCategorySuccessful({ payload: action.payload });
-        })
-      ))
-    )
-  );
-  updateDistributor$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(UpdateDistributor),
-      mergeMap((action) => this.distributorApi.updateById({ id: action.payload.id, body: action.payload.updatedDistributor }).pipe(
-        map(() => {
-          this.notificationService.createNotification('success', 'Distributor Successfuly Updated.', '');
-          return UpdateDistributorSuccessful(({ payload: action.payload }));
-        })
-      ))
-    )
 
-  )
 
   refundCarts$ = createEffect(
     () => this.actions$.pipe(

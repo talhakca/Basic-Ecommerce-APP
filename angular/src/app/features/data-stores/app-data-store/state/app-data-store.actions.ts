@@ -1,13 +1,10 @@
 /* angular */
 import { createAction, props } from '@ngrx/store';
-import { create } from 'lodash';
-import { Address, Cart, CartWithRelations, Category, CommentWithRelations, Distributor, DistributorWithRelations, NewCategory, NewComment, NewDistributor, NewOrder, NewProduct, Order, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
+import { Address, Cart, CartWithRelations, CommentWithRelations, Distributor, DistributorWithRelations, NewCategory, NewComment, NewDistributor, NewOrder, NewProduct, Order, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 
 /* action types */
 export enum ActionTypes {
   InitApp = '[APP] InitApp',
-  GetCategoriesSuccessful = '[APP] GetCategoriesSuccessful',
-  GetDistributorsSuccessful = '[APP] GetDistributorsSuccessful',
   AddToCart = '[APP] AddToCart',
   GetCart = '[APP] GetCart',
   GetCartSuccessful = '[APP] GetCartSuccessful',
@@ -22,12 +19,6 @@ export enum ActionTypes {
   UpdateCommentSuccessful = '[APP] UpdateCommentSuccessful',
   UpdateCart = '[APP] UpdateCart',
   UpdateCartSuccessful = '[APP] UpdateCartSuccessful',
-  CreateCategory = '[APP] CreateCategory',
-  CreateCategorySuccessful = '[APP] CreateCategorySuccessful',
-  DeleteCategory = '[APP] DeleteCategory',
-  DeleteCategorySuccessful = '[APP] DeleteCategorySuccessful',
-  UpdateCategory = '[APP] UpdateCategory',
-  UpdateCategorySuccessful = '[APP] UpdateCategorySuccessful',
   RefundCarts = '[APP] RefundCarts',
   RefundCartsSuccessful = '[APP] RefundCartsSuccessful',
   UpdateOrder = '[APP] UpdateOrder',
@@ -35,12 +26,6 @@ export enum ActionTypes {
   GetAddresses = '[APP] GetAddresses',
   GetAddressesSuccessful = '[APP] GetAddressesSuccessful',
   GetAdminOrdersSuccessful = '[APP] GetAdminOrdersSuccessful',
-  CreateDistributor = '[APP] AddDistributor',
-  CreateDistributorSuccessful = '[APP] AddDistributorSuccessful',
-  DeleteDistributor = '[APP] DeleteDistributor',
-  DeleteDistributorSuccessful = '[APP] DeleteDistributorSuccessful',
-  UpdateDistributor = '[APP] UpdateDistributor',
-  UpdateDistributorSuccessful = '[APP] UpdateDistributorSuccessful'
 }
 
 /* actions */
@@ -62,23 +47,9 @@ export const GetOrders = createAction(ActionTypes.GetOrders);
 export const GetAddressesSuccessful = createAction(ActionTypes.GetAddressesSuccessful, props<{ payload: { addresses: Address[] } }>());
 export const GetAddresses = createAction(ActionTypes.GetAddresses);
 export const GetAdminOrdersSuccessful = createAction(ActionTypes.GetAdminOrdersSuccessful, props<{ payload: { orders: Order[] } }>());
-export const GetCategoriesSuccessful = createAction(ActionTypes.GetCategoriesSuccessful, props<{ payload: { categories: Category[] } }>());
-export const GetDistributorsSuccessful = createAction(ActionTypes.GetDistributorsSuccessful, props<{ payload: { distributors: DistributorWithRelations[] } }>());
 export const AddToCart = createAction(ActionTypes.AddToCart, props<{ payload: { productId: string } }>());
 export const GetCart = createAction(ActionTypes.GetCart);
 export const GetCartSuccessful = createAction(ActionTypes.GetCartSuccessful, props<{ payload: { cart: CartWithRelations[], adminCart: CartWithRelations[] } }>());
 export const AddToCartSuccessful = createAction(ActionTypes.AddToCartSuccessful, props<{ payload: { cart: CartWithRelations } }>());
-export const CreateCategory = createAction(ActionTypes.CreateCategory, props<{ payload: { category: NewCategory } }>());
-export const CreateCategorySuccessful = createAction(ActionTypes.CreateCategorySuccessful, props<{ payload: { category: Category } }>());
-export const DeleteCategory = createAction(ActionTypes.DeleteCategory, props<{ payload: { deletedCategoryId } }>());
-export const DeleteCategorySuccessful = createAction(ActionTypes.DeleteCategorySuccessful, props<{ payload: { deletedCategoryId: string } }>());
-export const UpdateCategory = createAction(ActionTypes.UpdateCategory, props<{ payload: { id: string, updatedCategory: Partial<Category> } }>());
-export const UpdateCategorySuccessful = createAction(ActionTypes.UpdateCategorySuccessful, props<{ payload: { id: string, updatedCategory: Partial<Category> } }>());
 export const RefundCarts = createAction(ActionTypes.RefundCarts, props<{ payload: { cartIds: string[] } }>());
 export const RefundCartsSuccessful = createAction(ActionTypes.RefundCartsSuccessful, props<{ payload: { cartIds: string[] } }>());
-export const CreateDistributor = createAction(ActionTypes.CreateDistributor, props<{ payload: { distributor: NewDistributor } }>());
-export const CreateDistributorSuccessful = createAction(ActionTypes.CreateDistributorSuccessful, props<{ payload: { distributor: Distributor } }>());
-export const DeleteDistributor = createAction(ActionTypes.DeleteDistributor, props<{ payload: { deletedDistributorId } }>());
-export const DeleteDistributorSuccessful = createAction(ActionTypes.DeleteDistributorSuccessful, props<{ payload: { deletedDistributorId: string } }>());
-export const UpdateDistributor = createAction(ActionTypes.UpdateDistributor, props<{ payload: { id: string, updatedDistributor: Partial<DistributorWithRelations> } }>());
-export const UpdateDistributorSuccessful = createAction(ActionTypes.UpdateDistributorSuccessful, props<{ payload: { id: string, updatedDistributor: Partial<Distributor> } }>());

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { DeleteDistributor, } from '../../data-stores/app-data-store/state/app-data-store.actions';
+import { DeleteDistributor, GetDistributors } from '../../data-stores/distributor-data-store/state/distributor-data-store.actions';
+import { DistributorState } from '../../data-stores/distributor-data-store/state/distributor-data-store.reducer';
 import { CrudViewColumnType, ActionBehavior } from '../../rappider/components/lib/utils';
 import { Distributor, Product } from '../../shared/sdk/models';
 
@@ -57,7 +58,7 @@ export class DistributorListComponent implements OnInit {
   };
   subscriptions: Subscription[];
   distributors: Distributor[];
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<{ distKey: DistributorState }>) { }
 
   ngOnInit(): void {
     this.subscribeToData()
@@ -68,9 +69,10 @@ export class DistributorListComponent implements OnInit {
     ]
   }
   subscribeToDistributors() {
-    return this.store.select(state => state.app.distributors).subscribe(data => {
-      this.distributors = data;
-    });
+    return this.store.dispatch(GetDistributors()),
+      this.store.select(state => state.distKey.distributors).subscribe(data => {
+        this.distributors = data;
+      });
   }
   onColumnActionClick(action) {
     console.log(action);

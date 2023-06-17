@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { DeleteCategory } from '../../data-stores/app-data-store/state/app-data-store.actions';
+import { DeleteCategory, GetCategories, InitApp } from '../../data-stores/category-data-store/state/category-data-store.actions';
+import { CategoryState } from '../../data-stores/category-data-store/state/category-data-store.reducer';
 import { CrudViewColumnType, ActionBehavior } from '../../rappider/components/lib/utils';
-import { Category } from '../../shared/sdk/models';
+import { Category, CategoryWithRelations } from '../../shared/sdk/models';
 
 @Component({
   selector: 'app-category-list',
@@ -57,10 +58,13 @@ export class CategoryListComponent implements OnInit {
   };
 
   subscriptions: Subscription[];
-  categories: Category[];
-  constructor(private store: Store<any>) { }
+  categories: CategoryWithRelations[];
+  isLoading: boolean;
+  constructor(private store: Store<{ categoryKey: CategoryState }>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(GetCategories());
+    this.subscribeToProductsLoading()
     this.subscribeToData()
   }
   subscribeToData() {
@@ -69,7 +73,7 @@ export class CategoryListComponent implements OnInit {
     ]
   }
   subscribeToCategories() {
-    return this.store.select(state => state.app.categories).subscribe(data => {
+    return this.store.select(state => state.categoryKey.categories).subscribe(data => {
       this.categories = data;
     });
   }
@@ -78,6 +82,14 @@ export class CategoryListComponent implements OnInit {
     if (action.action.name === 'Delete') {
       this.store.dispatch(DeleteCategory({ payload: { deletedCategoryId: action.data.id } }))
     }
+  }
+  subscribeToProductsLoading(): Subscription {
+    return this.store
+      .select((state) => state.categoryKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
+        console.log(isLoading)
+      });
   }
 
 

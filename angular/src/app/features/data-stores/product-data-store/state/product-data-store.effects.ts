@@ -6,6 +6,7 @@ import { Product, ProductWithRelations } from "src/app/features/shared/sdk/model
 import { ProductControllerService } from "src/app/features/shared/sdk/services";
 import { NotificationService } from "src/app/features/shared/services";
 import * as ProductDataStoreActions from "./product-data-store.actions";
+import { ActionTypes, CreateProduct, CreateProductSuccessful, DeleteProduct, DeleteProductSuccessful, GetProducts, GetProductsSuccessful, UpdateProduct, UpdateProductRate, UpdateProductSuccessful } from "./product-data-store.actions";
 import { ProductState } from "./product-data-store.reducer";
 
 @Injectable()
@@ -20,12 +21,12 @@ export class ProductDataStoreEffects {
 
     getProducts$ = createEffect(
         () => this.actions$.pipe(
-            ofType(ProductDataStoreActions.GetProducts),
+            ofType(GetProducts),
             mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }, { relation: 'comments', scope: { include: [{ relation: 'user' }] } }] } }).pipe(
-                map((products: ProductWithRelations[]) => ProductDataStoreActions.GetProductsSuccessful({ payload: { products } })),
+                map((products: ProductWithRelations[]) => GetProductsSuccessful({ payload: { products } })),
                 catchError((error) => {
                     return [
-                        { type: ProductDataStoreActions.ActionTypes.GetProductsFailure },
+                        { type: ActionTypes.GetProductsFailure },
                     ];
                 })
             ))
@@ -33,27 +34,27 @@ export class ProductDataStoreEffects {
     );
     updateProductRate$ = createEffect(
         () => this.actions$.pipe(
-            ofType(ProductDataStoreActions.UpdateProductRate),
+            ofType(UpdateProductRate),
             withLatestFrom(this.store.select(state => state.productKey.products)),
             mergeMap(([action, products]) => {
                 const product = products.find(product => product.id === action.payload.productId);
                 const newRate = ((product.ratingCount * product.rating) + action.payload.rating) / (product.ratingCount + 1);
-                return [ProductDataStoreActions.UpdateProduct({ payload: { id: action.payload.productId, updatedProduct: { rating: newRate, ratingCount: product.ratingCount + 1 } } })];
+                return [UpdateProduct({ payload: { id: action.payload.productId, updatedProduct: { rating: newRate, ratingCount: product.ratingCount + 1 } } })];
             })
         )
     );
     updateProduct$ = createEffect(
         () => this.actions$.pipe(
-            ofType(ProductDataStoreActions.UpdateProduct),
+            ofType(UpdateProduct),
             mergeMap((action) => this.productApi.updateById({ id: action.payload.id, body: action.payload.updatedProduct }).pipe(
                 map(() => {
                     this.notificationService.createNotification('success', 'Product Successfuly Updated.', '');
-                    return ProductDataStoreActions.UpdateProductSuccessful({ payload: action.payload });
+                    return UpdateProductSuccessful({ payload: action.payload });
 
                 }),
                 catchError((error) => {
                     return [
-                        { type: ProductDataStoreActions.ActionTypes.UpdateProductFailure },
+                        { type: ActionTypes.UpdateProductFailure },
                     ];
                 })
             ))
@@ -61,33 +62,33 @@ export class ProductDataStoreEffects {
     );
     addProduct$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(ProductDataStoreActions.CreateProduct),
+            ofType(CreateProduct),
             mergeMap((action) =>
                 this.productApi.create({ body: { ...action.payload.product } }).pipe(
                     map((product: Product) => {
                         this.notificationService.createNotification('success', 'Product Successful Added.', '');
-                        return ProductDataStoreActions.CreateProductSuccessful({ payload: { product } })
+                        return CreateProductSuccessful({ payload: { product } })
                     }),
                     catchError((error) => {
                         return [
-                            { type: ProductDataStoreActions.ActionTypes.CreateProductFailure },
+                            { type: ActionTypes.CreateProductFailure },
                         ];
                     })
                 ))
         ));
     deleteProduct$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(ProductDataStoreActions.DeleteProduct),
+            ofType(DeleteProduct),
             mergeMap((action) =>
                 this.productApi.deleteById({ id: action.payload.deletedProductId }).pipe(
                     map(() => {
                         this.notificationService.createNotification('success', 'Product Successful Deleted.', '');
-                        return ProductDataStoreActions.DeleteProductSuccessful({ payload: { deletedProductId: action.payload.deletedProductId } })
+                        return DeleteProductSuccessful({ payload: { deletedProductId: action.payload.deletedProductId } })
                     })
                 )),
             catchError((error) => {
                 return [
-                    { type: ProductDataStoreActions.ActionTypes.DeleteProductFailure },
+                    { type: ActionTypes.DeleteProductFailure },
                 ];
             })
         ))

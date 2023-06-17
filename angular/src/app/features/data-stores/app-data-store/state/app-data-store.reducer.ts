@@ -44,14 +44,6 @@ export const initialState: AppState = {
 
 export const reducer = createReducer(
   initialState,
-  on(ProductActions.GetCategoriesSuccessful, (state, action) => ({
-    ...state,
-    categories: action.payload.categories,
-  })),
-  on(ProductActions.GetDistributorsSuccessful, (state, action) => ({
-    ...state,
-    distributors: action.payload.distributors,
-  })),
   on(ProductActions.GetCartSuccessful, (state, action) => ({
     ...state,
     cart: action.payload.cart.filter(cart => !cart.orderId),
@@ -143,64 +135,6 @@ export const reducer = createReducer(
       ]
     }
   }),
-  on(ProductActions.CreateCategorySuccessful, (state, action) => ({
-    ...state,
-    categories: [
-      ...state.categories,
-      action.payload.category
-    ],
-  })),
-
-  on(ProductActions.CreateDistributorSuccessful, (state, action) => ({
-    ...state,
-    distributors: [
-      ...state.distributors,
-      action.payload.distributor
-    ]
-  })),
-  on(ProductActions.DeleteCategorySuccessful, (state, action) => ({
-    ...state,
-    categories: state.categories.filter(category => category.id !== action.payload.deletedCategoryId)
-  })),
-  on(ProductActions.DeleteDistributorSuccessful, (state, action) => ({
-    ...state,
-    distributors: state.distributors.filter(distributor => distributor.id !== action.payload.deletedDistributorId)
-  })),
-  on(ProductActions.UpdateCategorySuccessful, (state, action) => {
-    const updatedCategoryId = action.payload.id;
-    const updatedCategoryName = action.payload.updatedCategory.name;
-    const updatedCategories = state.categories.map(category => {
-      if (category.id === updatedCategoryId) {
-        return {
-          ...category,
-          name: updatedCategoryName
-        };
-      }
-      return category;
-    });
-    return {
-      ...state,
-      categories: updatedCategories
-    };
-  }),
-  on(ProductActions.UpdateDistributorSuccessful, (state, action) => {
-    const updatedDistributorId = action.payload.id;
-    const updatedDistributor = action.payload.updatedDistributor;
-    const updatedDistributors = state.distributors.map(distributor => {
-      if (distributor.id === updatedDistributorId) {
-        return {
-          ...distributor,
-          ...updatedDistributor
-        };
-      }
-      return distributor;
-    });
-    return {
-      ...state,
-      distributors: updatedDistributors
-    }
-  })
-  ,
   on(ProductActions.RefundCartsSuccessful, (state, action) => ({
     ...state,
     inactiveCarts: state.inactiveCarts.map(cart => {
@@ -239,7 +173,6 @@ export const reducer = createReducer(
     }
   }),
 );
-
 
 
 

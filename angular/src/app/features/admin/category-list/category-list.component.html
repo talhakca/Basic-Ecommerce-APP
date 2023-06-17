@@ -1,3 +1,6 @@
-<rappider-list-grid [config]="LIST_CONFIG" [data]="categories" (columnActionClick)="onColumnActionClick($event)">
+<nz-spin [nzSpinning]="isLoading">
+    <rappider-list-grid [config]="LIST_CONFIG" [data]="categories" (columnActionClick)="onColumnActionClick($event)">
 
-</rappider-list-grid>
+    </rappider-list-grid>
+
+</nz-spin>

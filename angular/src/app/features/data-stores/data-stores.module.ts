@@ -11,20 +11,20 @@ import { RouterDataStoreModule } from './router-data-store/router-data-store.mod
 /* auth-data-store state */
 import { AuthDataStoreModule } from './auth-data-store/auth-data-store.module';
 import { ProductDataStoreModule } from './product-data-store/product-data-store.module';
+import { CategoryDataStoreModule } from './category-data-store/category-data-store.module';
+import { DistributorDataStoreModule } from './distributor-data-store/distributor-data-store.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
 
-    /* AppDataStore state */
     AppDataStoreModule,
-    /* DistributorDataStore state */
-    /* RouterDataStore state */
     RouterDataStoreModule,
-    /* AuthDataStore state */
     AuthDataStoreModule,
-    ProductDataStoreModule
+    ProductDataStoreModule,
+    CategoryDataStoreModule,
+    DistributorDataStoreModule
   ],
   exports: [StoreModule, EffectsModule],
 })

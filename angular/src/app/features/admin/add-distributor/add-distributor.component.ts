@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CreateCategory, CreateDistributor } from '../../data-stores/app-data-store/state/app-data-store.actions';
-import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
+import { CreateDistributor } from '../../data-stores/distributor-data-store/state/distributor-data-store.actions';
+import { DistributorState } from '../../data-stores/distributor-data-store/state/distributor-data-store.reducer';
 import { FormLayout, CrudViewFormItemType } from '../../rappider/components/lib/utils';
 import { Distributor } from '../../shared/sdk/models';
 
@@ -35,7 +35,7 @@ export class AddDistributorComponent implements OnInit {
 
 
   constructor(
-    private store: Store<{ app: AppState }>,
+    private store: Store<{ distKey: DistributorState }>,
     private router: Router
   ) { }
 

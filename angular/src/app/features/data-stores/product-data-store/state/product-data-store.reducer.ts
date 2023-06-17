@@ -36,11 +36,24 @@ export const reducer = createReducer(
         ...state,
         isLoading: true,
     })),
-    on(ProductDataStoreActions.UpdateProductSuccessful, (state, action) => ({
-        ...state,
-        products: updateProperties(state.products, action.payload.updatedProduct, action.payload.id),
-        isLoading: false
-    })),
+    on(ProductDataStoreActions.UpdateProductSuccessful, (state, action) => {
+        const updatedProductId = action.payload.id;
+        const updatedProductName = action.payload.updatedProduct.name;
+        const updatedProducts = state.products.map(product => {
+            if (product.id === updatedProductId) {
+                return {
+                    ...product,
+                    name: updatedProductName
+                };
+            }
+            return product;
+        });
+        return {
+            ...state,
+            categories: updatedProducts,
+            isLoading: false
+        };
+    }),
     on(ProductDataStoreActions.UpdateProductFailure, (state, { error }) => ({
         ...state,
         error,
