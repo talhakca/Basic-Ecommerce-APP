@@ -44,10 +44,6 @@ export const initialState: AppState = {
 
 export const reducer = createReducer(
   initialState,
-  on(ProductActions.GetProductsSuccessful, (state, action) => ({
-    ...state,
-    products: action.payload.products,
-  })),
   on(ProductActions.GetCategoriesSuccessful, (state, action) => ({
     ...state,
     categories: action.payload.categories,
@@ -105,10 +101,6 @@ export const reducer = createReducer(
     ...state,
     adminOrders: action.payload.orders
   })),
-  on(ProductActions.UpdateProductSuccessful, (state, action) => ({
-    ...state,
-    products: updateProperties(state.products, action.payload.updatedProduct, action.payload.id)
-  })),
   on(ProductActions.UpdateOrderSuccessful, (state, action) => ({
     ...state,
     orders: updateProperties(state.orders, action.payload.updatedOrder, action.payload.id),
@@ -158,13 +150,7 @@ export const reducer = createReducer(
       action.payload.category
     ],
   })),
-  on(ProductActions.CreateProductSuccessful, (state, action) => ({
-    ...state,
-    products: [
-      ...state.products,
-      action.payload.product
-    ]
-  })),
+
   on(ProductActions.CreateDistributorSuccessful, (state, action) => ({
     ...state,
     distributors: [
@@ -175,10 +161,6 @@ export const reducer = createReducer(
   on(ProductActions.DeleteCategorySuccessful, (state, action) => ({
     ...state,
     categories: state.categories.filter(category => category.id !== action.payload.deletedCategoryId)
-  })),
-  on(ProductActions.DeleteProductSuccessful, (state, action) => ({
-    ...state,
-    products: state.products.filter(product => product.id !== action.payload.deletedProductId)
   })),
   on(ProductActions.DeleteDistributorSuccessful, (state, action) => ({
     ...state,
@@ -200,23 +182,6 @@ export const reducer = createReducer(
       ...state,
       categories: updatedCategories
     };
-  }),
-  on(ProductActions.UpdateProductSuccessful, (state, action) => {
-    const updatedProductId = action.payload.id;
-    const updatedProduct = action.payload.updatedProduct;
-    const updatedProducts = state.products.map(product => {
-      if (product.id === updatedProductId) {
-        return {
-          ...product,
-          ...updatedProduct
-        };
-      }
-      return product;
-    });
-    return {
-      ...state,
-      products: updatedProducts
-    }
   }),
   on(ProductActions.UpdateDistributorSuccessful, (state, action) => {
     const updatedDistributorId = action.payload.id;

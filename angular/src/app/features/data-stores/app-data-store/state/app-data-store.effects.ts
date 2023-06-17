@@ -11,7 +11,7 @@ import * as lodash from 'lodash';
 
 /* navigate action */
 import { Navigate } from 'src/app/features/data-stores/router-data-store/state/router-data-store.actions';
-import { GetProductsSuccessful, InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, UpdateProductRate, UpdateProductRateSuccessful, UpdateProduct, UpdateProductSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful, CreateProduct, CreateProductSuccessful, DeleteProduct, DeleteProductSuccessful, UpdateCategory, UpdateCategorySuccessful, UpdateOrder, UpdateOrderSuccessful, GetAdminOrdersSuccessful, GetAddresses, GetAddressesSuccessful, CreateDistributor, CreateDistributorSuccessful, DeleteDistributor, DeleteDistributorSuccessful, UpdateDistributor, UpdateDistributorSuccessful } from './app-data-store.actions';
+import { InitApp, GetCategoriesSuccessful, GetDistributorsSuccessful, AddToCart, AddToCartSuccessful, GetCart, GetCartSuccessful, CreateOrder, CreateOrderSuccessful, GetOrders, GetOrdersSuccessful, CreateComment, CreateCommentSuccessful, UpdateComment, UpdateCommentSuccessful, CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, RefundCarts, RefundCartsSuccessful, UpdateCart, UpdateCartSuccessful, UpdateCategory, UpdateCategorySuccessful, UpdateOrder, UpdateOrderSuccessful, GetAdminOrdersSuccessful, GetAddresses, GetAddressesSuccessful, CreateDistributor, CreateDistributorSuccessful, DeleteDistributor, DeleteDistributorSuccessful, UpdateDistributor, UpdateDistributorSuccessful } from './app-data-store.actions';
 import { AddressControllerService, CartControllerService, CategoryControllerService, CommentControllerService, DistributorControllerService, OrderControllerService, ProductControllerService, UserProductControllerService } from 'src/app/features/shared/sdk/services';
 import { Category, CategoryWithRelations, Distributor, DistributorWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { LoggedIn, SetUser } from '../../auth-data-store/state/auth-data-store.actions';
@@ -37,14 +37,6 @@ export class AppDataStoreEffects {
     private addressApi: AddressControllerService
   ) { }
 
-  getProducts$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(InitApp),
-      mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }, { relation: 'comments', scope: { include: [{ relation: 'user' }] } }] } }).pipe(
-        map((products: ProductWithRelations[]) => GetProductsSuccessful({ payload: { products } }))
-      ))
-    )
-  );
 
   getDistributors$ = createEffect(
     () => this.actions$.pipe(
@@ -143,30 +135,6 @@ export class AppDataStoreEffects {
     )
   );
 
-  updateProductRate$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(UpdateProductRate),
-      withLatestFrom(this.store.select(state => state.app.products)),
-      mergeMap(([action, products]) => {
-        const product = products.find(product => product.id === action.payload.productId);
-        const newRate = ((product.ratingCount * product.rating) + action.payload.rating) / (product.ratingCount + 1);
-        return [UpdateProduct({ payload: { id: action.payload.productId, updatedProduct: { rating: newRate, ratingCount: product.ratingCount + 1 } } })];
-      })
-    )
-  );
-
-  updateProduct$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(UpdateProduct),
-      mergeMap((action) => this.productApi.updateById({ id: action.payload.id, body: action.payload.updatedProduct }).pipe(
-        map(() => {
-          this.notificationService.createNotification('success', 'Product Successfuly Updated.', '');
-          return UpdateProductSuccessful({ payload: action.payload });
-        })
-      ))
-    )
-  );
-
   updateOrder$ = createEffect(
     () => this.actions$.pipe(
       ofType(UpdateOrder),
@@ -216,17 +184,6 @@ export class AppDataStoreEffects {
       )
     )
   );
-  addProduct$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CreateProduct),
-      mergeMap((action) =>
-        this.productApi.create({ body: { ...action.payload.product } }).pipe(
-          map((product: Product) => {
-            this.notificationService.createNotification('success', 'Product Successful Added.', '');
-            return CreateProductSuccessful({ payload: { product } })
-          })
-        ))
-    ))
   addDistributor$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CreateDistributor),
@@ -238,18 +195,6 @@ export class AppDataStoreEffects {
           }
           ))
       )))
-
-  deleteProduct$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(DeleteProduct),
-      mergeMap((action) =>
-        this.productApi.deleteById({ id: action.payload.deletedProductId }).pipe(
-          map(() => {
-            this.notificationService.createNotification('success', 'Product Successful Deleted.', '');
-            return DeleteProductSuccessful({ payload: { deletedProductId: action.payload.deletedProductId } })
-          })
-        ))
-    ))
   deleteCategory$ = createEffect(
     () => this.actions$.pipe(
       ofType(DeleteCategory),

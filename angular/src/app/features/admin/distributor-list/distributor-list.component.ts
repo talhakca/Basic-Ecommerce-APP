@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { DeleteDistributor, DeleteProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
+import { DeleteDistributor, } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { CrudViewColumnType, ActionBehavior } from '../../rappider/components/lib/utils';
 import { Distributor, Product } from '../../shared/sdk/models';
 

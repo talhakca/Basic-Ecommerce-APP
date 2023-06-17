@@ -6,8 +6,6 @@ import { Address, Cart, CartWithRelations, Category, CommentWithRelations, Distr
 /* action types */
 export enum ActionTypes {
   InitApp = '[APP] InitApp',
-  GetProducts = '[APP] GetProducts',
-  GetProductsSuccessful = '[APP] GetProductsSuccessful',
   GetCategoriesSuccessful = '[APP] GetCategoriesSuccessful',
   GetDistributorsSuccessful = '[APP] GetDistributorsSuccessful',
   AddToCart = '[APP] AddToCart',
@@ -18,10 +16,6 @@ export enum ActionTypes {
   CreateOrderSuccessful = '[APP] CreateOrderSuccessful',
   GetOrdersSuccessful = '[APP] GetOrdersSuccessful',
   GetOrders = '[APP] GetOrders',
-  UpdateProductRate = '[APP] UpdateProductRate',
-  UpdateProduct = '[APP] UpdateProduct',
-  UpdateProductSuccessful = '[APP] UpdateProductSuccessful',
-  UpdateProductRateSuccessful = '[APP] UpdateProductRateSuccessful',
   CreateComment = '[APP] CreateComment',
   CreateCommentSuccessful = '[APP] CreateCommentSuccessful',
   UpdateComment = '[APP] UpdateComment',
@@ -34,10 +28,6 @@ export enum ActionTypes {
   DeleteCategorySuccessful = '[APP] DeleteCategorySuccessful',
   UpdateCategory = '[APP] UpdateCategory',
   UpdateCategorySuccessful = '[APP] UpdateCategorySuccessful',
-  CreateProduct = '[APP] CreateProduct',
-  CreateProductSuccessful = '[APP] CreateProductSuccessful',
-  DeleteProduct = '[APP] DeleteProduct',
-  DeleteProductSuccessful = '[APP] DeleteProductSuccessful',
   RefundCarts = '[APP] RefundCarts',
   RefundCartsSuccessful = '[APP] RefundCartsSuccessful',
   UpdateOrder = '[APP] UpdateOrder',
@@ -57,17 +47,10 @@ export enum ActionTypes {
 
 export const InitApp = createAction(ActionTypes.InitApp);
 
-export const GetProducts = createAction(ActionTypes.GetProducts)
-
-export const GetProductsSuccessful = createAction(ActionTypes.GetProductsSuccessful, props<{ payload: { products: ProductWithRelations[] } }>());
 export const UpdateComment = createAction(ActionTypes.UpdateComment, props<{ payload: { id: string, comment: Partial<CommentWithRelations>, productId: string } }>());
 export const UpdateCommentSuccessful = createAction(ActionTypes.UpdateCommentSuccessful, props<{ payload: { id: string, comment: CommentWithRelations, productId: string } }>());
 export const CreateComment = createAction(ActionTypes.CreateComment, props<{ payload: { comment: NewComment } }>());
 export const CreateCommentSuccessful = createAction(ActionTypes.CreateCommentSuccessful, props<{ payload: { comment: CommentWithRelations } }>());
-export const UpdateProductRate = createAction(ActionTypes.UpdateProductRate, props<{ payload: { productId: string, rating: number } }>());
-export const UpdateProductRateSuccessful = createAction(ActionTypes.UpdateProductRateSuccessful);
-export const UpdateProduct = createAction(ActionTypes.UpdateProduct, props<{ payload: { id: string, updatedProduct: Partial<ProductWithRelations> } }>());
-export const UpdateProductSuccessful = createAction(ActionTypes.UpdateProductSuccessful, props<{ payload: { id: string, updatedProduct: Partial<Product> } }>());
 export const UpdateCart = createAction(ActionTypes.UpdateCart, props<{ payload: { id: string, updatedCart: Partial<Cart>, isInactive?: boolean } }>());
 export const UpdateCartSuccessful = createAction(ActionTypes.UpdateCartSuccessful, props<{ payload: { id: string, updatedCart: Partial<Cart>, isInactive?: boolean } }>());
 export const UpdateOrder = createAction(ActionTypes.UpdateOrder, props<{ payload: { id: string, updatedOrder: Partial<OrderWithRelations> } }>());
@@ -89,12 +72,8 @@ export const CreateCategory = createAction(ActionTypes.CreateCategory, props<{ p
 export const CreateCategorySuccessful = createAction(ActionTypes.CreateCategorySuccessful, props<{ payload: { category: Category } }>());
 export const DeleteCategory = createAction(ActionTypes.DeleteCategory, props<{ payload: { deletedCategoryId } }>());
 export const DeleteCategorySuccessful = createAction(ActionTypes.DeleteCategorySuccessful, props<{ payload: { deletedCategoryId: string } }>());
-export const DeleteProductSuccessful = createAction(ActionTypes.DeleteProductSuccessful, props<{ payload: { deletedProductId: string } }>())
 export const UpdateCategory = createAction(ActionTypes.UpdateCategory, props<{ payload: { id: string, updatedCategory: Partial<Category> } }>());
 export const UpdateCategorySuccessful = createAction(ActionTypes.UpdateCategorySuccessful, props<{ payload: { id: string, updatedCategory: Partial<Category> } }>());
-export const CreateProduct = createAction(ActionTypes.CreateProduct, props<{ payload: { product: NewProduct } }>());
-export const CreateProductSuccessful = createAction(ActionTypes.CreateProductSuccessful, props<{ payload: { product: Product } }>());
-export const DeleteProduct = createAction(ActionTypes.DeleteProduct, props<{ payload: { deletedProductId } }>());
 export const RefundCarts = createAction(ActionTypes.RefundCarts, props<{ payload: { cartIds: string[] } }>());
 export const RefundCartsSuccessful = createAction(ActionTypes.RefundCartsSuccessful, props<{ payload: { cartIds: string[] } }>());
 export const CreateDistributor = createAction(ActionTypes.CreateDistributor, props<{ payload: { distributor: NewDistributor } }>());

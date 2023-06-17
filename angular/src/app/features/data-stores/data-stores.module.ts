@@ -10,6 +10,7 @@ import { RouterDataStoreModule } from './router-data-store/router-data-store.mod
 
 /* auth-data-store state */
 import { AuthDataStoreModule } from './auth-data-store/auth-data-store.module';
+import { ProductDataStoreModule } from './product-data-store/product-data-store.module';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import { AuthDataStoreModule } from './auth-data-store/auth-data-store.module';
     RouterDataStoreModule,
     /* AuthDataStore state */
     AuthDataStoreModule,
+    ProductDataStoreModule
   ],
   exports: [StoreModule, EffectsModule],
 })

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
+import { CreateProduct } from '../../data-stores/product-data-store/state/product-data-store.actions';
+import { ProductState } from '../../data-stores/product-data-store/state/product-data-store.reducer';
 import { FormLayout, CrudViewFormItemType, CrudFormSelectItem, DynamicDataForSelectBox } from '../../rappider/components/lib/utils';
 import { Product } from '../../shared/sdk/models';
 
@@ -156,7 +157,7 @@ export class AddProductComponent implements OnInit {
   ];
 
   constructor(
-    private store: Store<{ app: AppState }>,
+    private store: Store<{ productKey: ProductState, app: AppState }>,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }

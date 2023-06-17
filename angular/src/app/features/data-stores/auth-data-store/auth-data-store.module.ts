@@ -16,6 +16,7 @@ import { AuthDataStoreEffects } from './state/auth-data-store.effects';
 
     /* AuthDataStore State */
     StoreModule.forFeature(
+
       fromAuthDataStore.featureKey,
       fromAuthDataStore.reducer,
       { initialState: fromAuthDataStore.initialState }
@@ -24,4 +25,5 @@ import { AuthDataStoreEffects } from './state/auth-data-store.effects';
   ],
   exports: [StoreModule, EffectsModule],
 })
-export class AuthDataStoreModule {}
+export class AuthDataStoreModule { }
+

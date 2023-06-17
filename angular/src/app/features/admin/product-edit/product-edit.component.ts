@@ -3,12 +3,13 @@ import { Validators } from '@angular/forms';
 import { act } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { CreateProduct, UpdateProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { FormLayout, CrudViewFormItemType, CrudFormSelectItem, DynamicDataForSelectBox } from '../../rappider/components/lib/utils';
 import { Product, UserWithRelations } from '../../shared/sdk/models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
 import { AuthState } from '../../data-stores/auth-data-store/state/auth-data-store.reducer';
+import { ProductState } from '../../data-stores/product-data-store/state/product-data-store.reducer';
+import { UpdateProduct } from '../../data-stores/product-data-store/state/product-data-store.actions';
 
 @Component({
   selector: 'app-product-edit',
@@ -160,7 +161,7 @@ export class ProductEditComponent implements OnInit {
   ];
 
   constructor(
-    private store: Store<{ app: AppState, auth: AuthState }>,
+    private store: Store<{ productKey: ProductState, auth: AuthState }>,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -178,13 +179,13 @@ export class ProductEditComponent implements OnInit {
   subscribeToData() {
     this.subscriptions = [
       this.subscribeToProducts(),
-      this.subscribeToCategory(),
-      this.subscribeToDistributors(),
+      // this.subscribeToCategory(),
+      // this.subscribeToDistributors(),
       this.subscribeToUser()
     ]
   }
   subscribeToProducts() {
-    return this.store.select(state => state.app.products).subscribe(data => {
+    return this.store.select(state => state.productKey.products).subscribe(data => {
       this.products = data;
       if (this.products?.length) {
         this.activeProduct = this.products.find(product => product.id === this.activeProductId);
@@ -215,23 +216,23 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
-  subscribeToCategory() {
-    return this.store.select(state => state.app.categories).subscribe(categories => {
-      if (categories?.length) {
-        let categoryOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'categoryId');
-        categoryOptions.options = categories.map(category => ({ key: category.name, value: category.id }));
-      }
-    });
-  }
+  // subscribeToCategory() {
+  //   return this.store.select(state => state.categories).subscribe(categories => {
+  //     if (categories?.length) {
+  //       let categoryOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'categoryId');
+  //       categoryOptions.options = categories.map(category => ({ key: category.name, value: category.id }));
+  //     }
+  //   });
+  // }
 
-  subscribeToDistributors() {
-    return this.store.select(state => state.app.distributors).subscribe(distributors => {
-      if (distributors?.length) {
-        let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
-        distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
-      }
-    });
-  }
+  // subscribeToDistributors() {
+  //   return this.store.select(state => state.app.distributors).subscribe(distributors => {
+  //     if (distributors?.length) {
+  //       let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
+  //       distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
+  //     }
+  //   });
+  // }
 
   subscribeToRoute() {
     this.activeProductId = this.activatedRoute.snapshot.params.id;
