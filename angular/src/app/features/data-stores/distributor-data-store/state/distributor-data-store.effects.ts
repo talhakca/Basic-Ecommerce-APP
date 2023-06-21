@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { Store } from "@ngrx/store";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { Distributor, DistributorWithRelations } from "src/app/features/shared/sdk/models";
 import { DistributorControllerService } from "src/app/features/shared/sdk/services";
@@ -11,7 +10,6 @@ import { ActionTypes, CreateDistributor, CreateDistributorSuccessful, DeleteDist
 export class DistributorDataStoreEffects {
     constructor(
         private actions$: Actions,
-        private store: Store<any>,
         private distributorApi: DistributorControllerService,
         private notificationService: NotificationService
 

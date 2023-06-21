@@ -50,7 +50,7 @@ export const reducer = createReducer(
             ...state.distributors,
             action.payload.distributor
         ],
-        isLoading: true
+        isLoading: false
     })),
     on(DistributorAction.CreateDistributorsFailure, (state, action) => {
         return {
@@ -96,7 +96,8 @@ export const reducer = createReducer(
         });
         return {
             ...state,
-            distributors: updatedDistributors
+            distributors: updatedDistributors,
+            isLoading: false
         }
     }),
     on(DistributorAction.UpdateDistributorsFailure, (state, action) => {

@@ -13,6 +13,7 @@ import { AuthDataStoreModule } from './auth-data-store/auth-data-store.module';
 import { ProductDataStoreModule } from './product-data-store/product-data-store.module';
 import { CategoryDataStoreModule } from './category-data-store/category-data-store.module';
 import { DistributorDataStoreModule } from './distributor-data-store/distributor-data-store.module';
+import { CartDataStoreModule } from './cart-data-store/cart-data-store.module';
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,8 @@ import { DistributorDataStoreModule } from './distributor-data-store/distributor
     AuthDataStoreModule,
     ProductDataStoreModule,
     CategoryDataStoreModule,
-    DistributorDataStoreModule
+    DistributorDataStoreModule,
+    CartDataStoreModule
   ],
   exports: [StoreModule, EffectsModule],
 })
