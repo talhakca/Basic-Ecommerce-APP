@@ -1,7 +1,11 @@
-<h4>
-    Update Distributor{{activeDistributor?.name}}
-</h4>
-<hr class="solid">
-<rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG" [data]="activeDistributor"
-    (formSubmit)="formSubmit($event)">
-</rappider-crud-view-edit-form>
+<nz-spin [nzSpinning]="isLoading">
+
+    <h4>
+        Update Distributor{{activeDistributor?.name}}
+    </h4>
+    <hr class="solid">
+    <rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG" [data]="activeDistributor"
+        (formSubmit)="formSubmit($event)">
+    </rappider-crud-view-edit-form>
+
+</nz-spin>

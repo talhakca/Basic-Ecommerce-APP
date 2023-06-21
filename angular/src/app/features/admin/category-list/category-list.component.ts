@@ -63,9 +63,8 @@ export class CategoryListComponent implements OnInit {
   constructor(private store: Store<{ categoryKey: CategoryState }>) { }
 
   ngOnInit(): void {
-    this.store.dispatch(GetCategories());
-    this.subscribeToProductsLoading()
-    this.subscribeToData()
+    this.subscribeToCategoriesLoading();
+    this.subscribeToData();
   }
   subscribeToData() {
     this.subscriptions = [
@@ -83,12 +82,11 @@ export class CategoryListComponent implements OnInit {
       this.store.dispatch(DeleteCategory({ payload: { deletedCategoryId: action.data.id } }))
     }
   }
-  subscribeToProductsLoading(): Subscription {
+  subscribeToCategoriesLoading(): Subscription {
     return this.store
       .select((state) => state.categoryKey.isLoading)
       .subscribe((isLoading) => {
         this.isLoading = isLoading;
-        console.log(isLoading)
       });
   }
 

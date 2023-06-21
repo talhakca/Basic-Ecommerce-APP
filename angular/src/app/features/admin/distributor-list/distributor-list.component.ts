@@ -58,6 +58,7 @@ export class DistributorListComponent implements OnInit {
   };
   subscriptions: Subscription[];
   distributors: Distributor[];
+  isLoading: boolean;
   constructor(private store: Store<{ distKey: DistributorState }>) { }
 
   ngOnInit(): void {
@@ -65,13 +66,20 @@ export class DistributorListComponent implements OnInit {
   }
   subscribeToData() {
     this.subscriptions = [
-      this.subscribeToDistributors()
+      this.subscribeToDistributors(),
+      this.subscribeToDistributorsLoading()
     ]
   }
   subscribeToDistributors() {
-    return this.store.dispatch(GetDistributors()),
-      this.store.select(state => state.distKey.distributors).subscribe(data => {
-        this.distributors = data;
+    return this.store.select(state => state.distKey.distributors).subscribe(data => {
+      this.distributors = data;
+    });
+  }
+  subscribeToDistributorsLoading(): Subscription {
+    return this.store
+      .select((state) => state.distKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
       });
   }
   onColumnActionClick(action) {

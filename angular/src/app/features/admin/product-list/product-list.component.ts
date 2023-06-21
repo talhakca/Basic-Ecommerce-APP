@@ -78,7 +78,7 @@ export class ProductListComponent implements OnInit {
   constructor(private store: Store<{ productKey: ProductState, auth: AuthState }>,) { }
 
   ngOnInit(): void {
-    this.store.dispatch(GetProducts());
+
     this.subscribeToData()
   }
   subscribeToData() {

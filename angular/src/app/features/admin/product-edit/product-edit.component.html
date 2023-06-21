@@ -1,10 +1,10 @@
-<h4>
-  Update Product: {{activeProduct?.name}}
-</h4>
-<hr class="solid">
-<rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG"
-                              [data]="activeProduct"
-                              [dynamicDataForSelectBox]="dynamicDataForSelectbox"
-                              (fieldValueChange)="onFormValueChange($event)"
-                              (formSubmit)="formSubmit()">
-</rappider-crud-view-edit-form>
+<nz-spin [nzSpinning]="isLoading">
+  <h4>
+    Update Product: {{activeProduct?.name}}
+  </h4>
+  <hr class="solid">
+  <rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG" [data]="activeProduct"
+    [dynamicDataForSelectBox]="dynamicDataForSelectbox" (fieldValueChange)="onFormValueChange($event)"
+    (formSubmit)="formSubmit()">
+  </rappider-crud-view-edit-form>
+</nz-spin>

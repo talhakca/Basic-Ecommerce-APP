@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { CreateDistributor } from '../../data-stores/distributor-data-store/state/distributor-data-store.actions';
 import { DistributorState } from '../../data-stores/distributor-data-store/state/distributor-data-store.reducer';
 import { FormLayout, CrudViewFormItemType } from '../../rappider/components/lib/utils';
@@ -40,12 +41,22 @@ export class AddDistributorComponent implements OnInit {
   ) { }
 
   distributors: Distributor[];
+  isLoading: boolean;
 
   ngOnInit(): void {
+    this.subscribeToDistributorsLoading()
+  }
+  subscribeToDistributorsLoading(): Subscription {
+    return this.store
+      .select((state) => state.distKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
+      });
   }
   formSubmit(distributor) {
     this.store.dispatch(CreateDistributor({ payload: { distributor: { ...distributor, ratingCount: 0 } } }));
     this.router.navigateByUrl('/admin/distributors');
   }
+
 
 }

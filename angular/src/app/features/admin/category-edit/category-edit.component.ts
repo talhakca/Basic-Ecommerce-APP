@@ -43,6 +43,7 @@ export class CategoryEditComponent implements OnInit {
   categories: Category[];
   activeCategory: Category;
   activeCategoryId: string;
+  isLoading: boolean;
 
   ngOnInit(): void {
     this.subscribeToRoute();
@@ -51,6 +52,7 @@ export class CategoryEditComponent implements OnInit {
   subscribeToData() {
     this.subscriptions = [
       this.subscribeToCategories(),
+      this.subscribeToCategoriesLoading()
     ]
   }
   subscribeToCategories() {
@@ -61,6 +63,13 @@ export class CategoryEditComponent implements OnInit {
         console.log(this.activeCategoryId)
       }
     });
+  }
+  subscribeToCategoriesLoading(): Subscription {
+    return this.store
+      .select((state) => state.categoryKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
+      });
   }
   subscribeToRoute() {
     this.activeCategoryId = this.activatedRoute.snapshot.params.id;

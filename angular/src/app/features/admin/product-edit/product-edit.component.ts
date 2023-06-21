@@ -172,6 +172,7 @@ export class ProductEditComponent implements OnInit {
   activeProduct: Product;
   activeProductId: string;
   user: UserWithRelations;
+  isLoading: boolean;
 
   ngOnInit(): void {
     this.subscribeToRoute();
@@ -182,7 +183,8 @@ export class ProductEditComponent implements OnInit {
       this.subscribeToProducts(),
       this.subscribeToCategory(),
       this.subscribeToDistributors(),
-      this.subscribeToUser()
+      this.subscribeToUser(),
+      this.subscribeToProductsLoading()
     ]
   }
   subscribeToProducts() {
@@ -227,12 +229,18 @@ export class ProductEditComponent implements OnInit {
   }
 
   subscribeToDistributors() {
-    return this.store.dispatch(GetDistributors()),
-      this.store.select(state => state.distKey.distributors).subscribe(distributors => {
-        if (distributors?.length) {
-          let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
-          distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
-        }
+    return this.store.select(state => state.distKey.distributors).subscribe(distributors => {
+      if (distributors?.length) {
+        let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
+        distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
+      }
+    });
+  }
+  subscribeToProductsLoading(): Subscription {
+    return this.store
+      .select((state) => state.productKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
       });
   }
 

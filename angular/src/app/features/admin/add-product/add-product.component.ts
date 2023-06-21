@@ -167,37 +167,44 @@ export class AddProductComponent implements OnInit {
 
   subscriptions: Subscription[];
   products: Product[];
+  isLoading: boolean;
 
   ngOnInit(): void {
     this.subscribeToData()
   }
   subscribeToData() {
     this.subscriptions = [
-      this.subscribeToCategory(),
       this.subscribeToDistributors(),
-      this.subscribeToCategory()
+      this.subscribeToCategory(),
+      this.subscribeToProductsLoading()
     ]
   }
 
   subscribeToCategory() {
-    return this.store.dispatch(GetCategories()),
-      this.store.select(state => state.categoryKey.categories).subscribe(categories => {
-        if (categories?.length) {
-          let categoryOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'categoryId');
-          categoryOptions.options = categories.map(category => ({ key: category.name, value: category.id }));
-        }
-      });
+    return this.store.select(state => state.categoryKey.categories).subscribe(categories => {
+      if (categories?.length) {
+        let categoryOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'categoryId');
+        categoryOptions.options = categories.map(category => ({ key: category.name, value: category.id }));
+      }
+    });
   }
 
   subscribeToDistributors() {
-    return this.store.dispatch(GetDistributors()),
-      this.store.select(state => state.distKey.distributors).subscribe(distributors => {
-        if (distributors?.length) {
-          let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
-          distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
-        }
+    return this.store.select(state => state.distKey.distributors).subscribe(distributors => {
+      if (distributors?.length) {
+        let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
+        distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
+      }
+    });
+  }
+  subscribeToProductsLoading(): Subscription {
+    return this.store
+      .select((state) => state.productKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
       });
   }
+
 
   formSubmit(product) {
     this.store.dispatch(CreateProduct({ payload: { product: { ...product, ratingCount: 0 } } }));

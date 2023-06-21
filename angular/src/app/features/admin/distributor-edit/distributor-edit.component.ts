@@ -44,6 +44,7 @@ export class DistributorEditComponent implements OnInit {
   distributors: Distributor[];
   activeDistributor: Distributor;
   activeDistributorId: string;
+  isLoading: boolean;
 
   ngOnInit(): void {
     this.subscribeToRoute();
@@ -52,6 +53,7 @@ export class DistributorEditComponent implements OnInit {
   subscribeToData() {
     this.subscriptions = [
       this.subscribeToDistributors(),
+      this.subscribeToDistributorsLoading()
     ]
   }
   subscribeToDistributors() {
@@ -63,6 +65,14 @@ export class DistributorEditComponent implements OnInit {
       }
     });
   }
+  subscribeToDistributorsLoading(): Subscription {
+    return this.store
+      .select((state) => state.distKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
+      });
+  }
+
   subscribeToRoute() {
     this.activeDistributorId = this.activatedRoute.snapshot.params.id;
     console.log(this.activatedRoute.snapshot.params)
