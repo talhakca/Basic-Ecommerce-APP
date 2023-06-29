@@ -10,6 +10,7 @@ export enum ActionTypes {
     GetProductsFailure = '[PRODUCTDATASTORE] GetProductsFailure',
     UpdateProductRate = '[PRODUCTDATASTORE] UpdateProductRate',
     UpdateProductRateSuccessful = '[PRODUCTDATASTORE] UpdateProductRateSuccessful',
+    UpdateProductRateFailure = '[PRODUCTDATASTORE] UpdateProductRateFailure',
     UpdateProduct = '[PRODUCTDATASTORE] UpdateProduct',
     UpdateProductFailure = '[PRODUCTDATASTORE] UpdateProductFailure',
     UpdateProductSuccessful = '[PRODUCTDATASTORE] UpdateProductSuccessful',
@@ -27,6 +28,7 @@ export const GetProductsSuccessful = createAction(ActionTypes.GetProductsSuccess
 export const GetProductsFailure = createAction(ActionTypes.GetProductsFailure, props<{ error: any }>())
 export const UpdateProductRate = createAction(ActionTypes.UpdateProductRate, props<{ payload: { productId: string, rating: number } }>());
 export const UpdateProductRateSuccessful = createAction(ActionTypes.UpdateProductRateSuccessful);
+export const UpdateProductRateFailure = createAction(ActionTypes.UpdateProductRateFailure, props<{ error: any }>())
 export const UpdateProduct = createAction(ActionTypes.UpdateProduct, props<{ payload: { id: string, updatedProduct: Partial<ProductWithRelations> } }>());
 export const UpdateProductSuccessful = createAction(ActionTypes.UpdateProductSuccessful, props<{ payload: { id: string, updatedProduct: Partial<Product> } }>());
 export const UpdateProductFailure = createAction(ActionTypes.UpdateProductFailure, props<{ error: any }>())

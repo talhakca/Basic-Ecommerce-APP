@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { Distributor, DistributorWithRelations } from "src/app/features/shared/sdk/models";
 import { DistributorControllerService } from "src/app/features/shared/sdk/services";
 import { NotificationService } from "src/app/features/shared/services";
-import { ActionTypes, CreateDistributor, CreateDistributorSuccessful, DeleteDistributor, DeleteDistributorSuccessful, GetDistributors, GetDistributorsSuccessful, UpdateDistributor, UpdateDistributorSuccessful } from "./distributor-data-store.actions";
+import { ActionTypes, CreateDistributor, CreateDistributorsFailure, CreateDistributorSuccessful, DeleteDistributor, DeleteDistributorsFailure, DeleteDistributorSuccessful, GetDistributors, GetDistributorsFailure, GetDistributorsSuccessful, UpdateDistributor, UpdateDistributorsFailure, UpdateDistributorSuccessful } from "./distributor-data-store.actions";
 
 @Injectable()
 export class DistributorDataStoreEffects {
@@ -20,11 +21,7 @@ export class DistributorDataStoreEffects {
             ofType(GetDistributors),
             mergeMap((action) => this.distributorApi.find().pipe(
                 map((distributors: DistributorWithRelations[]) => GetDistributorsSuccessful({ payload: { distributors } })),
-                catchError((error) => {
-                    return [
-                        { type: ActionTypes.GetDistributorsFailure },
-                    ];
-                })
+                catchError((error) => of(GetDistributorsFailure({ error })))
             ))
         ))
     addDistributor$ = createEffect(() =>
@@ -37,11 +34,7 @@ export class DistributorDataStoreEffects {
                         return CreateDistributorSuccessful({ payload: { distributor } })
                     }
                     ),
-                    catchError((error) => {
-                        return [
-                            { type: ActionTypes.CreateDistributorFailure },
-                        ];
-                    }))
+                    catchError((error) => of(CreateDistributorsFailure({ error }))))
             )))
 
     deleteDistributor$ = createEffect(
@@ -52,11 +45,7 @@ export class DistributorDataStoreEffects {
                     this.notificationService.createNotification('success', 'Distributor Successful Deleted.', '');
                     return DeleteDistributorSuccessful({ payload: { deletedDistributorId: action.payload.deletedDistributorId } })
                 }),
-                catchError((error) => {
-                    return [
-                        { type: ActionTypes.DeleteDistributorFailure },
-                    ];
-                })
+                catchError((error) => of(DeleteDistributorsFailure({ error })))
             ))
         )
     )
@@ -68,11 +57,7 @@ export class DistributorDataStoreEffects {
                     this.notificationService.createNotification('success', 'Distributor Successfuly Updated.', '');
                     return UpdateDistributorSuccessful(({ payload: action.payload }));
                 }),
-                catchError((error) => {
-                    return [
-                        { type: ActionTypes.DeleteDistributorFailure },
-                    ];
-                })
+                catchError((error) => of(UpdateDistributorsFailure({ error })))
             ))
         )
 

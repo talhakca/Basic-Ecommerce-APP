@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { CartWithRelations } from "src/app/features/shared/sdk/models";
 import * as CartActions from './cart-data-store.actions';
+import * as OrderActions from '../../order-data-store/state/order-data-store.actions'
 
 export const featureKey = 'cartKey';
 
@@ -128,8 +129,38 @@ export const reducer = createReducer(
             Error,
             isLoading: false
         }
+    }),
+    on(OrderActions.CreateOrder, (state, action) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(OrderActions.CreateOrderSuccessful, (state, action) => {
+        console.log(action.payload)
+        let inactiveCarts = state.cart.filter(cartItem => (action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id));
+        inactiveCarts = inactiveCarts.map(cart => ({ ...cart, orderId: action.payload.order.id }));
+        return {
+            ...state,
+            inactiveCarts: [
+                ...state.inactiveCarts,
+                ...inactiveCarts
+            ],
+            adminInactiveCarts: [
+                ...state.adminInactiveCarts,
+                ...inactiveCarts
+            ],
+            cart: state.cart.filter(cartItem => !((action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id))),
+            isLoading: false
+        }
+    }),
+    on(OrderActions.CreateOrderFailure, (state, action) => {
+        return {
+            ...state,
+            Error,
+            isLoading: false
+        }
     })
-
 )
 export function updateProperties(entities, updatedEntity, id) {
     const beforeUpdatedEntity = entities.find(entity => entity.id === id);

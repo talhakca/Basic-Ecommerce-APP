@@ -14,6 +14,8 @@ import { ProductDataStoreModule } from './product-data-store/product-data-store.
 import { CategoryDataStoreModule } from './category-data-store/category-data-store.module';
 import { DistributorDataStoreModule } from './distributor-data-store/distributor-data-store.module';
 import { CartDataStoreModule } from './cart-data-store/cart-data-store.module';
+import { AddressDataStoreModule } from './address-data-store/address-data-store.module';
+import { OrderDataStoreModule } from './order-data-store/order-data-store.module';
 
 @NgModule({
   declarations: [],
@@ -26,7 +28,9 @@ import { CartDataStoreModule } from './cart-data-store/cart-data-store.module';
     ProductDataStoreModule,
     CategoryDataStoreModule,
     DistributorDataStoreModule,
-    CartDataStoreModule
+    CartDataStoreModule,
+    AddressDataStoreModule,
+    OrderDataStoreModule
   ],
   exports: [StoreModule, EffectsModule],
 })

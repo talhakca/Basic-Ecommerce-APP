@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
+import { of } from "rxjs";
 import { catchError, map, mergeMap, withLatestFrom } from "rxjs/operators";
 import { Product, ProductWithRelations } from "src/app/features/shared/sdk/models";
 import { ProductControllerService } from "src/app/features/shared/sdk/services";
@@ -24,11 +25,7 @@ export class ProductDataStoreEffects {
             ofType(GetProducts),
             mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }, { relation: 'comments', scope: { include: [{ relation: 'user' }] } }] } }).pipe(
                 map((products: ProductWithRelations[]) => GetProductsSuccessful({ payload: { products } })),
-                catchError((error) => {
-                    return [
-                        { type: ActionTypes.GetProductsFailure },
-                    ];
-                })
+                catchError((error) => of(ProductDataStoreActions.GetProductsFailure({ error })))
             ))
         )
     );
@@ -40,7 +37,8 @@ export class ProductDataStoreEffects {
                 const product = products.find(product => product.id === action.payload.productId);
                 const newRate = ((product.ratingCount * product.rating) + action.payload.rating) / (product.ratingCount + 1);
                 return [UpdateProduct({ payload: { id: action.payload.productId, updatedProduct: { rating: newRate, ratingCount: product.ratingCount + 1 } } })];
-            })
+            }),
+            catchError((error) => of(ProductDataStoreActions.UpdateProductRateFailure({ error })))
         )
     );
     updateProduct$ = createEffect(
@@ -52,11 +50,7 @@ export class ProductDataStoreEffects {
                     return UpdateProductSuccessful({ payload: action.payload });
 
                 }),
-                catchError((error) => {
-                    return [
-                        { type: ActionTypes.UpdateProductFailure },
-                    ];
-                })
+                catchError((error) => of(ProductDataStoreActions.UpdateProductFailure({ error })))
             ))
         )
     );
@@ -69,11 +63,7 @@ export class ProductDataStoreEffects {
                         this.notificationService.createNotification('success', 'Product Successful Added.', '');
                         return CreateProductSuccessful({ payload: { product } })
                     }),
-                    catchError((error) => {
-                        return [
-                            { type: ActionTypes.CreateProductFailure },
-                        ];
-                    })
+                    catchError((error) => of(ProductDataStoreActions.CreateProductFailure({ error })))
                 ))
         ));
     deleteProduct$ = createEffect(() =>
@@ -86,11 +76,7 @@ export class ProductDataStoreEffects {
                         return DeleteProductSuccessful({ payload: { deletedProductId: action.payload.deletedProductId } })
                     })
                 )),
-            catchError((error) => {
-                return [
-                    { type: ActionTypes.DeleteProductFailure },
-                ];
-            })
+            catchError((error) => of(ProductDataStoreActions.DeleteProductFailure({ error })))
         ))
 
 }

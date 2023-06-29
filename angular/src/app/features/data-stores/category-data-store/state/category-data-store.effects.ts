@@ -8,6 +8,7 @@ import { CategoryControllerService } from "src/app/features/shared/sdk/services"
 import { NotificationService } from "src/app/features/shared/services";
 import { CreateCategory, CreateCategorySuccessful, DeleteCategory, DeleteCategorySuccessful, GetCategories, GetCategoriesSuccessful, InitApp, UpdateCategory, UpdateCategorySuccessful } from "./category-data-store.actions";
 import * as CategoryDataStoreActions from "./category-data-store.actions";
+import { of } from "rxjs";
 
 @Injectable()
 export class CategoryDataStoreEffects {
@@ -24,11 +25,7 @@ export class CategoryDataStoreEffects {
             ofType(GetCategories),
             mergeMap((action) => this.categoryApi.find().pipe(
                 map((categories: CategoryWithRelations[]) => GetCategoriesSuccessful({ payload: { categories } })),
-                catchError((error) => {
-                    return [
-                        { type: CategoryDataStoreActions.ActionTypes.GetCategoriesFailure },
-                    ];
-                })
+                catchError((error) => of(CategoryDataStoreActions.GetCategoriesFailure({ error })))
             ))
         )
     )
@@ -41,11 +38,7 @@ export class CategoryDataStoreEffects {
                         this.notificationService.createNotification('success', 'Category Successful Added.', '');
                         return CreateCategorySuccessful({ payload: { category } })
                     }),
-                    catchError((error) => {
-                        return [
-                            { type: CategoryDataStoreActions.ActionTypes.CreateCategoryFailure },
-                        ];
-                    })
+                    catchError((error) => of(CategoryDataStoreActions.CreateCategoryFailure({ error })))
                 )
             )
         )
@@ -58,11 +51,7 @@ export class CategoryDataStoreEffects {
                     this.notificationService.createNotification('success', 'Category Successful Deleted.', '');
                     return DeleteCategorySuccessful({ payload: { deletedCategoryId: action.payload.deletedCategoryId } })
                 }),
-                catchError((error) => {
-                    return [
-                        { type: CategoryDataStoreActions.ActionTypes.DeleteCategoryFailure },
-                    ];
-                })
+                catchError((error) => of(CategoryDataStoreActions.DeleteCategoryFailure({ error })))
             ))
         ))
     updateCategory$ = createEffect(
@@ -73,11 +62,7 @@ export class CategoryDataStoreEffects {
                     this.notificationService.createNotification('success', 'Category Successfuly Updated.', '');
                     return UpdateCategorySuccessful({ payload: action.payload });
                 }),
-                catchError((error) => {
-                    return [
-                        { type: CategoryDataStoreActions.ActionTypes.UpdateCategoryFailure },
-                    ];
-                })
+                catchError((error) => of(CategoryDataStoreActions.UpdateCategoryFailure({ error })))
             ))
         )
     );
