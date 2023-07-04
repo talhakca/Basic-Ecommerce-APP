@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Cart } from '../../shared/sdk/models';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
 import { RefundStatus } from './utils/refund-status.enum';
-import { UpdateCart } from '../../data-stores/app-data-store/state/app-data-store.actions';
+import { CartState } from '../../data-stores/cart-data-store/state/cart-data-store.reducer';
+import { UpdateCart } from '../../data-stores/cart-data-store/state/cart-data-store.actions';
 
 @Component({
   selector: 'app-refund-status',
@@ -32,7 +32,7 @@ export class RefundStatusComponent implements OnInit {
   ];
 
   constructor(
-    private store: Store<{ app: AppState }>
+    private store: Store<{ cartKey: CartState }>
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class RefundStatusComponent implements OnInit {
   }
 
   subscribeToInactiveCarts() {
-    return this.store.select(state => state.app.adminInactiveCarts).subscribe(inactiveCarts => {
+    return this.store.select(state => state.cartKey.adminInactiveCarts).subscribe(inactiveCarts => {
       this.refundedCarts = inactiveCarts.filter(cart => cart.refundStatus).reduce((acc, cur) => {
         if (!acc.some(item => item.orderId == cur.orderId && cur.productId === item.productId)) {
           acc.push(cur);

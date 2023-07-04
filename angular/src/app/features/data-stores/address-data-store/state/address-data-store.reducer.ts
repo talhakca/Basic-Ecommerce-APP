@@ -4,12 +4,12 @@ import * as AddressActions from './address-data-store.actions';
 
 export const featureKey = 'addressKey';
 
-export interface AppState {
+export interface AddressState {
     addresses: Address[];
     isLoading: boolean;
 }
 
-export const initialState: AppState = {
+export const initialState: AddressState = {
     addresses: [],
     isLoading: false
 };

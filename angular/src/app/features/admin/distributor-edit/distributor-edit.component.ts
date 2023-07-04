@@ -3,7 +3,6 @@ import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
 import { UpdateDistributor } from '../../data-stores/distributor-data-store/state/distributor-data-store.actions';
 import { DistributorState } from '../../data-stores/distributor-data-store/state/distributor-data-store.reducer';
 import { FormLayout, CrudViewFormItemType } from '../../rappider/components/lib/utils';
