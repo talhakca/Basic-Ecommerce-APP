@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { InitApp } from './features/data-stores/app-data-store/state/app-data-store.actions';
 import { Logout } from './features/data-stores/auth-data-store/state/auth-data-store.actions';
 import { AuthState } from './features/data-stores/auth-data-store/state/auth-data-store.reducer';
 import { CartState } from './features/data-stores/cart-data-store/state/cart-data-store.reducer';
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.store.dispatch(InitApp())
     this.store.dispatch(GetCategories());
     this.store.dispatch(GetProducts());
     this.store.dispatch(GetDistributors())
