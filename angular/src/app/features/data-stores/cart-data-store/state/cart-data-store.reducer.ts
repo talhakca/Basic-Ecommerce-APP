@@ -136,6 +136,12 @@ export const reducer = createReducer(
             isLoading: true
         }
     }),
+    on(OrderActions.CreateOrder, (state, action) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
     on(OrderActions.CreateOrderSuccessful, (state, action) => {
         console.log(action.payload)
         let inactiveCarts = state.cart.filter(cartItem => (action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id));

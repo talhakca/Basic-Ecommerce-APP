@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { ProductWithRelations } from "src/app/features/shared/sdk/models";
 import * as ProductDataStoreActions from "./product-data-store.actions";
+import * as CommentActions from '../../comment-data-store/state/comment-data-store.actions';
 
 export const featureKey = 'productKey';
 
@@ -89,7 +90,67 @@ export const reducer = createReducer(
         ...state,
         error,
         isLoading: false,
-    }))
+    })),
+    on(CommentActions.CreateComment, (state, action) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(CommentActions.CreateCommentSuccessful, (state, action) => {
+        let product = state.products.find(product => product.id === action.payload.comment.productId);
+        product = {
+            ...product,
+            comments: [
+                ...(
+                    product.comments ?? []
+                ),
+                action.payload.comment
+            ]
+        };
+        return {
+            ...state,
+            products: [
+                ...state.products.filter(product => product.id !== action.payload.comment.productId),
+                product
+            ],
+            isLoading: false
+        }
+    }),
+    on(CommentActions.CreateCommentFailure, (state, action) => {
+        return {
+            ...state,
+            Error,
+            isLoading: false
+        }
+    }),
+    on(CommentActions.UpdateComment, (state, action) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(CommentActions.UpdateCommentSuccessful, (state, action) => {
+        let product = state.products.find(product => product.id === action.payload.comment.productId);
+        product = {
+            ...product,
+            comments: updateProperties((product.comments ?? []), action.payload.comment, action.payload.id)
+        };
+        return {
+            ...state,
+            products: [
+                ...state.products.filter(product => product.id !== action.payload.productId),
+                product
+            ]
+        }
+    }),
+    on(CommentActions.UpdateCommentFailure, (state, action) => {
+        return {
+            ...state,
+            Error,
+            isLoading: false
+        }
+    })
 
 );
 

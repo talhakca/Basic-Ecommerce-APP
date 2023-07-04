@@ -4,7 +4,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 /* app-data-store state */
-import { AppDataStoreModule } from './app-data-store/app-data-store.module';
 /* router-data-store state */
 import { RouterDataStoreModule } from './router-data-store/router-data-store.module';
 
@@ -16,13 +15,12 @@ import { DistributorDataStoreModule } from './distributor-data-store/distributor
 import { CartDataStoreModule } from './cart-data-store/cart-data-store.module';
 import { AddressDataStoreModule } from './address-data-store/address-data-store.module';
 import { OrderDataStoreModule } from './order-data-store/order-data-store.module';
+import { CommentDataStoreModule } from './comment-data-store/comment-data-store.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-
-    AppDataStoreModule,
     RouterDataStoreModule,
     AuthDataStoreModule,
     ProductDataStoreModule,
@@ -30,7 +28,8 @@ import { OrderDataStoreModule } from './order-data-store/order-data-store.module
     DistributorDataStoreModule,
     CartDataStoreModule,
     AddressDataStoreModule,
-    OrderDataStoreModule
+    OrderDataStoreModule,
+    CommentDataStoreModule
   ],
   exports: [StoreModule, EffectsModule],
 })

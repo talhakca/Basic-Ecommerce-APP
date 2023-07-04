@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommentStatus } from './utils/comment-type';
-import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
-import { UpdateComment } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { Store } from '@ngrx/store';
 import { CommentWithRelations } from 'src/app/features/shared/sdk/models';
 import { Subscription } from 'rxjs';
+import { ProductState } from 'src/app/features/data-stores/product-data-store/state/product-data-store.reducer';
+import { UpdateComment } from 'src/app/features/data-stores/comment-data-store/state/comment-data-store.actions';
 
 @Component({
   selector: 'app-comments-status',
@@ -32,7 +32,7 @@ export class CommentsStatusComponent implements OnInit {
   subscriptions: Subscription[];
 
   constructor(
-    private store: Store<{ app: AppState }>
+    private store: Store<{ productKey: ProductState }>
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class CommentsStatusComponent implements OnInit {
   }
 
   subscribeToComments() {
-    return this.store.select(state => state.app.products).subscribe(products => {
+    return this.store.select(state => state.productKey.products).subscribe(products => {
       if (products?.length) {
         this.comments = products.reduce((acc, curr) => {
           if (curr.comments?.length) {

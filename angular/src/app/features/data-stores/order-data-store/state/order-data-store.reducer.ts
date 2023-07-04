@@ -27,20 +27,8 @@ export const reducer = createReducer(
         }
     }),
     on(OrderActions.CreateOrderSuccessful, (state, action) => {
-        // console.log(action.payload)
-        // let inactiveCarts = state.cart.filter(cartItem => (action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id));
-        // inactiveCarts = inactiveCarts.map(cart => ({ ...cart, orderId: action.payload.order.id }));
         return {
             ...state,
-            //     inactiveCarts: [
-            //         ...state.inactiveCarts,
-            //         ...inactiveCarts
-            //     ],
-            //     adminInactiveCarts: [
-            //         ...state.adminInactiveCarts,
-            //         ...inactiveCarts
-            //     ],
-            //     cart: state.cart.filter(cartItem => !((action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id))),
             orders: [
                 ...state.orders,
                 action.payload.order

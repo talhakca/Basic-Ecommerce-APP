@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { CartState } from 'src/app/features/data-stores/cart-data-store/state/cart-data-store.reducer';
 import { Product } from 'src/app/features/shared/sdk/models';
 
 @Component({
@@ -19,7 +20,7 @@ export class CartComponent implements OnInit {
   fullPrice = 0;
 
   constructor(
-    private store: Store<any>,
+    private store: Store<{ cartKey: CartState }>,
     private router: Router
   ) { }
 
@@ -34,7 +35,7 @@ export class CartComponent implements OnInit {
   }
 
   subscribeToCarts() {
-    return this.store.select(state => state.app.cart).subscribe(cart => {
+    return this.store.select(state => state.cartKey.cart).subscribe(cart => {
       this.cartData = cart.reduce((acc, cur) => {
         const productGroup = acc.find(productItem => productItem.product.id === cur.productId);
         this.fullPrice = this.fullPrice + this.getFinalPrice(cur.product);

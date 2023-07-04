@@ -3,13 +3,15 @@ import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { CreateComment, RefundCarts } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
-import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
 import { Cart, CartWithRelations, Comment, NewComment, OrderWithRelations, Product, ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { CREATE_COMMENT_CONFIG } from './config/create-comment-form.config';
 import { NotificationService } from 'src/app/features/shared/services';
 import { ProductState } from 'src/app/features/data-stores/product-data-store/state/product-data-store.reducer';
 import { UpdateProductRate } from 'src/app/features/data-stores/product-data-store/state/product-data-store.actions';
+import { CartState } from 'src/app/features/data-stores/cart-data-store/state/cart-data-store.reducer';
+import { OrderState } from 'src/app/features/data-stores/order-data-store/state/order-data-store.reducer';
+import { CreateComment } from 'src/app/features/data-stores/comment-data-store/state/comment-data-store.actions';
+import { RefundCarts } from 'src/app/features/data-stores/cart-data-store/state/cart-data-store.actions';
 
 @Component({
   selector: 'app-previously-purchased',
@@ -33,7 +35,7 @@ export class PreviouslyPurchasedComponent implements OnInit {
   isCommentValid = false;
 
   constructor(
-    private store: Store<{ app: AppState, productKey: ProductState, }>,
+    private store: Store<{ cartKey: CartState, productKey: ProductState, orderKey: OrderState }>,
     private notificationService: NotificationService
   ) { }
 
@@ -49,7 +51,7 @@ export class PreviouslyPurchasedComponent implements OnInit {
   }
 
   subscribeToInactiveCarts() {
-    return this.store.select(state => state.app.inactiveCarts).subscribe((inactiveCarts: CartWithRelations[]) => {
+    return this.store.select(state => state.cartKey.inactiveCarts).subscribe((inactiveCarts: CartWithRelations[]) => {
       this.orderGroup = cloneDeep(inactiveCarts)?.reduce((acc, curr) => {
         const order: {
           orderId: string,
@@ -84,7 +86,7 @@ export class PreviouslyPurchasedComponent implements OnInit {
   }
 
   subscribeToOrders() {
-    return this.store.select(state => state.app.orders).subscribe(orders => {
+    return this.store.select(state => state.orderKey.orders).subscribe(orders => {
       this.orders = orders;
     })
   }
