@@ -115,6 +115,7 @@ function initAuthentication(
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -166,6 +167,7 @@ function initAuthentication(
       multi: true,
       deps: [Store, TokenService],
     },
+    ,
     NzModalService,
     NzNotificationService,
   ],
