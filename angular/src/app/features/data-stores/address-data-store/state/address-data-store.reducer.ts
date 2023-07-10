@@ -7,11 +7,13 @@ export const featureKey = 'addressKey';
 export interface AddressState {
     addresses: Address[];
     isLoading: boolean;
+    error: any
 }
 
 export const initialState: AddressState = {
     addresses: [],
-    isLoading: false
+    isLoading: false,
+    error: ''
 };
 
 export const reducer = createReducer(
@@ -28,7 +30,7 @@ export const reducer = createReducer(
     on(AddressActions.GetAddressesFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: action.error,
             isLoading: false
         }
     })

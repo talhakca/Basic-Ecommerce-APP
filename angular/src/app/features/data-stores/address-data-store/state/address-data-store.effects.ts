@@ -25,10 +25,10 @@ export class AddressDataStoreEffects {
                         map((addresses) => {
                             return GetAddressesSuccessful({ payload: { addresses } });
                         }),
-                        catchError((error) => of(GetAddressesFailure({ error })))
+                        catchError((error) => [GetAddressesFailure({ error: 'Can not get address!' })])
                     )
                 } else {
-                    return [GetAddressesSuccessful({ payload: { addresses: [] } })];
+                    return [GetAddressesFailure({ error: 'Can not get address!' })];
                 }
             })
         )

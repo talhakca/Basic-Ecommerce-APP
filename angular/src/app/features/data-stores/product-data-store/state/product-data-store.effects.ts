@@ -25,7 +25,7 @@ export class ProductDataStoreEffects {
             ofType(GetProducts),
             mergeMap((action) => this.productApi.find({ filter: { include: [{ relation: 'distributor' }, { relation: 'comments', scope: { include: [{ relation: 'user' }] } }] } }).pipe(
                 map((products: ProductWithRelations[]) => GetProductsSuccessful({ payload: { products } })),
-                catchError((error) => of(ProductDataStoreActions.GetProductsFailure({ error })))
+                catchError((error) => [ProductDataStoreActions.GetProductsFailure({ error: 'Can not get products!' })])
             ))
         )
     );
@@ -38,7 +38,7 @@ export class ProductDataStoreEffects {
                 const newRate = ((product.ratingCount * product.rating) + action.payload.rating) / (product.ratingCount + 1);
                 return [UpdateProduct({ payload: { id: action.payload.productId, updatedProduct: { rating: newRate, ratingCount: product.ratingCount + 1 } } })];
             }),
-            catchError((error) => of(ProductDataStoreActions.UpdateProductRateFailure({ error })))
+            catchError((error) => [ProductDataStoreActions.UpdateProductRateFailure({ error: 'Can not update product-rate!' })])
         )
     );
     updateProduct$ = createEffect(
@@ -50,7 +50,7 @@ export class ProductDataStoreEffects {
                     return UpdateProductSuccessful({ payload: action.payload });
 
                 }),
-                catchError((error) => of(ProductDataStoreActions.UpdateProductFailure({ error })))
+                catchError((error) => [ProductDataStoreActions.UpdateProductFailure({ error: 'Can not update product!' })])
             ))
         )
     );
@@ -63,7 +63,7 @@ export class ProductDataStoreEffects {
                         this.notificationService.createNotification('success', 'Product Successful Added.', '');
                         return CreateProductSuccessful({ payload: { product } })
                     }),
-                    catchError((error) => of(ProductDataStoreActions.CreateProductFailure({ error })))
+                    catchError((error) => [ProductDataStoreActions.CreateProductFailure({ error: 'Can not create product!' })])
                 ))
         ));
     deleteProduct$ = createEffect(() =>
@@ -76,7 +76,7 @@ export class ProductDataStoreEffects {
                         return DeleteProductSuccessful({ payload: { deletedProductId: action.payload.deletedProductId } })
                     })
                 )),
-            catchError((error) => of(ProductDataStoreActions.DeleteProductFailure({ error })))
+            catchError((error) => [ProductDataStoreActions.DeleteProductFailure({ error: 'Can not delete product!' })])
         ))
 
 }

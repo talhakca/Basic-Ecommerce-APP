@@ -1,4 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
+import { orderBy } from "lodash";
 import { DistributorWithRelations } from "src/app/features/shared/sdk/models";
 import * as DistributorAction from './distributor-data-store.actions';
 
@@ -8,12 +9,14 @@ export const featureKey = 'distKey';
 export interface DistributorState {
     distributors: DistributorWithRelations[];
     isLoading: boolean;
+    error: any;
 }
 
 /* Initial values */
 export const initialState: DistributorState = {
     distributors: [],
-    isLoading: false
+    isLoading: false,
+    error: ''
 };
 
 export const reducer = createReducer(
@@ -34,7 +37,7 @@ export const reducer = createReducer(
     on(DistributorAction.GetDistributorsFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Get distributors failure!',
             isLoading: false,
         }
     }),
@@ -55,7 +58,7 @@ export const reducer = createReducer(
     on(DistributorAction.CreateDistributorsFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Create distributor failure!',
             isLoading: false,
         }
     }),
@@ -72,7 +75,7 @@ export const reducer = createReducer(
     on(DistributorAction.DeleteDistributorsFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Delete distributor failure!',
             isLoading: false,
         }
     }),
@@ -83,30 +86,26 @@ export const reducer = createReducer(
         }
     }),
     on(DistributorAction.UpdateDistributorSuccessful, (state, action) => {
-        const updatedDistributorId = action.payload.id;
-        const updatedDistributor = action.payload.updatedDistributor;
-        const updatedDistributors = state.distributors.map(distributor => {
-            if (distributor.id === updatedDistributorId) {
-                return {
-                    ...distributor,
-                    ...updatedDistributor
-                };
-            }
-            return distributor;
-        });
         return {
             ...state,
-            distributors: updatedDistributors,
+            distributors: orderBy(updateProperties(state.distributors, action.payload.updatedDistributor, action.payload.id), "name", "asc"),
             isLoading: false
         }
     }),
     on(DistributorAction.UpdateDistributorsFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Update distributor failure!',
             isLoading: false,
         }
     }),
 
 
 )
+export function updateProperties(entities, updatedEntity, id) {
+    const beforeUpdatedEntity = entities.find(entity => entity.id === id);
+    return [
+        ...entities.filter(entity => entity.id !== id),
+        { ...beforeUpdatedEntity, ...updatedEntity }
+    ]
+}

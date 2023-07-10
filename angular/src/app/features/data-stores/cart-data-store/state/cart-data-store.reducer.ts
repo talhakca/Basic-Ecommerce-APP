@@ -9,6 +9,7 @@ export interface CartState {
     cart: CartWithRelations[];
     inactiveCarts: CartWithRelations[];
     adminInactiveCarts: CartWithRelations[];
+    error: any,
     isLoading: boolean;
 }
 
@@ -17,7 +18,8 @@ export const initialState: CartState = {
     cart: [],
     isLoading: false,
     inactiveCarts: [],
-    adminInactiveCarts: []
+    adminInactiveCarts: [],
+    error: ''
 };
 
 export const reducer = createReducer(
@@ -41,8 +43,9 @@ export const reducer = createReducer(
     on(CartActions.GetCartFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Get cart failure!',
             isLoading: false,
+
         }
     }),
     on(CartActions.AddToCart, (state, action) => {
@@ -62,7 +65,7 @@ export const reducer = createReducer(
     on(CartActions.AddToCartFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Add to cart failure!',
             isLoading: false,
         }
     }),
@@ -89,7 +92,7 @@ export const reducer = createReducer(
     on(CartActions.UpdateCartFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Update cart failure',
             isLoading: false,
         }
     }),
@@ -136,12 +139,6 @@ export const reducer = createReducer(
             isLoading: true
         }
     }),
-    on(OrderActions.CreateOrder, (state, action) => {
-        return {
-            ...state,
-            isLoading: true
-        }
-    }),
     on(OrderActions.CreateOrderSuccessful, (state, action) => {
         console.log(action.payload)
         let inactiveCarts = state.cart.filter(cartItem => (action.payload as any).order.orderedProducts.some(product => product.id === cartItem.id));
@@ -163,7 +160,7 @@ export const reducer = createReducer(
     on(OrderActions.CreateOrderFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Create order failure',
             isLoading: false
         }
     })

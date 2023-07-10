@@ -25,7 +25,7 @@ export class CategoryDataStoreEffects {
             ofType(GetCategories),
             mergeMap((action) => this.categoryApi.find().pipe(
                 map((categories: CategoryWithRelations[]) => GetCategoriesSuccessful({ payload: { categories } })),
-                catchError((error) => of(CategoryDataStoreActions.GetCategoriesFailure({ error })))
+                catchError((error) => [CategoryDataStoreActions.GetCategoriesFailure({ error: 'Can not get categories!' })])
             ))
         )
     )
@@ -38,7 +38,7 @@ export class CategoryDataStoreEffects {
                         this.notificationService.createNotification('success', 'Category Successful Added.', '');
                         return CreateCategorySuccessful({ payload: { category } })
                     }),
-                    catchError((error) => of(CategoryDataStoreActions.CreateCategoryFailure({ error })))
+                    catchError((error) => [CategoryDataStoreActions.CreateCategoryFailure({ error: 'Can not create category!' })])
                 )
             )
         )
@@ -51,7 +51,7 @@ export class CategoryDataStoreEffects {
                     this.notificationService.createNotification('success', 'Category Successful Deleted.', '');
                     return DeleteCategorySuccessful({ payload: { deletedCategoryId: action.payload.deletedCategoryId } })
                 }),
-                catchError((error) => of(CategoryDataStoreActions.DeleteCategoryFailure({ error })))
+                catchError((error) => [CategoryDataStoreActions.DeleteCategoryFailure({ error: 'Can not delete category!' })])
             ))
         ))
     updateCategory$ = createEffect(
@@ -62,7 +62,7 @@ export class CategoryDataStoreEffects {
                     this.notificationService.createNotification('success', 'Category Successfuly Updated.', '');
                     return UpdateCategorySuccessful({ payload: action.payload });
                 }),
-                catchError((error) => of(CategoryDataStoreActions.UpdateCategoryFailure({ error })))
+                catchError((error) => [CategoryDataStoreActions.UpdateCategoryFailure({ error: 'Can not update category!' })])
             ))
         )
     );

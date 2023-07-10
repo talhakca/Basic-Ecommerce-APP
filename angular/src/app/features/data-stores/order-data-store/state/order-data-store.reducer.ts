@@ -8,13 +8,15 @@ export const featureKey = 'orderKey';
 export interface OrderState {
     orders: OrderWithRelations[];
     adminOrders: OrderWithRelations[];
-    isLoading: boolean
+    isLoading: boolean;
+    error: any
 }
 
 export const initialState: OrderState = {
     orders: [],
     adminOrders: [],
-    isLoading: false
+    isLoading: false,
+    error: ''
 }
 
 
@@ -43,7 +45,7 @@ export const reducer = createReducer(
     on(OrderActions.CreateOrderFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Create order failure!',
             isLoading: false
         }
     }),
@@ -58,7 +60,7 @@ export const reducer = createReducer(
     })),
     on(OrderActions.GetOrdersFailure, (state, action) => ({
         ...state,
-        Error,
+        error: 'Get orders failure!',
         isLoading: false
     })),
     on(OrderActions.GetAdminOrders, (state, action) => ({
@@ -71,7 +73,7 @@ export const reducer = createReducer(
     })),
     on(OrderActions.GetAdminOrdersFailure, (state, action) => ({
         ...state,
-        Error,
+        error: 'Get admin orders failure',
         isLoading: false
     })),
     on(OrderActions.UpdateOrder, (state, action) => ({
@@ -86,7 +88,7 @@ export const reducer = createReducer(
     })),
     on(OrderActions.UpdateOrderFailure, (state, action) => ({
         ...state,
-        Error,
+        error: 'Update order failure!',
         isLoading: false
     }))
 )

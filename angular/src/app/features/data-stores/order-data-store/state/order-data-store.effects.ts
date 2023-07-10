@@ -29,7 +29,7 @@ export class OrderDataStoreEffects {
                     this.router.navigateByUrl('/order-successful')
                     return CreateOrderSuccessful({ payload: { order: { id: order.id, ...action.payload.order } } })
                 }),
-                catchError((error) => of(CreateOrderFailure({ error })))
+                catchError((error) => [CreateOrderFailure({ error: 'Can not create order!' })])
             ))
         )
     );
@@ -46,7 +46,7 @@ export class OrderDataStoreEffects {
                                 GetOrdersSuccessful({ payload: { orders: orders.filter(order => order.userId === userId) } }),
                                 GetAdminOrdersSuccessful({ payload: { orders } })];
                         }),
-                        catchError((error) => of(GetOrdersFailure({ error })))
+                        catchError((error) => [GetOrdersFailure({ error: 'Can not get orders!' })])
                     )
                 } else {
                     return [GetOrdersSuccessful({ payload: { orders: [] } })];
@@ -62,7 +62,7 @@ export class OrderDataStoreEffects {
                     this.notificationService.createNotification('success', 'Product Successfuly Updated.', '');
                     return UpdateOrderSuccessful({ payload: action.payload });
                 }),
-                catchError((error) => of(UpdateOrderFailure({ error })))
+                catchError((error) => [UpdateOrderFailure({ error: 'Can not update order!' })])
             ))
         )
     );

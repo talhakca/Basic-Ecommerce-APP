@@ -21,7 +21,7 @@ export class DistributorDataStoreEffects {
             ofType(GetDistributors),
             mergeMap((action) => this.distributorApi.find().pipe(
                 map((distributors: DistributorWithRelations[]) => GetDistributorsSuccessful({ payload: { distributors } })),
-                catchError((error) => of(GetDistributorsFailure({ error })))
+                catchError((error) => [GetDistributorsFailure({ error: 'Can not get distributor!' })])
             ))
         ))
     addDistributor$ = createEffect(() =>
@@ -34,7 +34,7 @@ export class DistributorDataStoreEffects {
                         return CreateDistributorSuccessful({ payload: { distributor } })
                     }
                     ),
-                    catchError((error) => of(CreateDistributorsFailure({ error }))))
+                    catchError((error) => [CreateDistributorsFailure({ error: 'Can not create distributor!' })]))
             )))
 
     deleteDistributor$ = createEffect(
@@ -45,7 +45,7 @@ export class DistributorDataStoreEffects {
                     this.notificationService.createNotification('success', 'Distributor Successful Deleted.', '');
                     return DeleteDistributorSuccessful({ payload: { deletedDistributorId: action.payload.deletedDistributorId } })
                 }),
-                catchError((error) => of(DeleteDistributorsFailure({ error })))
+                catchError((error) => [DeleteDistributorsFailure({ error: 'Can not delete distributor!' })])
             ))
         )
     )
@@ -57,7 +57,7 @@ export class DistributorDataStoreEffects {
                     this.notificationService.createNotification('success', 'Distributor Successfuly Updated.', '');
                     return UpdateDistributorSuccessful(({ payload: action.payload }));
                 }),
-                catchError((error) => of(UpdateDistributorsFailure({ error })))
+                catchError((error) => [UpdateDistributorsFailure({ error: 'Can not update distributor!' })])
             ))
         )
 

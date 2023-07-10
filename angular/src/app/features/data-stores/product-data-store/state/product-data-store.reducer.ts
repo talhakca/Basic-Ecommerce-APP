@@ -2,6 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import { ProductWithRelations } from "src/app/features/shared/sdk/models";
 import * as ProductDataStoreActions from "./product-data-store.actions";
 import * as CommentActions from '../../comment-data-store/state/comment-data-store.actions';
+import { orderBy } from "lodash";
 
 export const featureKey = 'productKey';
 
@@ -9,12 +10,14 @@ export const featureKey = 'productKey';
 export interface ProductState {
     products: ProductWithRelations[];
     isLoading: boolean;
+    error: any
 }
 
 
 export const initialState: ProductState = {
     products: [],
     isLoading: false,
+    error: ''
 };
 
 export const reducer = createReducer(
@@ -28,9 +31,9 @@ export const reducer = createReducer(
         products: action.payload.products,
         isLoading: false,
     })),
-    on(ProductDataStoreActions.GetProductsFailure, (state, { error }) => ({
+    on(ProductDataStoreActions.GetProductsFailure, (state, action) => ({
         ...state,
-        error,
+        error: 'Get products failure!',
         isLoading: false,
     })),
     on(ProductDataStoreActions.UpdateProduct, (state, action) => ({
@@ -38,26 +41,15 @@ export const reducer = createReducer(
         isLoading: true,
     })),
     on(ProductDataStoreActions.UpdateProductSuccessful, (state, action) => {
-        const updatedProductId = action.payload.id;
-        const updatedProductName = action.payload.updatedProduct.name;
-        const updatedProducts = state.products.map(product => {
-            if (product.id === updatedProductId) {
-                return {
-                    ...product,
-                    name: updatedProductName
-                };
-            }
-            return product;
-        });
         return {
             ...state,
-            categories: updatedProducts,
+            categories: orderBy(updateProperties(state.products, action.payload.updatedProduct, action.payload.id), 'name', 'asc'),
             isLoading: false
         };
     }),
-    on(ProductDataStoreActions.UpdateProductFailure, (state, { error }) => ({
+    on(ProductDataStoreActions.UpdateProductFailure, (state, action) => ({
         ...state,
-        error,
+        error: 'Update product failure!',
         isLoading: false,
     })),
     on(ProductDataStoreActions.CreateProduct, (state, action) => ({
@@ -72,9 +64,9 @@ export const reducer = createReducer(
         ],
         isLoading: false,
     })),
-    on(ProductDataStoreActions.CreateProductFailure, (state, { error }) => ({
+    on(ProductDataStoreActions.CreateProductFailure, (state, action) => ({
         ...state,
-        error,
+        error: 'Create product failure!',
         isLoading: false,
     })),
     on(ProductDataStoreActions.DeleteProduct, (state, action) => ({
@@ -86,9 +78,9 @@ export const reducer = createReducer(
         products: state.products.filter(product => product.id !== action.payload.deletedProductId),
         isLoading: false
     })),
-    on(ProductDataStoreActions.DeleteProductFailure, (state, { error }) => ({
+    on(ProductDataStoreActions.DeleteProductFailure, (state, action) => ({
         ...state,
-        error,
+        error: 'Delete product failure!',
         isLoading: false,
     })),
     on(CommentActions.CreateComment, (state, action) => {
@@ -120,7 +112,7 @@ export const reducer = createReducer(
     on(CommentActions.CreateCommentFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Create comment failure!',
             isLoading: false
         }
     }),
@@ -147,7 +139,7 @@ export const reducer = createReducer(
     on(CommentActions.UpdateCommentFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Update comment failure!',
             isLoading: false
         }
     })

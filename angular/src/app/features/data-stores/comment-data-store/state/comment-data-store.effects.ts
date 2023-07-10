@@ -29,7 +29,7 @@ export class CommentDataStoreEffects {
                     this.notificationService.createNotification('success', 'We have successfuly uploaded your comment. As soon as on of our staff reviews it, it will be published.', '');
                     return CreateCommentSuccessful({ payload: { comment: { ...comment, user: user } } });
                 }),
-                catchError((error) => of(CreateCommentFailure({ error }))),
+                catchError((error) => [CreateCommentFailure({ error: 'Can not create comment!' })]),
             ))
         )
     );
@@ -42,7 +42,7 @@ export class CommentDataStoreEffects {
                     this.notificationService.createNotification('success', 'We have successfuly updated comment', '');
                     return UpdateCommentSuccessful({ payload: { id: action.payload.id, comment: comment, productId: action.payload.productId } });
                 }),
-                catchError((error) => of(UpdateCommentFailure({ error })))
+                catchError((error) => [UpdateCommentFailure({ error: 'Can not update comment!' })])
             ))
         )
     );

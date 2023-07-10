@@ -1,4 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
+import { orderBy } from "lodash";
 import { CategoryWithRelations } from "src/app/features/shared/sdk/models";
 import * as CategoryAction from './category-data-store.actions';
 
@@ -8,12 +9,14 @@ export const featureKey = 'categoryKey';
 export interface CategoryState {
     categories: CategoryWithRelations[];
     isLoading: boolean;
+    error: any;
 }
 
 /* Initial values */
 export const initialState: CategoryState = {
     categories: [],
-    isLoading: false
+    isLoading: false,
+    error: ''
 };
 
 export const reducer = createReducer(
@@ -28,14 +31,14 @@ export const reducer = createReducer(
     on(CategoryAction.GetCategoriesSuccessful, (state, action) => {
         return {
             ...state,
-            categories: action.payload.categories,
+            categories: orderBy(action.payload.categories, 'name', 'asc'),
             isLoading: false
         }
     }),
     on(CategoryAction.GetCategoriesFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Get categories failure!',
             isLoading: false,
         }
     }),
@@ -47,17 +50,18 @@ export const reducer = createReducer(
     }),
     on(CategoryAction.CreateCategorySuccessful, (state, action) => {
         return {
-            categories: [
+            ...state,
+            categories: orderBy([
                 ...state.categories,
                 action.payload.category
-            ],
-            isLoading: false
+            ], 'name', 'asc'),
+            isLoading: false,
         }
     }),
     on(CategoryAction.CreateCategoryFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Create category failure!',
             isLoading: false
         }
     }),
@@ -75,7 +79,7 @@ export const reducer = createReducer(
     on(CategoryAction.DeleteCategoryFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Delete category failure!',
             isLoading: false
         }
     }),
@@ -86,27 +90,16 @@ export const reducer = createReducer(
         }
     }),
     on(CategoryAction.UpdateCategorySuccessful, (state, action) => {
-        const updatedCategoryId = action.payload.id;
-        const updatedCategoryName = action.payload.updatedCategory.name;
-        const updatedCategories = state.categories.map(category => {
-            if (category.id === updatedCategoryId) {
-                return {
-                    ...category,
-                    name: updatedCategoryName
-                };
-            }
-            return category;
-        });
         return {
             ...state,
-            categories: updatedCategories,
+            categories: orderBy(updateProperties(state.categories, action.payload.updatedCategory, action.payload.id), 'name', 'asc'),
             isLoading: false
         };
     }),
     on(CategoryAction.UpdateCategoryFailure, (state, action) => {
         return {
             ...state,
-            Error,
+            error: 'Update category failure!',
             isLoading: false
         }
     })

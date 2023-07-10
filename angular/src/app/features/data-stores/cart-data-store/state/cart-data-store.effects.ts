@@ -42,7 +42,8 @@ export class CartDataStoreEffects {
             withLatestFrom(this.store.select(state => state.auth.user?.id)),
             mergeMap(([action, userId]) => this.cartApi.find({ filter: { include: [{ relation: 'product', scope: { include: [{ relation: 'distributor' }] }, }, { relation: 'user' }] } }).pipe(
                 map((carts) => GetCartSuccessful({ payload: { cart: carts.filter(cart => cart.product && cart.userId === userId), adminCart: carts.filter(cart => cart.orderId) } })),
-                catchError((error) => of(GetCartFailure({ error })))
+                catchError((error) => [GetCartFailure({ error: 'Can not get carts!' })])
+
             ))
         )
     );
@@ -58,7 +59,7 @@ export class CartDataStoreEffects {
                         this.notificationService.createNotification('success', 'We have successfully sent your refund requests. As soon as one of our staff inspect it, your refund status will be updated.', '');
                         return [RefundCartsSuccessful({ payload: { cartIds: action.payload.cartIds } })];
                     }),
-                    catchError((error) => of(RefundCartsFailure({ error })))
+                    catchError((error) => [RefundCartsFailure({ error: 'Can not refund cart!' })])
                 )
             })
         ));
@@ -72,7 +73,7 @@ export class CartDataStoreEffects {
                     this.notificationService.createNotification('success', 'We have successfuly updated cart.', '');
                     return UpdateCartSuccessful({ payload: action.payload });
                 }),
-                catchError((error) => of(UpdateCartFailure({ error })))
+                catchError((error) => [UpdateCartFailure({ error: 'Can not update cart!' })])
             ))
         ));
 
