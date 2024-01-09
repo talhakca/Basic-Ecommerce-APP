@@ -12,6 +12,8 @@ import * as lodash from 'lodash';
 import { ProductWithRelations } from 'src/app/features/shared/sdk/models';
 import { CardOneListCardClickOutput, HeadingType, IconType, TagType } from 'src/app/features/rappider/components/lib/utils';
 import { Router } from '@angular/router';
+import { ProductState } from 'src/app/features/data-stores/product-data-store/state/product-data-store.reducer';
+import { GetProducts, InitApp } from 'src/app/features/data-stores/product-data-store/state/product-data-store.actions';
 
 @Component({
   selector: 'e-learning-home-page',
@@ -27,12 +29,13 @@ export class HomePageComponent implements OnInit, OnDestroy {
   searchText: string;
 
   constructor(
-    private store: Store<any>,
+    private store: Store<{ productKey: ProductState }>,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.subscribeToData();
+    console.log(this.displayedProducts)
   }
 
   ngOnDestroy(): void {
@@ -46,41 +49,42 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   subscribeToProducts() {
-    return this.store.select(state => state.app.products).subscribe(products => {
-      this.products = products;
-      if (products?.length) {
-        this.displayedProducts = this.products.map(product => (
-          {
-            data: product,
-            image: {
-              source: product.imageUrl,
-              width: '300px'
-            },
-            imageTags: [{
-              text: product.category
-            }],
-            currency: 'usd',
-            price: product.price,
-            finalPrice: product.price - (product.price * product.discountRate / 100),
-            descriptions: [
-              {
-                content: product.description
+    return this.store.dispatch(GetProducts()),
+      this.store.select(state => state.productKey.products).subscribe(products => {
+        this.products = products;
+        if (products?.length) {
+          this.displayedProducts = this.products.map(product => (
+            {
+              data: product,
+              image: {
+                source: product.imageUrl,
+                width: '300px'
               },
-              {
-                content: `Stocks: ${product.quantityInStocks}`
-              }
-            ],
-            titles: [
-              {
-                type: HeadingType.H3,
-                content: product.name
-              }
-            ],
-            rate: product.rating
-          }));
-        this.products = lodash.cloneDeep(this.displayedProducts);
-      }
-    });
+              imageTags: [{
+                text: product.category
+              }],
+              currency: 'usd',
+              price: product.price,
+              finalPrice: product.price - (product.price * product.discountRate / 100),
+              descriptions: [
+                {
+                  content: product.description
+                },
+                {
+                  content: `Stocks: ${product.quantityInStocks}`
+                }
+              ],
+              titles: [
+                {
+                  type: HeadingType.H3,
+                  content: product.name
+                }
+              ],
+              rate: product.rating
+            }));
+          this.products = lodash.cloneDeep(this.displayedProducts);
+        }
+      });
   }
 
   onProductClick(action: CardOneListCardClickOutput) {

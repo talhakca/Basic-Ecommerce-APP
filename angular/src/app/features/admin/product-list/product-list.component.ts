@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { State, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { DeleteProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
+import { AuthState } from '../../data-stores/auth-data-store/state/auth-data-store.reducer';
+import { DeleteProduct, GetProducts, InitApp } from '../../data-stores/product-data-store/state/product-data-store.actions';
+import { ProductState } from '../../data-stores/product-data-store/state/product-data-store.reducer';
 import { CrudViewColumnType, ActionBehavior } from '../../rappider/components/lib/utils';
 import { Product } from '../../shared/sdk/models';
 
@@ -70,23 +72,34 @@ export class ProductListComponent implements OnInit {
       },
     ]
   };
+  isLoading: boolean;
   subscriptions: Subscription[];
   products: Product[];
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<{ productKey: ProductState, auth: AuthState }>,) { }
 
   ngOnInit(): void {
+
     this.subscribeToData()
   }
   subscribeToData() {
     this.subscriptions = [
       this.subscribeToProducts(),
-      this.subscribeToUser()
+      this.subscribeToUser(),
+      this.subscribeToProductsLoading()
     ]
   }
   subscribeToProducts() {
-    return this.store.select(state => state.app.products).subscribe(data => {
+    return this.store.select(state => state.productKey.products).subscribe(data => {
       this.products = data;
     });
+  }
+  subscribeToProductsLoading(): Subscription {
+    return this.store
+      .select((state) => state.productKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
+        console.log(isLoading)
+      });
   }
 
   subscribeToUser() {
@@ -103,8 +116,6 @@ export class ProductListComponent implements OnInit {
       this.store.dispatch(DeleteProduct({ payload: { deletedProductId: action.data.id } }))
     }
   }
-
-
 
 
 }

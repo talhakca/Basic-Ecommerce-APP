@@ -4,7 +4,6 @@ import { createReducer, on } from '@ngrx/store';
 import { User, UserWithRelations } from 'src/app/features/shared/sdk/models';
 /* actions */
 import * as AuthDataStoreActions from './auth-data-store.actions';
-import * as ProductActions from '../../app-data-store/state/app-data-store.actions';
 /* state key */
 export const featureKey = 'auth';
 

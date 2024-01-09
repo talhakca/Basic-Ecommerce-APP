@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { RefundStatusComponent } from './refund-status/refund-status.component';
 import { RappiderEditFormModule, RappiderListGridModule } from '../rappider/components';
 import { NzTableModule } from 'ng-zorro-antd/table';
@@ -94,7 +94,8 @@ export const routes: Routes = [
     NzTableModule,
     NzSelectModule,
     RappiderEditFormModule,
-    PdfViewerModule
+    PdfViewerModule,
+    NzSpinModule
   ]
 })
 export class AdminModule { }

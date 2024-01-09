@@ -2,9 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-
-import { InitApp } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
+import { InitApp } from './features/data-stores/app-data-store/state/app-data-store.actions';
 import { Logout } from './features/data-stores/auth-data-store/state/auth-data-store.actions';
+import { AuthState } from './features/data-stores/auth-data-store/state/auth-data-store.reducer';
+import { CartState } from './features/data-stores/cart-data-store/state/cart-data-store.reducer';
+import { GetCategories } from './features/data-stores/category-data-store/state/category-data-store.actions';
+import { GetDistributors } from './features/data-stores/distributor-data-store/state/distributor-data-store.actions';
+import { GetProducts } from './features/data-stores/product-data-store/state/product-data-store.actions';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +23,14 @@ export class AppComponent implements OnInit, OnDestroy {
   cart;
 
   constructor(
-    private store: Store<any>, private router: Router
+    private store: Store<{ auth: AuthState, cartKey: CartState }>, private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.store.dispatch(InitApp());
+    this.store.dispatch(InitApp())
+    this.store.dispatch(GetCategories());
+    this.store.dispatch(GetProducts());
+    this.store.dispatch(GetDistributors())
     this.subscribeToData();
   }
 
@@ -38,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
   subscribeToData() {
     this.subscriptions = [
       this.subscribeToUser(),
-      this.subscribeToCart()
+      this.subscribeToCart(),
     ];
   }
 
@@ -49,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   subscribeToCart() {
-    return this.store.select(state => state.app.cart).subscribe(cart => {
+    return this.store.select(state => state.cartKey.cart).subscribe(cart => {
       this.cart = cart;
     });
   }

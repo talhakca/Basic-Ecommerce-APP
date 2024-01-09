@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateProduct } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
+import { GetCategories } from '../../data-stores/category-data-store/state/category-data-store.actions';
+import { CategoryState } from '../../data-stores/category-data-store/state/category-data-store.reducer';
+import { GetDistributors } from '../../data-stores/distributor-data-store/state/distributor-data-store.actions';
+import { DistributorState } from '../../data-stores/distributor-data-store/state/distributor-data-store.reducer';
+import { CreateProduct } from '../../data-stores/product-data-store/state/product-data-store.actions';
+import { ProductState } from '../../data-stores/product-data-store/state/product-data-store.reducer';
 import { FormLayout, CrudViewFormItemType, CrudFormSelectItem, DynamicDataForSelectBox } from '../../rappider/components/lib/utils';
 import { Product } from '../../shared/sdk/models';
 
@@ -156,26 +160,28 @@ export class AddProductComponent implements OnInit {
   ];
 
   constructor(
-    private store: Store<{ app: AppState }>,
+    private store: Store<{ productKey: ProductState, categoryKey: CategoryState, distKey: DistributorState }>,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   subscriptions: Subscription[];
   products: Product[];
+  isLoading: boolean;
 
   ngOnInit(): void {
     this.subscribeToData()
   }
   subscribeToData() {
     this.subscriptions = [
+      this.subscribeToDistributors(),
       this.subscribeToCategory(),
-      this.subscribeToDistributors()
+      this.subscribeToProductsLoading()
     ]
   }
 
   subscribeToCategory() {
-    return this.store.select(state => state.app.categories).subscribe(categories => {
+    return this.store.select(state => state.categoryKey.categories).subscribe(categories => {
       if (categories?.length) {
         let categoryOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'categoryId');
         categoryOptions.options = categories.map(category => ({ key: category.name, value: category.id }));
@@ -184,13 +190,21 @@ export class AddProductComponent implements OnInit {
   }
 
   subscribeToDistributors() {
-    return this.store.select(state => state.app.distributors).subscribe(distributors => {
+    return this.store.select(state => state.distKey.distributors).subscribe(distributors => {
       if (distributors?.length) {
         let distributorsOptions = this.dynamicDataForSelectbox.find(item => item.fieldName === 'distributorId');
         distributorsOptions.options = distributors.map(distributor => ({ key: distributor.name, value: distributor.id }));
       }
     });
   }
+  subscribeToProductsLoading(): Subscription {
+    return this.store
+      .select((state) => state.productKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
+      });
+  }
+
 
   formSubmit(product) {
     this.store.dispatch(CreateProduct({ payload: { product: { ...product, ratingCount: 0 } } }));

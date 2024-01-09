@@ -3,8 +3,8 @@ import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { UpdateCategory } from '../../data-stores/app-data-store/state/app-data-store.actions';
-import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
+import { UpdateCategory } from '../../data-stores/category-data-store/state/category-data-store.actions';
+import { CategoryState } from '../../data-stores/category-data-store/state/category-data-store.reducer';
 import { FormLayout, CrudViewFormItemType } from '../../rappider/components/lib/utils';
 import { Category } from '../../shared/sdk/models';
 
@@ -34,7 +34,7 @@ export class CategoryEditComponent implements OnInit {
     }
 
   constructor(
-    private store: Store<{ app: AppState }>,
+    private store: Store<{ categoryKey: CategoryState }>,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -43,6 +43,7 @@ export class CategoryEditComponent implements OnInit {
   categories: Category[];
   activeCategory: Category;
   activeCategoryId: string;
+  isLoading: boolean;
 
   ngOnInit(): void {
     this.subscribeToRoute();
@@ -51,16 +52,24 @@ export class CategoryEditComponent implements OnInit {
   subscribeToData() {
     this.subscriptions = [
       this.subscribeToCategories(),
+      this.subscribeToCategoriesLoading()
     ]
   }
   subscribeToCategories() {
-    return this.store.select(state => state.app.categories).subscribe(data => {
+    return this.store.select(state => state.categoryKey.categories).subscribe(data => {
       this.categories = data;
       if (this.categories?.length) {
         this.activeCategory = this.categories.find(category => category.id === this.activeCategoryId);
         console.log(this.activeCategoryId)
       }
     });
+  }
+  subscribeToCategoriesLoading(): Subscription {
+    return this.store
+      .select((state) => state.categoryKey.isLoading)
+      .subscribe((isLoading) => {
+        this.isLoading = isLoading;
+      });
   }
   subscribeToRoute() {
     this.activeCategoryId = this.activatedRoute.snapshot.params.id;

@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../data-stores/app-data-store/state/app-data-store.reducer';
 import { AuthState } from '../../data-stores/auth-data-store/state/auth-data-store.reducer';
 import { Subscription } from 'rxjs';
 import { Address, CartWithRelations, OrderWithRelations, UserWithRelations } from '../../shared/sdk/models';
 import { cloneDeep, orderBy, sortBy } from 'lodash';
-import { UpdateOrder } from '../../data-stores/app-data-store/state/app-data-store.actions';
 import { OrderControllerService } from '../../shared/sdk/services';
 import { FileSaverService } from 'ngx-filesaver';
 import * as moment from 'moment-timezone';
+import { OrderState } from '../../data-stores/order-data-store/state/order-data-store.reducer';
+import { CartState } from '../../data-stores/cart-data-store/state/cart-data-store.reducer';
+import { AddressState } from '../../data-stores/address-data-store/state/address-data-store.reducer';
+import { UpdateOrder } from '../../data-stores/order-data-store/state/order-data-store.actions';
 @Component({
   selector: 'app-delivery-list',
   templateUrl: './delivery-list.component.html',
@@ -39,7 +41,7 @@ export class DeliveryListComponent implements OnInit {
   addresses: Address[];
 
   constructor(
-    private store: Store<{ app: AppState, auth: AuthState }>,
+    private store: Store<{ orderKey: OrderState, auth: AuthState, cartKey: CartState, addressKey: AddressState }>,
     private orderApi: OrderControllerService,
     private fileSaverService: FileSaverService
   ) { }
@@ -58,7 +60,7 @@ export class DeliveryListComponent implements OnInit {
   }
 
   subscribeToOrders() {
-    return this.store.select(state => state.app.adminOrders).subscribe(orders => {
+    return this.store.select(state => state.orderKey.adminOrders).subscribe(orders => {
       if (this.addresses?.length && orders?.length) {
 
         this.orders = orderBy(cloneDeep(orders)?.map(order => ({ ...order, address: this.addresses.find(address => address.id === order.addressId) })), 'createdDate', 'desc');
@@ -74,7 +76,7 @@ export class DeliveryListComponent implements OnInit {
   }
 
   subscribeToCarts() {
-    return this.store.select(state => state.app.adminInactiveCarts).subscribe(carts => {
+    return this.store.select(state => state.cartKey.adminInactiveCarts).subscribe(carts => {
       this.carts = carts;
       if (this.orders?.length && this.carts?.length) {
         this.orders = orderBy(this.orders.map(order => ({ ...order, orderedProducts: this.carts?.filter(cart => cart.orderId === order.id) })), 'createdDate', 'desc');
@@ -83,7 +85,7 @@ export class DeliveryListComponent implements OnInit {
   }
 
   subscribeToAddresses() {
-    return this.store.select(state => state.app.addresses).subscribe(addresses => {
+    return this.store.select(state => state.addressKey.addresses).subscribe(addresses => {
       this.addresses = addresses;
       if (this.orders?.length && addresses?.length) {
         this.orders = orderBy(this.orders?.map(order => ({ ...order, address: addresses.find(address => address.id === order.addressId) })), 'createdDate', 'desc');

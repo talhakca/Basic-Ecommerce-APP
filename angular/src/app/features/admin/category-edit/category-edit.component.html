@@ -1,6 +1,9 @@
-<h4>
-    Update Category: {{activeCategory?.name}}
-</h4>
-<hr class="solid">
-<rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG" [data]="activeCategory" (formSubmit)="formSubmit($event)">
-</rappider-crud-view-edit-form>
+<nz-spin [nzSpinning]="isLoading">
+    <h4>
+        Update Category: {{activeCategory?.name}}
+    </h4>
+    <hr class="solid">
+    <rappider-crud-view-edit-form [config]="LIST_CREATE_CONFIG" [data]="activeCategory"
+        (formSubmit)="formSubmit($event)">
+    </rappider-crud-view-edit-form>
+</nz-spin>

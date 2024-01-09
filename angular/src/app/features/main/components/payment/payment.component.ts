@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AppState } from 'src/app/features/data-stores/app-data-store/state/app-data-store.reducer';
 import { PriceService } from '../../services/price/price.service';
 import { Store } from '@ngrx/store';
 import { OrderControllerService } from 'src/app/features/shared/sdk/services';
 import { AuthState } from 'src/app/features/data-stores/auth-data-store/state/auth-data-store.reducer';
 import { Address, Cart } from 'src/app/features/shared/sdk/models';
-import { CreateOrder } from 'src/app/features/data-stores/app-data-store/state/app-data-store.actions';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/features/shared/services';
+import { CartState } from 'src/app/features/data-stores/cart-data-store/state/cart-data-store.reducer';
+import { CreateOrder } from 'src/app/features/data-stores/order-data-store/state/order-data-store.actions';
 
 @Component({
   selector: 'app-payment',
@@ -30,7 +30,7 @@ export class PaymentComponent implements OnInit {
   carts: Cart[];
 
   constructor(
-    private store: Store<{ app: AppState, auth: AuthState }>,
+    private store: Store<{ cartKey: CartState, auth: AuthState }>,
     private priceService: PriceService,
     private orderService: OrderControllerService,
     private router: Router,
@@ -49,7 +49,7 @@ export class PaymentComponent implements OnInit {
   }
 
   subscribeToCart() {
-    return this.store.select(state => state.app.cart).subscribe(cart => {
+    return this.store.select(state => state.cartKey.cart).subscribe(cart => {
       this.carts = cart;
       if (cart?.length) {
         this.amount = cart.reduce((acc, cur) => {
