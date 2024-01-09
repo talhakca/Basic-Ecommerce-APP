@@ -37,7 +37,7 @@ export class OrderRepository extends DefaultCrudRepository<
     this.registerInclusionResolver('orderedProducts', this.orderedProducts.inclusionResolver);
   }
   async createPaymentIntent(amount: number) {
-    const stripe = require('stripe')('sk_test_51NFvUxKhHK35k6aqMr2mf7OuZkRlV55GNWXdpDL9kZDPEZvZfOS01rnmNSjZknDmoqlnCyB5yvufVIC1CBeeT8I200Hywq3bYF');
+    const stripe = require('stripe')('stripe_key_here');
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
@@ -97,7 +97,6 @@ export class OrderRepository extends DefaultCrudRepository<
           console.error(err);
         }
         this.sendMail(path, userId)
-        // file written successfully
       });
     });
   }
@@ -111,8 +110,8 @@ export class OrderRepository extends DefaultCrudRepository<
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'hayrettinsendag@gmail.com',
-        pass: 'maqnjrgkkmrmubxb'
+        user: 'username-here',
+        pass: 'pass-here'
       }
     });
 
